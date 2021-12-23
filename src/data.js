@@ -238,50 +238,74 @@ export const relatedProducts = [
 export const galleryImages = [
     {
         id: 1,
-        img: '../enaturals/enaturals-1.jpg'
+        img: '../enaturals/enaturals-1.jpg',
+        category: 'skin care',
+        caption: 'Lightening Kit'
     },
     {
         id: 2,
-        img: '../enaturals/enaturals31.jpg'
+        img: '../enaturals/enaturals3.jpg',
+        category: 'skin care',
+        caption: 'whitening oil'
     },
     {
         id: 3,
-        img: '../enaturals/enaturals4.jpg'
+        img: '../enaturals/enaturals4.jpg',
+        category: 'skin care',
+        caption: 'molato soap'
     },
     {
         id: 4,
-        img: '../enaturals/enaturals5.jpg'
+        img: '../enaturals/enaturals5.jpg',
+        category: 'skin care',
+        caption: 'glow soap'
     },
     {
         id: 5,
-        img: '../enaturals/enaturals6.jpg'
+        img: '../enaturals/enaturals6.jpg',
+        category: 'skin care',
+        caption: 'hot choco lotion'
     },
     {
         id: 6,
-        img: '../enaturals/enaturals7.jpg'
+        img: '../enaturals/enaturals7.jpg',
+        category: 'natural soap',
+        caption: 'molato soap'
     },
     {
         id: 7,
-        img: '../enaturals/enaturals8.jpg'
+        img: '../enaturals/enaturals8.jpg',
+        category: 'natural soap',
+        caption: 'model with products'
     },
     {
         id: 8,
-        img: '../enaturals/enaturals9.jpg'
+        img: '../enaturals/enaturals9.jpg',
+        category: 'natural soap',
+        caption: 'black soap'
     },
     {
         id: 9,
-        img: '../enaturals/enaturals10.jpg'
+        img: '../enaturals/enaturals10.jpg',
+        category: 'natural soap',
+        caption: 'different products'
     },
     {
         id: 10,
-        img: '../enaturals/enaturals11.jpg'
+        img: '../enaturals/enaturals11.jpg',
+        category: 'natural soap',
+        caption: 'tumeric face pack'
     },
     {
         id: 11,
-        img: '../enaturals/enaturals12.jpg'
+        img: '../enaturals/enaturals12.jpg',
+        category: 'natural soap',
+        caption: 'whitening oil'
     },
     {
         id: 12,
-        img: '../enaturals/enaturals13.jpg'
+        img: '../enaturals/enaturals13.jpg',
+        category: 'natural soap',
+        caption: 'enaturals logo'
     }
 ];
