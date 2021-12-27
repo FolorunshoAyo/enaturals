@@ -11,7 +11,7 @@ const Product = () => {
             <Navbar />
             <PageTitle title="Whitening oil" pageLocation="Home | Shop | ... | Whitening oil"/>
             <SingleProduct />
-            <Footer borderTop={true}/>
+            <Footer borderTop/>
         </div>
     );
 };

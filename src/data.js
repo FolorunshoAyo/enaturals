@@ -309,3 +309,55 @@ export const galleryImages = [
         caption: 'enaturals logo'
     }
 ];
+
+
+export const teams = [
+    {
+        id: 1,
+        name: 'Tijani Abimbola',
+        img: '../enaturals/enaturals3.jpg',
+        position: 'Owner',
+        socialLinks: [
+            '#',
+            '#',
+            '#',
+            '#'
+        ]
+    },
+    {
+        id: 2,
+        img: '../enaturals/enaturals3.jpg',
+        name: 'Olutimeyin Sheyifunmi',
+        position: 'Manager',
+        socialLinks: [
+            '#',
+            '#',
+            '#',
+            '#'
+        ]
+    },
+    {
+        id: 3,
+        img: '../enaturals/enaturals3.jpg',
+        name: 'Shodiya Folorunsho',
+        position: 'Sales Manager',
+        socialLinks: [
+            '#',
+            '#',
+            '#',
+            '#'
+        ]
+    },
+    {
+        id: 4,
+        img: '../enaturals/enaturals3.jpg',
+        name: 'Shodiya Edward',
+        position: 'Sales Manager',
+        socialLinks: [
+            '#',
+            '#',
+            '#',
+            '#'
+        ]
+    }
+];

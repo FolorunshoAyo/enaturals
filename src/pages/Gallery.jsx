@@ -13,7 +13,7 @@ const Gallery = () => {
             <SimpleReactLightbox>
                 <GridGallery />
             </SimpleReactLightbox>
-            <Footer />
+            <Footer borderTop/>
         </>
     );
 };

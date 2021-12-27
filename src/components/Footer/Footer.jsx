@@ -48,11 +48,7 @@ const Footer = ({borderTop}) => {
     return (
         <Container borderTop={borderTop}>
             <OwnerInfo>
-                E-Naturals 
-                <Copyright>
-                    ;Copyright Symbol;
-                    {new Date().getFullYear()} All rights reserved.
-                </Copyright>
+                E-Naturals <Copyright> © {new Date().getFullYear()} All rights reserved. </Copyright>
             </OwnerInfo>
             <SocialContainer>
                 <IconContainer>

@@ -33,9 +33,8 @@ const ModalContainer = styled.div`
     width: 50%;
     position: fixed;
     height: auto;
-    background-color: #BDBC91;
-    border: 1px solid #9AAF8F;
-    border-radius: 10px;
+    background-color: #f2eeec;
+    border: 1px solid #BFABA0;
     overflow: hidden;
     z-index: 1000;
 `;
@@ -53,10 +52,10 @@ const AuthTab = styled.div`
     flex: 0 0 45%;
     display: flex;
     cursor: pointer;
-    border-right: ${props => props.selected? "none" : "0.5px solid #7E8485"};
-    border-left: ${props => props.selected? "none" : "0.5px solid #7E8485"};
-    border-bottom: ${props => props.selected? "none" : "0.5px solid #7E8485"};
-    border-top: ${props => props.selected? "3px solid black" : "0.5px solid #7E8485"};
+    border-right: ${props => props.selected? "none" : "0.5px solid rgba(172, 176, 178)"};
+    border-left: ${props => props.selected? "none" : "0.5px solid rgba(172, 176, 178)"};
+    border-bottom: ${props => props.selected? "none" : "0.5px solid rgba(172, 176, 178)"};
+    border-top: ${props => props.selected? "3px solid black" : "0.5px solid rgba(172, 176, 178)"};
     justify-content: center;
     align-items: center;
     font-size: 2rem;
@@ -171,18 +170,18 @@ const InputContainer = styled.div`
 `;
 
 const SubmitButton = styled.button`
-    padding: 1rem 2rem;
+    padding: 1.5rem 2.5rem;
     margin-left: ${props => props.scope === 'login'? 'none' : '2rem'};
     background-color: transparent;
-    border: 2px solid black;
+    border: 2px solid #B8A398;
     text-transform: uppercase;
-    color: #BDBC91;
+    color: #B8A398;
     font-weight: 700;
     cursor: pointer;
     transition: all .3s ease-in;
 
    &:hover{
-       background-color: #BDBC91;
+       background-color: #B8A398;
        color: #fff;
     }
 `;
@@ -268,7 +267,7 @@ const NavMenu = styled.div`
 
 const NavItem = styled.div`
     padding: 0 1rem;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     cursor: pointer;
 
     &:hover{
@@ -276,8 +275,8 @@ const NavItem = styled.div`
     }
 `;
 
-const NavLink = styled.div `
-
+const NavLink = styled.p `
+    text-transform: uppercase;
 `;
 
 

@@ -11,7 +11,7 @@ const Shop = () => {
             <Navbar />
             <PageTitle title="Shop" pageLocation="Home | Shop"/>
             <ProductList />
-            <Footer borderTop={true}/>
+            <Footer borderTop/>
         </div>
     );
 };

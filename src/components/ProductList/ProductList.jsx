@@ -9,6 +9,7 @@ import Pagination from '../Pagination/Pagination';
 import {allProducts} from '../../data';
 
 const Container =styled.div`
+    line-height: initial; 
     margin: 4rem 0;
     padding: 4rem 7rem;
 `;
@@ -18,16 +19,12 @@ const ProductWrapper = styled.div`
 `;
 
 const ToolsSection = styled.div`
-    flex: 0 0 35%;
+    flex: 0 0 30%;
     padding: 0 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 90rem;
 `;
 
 const CartPreview = styled.div`
-    background-color: #B8A398;
+    background-color: #f2eeec;
 `;
 
 const CartItemsContainer = styled.div`
@@ -36,7 +33,7 @@ const CartItemsContainer = styled.div`
 
 const CartItem = styled.div`
     display: flex;
-    height: 45px;
+    height: 65px;
 
     &:not(:last-child){
         margin-bottom: 20px;
@@ -55,18 +52,29 @@ const ItemImg = styled.img`
 
 const ItemDescription = styled.div`
     align-self: flex-start;
+    font-size: 1.5rem;
 `;
 
 const ItemName = styled.h4`
-    color: #7e8485;
+    color: #4B5354;
     font-size: 1.3rem;
     text-transform: capitalize;
     margin-bottom: 5px;
+    font-family: Lato, sans-serif;
+    cursor: pointer;
+    font-weight: 400;
+    transition: all .3s;
+
+    &:hover{
+        color: #ACBFA3;
+    }
 `;
 
 const ItemPrice = styled.p`
-    font-size: 1.2rem;
-    font-weight: 600;
+    font-size: 1.5rem;
+    font-family: Lato, sans-serif;
+    color: #4B5354;
+    font-weight: 400;
 `;
 
 const Close = styled.div`
@@ -79,8 +87,8 @@ const BillingContainer = styled.div`
 `; 
 
 const SubTotal = styled.div`
-    border-top: 2px solid #7e8485;
-    border-bottom: 2px solid #7e8485;
+    border-top: 2px solid #cabbb2;
+    border-bottom: 2px solid #cabbb2;
     text-align: end;
     padding: 2rem 0;
     font-weight: 400;
@@ -90,6 +98,7 @@ const SubTotal = styled.div`
 const SubTotalTitle = styled.span`
     font-weight: 600;
     text-transform: uppercase;
+    color: #7E8485;
 `;
 
 
@@ -100,7 +109,7 @@ const OrderButtonContainer = styled.div`
 
 const CheckoutButton = styled.button`
     text-transform: uppercase;
-    color: #B8A398;
+    color: #ACBFA3;
     width: 35%;
     margin-right: 20px;
     border: none;
@@ -113,7 +122,7 @@ const ViewCartButton = styled.button`
     text-transform: uppercase;
     color: #B8A398;
     width: 40%;
-    padding: 5px 10px;
+    padding: 11px 12px;
     letter-spacing: 1px;
     background-color: transparent;
     border: 2px solid #B8A398;
@@ -128,27 +137,30 @@ const ViewCartButton = styled.button`
 `;
 
 const Title = styled.div`
-    padding: 2.5rem 0 2.5rem 2rem;
-    background-color: #516348;
-    font-size: 1.8rem;
+    padding: 4rem;
+    background-color: #ACB5A3;
+    font-size: 2rem;
     letter-spacing: 1px;
     font-weight: 300;
     text-transform: uppercase;
     color: #fff;
+    margin-bottom: 1.5rem;
 `;
 
 
 const PriceRangeContainer = styled.div`
-    background-color: #B9C799;
+    background-color: #f2eeec;
     min-height: 200px;
+    margin-top: 3.5rem;
 `;
 
 const RangeContainer = styled.div`
-    padding: 2rem 5rem 1rem;
+    padding: 2rem 4rem;
 `;
 
 const CategoriesContainer = styled.div`
-    background-color: #B9C799;
+    background-color: #f2eeec;
+    margin-top: 3.5rem;
 `;
 
 const CategoryItem = styled.div`

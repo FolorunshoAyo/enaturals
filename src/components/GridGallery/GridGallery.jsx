@@ -25,9 +25,15 @@ const FilterButton = styled.button`
     border: none;
     background-color: ${props => props.active? '#4B5354' : '#f2eeec'};
     cursor: pointer;
-
+    transition: all .5s ease;
+    
     &:not(:last-child){
         margin-right: 10px;
+    }
+
+    &:hover{
+        background-color: #acbfa3;
+        color: #fff;
     }
 `;
 
