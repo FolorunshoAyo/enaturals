@@ -32,8 +32,8 @@ const KitInfoContainer = styled.div`
 
 const KitInfo = styled.div`
     text-align: center;
-    height: 50%;
     width: 70%;
+    padding: 3rem 0;
 `;
 
 const KitName = styled.div`

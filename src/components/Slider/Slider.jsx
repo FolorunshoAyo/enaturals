@@ -4,29 +4,41 @@ import SlickSlider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { sliderItems } from "../../data";
+import {tabPort} from '../../responsive';
 
 const Container = styled.div`
     height: 100vh;
     background-color: #516348;
+
+    ${tabPort({backgroundColor: "transparent"})}
 `;
 
 const Slide = styled.div`
     width: 100%;
     height: 100vh;
-    background-image: url(${(props) => props.backgroundImg});
+    background-image: url(${props => props.background});
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
+    visibility: hidden;
+
+    ${tabPort({visibility: "visible"})}
 `;
 
 const InfoWrapper = styled.div`
     height: 100%;
+    width: 100%;
     background: linear-gradient(120deg, transparent, #9AAF8F);
     display: flex;
+    visibility: visible;
+
+    ${tabPort({background: "none", justifyContent: "center"})}
 `;
 
 const ImageContainer = styled.div`
     flex: 0 0 55%; 
+
+    ${tabPort({display: "none"})}
 `;
 const Image = styled.img`
     width: 100%;
@@ -39,14 +51,19 @@ const InfoContainer = styled.div`
     padding: 0 1rem;
     align-self: center;
     flex: 1;
+
+    ${tabPort({flex: "initial", width: "70%"})}
 `;
 
 const Title = styled.h1`
-    font-size: 5rem;
+    font-size: 3.5rem;
     font-weight: 700;
     letter-spacing: 1px;
     color: #fff;
     text-transform: uppercase;
+    line-height: 1.2;
+
+    ${tabPort({fontSize: "6rem", color: "#4b5354"})}
 `;
 
 const Desc = styled.p`
@@ -56,12 +73,14 @@ const Desc = styled.p`
 `;
 
 const Button = styled.button`
+    padding: 16px 32.5px;
     background-color: transparent;
-    padding: 2rem;
-    color: #fff;
-    font-size: 2rem;
+    border: 2px solid #b8a398;
+    text-transform: uppercase;
+    color: #b8a398;
+    font-weight: 700;
     cursor: pointer;
-    border: 4px solid #7e8485;
+    transition: all .3s ease-in;
 `;
 
 const Slider = () => {
@@ -79,7 +98,7 @@ const Slider = () => {
         <Container>
             <SlickSlider {...settings}>
                 {sliderItems.map(sliderItem => (
-                    <Slide key={sliderItem.id}>
+                    <Slide key={sliderItem.id} background={sliderItem.img}>
                         <InfoWrapper>
                             <ImageContainer>
                                 <Image src={sliderItem.img}/>

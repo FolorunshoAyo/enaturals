@@ -74,7 +74,7 @@ const ItemPrice = styled.p`
     font-size: 1.5rem;
     font-family: Lato, sans-serif;
     color: #4B5354;
-    font-weight: 400;
+    font-weight: 600;
 `;
 
 const Close = styled.div`
@@ -116,6 +116,10 @@ const CheckoutButton = styled.button`
     cursor: pointer;
     background: transparent;
     letter-spacing: 1px;
+
+    &:hover{
+        color: #B8A398;m
+    }
 `;
 
 const ViewCartButton = styled.button`
@@ -164,7 +168,10 @@ const CategoriesContainer = styled.div`
 `;
 
 const CategoryItem = styled.div`
-    font-size: 2rem;
+    font-size: 1.3rem;
+    font-family: Lato, sans-serif;
+    transition: all .3s ease-in;
+    cursor: pointer;
 
     &:not(:last-child){
         margin-bottom: 5px;
@@ -172,7 +179,12 @@ const CategoryItem = styled.div`
 
     &::before{
         content: "> ";
+        margin-right: 12px;
         color: #9AAF8F;
+    }
+
+    &:hover{
+        color: #ACBFA3;
     }
 `;
 
@@ -181,7 +193,7 @@ const ProductsContainer = styled.div`
     flex: 1;
 `;
 const Categories = styled.div`
-    padding: 4rem 2rem 2rem;
+    padding: 2rem;
 `;
 const FilterProductsContainer = styled.div`
     display: flex;
@@ -191,12 +203,12 @@ const ViewsContainer = styled.div`
     display: flex;
 `;
 const Icon = styled.div`
-    color: ${props => props.active? "#9AAF8F": "#28272e"};
+    color: ${props => props.active? "#ACBFA3": "#28272e"};
     transition: all .5s;
     cursor: pointer;
 
     &:hover{
-        color: #9AAF8F
+        color: ${props => props.active? "#ACBFA3": "#b8a398"};;
     }
 `;
 
@@ -207,15 +219,21 @@ const FilterContainer = styled.div`
 `;
 
 const FilterSelect = styled.select`
-    font: inherit;
+    font-family: Lato, sans-serif;
     font-size: 1.5rem;
     border: none;
-    border-bottom: 2px solid #9AAF8F;
+    color: #7E8485;
+    border-bottom: 2px solid #7E8485;
     padding: 1rem 2rem 1rem 0;
+    transition: all .5s ease;
+    
+    &:hover{
+        cursor: pointer;
+        border-bottom: 2px solid #B8A398;
+    }
 
     &:focus{
         outline: none;
-        border-bottom: 2px solid #B9C799;
     }
 `;
 const FilterOption = styled.option`
@@ -229,18 +247,18 @@ const FilterPriceContainer = styled.div`
 
 const PriceRange = styled.div`
     font-size: 1.5rem;
+    font-family: Lato, sans-serif;
     padding-bottom: 1rem;
 `;
 
 const PriceTitle = styled.span`
-    color: grey;
+    color: #7E8485;
     text-transform: uppercase;
 `;
 
 const FilterButton = styled.button`
-    width: 160px;
     height: 40px;
-    padding: 1rem 2rem;
+    padding: 12px 24px;
     background-color: transparent;
     border: 2px solid #B8A398;
     text-transform: uppercase;
@@ -344,10 +362,10 @@ const ProductList = () => {
                     <FilterProductsContainer>
                         <ViewsContainer>
                             <Icon onClick={changeToList} active={currView === "list"? true : false}>
-                                <ViewListIcon style={{fontSize: "30"}}/>
+                                <ViewListIcon style={{fontSize: "40"}}/>
                             </Icon>
                             <Icon onClick={changeToGrid} active={currView === "grid"? true : false}>
-                                <ViewModuleIcon style={{fontSize: "30"}}/>
+                                <ViewModuleIcon style={{fontSize: "40"}}/>
                             </Icon>
                         </ViewsContainer>   
                         <FilterContainer>

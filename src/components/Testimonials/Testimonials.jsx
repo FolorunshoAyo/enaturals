@@ -8,7 +8,7 @@ import { testimonials } from '../../data';
 
 const Container = styled.div`
     padding: 3rem 4rem;
-    background-color: #B092B0;
+    background-color: #f2eeec;
 `;
 
 const TestimonialWrapper = styled.div`
@@ -57,6 +57,7 @@ const Title = styled.h2`
     font-size: 3rem;
     text-transform: uppercase;
     font-weight: 300;
+    color: #4B5354;
     margin-bottom: 4rem;
 `;
 

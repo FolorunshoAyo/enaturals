@@ -13,7 +13,7 @@ const ProductsContainer = styled.div`
 
 const PaginationNav = styled.div`
     display: flex;
-    margin-left: auto;
+    margin: 0 auto;
     width: 50%;
     justify-content: space-between;
     padding-top: 3rem;
@@ -47,15 +47,18 @@ const NextBtn = styled.button`
 `;
 
 const PageNumbers = styled.button`
-    background-color: ${props => props.status === "active"? "#9AAF8F" : "transparent"};
-    color: ${props => props.status === "active"? "#fff" : "#000"}
+    background-color: ${props => props.status === "active"? "#ACBFA3" : "transparent"};
+    color: ${props => props.status === "active"? "#fff" : "#000"};
     font-size: 1.5rem;
     padding: 20px;
     border: none;
     cursor: pointer;
+    transition: all .5s ease;
 
     &:hover{
-        background-color: grey;
+        background-color: ${props => props.status === "active"? "#ACBFA3" : "#b8a398"};
+        color: #fff;
+        cursor: ${props => props.status === "active"? "default" : "pointer"}
     }
 `;
 

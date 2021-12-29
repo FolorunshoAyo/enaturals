@@ -24,28 +24,28 @@ export const popularProducts = [
         id: 1,
         img:  "../enaturals/enaturals-1.jpg",
         productName: "Body Milk",
-        productDetails: "For ... skins",
+        productTag: "For ... skins",
         priceRange: "₦2000 - ₦6000"
     },
     {
         id: 2,
         img: "../enaturals/enaturals3.jpg",
         productName: "Glow Oil",
-        productDetails: "For ... skins",
+        productTag: "For ... skins",
         priceRange: "₦3000 - ₦8000"
     },
     {
         id: 3,
         img: "../enaturals/enaturals6.jpg",
         productName: "Hot Choco Lotion",
-        productDetails: "For ... skins",
+        productTag: "For ... skins",
         priceRange: "₦8000 - ₦12000"
     },
     {
         id: 4,
         img: "../enaturals/enaturals12.jpg",
         productName: "Whitening Oil",
-        productDetails: "For ... skins",
+        productTag: "For ... skins",
         priceRange: "₦5000 - ₦8000"
     }
 ];

@@ -4,6 +4,7 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import CleanHandsIcon from '@mui/icons-material/CleanHands';
 import SpaIcon from '@mui/icons-material/Spa';
+import {tabPort} from '../../responsive';
 
 const Container = styled.div`
     background-color: #B092B0;
@@ -14,11 +15,15 @@ const Row = styled.div`
     display: flex;
     padding: 0 1rem;
     justify-content: space-between;
+
+    ${tabPort({flexDirection: "column"})}
 `;
 
 const ServiceItem = styled.div`
     text-align: center;
     color: white;
+
+    ${tabPort({padding: "3rem 0"})}
 `;
 
 const ServiceIcon = styled.div`
@@ -45,6 +50,8 @@ const ServiceTitle = styled.h6`
     width: 60%;
     margin: 0 auto;
     border-bottom: 2px solid #fff;
+
+    ${tabPort({width: "40%"})}
 `;
 
 const ServiceDescription = styled.p`

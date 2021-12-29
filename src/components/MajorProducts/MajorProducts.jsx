@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import MajorProduct from './MajorProduct';
 import { popularProducts } from '../../data';
-
+import {tabPort, res1023} from '../../responsive';
 
 const Container = styled.div`
     padding: 6rem 3rem;
@@ -19,30 +19,32 @@ const Header = styled.div`
 const ProductsContainer = styled.div`
     display: flex;
     justify-content: space-between;
-    padding: 5rem 0 0;
+    padding: 5rem 0;
+
+    ${res1023({width: "85%", margin: "0 auto", padding: "4rem 0 0"})}
 `;
 
 const ButtonContainer = styled.div`
     text-align: center;
+    margin-top: 4rem;
+
+    ${res1023({margin: "0"})}
 `;
 
 const Button = styled.button`
-    width: 160px;
-    height: 40px;
-    padding: 10px;
+    padding: 16px 32.5px;
     background-color: transparent;
-    border: 2px solid #516348;
+    border: 2px solid #B8A398;
     text-transform: uppercase;
-    color: #516348;
-    border-radius: 10px;
+    color: #B8A398;
     font-weight: 700;
     cursor: pointer;
-    transition: all .3s;
+    transition: all .3s ease;
 
     &:hover{
-        background-color: #516348;
+        background-color: #B8A398;
         color: #fff;
-     }
+    }
 `;
 
 const MajorProducts = () => {
@@ -57,7 +59,7 @@ const MajorProducts = () => {
                         productImg={popularProduct.img}
                         productName={popularProduct.productName}
                         priceRange={popularProduct.priceRange}
-                        productDetails={popularProduct.productDetails}
+                        productTag={popularProduct.productTag}
                     />
                     ))
                 }

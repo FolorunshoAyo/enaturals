@@ -7,17 +7,17 @@ const ProductCard = styled.div`
     display: flex;
     flex-direction: ${props => props.view === "list"? "row" : "column"};
     padding: 4rem 1rem;
-    height: ${props => props.view === "list"? "280px": "450px"};
+    height: ${props => props.view === "list"? "280px": "auto"};
     justify-content: space-between;
-    
+
     &:not(:last-child){
-        border-bottom: ${props => props.view === "list"? "0.2rem solid #7e8485": "none"};
+        border-bottom: ${props => props.view === "list"? "0.5px solid #4b5354": "none"};
     }
 `;
 
 const ProductImageContainer = styled.div`
-    flex: ${props => props.view === "list"? "0 0 50%": "none"};
-    height: ${props => props.view === "list"? "auto": "220px"}
+    flex: ${props => props.view === "list"? "0 0 35%": "none"};
+    height: ${props => props.view === "list"? "auto": "300px"}
 `;
 
 const ProductImage = styled.img`
@@ -26,48 +26,54 @@ const ProductImage = styled.img`
 `;
 
 const ProductDescription = styled.div`
-    flex: 0 0 45%;
+    flex: 0 0 60%;
     text-align: ${props => props.view === "list"? "left" : "center"};
+    padding: ${props => props.view === "list"? "0" : "2.5rem 2rem 4rem"};
 `;
 
 const ProductName = styled.h2`
     font-size: 2.5rem;
     letter-spacing: 1px;
+    text-transform: uppercase;
     padding: 1rem 0;
-    font-weight: 300; 
+    font-weight: 400;
+    cursor: pointer; 
     color: #7e8485;
 `;
 
 const Description = styled.p`
     display: ${props => props.display === "none"? "none" : "block"};
     font-size: 1.3rem;
-    margin-bottom: 2rem;
+    font-family: Lato, sans-serif;
+    line-height: 1.7;
+    color: #7e8485;
+    margin: 1.5rem 0;
 `;
 const ProductTag = styled.div`
-    color: #7e8485;
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+    color: #ABB0B2;
+    font-family: Lato, sans-serif;
+    font-size: 1.3rem;
 `;
 
 const Price = styled.div`
-    font-size: 2rem;
-    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    margin: ${props => props.view === "list"? "1rem 0" : "2.5rem 0"};
+    color: #4B5354;
+    font-weight: 700;
 `;
 
 const Button = styled.button`
-    width: 160px;
-    height: 40px;
-    padding: 1rem 2rem;
+    padding: 16px 32.5px;
     background-color: transparent;
-    border: 2px solid #BDBC91;
+    border: 2px solid #b8a398;
     text-transform: uppercase;
-    color: #BDBC91;
+    color: #b8a398;
     font-weight: 700;
     cursor: pointer;
     transition: all .3s ease-in;
 
    &:hover{
-       background-color: #BDBC91;
+       background-color: #b8a398;
        color: #fff;
     }
 `;
@@ -82,7 +88,7 @@ const Product = ({productImage, price, description, productName, view}) => {
                 <ProductName>{productName}</ProductName>
                 <Description display={view === "grid"? "none" : "block"}>{description}</Description>
                 <ProductTag>Restoring</ProductTag>
-                <Price>{price}</Price>
+                <Price view={view}>{price}</Price>
                 <Button>Add To Cart</Button>
             </ProductDescription>
         </ProductCard>

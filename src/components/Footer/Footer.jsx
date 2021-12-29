@@ -32,9 +32,14 @@ const IconContainer=styled.div`
     background-color: #9AAF8F;
     cursor: pointer;
     color: #fff;
+    transition: all .5s ease;
     
     &:not(:last-child){
         margin-right: 20px;
+    }
+
+    &:hover{
+        background-color: #B8A398;
     }
 `;
 const Icon = styled.span`

@@ -6,6 +6,7 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
 import CloseIcon from '@mui/icons-material/Close';
+import {tabPort} from '../../responsive';
 
 const ModalBackdrop = styled.div`
     display: ${props => props.openModal? "block" : "none"};
@@ -204,6 +205,8 @@ const Row = styled.div`
     justify-content: space-between;
     align-items: center;
     height: 80px;
+
+    ${tabPort({width: "85%"})}
 `;
 
 const CartAndLogin = styled.div`
@@ -219,6 +222,7 @@ const Text = styled.div`
     text-transform: uppercase;
     display: flex;
     align-items: center;
+    font-size: 2rem;
 
     &:hover{
         color: #9AAF8F;
@@ -237,12 +241,16 @@ const IconContainer = styled.div`
 const PhoneNo = styled.div`
     font-size: 1.5rem;
     font-weight: 600;
+
+    ${tabPort({fontSize: "2rem"})}
 `;
 
 const LogoContainer = styled.div`
     flex: 0 0 20%;
     height: 100%;
     overflow: hidden;
+
+    ${tabPort({display: "none"})}
 `;
 
 const LogoImg = styled.img`
@@ -257,12 +265,26 @@ const NavigationContainer = styled.div`
     align-items: center;
     background-color: #9AAF8F;
     color: rgba(255, 255, 255, .8);
+
+    ${tabPort({padding: "2rem 4rem", justifyContent: "space-between"})}
 `;
+
+const NavLogoContainer = styled.div`
+    flex: 0 0 20%;
+    height: 100%;
+    overflow: hidden;
+    display: none;
+
+    ${tabPort({display: "block"})}
+`;
+
 const NavMenu = styled.div`
     width: 60%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    ${tabPort({display: "none"})}
 `;
 
 const NavItem = styled.div`
@@ -279,6 +301,22 @@ const NavLink = styled.p `
     text-transform: uppercase;
 `;
 
+
+const MenuBarContainer = styled.div`
+    flex: 0 0 10%;
+    display: none;
+    text-align: center;
+    color: #fff;
+    font-size: 3rem;
+    transition: all .3s ease-in;
+    text-transform: capitalize;
+    
+    &:hover{
+        color: #BFABA0;
+    }
+
+    ${tabPort({display: "block"})}
+`; 
 
 
 const Navbar = () =>{
@@ -387,11 +425,11 @@ const Navbar = () =>{
                             <PhoneNo>+234 90 236 879 32 </PhoneNo> 
                         </ContactContainer>
                         <LogoContainer>
-                            <LogoImg src={logo} alt="Logo" className="logo-image"/>
+                            <LogoImg src={logo} alt="Logo" />
                         </LogoContainer>
                         <CartAndLogin>
                             <Text>
-                                <Badge badgeContent={4} color="success">
+                                <Badge badgeContent={4} color="success" style={{fontSize: "1.5rem"}}>
                                     <ShoppingCartOutlinedIcon style={{fontSize: 25, color: "#7E8485"}}/> 
                                 </Badge>
                             </Text>
@@ -402,6 +440,9 @@ const Navbar = () =>{
                     </Row>
                 </RowContainer>
                 <NavigationContainer>
+                    <NavLogoContainer>
+                        <LogoImg src={logo} alt="Logo" />
+                    </NavLogoContainer>
                     <NavMenu>
                         <NavItem>
                             <NavLink>Home</NavLink>
@@ -422,6 +463,9 @@ const Navbar = () =>{
                             <NavLink>Reviews</NavLink>
                         </NavItem>
                     </NavMenu>
+                    <MenuBarContainer>
+                        Menu
+                    </MenuBarContainer>
                 </NavigationContainer>
             </Wrapper>
         </>
