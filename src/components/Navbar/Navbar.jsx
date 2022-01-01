@@ -6,6 +6,7 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
 import CloseIcon from '@mui/icons-material/Close';
+import MenuIcon from '@mui/icons-material/Menu';
 import {smallPhone, medPhone, tabPort} from '../../responsive';
 
 const ModalBackdrop = styled.div`
@@ -199,7 +200,7 @@ const RowContainer = styled.div`
 `;
 
 const Row = styled.div`
-    width: 75%;
+    width: 80%;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -229,18 +230,24 @@ const Text = styled.div`
     }
 `;
 
-const ContactContainer = styled.div`
-    display: flex;
-    align-items: center;
-`;
-
 const IconContainer = styled.div`
     margin-right: 5px;
 `;
 
+const ContactContainer = styled.div`
+    color: #7E8485;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover ${IconContainer}{
+        color: #ACBFA3; 
+    }
+`;
+
 const PhoneNo = styled.div`
-    font-size: 3rem;
-    font-weight: 600;
+    font-size: 1.8rem;
+    font-weight: 700;
 
     ${tabPort({fontSize: "2rem"})}
 `;
@@ -475,7 +482,7 @@ const Navbar = () =>{
                     </NavMenu>
                     <MenuBarContainer>
                         <MenuIconContainer>
-                            Menu
+                            <MenuIcon stlye={{fontSize: 20}}/>
                         </MenuIconContainer>
                     </MenuBarContainer>
                 </NavigationContainer>
