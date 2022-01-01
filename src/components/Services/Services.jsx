@@ -4,11 +4,10 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import CleanHandsIcon from '@mui/icons-material/CleanHands';
 import SpaIcon from '@mui/icons-material/Spa';
-import {tabPort} from '../../responsive';
+import {tabPort, res1023} from '../../responsive';
 
 const Container = styled.div`
-    background-color: #B092B0;
-    padding: 6rem 5rem;
+    padding: 6rem 3rem;
 `;
 
 const Row = styled.div`
@@ -16,26 +15,34 @@ const Row = styled.div`
     padding: 0 1rem;
     justify-content: space-between;
 
+    ${res1023({width: "85%", margin: "0 auto", padding: "4rem 0 0"})}
     ${tabPort({flexDirection: "column"})}
 `;
 
 const ServiceItem = styled.div`
     text-align: center;
     color: white;
+    background-color: ${props => props.color};
+    flex: 0 0 24%;
+    padding: 3rem 2rem;
 
-    ${tabPort({padding: "3rem 0"})}
+    ${tabPort({padding: "3rem 0", marginBottom: "2rem"})}
 `;
 
 const ServiceIcon = styled.div`
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background-color: rgba(255,255,255,.9);
-    color: #B092B0;
+    background-color: #ffffff4D;
+    color: #fff;
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    &:hover{
+        color: #B8A398;
+    }
 `;
 
 const ServiceInfo = styled.div`
@@ -44,26 +51,27 @@ const ServiceInfo = styled.div`
 
 const ServiceTitle = styled.h6`
     text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 1.4rem;
+    font-size: 1.8rem;
     padding-bottom: 14px;
     width: 60%;
     margin: 0 auto;
     border-bottom: 2px solid #fff;
+    font-weight: 400;
 
-    ${tabPort({width: "40%"})}
+    ${tabPort({width: "30%"})}
 `;
 
 const ServiceDescription = styled.p`
-    font-size: 18px;
+    font-size: 1.5rem;
     padding: 20px 10px;
+    font-family: Lato, sans-serif;
 `;
 
 const Services = () =>{
     return (
         <Container>
         <Row>
-            <ServiceItem>
+            <ServiceItem color="#ACBFA3">
                 <ServiceIcon>
                     <LocalShippingIcon style={{fontSize: 35}}/>
                 </ServiceIcon>
@@ -76,7 +84,7 @@ const Services = () =>{
                     </ServiceDescription>
                 </ServiceInfo>
             </ServiceItem>
-            <ServiceItem>
+            <ServiceItem color="#86B398">
                 <ServiceIcon>
                     <CardGiftcardIcon style={{fontSize: 35}}/>
                 </ServiceIcon>
@@ -89,7 +97,7 @@ const Services = () =>{
                     </ServiceDescription>
                 </ServiceInfo>
             </ServiceItem>
-            <ServiceItem>
+            <ServiceItem color="#B8A398">
                 <ServiceIcon>
                     <CleanHandsIcon style={{fontSize: 35}}/>
                 </ServiceIcon>
@@ -102,7 +110,7 @@ const Services = () =>{
                     </ServiceDescription>
                 </ServiceInfo>
             </ServiceItem>
-            <ServiceItem>
+            <ServiceItem color="#B092B0">
                 <ServiceIcon>
                     <SpaIcon style={{fontSize: 35}}/>
                 </ServiceIcon>

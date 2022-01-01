@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import NewProduct from './NewProduct';
 import { newProducts } from '../../data';
-
+import {smallPhone, res700, tabPort, res1023} from '../../responsive';
 
 const Container = styled.div`
-    padding: 3rem 3rem;
+    padding: 6rem 3rem;
 `;
 
 const Header = styled.div`
@@ -19,7 +19,11 @@ const Header = styled.div`
 const ProductsContainer = styled.div`
     display: flex;
     justify-content: space-between;
-    padding: 5rem 0 0;
+    padding: 5rem 8rem;
+
+    ${res1023({width: "85%", margin: "0 auto", padding: "4rem 0 0"})}
+    ${res700({width: "75%", flexWrap: "wrap"})}
+    ${smallPhone({flexDirection: "column", flexWrap: "nowrap"})}
 `;
 
 const NewProducts = () => {

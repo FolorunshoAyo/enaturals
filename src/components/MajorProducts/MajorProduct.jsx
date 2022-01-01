@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {tabPort, res1023} from '../../responsive';
+import {res700, res1023} from '../../responsive';
 
 const Image = styled.img`
     width: 100%;
@@ -10,11 +10,11 @@ const Image = styled.img`
 `;
 
 const ProductName = styled.div`
-    font-size: 2rem;
+    font-size: 2.5rem;
     color: #7e8485;
-    letter-spacing: 1px;
     text-transform: uppercase;
     font-weight: 400;
+    line-height: 1.2;
     cursor: pointer; 
     transition: all .3s;
 
@@ -22,22 +22,26 @@ const ProductName = styled.div`
         color: #ACBFA3;
     }
 
-    ${res1023({fontSize: "1.8rem"})}
+    ${res1023({fontSize: "2.2rem", fontWeight: "600"})}
 `;
 
 const ProductCard = styled.div`
     flex: 0 0 22%;
+    height: auto;
 
     &:hover ${Image}{
         border-radius: 100px;
     }
+
+    ${res700({flex: "0 0 48%", paddingBottom: "3rem"})}    
 `;
 
 const ProductImage = styled.div`
     width: 100%;
-    height: 50%;
+    height: 40%;
 
     ${res1023({height: "35%"})}
+    ${res700({height: "50%"})}
 `;
 
 const ProductDescription = styled.div`
@@ -52,6 +56,7 @@ const ProductTag = styled.div`
     color: #7e8485;
     font-family: Lato, sans-serif;
     cursor: pointer;
+    padding: 0.5rem 0;
 
     &:hover{
         color: #ABB0B2;

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-
 import { kitImages } from "../../data";
+import {smallPhone,res700} from '../../responsive';
 
 const Container = styled.div`
     margin-bottom: 5rem;
@@ -10,16 +10,22 @@ const Container = styled.div`
 
 const KitsWrapper = styled.div`
     padding: 0 2rem; 
+
+    ${smallPhone({width: "70%", margin: "0 auto"})}
 `;
 
 const FirstKit = styled.div`
     height: 450px;
     display: flex;
+
+    ${res700({height: "700px", flexDirection: "column", marginBottom: "4rem"})}
 `;
 
 const SecondKit = styled.div`
     height: 450px;
     display: flex;
+
+    ${res700({height: "700px", flexDirection: "column"})}
 `;
 
 const KitInfoContainer = styled.div`
@@ -41,13 +47,15 @@ const KitName = styled.div`
     text-align: center;
     text-transform: uppercase;
     font-weight: 300;
-    color: #7b5354; 
+    color: #4b5354; 
 `;
 
 const KitDescription = styled.div`
     margin: 45px 0;
     font-size: 1.5rem;
     color: #7e8485;
+
+    ${res700({margin: "30px 0"})}
 `;
 
 const KitImage = styled.div`

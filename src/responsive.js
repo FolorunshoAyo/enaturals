@@ -34,7 +34,7 @@ export const medPhone = (props) => {
 };
 
 // < 700px
-export const medPhone2 = (props) => {
+export const res700 = (props) => {
     return css`
         @media only screen and (max-width: 43.75em){
             ${props}

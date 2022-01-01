@@ -1,13 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
+import {res700} from '../../responsive';
 
 const BlogCard = styled.div`
     flex: 0 0 30%;
-    height: 400px;
 `;
 
 const BlogImg = styled.div`
     height: 50%;
+
+    ${res700({height: "30%"})}
 `;
 
 const Image = styled.img`
@@ -18,18 +20,21 @@ const Image = styled.img`
 const BlogDesc = styled.div`
     padding: 1rem 2rem;
     text-align: center;
+
+    ${res700({padding: "1rem 2rem 4rem"})}
 `;
 
-const Title = styled.div`
+const Title = styled.h3`
     text-transform: uppercase;
     font-size: 2rem;
     padding: 1rem 0;
     font-weight: 700;
-    color: #7e8485;
+    color: #4B5354;
 `;
 
 const DateAndComments = styled.div`
-    color: grey;
+    color: #ABB0B2;
+    font-family: Lato, sans-serif;
     font-size: 1.5rem;
 `;
 

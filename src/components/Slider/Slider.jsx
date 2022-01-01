@@ -4,7 +4,7 @@ import SlickSlider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { sliderItems } from "../../data";
-import {tabPort} from '../../responsive';
+import {medPhone, tabPort} from '../../responsive';
 
 const Container = styled.div`
     height: 100vh;
@@ -64,12 +64,13 @@ const Title = styled.h1`
     line-height: 1.2;
 
     ${tabPort({fontSize: "6rem", color: "#4b5354"})}
+    ${medPhone({fontSize: "4rem"})}
 `;
 
 const Desc = styled.p`
     margin: 5rem 0;
     font-size: 2.5rem;
-    font-weighr: 500;
+    font-weight: 500;
 `;
 
 const Button = styled.button`
@@ -77,7 +78,7 @@ const Button = styled.button`
     background-color: transparent;
     border: 2px solid #b8a398;
     text-transform: uppercase;
-    color: #b8a398;
+    color: #fff;
     font-weight: 700;
     cursor: pointer;
     transition: all .3s ease-in;

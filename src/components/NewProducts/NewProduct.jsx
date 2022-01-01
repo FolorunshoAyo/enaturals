@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import {res700, tabPort, res1023} from '../../responsive';
+
 
 const Image = styled.img`
     width: 100%;
@@ -11,40 +13,62 @@ const Image = styled.img`
 const ProductName = styled.div`
     font-size: 2.5rem;
     color: #7e8485;
+    text-transform: uppercase;
+    font-weight: 400;
+    line-height: 1.2;
+    cursor: pointer; 
     transition: all .3s;
+
+    &:hover{
+        color: #ACBFA3;
+    }
+
+    ${res1023({fontSize: "2rem"})}
 `;
 
 const ProductCard = styled.div`
     flex: 0 0 22%;
+    height: auto;
 
     &:hover ${Image}{
         border-radius: 100px;
     }
 
-    &:hover ${ProductName}{
-        color: #B8A398; 
-    }
+    ${res700({flex: "0 0 48%", paddingBottom: "3rem"})}    
 `;
 
 const ProductImage = styled.div`
-    height: 50%;
+    width: 100%;
+    height: 40%;
+
+    ${res1023({height: "35%"})}
+    ${res700({height: "50%"})}
 `;
 
 const ProductDescription = styled.div`
-    padding: 3rem 1rem;
+    padding: 2.5rem 2rem 4rem;
     text-align: center;
+
+    ${res1023({padding: "1.5rem 0"})}
 `;
 
 const ProductDetails = styled.div`
-    font-size: 1.8rem;
-    padding: 10px 0;
+    font-size: 1.5rem;
     color: #7e8485;
+    font-family: Lato, sans-serif;
+    cursor: pointer;
+    padding: 0.5rem 0;
+
+    &:hover{
+        color: #ABB0B2;
+    }
 `;
 
 const ProductPrice = styled.div`
     margin: 2.5rem 0;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 700;
+    color: #4B5354;
 `;
 
 const ButtonsContainer = styled.div`
@@ -52,8 +76,6 @@ const ButtonsContainer = styled.div`
 `;
 
 const ProductActionButton = styled.button`
-    width: 160px;
-    height: 40px;
     padding: 1rem 2rem;
     background-color: transparent;
     border: 2px solid #B8A398;
@@ -67,6 +89,8 @@ const ProductActionButton = styled.button`
        background-color: #B8A398;
        color: #fff;
     }
+
+    ${res1023({padding: "14px 18px"})}
 `;
 
 const NewProduct = ({productImg, productName, priceRange, productDetails}) => {

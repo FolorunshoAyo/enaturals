@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import FormatQuoteOutlinedIcon from '@mui/icons-material/FormatQuoteOutlined';
 import { testimonials } from '../../data';
+import {medPhone, res700, res1023} from '../../responsive';
 
 const Container = styled.div`
     padding: 3rem 4rem;
@@ -16,22 +17,21 @@ const TestimonialWrapper = styled.div`
     margin: 0 auto;
     padding: 30px 50px;
     color: #7e8485;
+
+    ${res1023({width: "85%"})}
+    ${res700({width: "90%", padding: "30px 25px"})}
+    ${medPhone({width: "95%", padding: "30px 0px"})}
 `;
 
 const Testimonial = styled.div`
     background-color: white;
     font-size: 2rem;
     text-align: center;
-    padding: 60px 50px 90px;
+    padding: 8rem 5rem 0;
     position: relative;
-`;
 
-const Testifier = styled.figure` 
-    text-align: center;
-    position absolute;
-    left: 40%;
-    right: 40%;
-    bottom: 0px;
+    ${res700({fontSize: "1.5rem"})}
+    ${medPhone({padding: "8rem 5rem 2rem"})}
 `;
 
 const Image = styled.img`
@@ -39,26 +39,35 @@ const Image = styled.img`
     width: 50px;
     height: 50px;
     border-radius: 50%;
+
+    ${medPhone({width: "35px",height: "35px"})}
 `;
 
 const Name = styled.figcaption`
     font-size: 1.5rem;
     font-weight: 700;
+
+    ${medPhone({fontSize: "1.3rem"})}
 `;
 
 const QuoteContainer = styled.div`
     position: absolute;
     top: 0px;
-    right: 45%;
+    right: 47%;
 `;
 
 const Title = styled.h2`
     text-align: center;
-    font-size: 3rem;
+    font-size: 2.5rem;
     text-transform: uppercase;
     font-weight: 300;
     color: #4B5354;
     margin-bottom: 4rem;
+`;
+
+const Testifier = styled.figure` 
+    margin-top: 1.5rem;
+    text-align: center;
 `;
 
 const Testimonials = () => {
@@ -79,13 +88,13 @@ const Testimonials = () => {
                             return (
                                 <Testimonial key={testimonial.id}>
                                     {testimonial.caption}
+                                    <QuoteContainer>
+                                        <FormatQuoteOutlinedIcon style={{fontSize: 50}}/>
+                                    </QuoteContainer>
                                     <Testifier>
                                         <Image src={testimonial.profile.image} />
                                         <Name>{testimonial.profile.name}</Name>
                                     </Testifier>
-                                    <QuoteContainer>
-                                        <FormatQuoteOutlinedIcon style={{fontSize: 50}}/>
-                                    </QuoteContainer>
                                 </Testimonial>
                             );
                         })}

@@ -6,7 +6,7 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
 import CloseIcon from '@mui/icons-material/Close';
-import {tabPort} from '../../responsive';
+import {smallPhone, medPhone, tabPort} from '../../responsive';
 
 const ModalBackdrop = styled.div`
     display: ${props => props.openModal? "block" : "none"};
@@ -239,7 +239,7 @@ const IconContainer = styled.div`
 `;
 
 const PhoneNo = styled.div`
-    font-size: 1.5rem;
+    font-size: 3rem;
     font-weight: 600;
 
     ${tabPort({fontSize: "2rem"})}
@@ -266,7 +266,7 @@ const NavigationContainer = styled.div`
     background-color: #9AAF8F;
     color: rgba(255, 255, 255, .8);
 
-    ${tabPort({padding: "2rem 4rem", justifyContent: "space-between"})}
+    ${tabPort({padding: "1rem 4rem", justifyContent: "space-between"})}
 `;
 
 const NavLogoContainer = styled.div`
@@ -276,6 +276,8 @@ const NavLogoContainer = styled.div`
     display: none;
 
     ${tabPort({display: "block"})}
+    ${medPhone({flex: "0 0 30%"})}
+    ${smallPhone({flex: "0 0 110px"})}
 `;
 
 const NavMenu = styled.div`
@@ -305,19 +307,27 @@ const NavLink = styled.p `
 const MenuBarContainer = styled.div`
     flex: 0 0 10%;
     display: none;
-    text-align: center;
-    color: #fff;
-    font-size: 3rem;
-    transition: all .3s ease-in;
-    text-transform: capitalize;
+
+    align-items: center;
+    justify-content: center;
     
+
+
+    ${tabPort({display: "flex"})}
+`; 
+
+
+const MenuIconContainer = styled.div`
+    text-transform: uppercase;
+    cursor: pointer;
+    font-size: 3rem;
+    color: #fff;
+    transition: all .3s ease-in;
+
     &:hover{
         color: #BFABA0;
     }
-
-    ${tabPort({display: "block"})}
-`; 
-
+`;
 
 const Navbar = () =>{
     const [tabNo, setTabNo] = useState(1);
@@ -464,7 +474,9 @@ const Navbar = () =>{
                         </NavItem>
                     </NavMenu>
                     <MenuBarContainer>
-                        Menu
+                        <MenuIconContainer>
+                            Menu
+                        </MenuIconContainer>
                     </MenuBarContainer>
                 </NavigationContainer>
             </Wrapper>

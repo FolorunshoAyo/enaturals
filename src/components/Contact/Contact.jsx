@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import {res700, res1023} from '../../responsive';
 
 const Container = styled.div`
     margin-top: 3rem;
@@ -8,6 +8,8 @@ const Container = styled.div`
 
 const ContactWrapper = styled.div`
     display: flex;
+
+    ${res700({flexDirection: "column"})}
 `;
 
 const NewsletterContainer = styled.div`
@@ -21,9 +23,9 @@ const NewsletterContainer = styled.div`
 
 const ContactContainer = styled.div`
     flex: 1;
+
     display: flex;
     align-items: center;
-    width: 80%;
     background-color: #9AAF8F;
     padding: 7rem 5rem 7rem;
 `;
@@ -64,6 +66,9 @@ const Input = styled.input`
     &::placeholder{
         color: rgba(255, 255, 255, .8);
     }
+
+    ${res1023({flex: "0 0 60%"})}
+    ${res700({flex: "0 0 70%"})}
 `;
 
 const Button = styled.div`
@@ -72,6 +77,7 @@ const Button = styled.div`
     background-color: #9AAF8F;
     text-transform: uppercase;
     color: #fff;
+    text-align: center;
     letter-spacing: 1px;
     flex: 0 0 20%;
     font-weight: 700;

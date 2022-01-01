@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import BlogPost from './BlogPost';
 import {blogPosts} from '../../data';
-
+import {res700} from '../../responsive';
 
 const Wrapper = styled.div`
     margin-top: 8rem;
-    padding: 0 15rem;
+    padding: 0 8rem;
 `;
 
 const Title = styled.h2`
@@ -20,6 +20,8 @@ const Title = styled.h2`
 const Container = styled.div`
     display: flex;
     justify-content: space-between;
+
+    ${res700({width: "60%", margin: "0 auto", flexDirection: "column"})}
 `;
 
 const BlogPosts = () => {
