@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {res700, tabPort, res1023} from '../../responsive';
+import {smallPhone ,res700 ,res1023} from '../../responsive';
 
 
 const Image = styled.img`

@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
+import {res700, res1023} from '../../responsive';
 
 const ProductCard = styled.div`
-    flex: 0 0 30%;
-    height: 265px;
+    flex: 0 0 32%;
+    height: 300px;
     position: relative;
 
-    &:not(:last-child){
-        margin-right: 20px;
-    }
+    ${res1023({height: "250px"})}
+    ${res700({flex: "0 0 440px", paddingBottom: "2rem"})}
 `;
 
 const BackView = styled.div`

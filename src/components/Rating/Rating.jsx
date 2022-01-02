@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 
 const Container = styled.div`
-    margin: 0.5rem 0;
+    margin-bottom: 0.5rem;
 `;
 
 const Rating = ({rating}) => {

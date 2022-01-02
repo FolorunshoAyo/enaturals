@@ -4,17 +4,16 @@ import Rating from '../Rating/Rating';
 
 const Reviews = styled.div`
     padding: 2rem 0;
-    overflow: auto;
 `;
 
 const Reviewer = styled.div`
     display: flex;
     justify-content: space-between;
-    height: 80px;
 `;
 
 const ReviewerImgContainer = styled.div`
     flex: 0 0 20%;
+    align-self: flex-start;
 `;
 
 const ReviewerImg = styled.img`
@@ -27,8 +26,9 @@ const CommentText = styled.div`
     padding-left: 2rem;
 `;
 
-const Name = styled.em`
+const Name = styled.p`
     font-size: 2rem;
+    font-style: italic;
     font-family: Lato, sans-serif;
     color: #7E8485;
 `;
@@ -36,8 +36,8 @@ const Name = styled.em`
 
 const Review = styled.p`
     font-size: 1.5rem;
-    width: 80%;
     color: #7E8485;
+    font-family: Lato, sans-serif;
 `;
 
 const AllReviews = () => {
@@ -48,9 +48,13 @@ const AllReviews = () => {
                     <ReviewerImg src="../enaturals/enaturals7.jpg" alt="Reviewers Image"/>
                 </ReviewerImgContainer>
                 <CommentText>
-                    <Name>joseph</Name>
+                    <Name>Joseph</Name>
                     <Rating rating={2}/>
-                    <Review>That's nice bfywfq bfywbfywqbfq hwqbywqbqfbwq hbwqc whqc  cwqbcwqc</Review>
+                    <Review>
+                        The product is very nice, i really saw some changes in about 3-5 days
+                        It's really nice to have a product that works wonders whenever applied.
+                        In other words, this product is brilliant and i expect to see more of it.
+                    </Review>
                 </CommentText>
             </Reviewer>
         </Reviews>

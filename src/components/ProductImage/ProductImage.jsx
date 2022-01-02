@@ -5,6 +5,7 @@ const Container = styled.div`
     position: relative;
     overflow: hidden;
     display: block;
+    height: 100%;
 `;
 
 const Image = styled.img.attrs((props) => ({

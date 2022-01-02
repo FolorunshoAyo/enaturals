@@ -7,22 +7,33 @@ import CloseIcon from '@mui/icons-material/Close';
 import ProductImage from '../ProductImage/ProductImage';
 import ProductTab from '../ProductTab/ProductTab';
 import RelatedProducts from '../RelatedProducts/RelatedProducts';
+import {res700, res860 ,res1023} from '../../responsive';
 
 const Container = styled.div`
     padding: 5rem 8rem;
+
+    ${res860({padding: "5rem 2rem"})}
 `;
 
 const ProductWrapper = styled.div`
     padding-bottom: 5rem;
+
+    ${res1023({width: "85%", margin: "0 auto"})}
+    ${res860({width: "100%"})}
+    ${res700({width: "70%"})}
 `;
 
 const Product = styled.div`
     display: flex;
+
+    ${res700({flexDirection: "column"})}
 `;
 
 const ImageContainer = styled.div`
-    flex: 0 0 40%;
+    flex: 0 0 350px;
     position: relative;
+
+    ${res700({height: "460px", paddingBottom: "3rem"})}
 `;
 
 const ViewIcon = styled.div`
@@ -50,7 +61,7 @@ const ProductDesc = styled.div`
 const ProductOverview = styled.p`
     color: #7E8485;
     font-size: 1.5rem;
-    margin-bottom: 3rem;
+    margin-bottom: 1.5rem;
     font-family: Lato, sans-serif;
 `;
 
@@ -58,7 +69,7 @@ const ProductPrice = styled.div`
     color: #000;
     font-weight: 700;
     font-size: 2rem;
-    margin: 1.5rem 0;
+    margin: 1rem 0;
 `;
 
 const ProductOptionsContainer = styled.div`
@@ -101,7 +112,7 @@ const ProductQuantityContainer = styled.div`
 `;
 
 const ProductQuantity = styled.div`
-    flex: 0 0 20%;
+    flex: 0 0 30%;
     border-bottom: 2px solid #9AAF8F;
     margin-right: 40px;
     display: flex;
@@ -175,15 +186,16 @@ const AddToCartButton = styled.button`
 `;
 
 const ProductDetails = styled.div`
-    padding-top: 3rem;
+    padding-top: 2rem;
 `;
 
 const Title = styled.strong``;
+
 const Detail = styled.p`
     font-size: 1.5rem;
 
     &:not(:last-child){
-        margin-bottom: 2rem;
+        margin-bottom: 0.5rem;
     }
 `;
 
@@ -208,7 +220,7 @@ const ModalContainer = styled.div`
 
 const ModalImage = styled.img`
     width: auto;
-    max--width: 100%;
+    max-width: 100%;
     height: auto;
     display: block;
     line-height: 0;

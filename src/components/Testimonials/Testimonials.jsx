@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import FormatQuoteOutlinedIcon from '@mui/icons-material/FormatQuoteOutlined';
 import { testimonials } from '../../data';
-import {medPhone, res700, res1023} from '../../responsive';
+import {smallPhone, medPhone, res700, res1023} from '../../responsive';
 
 const Container = styled.div`
     padding: 3rem 4rem;
@@ -54,6 +54,9 @@ const QuoteContainer = styled.div`
     position: absolute;
     top: 0px;
     right: 47%;
+
+    ${medPhone({right: "44%"})}
+    ${smallPhone({right: "42%"})}
 `;
 
 const Title = styled.h2`
@@ -68,6 +71,8 @@ const Title = styled.h2`
 const Testifier = styled.figure` 
     margin-top: 1.5rem;
     text-align: center;
+
+    ${smallPhone({marginTop: "1.8rem"})}
 `;
 
 const Testimonials = () => {

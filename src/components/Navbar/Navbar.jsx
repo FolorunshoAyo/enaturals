@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import logo from './logo.jpg';
+import strippedLogo from './stripped-logo.png';
 import styled from 'styled-components';
 import Badge from '@mui/material/Badge';
 import PhoneIcon from '@mui/icons-material/Phone';
@@ -7,7 +8,12 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
-import {smallPhone, medPhone, tabPort} from '../../responsive';
+import SearchIcon from '@mui/icons-material/Search';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import {smallPhone, medPhone, tabPort, res1023} from '../../responsive';
 
 const ModalBackdrop = styled.div`
     display: ${props => props.openModal? "block" : "none"};
@@ -39,6 +45,11 @@ const ModalContainer = styled.div`
     border: 1px solid #BFABA0;
     overflow: hidden;
     z-index: 1000;
+
+    ${res1023({width: "60%"})}
+    ${tabPort({width: "70%"})}
+    ${medPhone({width: "80%"})}
+    ${smallPhone({width: "90%"})}
 `;
 
 const ModalBody = styled.div`
@@ -315,30 +326,170 @@ const MenuBarContainer = styled.div`
     flex: 0 0 10%;
     display: none;
 
-    align-items: center;
-    justify-content: center;
-    
-
-
-    ${tabPort({display: "flex"})}
+    ${tabPort({display: "flex", alignItems: "center", justifyContent: "center"})}
 `; 
 
 
 const MenuIconContainer = styled.div`
-    text-transform: uppercase;
     cursor: pointer;
-    font-size: 3rem;
     color: #fff;
-    transition: all .3s ease-in;
+    transition: all .2s ease-in;
 
     &:hover{
         color: #BFABA0;
+    }
+
+    ${tabPort({display: "flex", alignItems: "center"})}
+`;
+
+
+const MobileMenuOverlay = styled.div`
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    transition: all .5s ease;
+
+    transform: ${props => props.status === "closed"? "translateY(-110%)" : "translateY(0)"};
+`;
+
+const MobileMenuWrapper = styled.div`
+    width: 100%;
+    height: 100%;
+    padding-top: 2rem; 
+    background-color: #383b44;
+    color: #cdced1;
+`;
+
+const MobileMenuCloseContainer = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 2rem;
+`;
+
+const MobileMenuClose = styled.div`
+    cursor: pointer;
+
+    &:hover{
+        color: #ACBFA3;
+    }
+`;
+
+
+const MobileMenuLogoContainer = styled.div`
+    text-align: center;
+    height: 60px;
+`;
+
+const MobileMenuLogo = styled.img`
+    height: 100%;
+`;
+
+const MobileMenuNav = styled.nav`
+    margin-top: 4rem;
+
+    display: flex;
+    justify-content: center;
+`;
+
+const MobileMenuLinks = styled.ul`
+    flex: 0 0 40%;
+    list-style-type: none;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+`;
+
+const MobileMenuItem = styled.li`
+    padding: 1rem 0;
+    cursor: pointer;
+    text-align: center;
+
+    &:hover{
+        color: #ACBFA3;
+    }
+
+    ${smallPhone({padding: "1.5rem 0"})}
+`;
+
+const MobileMenuLink = styled.span`
+
+`;
+
+const SearchInputContainer = styled.div`
+    display: flex;
+    justify-content: center;
+`; 
+
+const SearchButton = styled.button`
+    flex: 1;
+    background: transparent;
+    display: flex;
+    border: none;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+`;
+
+const SearchInputWrapper = styled.div`
+    flex: 0 0 40%;
+    display: flex;
+    border-bottom: 3px solid #fff;
+    margin-top: 3rem;
+
+    ${smallPhone({flex: "0 0 60%"})}
+`;
+
+const Search = styled.input`
+    flex: 0 0 85%;
+    font: inherit;
+    font-size: 2rem;
+    background: transparent;
+    padding: 2rem 0;
+    border: none;
+    color: #ACBFA3;
+
+    &:focus{
+        outline: none;
+    }
+
+    &:focus ${SearchInputWrapper}{
+        border-color: #acbfa3;
+    }
+
+    &:focus ${SearchButton}{
+        color: #acbfa3;
+    }
+`;
+
+
+const SearchInputForm = styled.form`
+    flex: 1;
+    display: flex;
+`;
+
+
+const MobileMenuSocials = styled.div`
+    text-align: center;
+    margin: 3rem 0 1rem;
+`;
+
+const MobileMenuSocialContainer = styled.div`
+    display: inline-block;
+    width: 20px;
+    cursor: pointer;
+    
+    &:not(:last-child){
+        margin-right: 10px;
     }
 `;
 
 const Navbar = () =>{
     const [tabNo, setTabNo] = useState(1);
     const [modal, setModal] = useState(false);
+    const [menuState, setMenuState] = useState("closed");
+
     let isProfileClicked = false;
 
     const changeTab = (selectedTabNo) =>{
@@ -350,8 +501,70 @@ const Navbar = () =>{
         isProfileClicked = !isProfileClicked;
     };
 
+    const toggleMobileMenu = (currState) => {
+        setMenuState(currState);
+    }
+
     return (
         <>
+            <MobileMenuOverlay status={menuState}>
+                <MobileMenuWrapper>
+                    <MobileMenuCloseContainer>
+                        <MobileMenuClose onClick={() => toggleMobileMenu("closed")}>
+                            <CloseIcon style={{fontSize: 20}} />
+                        </MobileMenuClose>
+                    </MobileMenuCloseContainer>
+                    <MobileMenuLogoContainer>
+                        <MobileMenuLogo src={strippedLogo}/>
+                    </MobileMenuLogoContainer>
+                    <MobileMenuNav>
+                        <MobileMenuLinks>
+                            <MobileMenuItem>
+                                <MobileMenuLink>Home</MobileMenuLink>
+                            </MobileMenuItem>
+                            <MobileMenuItem>
+                                <MobileMenuLink>About us</MobileMenuLink>
+                            </MobileMenuItem>
+                            <MobileMenuItem>
+                                <MobileMenuLink>Shop</MobileMenuLink>
+                            </MobileMenuItem>
+                            <MobileMenuItem>
+                                <MobileMenuLink>Blog</MobileMenuLink>
+                            </MobileMenuItem>
+                            <MobileMenuItem>
+                                <MobileMenuLink>Gallery</MobileMenuLink>
+                            </MobileMenuItem>
+                            <MobileMenuItem>
+                                <MobileMenuLink>Reviews</MobileMenuLink>
+                            </MobileMenuItem>
+                        </MobileMenuLinks>
+                    </MobileMenuNav>
+                    <SearchInputContainer>
+                        <SearchInputWrapper>
+                            <SearchInputForm>
+                                <Search placeholder="SEARCH"/>
+                                <SearchButton>
+                                    <SearchIcon style={{fontSize: 25}}/>
+                                </SearchButton>
+                            </SearchInputForm>
+                        </SearchInputWrapper>
+                    </SearchInputContainer>
+                    <MobileMenuSocials>
+                        <MobileMenuSocialContainer>
+                            <FacebookIcon style={{fontSize: 20}}/>
+                        </MobileMenuSocialContainer>
+                        <MobileMenuSocialContainer>
+                            <TwitterIcon style={{fontSize: 20}}/>
+                        </MobileMenuSocialContainer>
+                        <MobileMenuSocialContainer>
+                            <WhatsAppIcon style={{fontSize: 20}}/>
+                        </MobileMenuSocialContainer>
+                        <MobileMenuSocialContainer>
+                            <InstagramIcon style={{fontSize: 20}}/>
+                        </MobileMenuSocialContainer>
+                    </MobileMenuSocials>
+                </MobileMenuWrapper>
+            </MobileMenuOverlay>
             <ModalBackdrop openModal={modal} onClick={switchModal}></ModalBackdrop>
             <Modal openModal={modal}>
                 <ModalContainer>
@@ -458,7 +671,7 @@ const Navbar = () =>{
                 </RowContainer>
                 <NavigationContainer>
                     <NavLogoContainer>
-                        <LogoImg src={logo} alt="Logo" />
+                        <LogoImg src={strippedLogo} alt="Logo" />
                     </NavLogoContainer>
                     <NavMenu>
                         <NavItem>
@@ -481,8 +694,8 @@ const Navbar = () =>{
                         </NavItem>
                     </NavMenu>
                     <MenuBarContainer>
-                        <MenuIconContainer>
-                            <MenuIcon stlye={{fontSize: 20}}/>
+                        <MenuIconContainer onClick={() => toggleMobileMenu("open")}>
+                            <MenuIcon style={{fontSize: 30}}/>
                         </MenuIconContainer>
                     </MenuBarContainer>
                 </NavigationContainer>

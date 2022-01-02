@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { kitImages } from "../../data";
-import {smallPhone,res700} from '../../responsive';
+import {smallPhone, medPhone, res700} from '../../responsive';
 
 const Container = styled.div`
     margin-bottom: 5rem;
@@ -11,7 +11,7 @@ const Container = styled.div`
 const KitsWrapper = styled.div`
     padding: 0 2rem; 
 
-    ${smallPhone({width: "70%", margin: "0 auto"})}
+    ${smallPhone({width: "80%", margin: "0 auto"})}
 `;
 
 const FirstKit = styled.div`
@@ -48,6 +48,8 @@ const KitName = styled.div`
     text-transform: uppercase;
     font-weight: 300;
     color: #4b5354; 
+
+    ${medPhone({fontSize: "2.5rem"})}
 `;
 
 const KitDescription = styled.div`
@@ -79,6 +81,8 @@ const Button = styled.button`
         background-color: #B092B0;
         color: #fff;
     }
+
+    ${smallPhone({padding: "1.4rem 2.5rem", fontSize: "1.4rem"})}
 `;
 
 const SkincareKits = () => {

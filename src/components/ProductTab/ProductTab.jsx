@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import StarRating from '../StarRating/StartRating';
 import AllReviews from '../AllReviews/AllReviews';
+import {res700, res1023} from '../../responsive';
 
 const ProductTabContainer = styled.div`
     margin-top: 10rem;
@@ -9,6 +10,7 @@ const ProductTabContainer = styled.div`
 
 const ProductTabs = styled.div`
     display: flex;
+    justify-content: space-between;
 `;
 
 const Tab = styled.div`
@@ -24,9 +26,8 @@ const Tab = styled.div`
     cursor: pointer;
     height: 60px;
 
-    &:not(:last-child){
-        margin-right: 20px;
-    }
+    ${res1023({flex: "0 0 30%", fontSize: "1.5rem"})}
+    ${res700({flex: "0 0 32%", fontSize: "1.3rem"})}
 `;
 
 const ProductTabBody = styled.div`
@@ -57,6 +58,8 @@ const Title = styled.h2`
     font-size: 2.5rem;
     margin-bottom: 1rem;
     letter-spacing: 1px;
+
+    ${res1023({fontSize: "2rem"})}
 `;
 
 const AdditionalInformation = styled.div`
@@ -95,6 +98,8 @@ const ReviewsContent = styled.div`
     display: ${props => props.active? 'flex' : 'none'};
     justify-content: space-between;
     padding: 3rem;
+
+    ${res700({flexDirection: "column"})}
 `;
 
 const Reviews = styled.div`
@@ -103,10 +108,14 @@ const Reviews = styled.div`
 
 const ReviewsBody = styled.div`
     font-size: 1.3rem;
+    height: 100%;
+    overflow: auto;
 `;
 
 const ReviewFormContainer = styled.div`
     padding: 0 3rem;
+
+    ${res700({padding: "0"})}
 `;
 
 
@@ -129,7 +138,7 @@ const Input = styled.input`
     padding: 2rem 0.5rem;
     background-color: transparent;
     border-bottom: 2px solid #7e8485;
-    font: inherit;
+    font-family: Lato, sans-serif;
     font-size: 1.5rem;
     width: 100%;
 
@@ -151,7 +160,7 @@ const TextInput = styled.textarea`
     border: none;
     padding: 1rem 2rem;
     background-color: transparent;
-    font: inherit;
+    font-family: Lato, sans-serif;
     font-size: 1.5rem;
     width: 100%;
     border-bottom: 2px solid #7e8485;
@@ -179,7 +188,8 @@ const ValidationInfo = styled.div`
 `;
 
 const ValidationText = styled.span`
-    font-size: 1rem;
+    font-size: 1.2rem;
+    font-family: Lato, sans-serif;
 `;
 
 const ButtonContainer = styled.div`
@@ -187,7 +197,7 @@ const ButtonContainer = styled.div`
 `;
 
 const Button = styled.button`
-    width: 35%;
+    width: 40%;
     padding: 1rem 2rem;
     background-color: transparent;
     border: 2px solid #B8A398;
@@ -259,7 +269,7 @@ const ProductTab = () => {
                     </Reviews>
                     <ReviewFormContainer>
                         <ReviewForm>
-                            <Title>Be the first to review Whitening oil</Title>
+                            <Title>{window.innerWidth <= 700? "Add a Review" :"Be the first to review Whitening oil"}</Title>
                             <Instructions>Your email address will not be published. Required fields are marked *</Instructions>
                             <ReviewFormGroup>
                                 <Input type="text" placeholder="Name *"/>

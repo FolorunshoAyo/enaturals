@@ -4,6 +4,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import InstagramIcon from '@mui/icons-material/Instagram';
+import {smallPhone} from '../../responsive';
 
 const Container = styled.div`
     padding: 3rem 0 1rem;
@@ -36,11 +37,15 @@ const IconContainer=styled.div`
     
     &:not(:last-child){
         margin-right: 20px;
+
+        ${smallPhone({marginRight: "10px"})}
     }
 
     &:hover{
         background-color: #B8A398;
     }
+
+    ${smallPhone({width: "35px", height: "35px"})}
 `;
 const Icon = styled.span`
     height: 100%;
@@ -58,22 +63,22 @@ const Footer = ({borderTop}) => {
             <SocialContainer>
                 <IconContainer>
                     <Icon>
-                        <FacebookIcon style={{fontSize: 25}}/>
+                        <FacebookIcon style={{fontSize: 20}}/>
                     </Icon>
                 </IconContainer>
                 <IconContainer>
                     <Icon>
-                        <TwitterIcon style={{fontSize: 25}}/>
+                        <TwitterIcon style={{fontSize: 20}}/>
                     </Icon>
                 </IconContainer>
                 <IconContainer>
                     <Icon>
-                        <WhatsAppIcon style={{fontSize: 25}}/>
+                        <WhatsAppIcon style={{fontSize: 20}}/>
                     </Icon>
                 </IconContainer>
                 <IconContainer>
                     <Icon>
-                        <InstagramIcon style={{fontSize: 25}}/>
+                        <InstagramIcon style={{fontSize: 20}}/>
                     </Icon>
                 </IconContainer>
             </SocialContainer>
