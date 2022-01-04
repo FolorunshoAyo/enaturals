@@ -2,15 +2,19 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import StarRating from '../StarRating/StartRating';
 import AllReviews from '../AllReviews/AllReviews';
-import {res700, res1023} from '../../responsive';
+import {smallPhone, res480, res700, res1023} from '../../responsive';
 
 const ProductTabContainer = styled.div`
     margin-top: 10rem;
+
+    ${res480({marginTop: "5rem"})}
 `;
 
 const ProductTabs = styled.div`
     display: flex;
     justify-content: space-between;
+
+    ${res480({flexDirection: "column"})}
 `;
 
 const Tab = styled.div`
@@ -25,9 +29,10 @@ const Tab = styled.div`
     color: ${props => props.active? '#4B5354' : '#fff'};
     cursor: pointer;
     height: 60px;
-
+    
     ${res1023({flex: "0 0 30%", fontSize: "1.5rem"})}
-    ${res700({flex: "0 0 32%", fontSize: "1.3rem"})}
+    ${res700({flex: "0 0 32%", fontSize: "1.3rem", textAlign: "center"})}
+    ${res480({marginBottom: "1rem", padding: "2rem 0"})}
 `;
 
 const ProductTabBody = styled.div`
@@ -211,6 +216,8 @@ const Button = styled.button`
         background-color: #B8A398;
         color: #fff;
     }
+
+    ${smallPhone({width: "60%"})}
 `;
 const ProductTab = () => {
     const [tabNo, toggleTab] = useState(1);

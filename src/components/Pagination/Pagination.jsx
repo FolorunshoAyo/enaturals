@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import {smallPhone, medPhone ,res860} from '../../responsive';
 
 const Container = styled.div`
 `;
@@ -16,16 +17,20 @@ const PaginationNav = styled.div`
     margin: 0 auto;
     width: 50%;
     justify-content: space-between;
-    padding-top: 3rem;
-    height: 80px;
+    height: 50px;
+
+    ${res860({width: "60%"})}
+    ${medPhone({width: "70%"})}
+    ${smallPhone({width: "80%"})}
 `;
 
 const PrevBtn = styled.button`
     background: transparent;
     display: ${(props) => props.display? 'none' : 'block'};
-    padding: 20px;
+    padding: 2rem;
     font-size: 1.3rem;
     border: none;
+    padding-top: 3rem;
     cursor: pointer;
 
     &:hover{
@@ -36,7 +41,7 @@ const PrevBtn = styled.button`
 const NextBtn = styled.button`
     background: transparent;
     display: ${(props) => props.display? 'none' : 'block'};
-    padding: 20px;
+    padding: 2rem;
     font-size: 1.3rem;
     border: none;
     cursor: pointer;
@@ -50,7 +55,7 @@ const PageNumbers = styled.button`
     background-color: ${props => props.status === "active"? "#ACBFA3" : "transparent"};
     color: ${props => props.status === "active"? "#fff" : "#000"};
     font-size: 1.5rem;
-    padding: 20px;
+    padding: 2rem;
     border: none;
     cursor: pointer;
     transition: all .5s ease;

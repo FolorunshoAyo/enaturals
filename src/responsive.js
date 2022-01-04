@@ -24,6 +24,15 @@ export const smallPhone = (props) => {
     `;   
 }
 
+// < 480px
+export const res480 = (props) => {
+    return css`
+        @media only screen and (max-width: 30em){
+            ${props}
+        }
+    `;   
+}
+
 // < 600px
 export const medPhone = (props) => {
     return css`

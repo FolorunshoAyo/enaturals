@@ -17,7 +17,7 @@ const Title = styled.h2`
     margin-bottom: 5rem;
     text-transform: uppercase;
 
-    ${res700({fontSize: "2.5rem", marginBottom: "3rem", letterSpacing: "0.46px"})}
+    ${res700({fontSize: "3rem", marginBottom: "3rem", letterSpacing: "0.46px"})}
 `;
 
 const RelatedProductsContainer = styled.div` 

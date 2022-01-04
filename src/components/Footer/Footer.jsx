@@ -9,7 +9,7 @@ import {smallPhone} from '../../responsive';
 const Container = styled.div`
     padding: 3rem 0 1rem;
     text-align: center;
-    border-top: ${props => props.borderTop? "2px solid #7e8485" : "none"}
+    border-top: ${props => props.borderTop? "2px solid #f4f5f5" : "none"}
 `;
 
 

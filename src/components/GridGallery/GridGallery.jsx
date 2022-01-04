@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import {galleryImages} from '../../data';
 import {SRLWrapper} from 'simple-react-lightbox';
+import {smallPhone, medPhone, res700} from '../../responsive';
 
 const Container = styled.div`
     padding: 5rem 2rem;
@@ -9,6 +10,8 @@ const Container = styled.div`
 
 const GalleryWrapper = styled.div`
     padding: 0 2rem;
+
+    ${medPhone({padding: "0"})}
 `;
 
 const FilterButtons = styled.div`
@@ -29,12 +32,19 @@ const FilterButton = styled.button`
     
     &:not(:last-child){
         margin-right: 10px;
+        ${smallPhone({marginRight: "auto"})}
+    }
+
+    &:last-child{
+        ${smallPhone({marginBottom: "0"})} 
     }
 
     &:hover{
         background-color: #acbfa3;
         color: #fff;
     }
+
+    ${smallPhone({display: "block", width: "40%", margin: "0 auto 1rem"})}
 `;
 
 const ImagesGrid = styled.div`
@@ -42,6 +52,9 @@ const ImagesGrid = styled.div`
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
+
+    ${medPhone({flexFlow: "column nowrap"})}
+    ${smallPhone({padding: "2rem 0"})}
 `;
 
 const ImageContainer = styled.div`
@@ -52,6 +65,9 @@ const ImageContainer = styled.div`
     background-position: center center;
     height: 230px;
     margin-bottom: 2rem;
+
+    ${res700({flex: "0 0 48%", height: "350px"})}
+    ${medPhone({flex: "0 0 350px"})}
 `;
 
 const Image = styled.img`

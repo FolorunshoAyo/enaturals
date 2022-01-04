@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Team from '../Team/Teams';
 import {teams} from '../../data';
+import {res700} from '../../responsive';
 
 const Container = styled.div`
     padding: 6rem 4rem

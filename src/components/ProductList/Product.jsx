@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import {medPhone, res700} from '../../responsive';
 
 const ProductCard = styled.div`
     flex: ${props => props.view === "list"? "none" : "0 0 50%" };
@@ -11,13 +12,17 @@ const ProductCard = styled.div`
     justify-content: space-between;
 
     &:not(:last-child){
-        border-bottom: ${props => props.view === "list"? "0.5px solid #4b5354": "none"};
+        border-bottom: ${props => props.view === "list"? "2px solid #f4f5f5": "none"};
     }
+
+    ${medPhone({flex: "0 0 100%", flexDirection: "column", height: "auto"})}
 `;
 
 const ProductImageContainer = styled.div`
     flex: ${props => props.view === "list"? "0 0 35%": "none"};
-    height: ${props => props.view === "list"? "auto": "300px"}
+    height: ${props => props.view === "list"? "auto": "300px"};
+
+    ${medPhone({flex: "0 0 300px"})}
 `;
 
 const ProductImage = styled.img`
@@ -29,6 +34,8 @@ const ProductDescription = styled.div`
     flex: 0 0 60%;
     text-align: ${props => props.view === "list"? "left" : "center"};
     padding: ${props => props.view === "list"? "0" : "2.5rem 2rem 4rem"};
+
+    ${medPhone({padding: "2rem 0"})}
 `;
 
 const ProductName = styled.h2`
@@ -47,12 +54,12 @@ const Description = styled.p`
     font-family: Lato, sans-serif;
     line-height: 1.7;
     color: #7e8485;
-    margin: 1.5rem 0;
+    margin: 13px 0;
 `;
 const ProductTag = styled.div`
     color: #ABB0B2;
     font-family: Lato, sans-serif;
-    font-size: 1.3rem;
+    font-size: 13px;
 `;
 
 const Price = styled.div`

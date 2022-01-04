@@ -7,7 +7,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import ProductImage from '../ProductImage/ProductImage';
 import ProductTab from '../ProductTab/ProductTab';
 import RelatedProducts from '../RelatedProducts/RelatedProducts';
-import {res700, res860 ,res1023} from '../../responsive';
+import {smallPhone, res480, res700, res860, res1023} from '../../responsive';
 
 const Container = styled.div`
     padding: 5rem 8rem;
@@ -21,6 +21,7 @@ const ProductWrapper = styled.div`
     ${res1023({width: "85%", margin: "0 auto"})}
     ${res860({width: "100%"})}
     ${res700({width: "70%"})}
+    ${res480({width: "85%"})}
 `;
 
 const Product = styled.div`
@@ -168,7 +169,6 @@ const AddToCartContainer = styled.div`
 `;
 
 const AddToCartButton = styled.button`
-    width: 160px;
     height: 100%;
     padding: 1rem 2rem;
     background-color: transparent;
@@ -183,6 +183,8 @@ const AddToCartButton = styled.button`
     background-color: #B8A398;
     color: #fff;
     }
+
+    ${smallPhone({padding: "0.8rem 1.5rem"})}
 `;
 
 const ProductDetails = styled.div`
