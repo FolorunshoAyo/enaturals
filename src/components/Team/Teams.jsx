@@ -4,6 +4,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import InstagramIcon from '@mui/icons-material/Instagram';
+import {res480, res700, res860, res1023} from '../../responsive';
 
 const IconContainer = styled.div`
     display: inline-block;
@@ -20,6 +21,7 @@ const IconContainer = styled.div`
 
     &:not(:last-child){
         margin-right: 10px;
+        ${res860({marginRight: "5px"})}
     }
 
     &:hover{
@@ -33,6 +35,10 @@ const TeamCard = styled.div`
     &:hover ${IconContainer}{
         opacity: 1;
     }
+
+    ${res1023({flex: "0 0 150px"})}
+    ${res700({flex: "0 0 580px"})}
+    ${res480({flex: "0 0 380px"})}
 `;
 
 const HoverView = styled.div`
@@ -59,6 +65,11 @@ const TeamImg = styled.div`
     &:hover ${HoverView}{
         opacity: 1;
     }
+
+    ${res1023({height: "150px"})}
+    ${res860({height: "180px"})}
+    ${res700({height: "440px"})}
+    ${res480({height: "240px"})}
 `;
 
 const Image = styled.img`
@@ -69,12 +80,14 @@ const Image = styled.img`
 const TeamInfo = styled.div`
     padding: 3rem;
     text-align: center;
+
+    ${res1023({padding: "1.5rem 0 3.5rem"})}
 `;
 
 const TeamName = styled.div`
     font-size: 2.5rem;
     color: #4B5354;
-    line-height: 30px;
+    line-height: 1.2;
     text-transform: uppercase;
     transition: color .4s ease-in;
     cursor: pointer;

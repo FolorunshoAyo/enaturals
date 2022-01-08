@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const Wrapper = styled.div`
     height: 300px;
     position: relative;
-    background-image: url(./enaturals/enaturals4.jpg);
+    background-image: url(./enaturals/enaturals13.jpg);
     background-size: cover;
     background-position: center;
 `;

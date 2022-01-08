@@ -8,7 +8,7 @@ const ProductCard = styled.div`
     display: flex;
     flex-direction: ${props => props.view === "list"? "row" : "column"};
     padding: 4rem 1rem;
-    height: ${props => props.view === "list"? "280px": "auto"};
+    height: ${props => props.view === "list"? "320px": "auto"};
     justify-content: space-between;
 
     &:not(:last-child){

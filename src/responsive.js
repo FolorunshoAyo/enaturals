@@ -10,9 +10,10 @@ breakpoint-4: 1023px;
 breakpoint-5: 900px;
 breakpoint-6: 860px;
 breakpoint-7: 700px;
-breakpoint-8: 600px;
-breakpoint-9: 400px
-
+breakpoint-8: 750px;
+breakpoint-9: 600px;
+breakpoint-10: 480px;
+breakpoint-11: 400px
 */
 
 // < 400px
@@ -51,6 +52,14 @@ export const res700 = (props) => {
     `;
 }
 
+// < 750px
+export const res750 = (props) => {
+    return css`
+        @media only screen and (max-width: 46.875em){
+            ${props}
+        }
+    `;
+}
 // < 860px
 export const res860 = (props) => {
     return css`
@@ -108,7 +117,7 @@ export const medDesktop = (props) => {
 // > 1800px
 export const bigDesktop = (props) => {
     return css`
-        @media screen only and (min-width: 112.5em){
+        @media only screen and (min-width: 112.5em){
             ${props}
         }
     `;

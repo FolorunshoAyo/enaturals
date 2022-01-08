@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {res700, res1023} from '../../responsive';
+import {smallPhone, res700, res1023} from '../../responsive';
 
 const Container = styled.div`
     margin-top: 3rem;
@@ -19,6 +19,8 @@ const NewsletterContainer = styled.div`
     align-items: center;
     background-color: #B8A398;
     padding: 6rem 5rem 7rem;
+
+    ${smallPhone({padding: "6rem 3rem 7rem"})}
 `;
 
 const ContactContainer = styled.div`
@@ -28,6 +30,8 @@ const ContactContainer = styled.div`
     align-items: center;
     background-color: #9AAF8F;
     padding: 7rem 5rem 7rem;
+
+    ${smallPhone({padding: "6rem 3rem 7rem"})}
 `;
 
 const Newsletter = styled.div`
@@ -69,6 +73,7 @@ const Input = styled.input`
 
     ${res1023({flex: "0 0 60%"})}
     ${res700({flex: "0 0 70%"})}
+    ${smallPhone({marginRight: "3px"})}
 `;
 
 const Button = styled.div`
@@ -83,6 +88,8 @@ const Button = styled.div`
     font-weight: 700;
     cursor: pointer;
     font-size: 1.5rem;
+
+    ${smallPhone({padding: "1rem 2.5rem"})}
 `;
 
 const ContactDetails = styled.div`
