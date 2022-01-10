@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {res700, res1023} from '../../responsive';
+import {res700, res1023, tabLand, medDesktop, bigDesktop} from '../../responsive';
 
 const Image = styled.img`
     width: 100%;
@@ -40,6 +40,9 @@ const ProductImage = styled.div`
     width: 100%;
     height: 40%;
 
+    ${bigDesktop({height: "50%"})}
+    ${medDesktop({height: "60%"})}
+    ${tabLand({height: "35%"})}
     ${res1023({height: "35%"})}
     ${res700({height: "50%"})}
 `;

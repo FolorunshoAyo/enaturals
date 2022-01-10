@@ -17,7 +17,6 @@ const PaginationNav = styled.div`
     margin: 0 auto;
     width: 50%;
     justify-content: space-between;
-    height: 50px;
 
     ${res860({width: "60%"})}
     ${medPhone({width: "70%"})}
@@ -30,7 +29,6 @@ const PrevBtn = styled.button`
     padding: 2rem;
     font-size: 1.3rem;
     border: none;
-    padding-top: 3rem;
     cursor: pointer;
 
     &:hover{

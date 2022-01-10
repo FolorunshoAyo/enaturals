@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import MajorProduct from './MajorProduct';
 import { popularProducts } from '../../data';
-import {smallPhone, medPhone, res700, res1023} from '../../responsive';
+import {smallPhone, medPhone, res700, res1023, tabLand, medDesktop, bigDesktop} from '../../responsive';
 
 const Container = styled.div`
     padding: 6rem 3rem;
@@ -22,8 +22,11 @@ const ProductsContainer = styled.div`
     display: flex;
     justify-content: space-between;
     padding: 5rem 8rem 2rem;
-    height: 480px;
+    height: 550px;
 
+    ${bigDesktop({width: "1200px", padding: "8rem 0rem", margin: "0 auto", height: "800px"})}
+    ${medDesktop({width: "1200px", padding: "8rem 0rem", margin: "0 auto", height: "800px"})}
+    ${tabLand({width: "85%", margin: "0 auto", padding: "4rem 0 0", height: "550px"})}
     ${res1023({width: "85%", margin: "0 auto", padding: "4rem 0 0"})}
     ${res700({width: "75%", flexWrap: "wrap", height: "auto"})}
     ${medPhone({width: "90%"})}

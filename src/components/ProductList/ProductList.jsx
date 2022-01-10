@@ -7,7 +7,7 @@ import ViewModuleIcon from '@mui/icons-material/ViewModule';
 import Product from './Product';
 import Pagination from '../Pagination/Pagination';
 import {allProducts} from '../../data';
-import {smallPhone, res480, medPhone, res700, res860 ,res1023} from '../../responsive';
+import {smallPhone, res480, medPhone, res700, res860 ,res1023, bigDesktop} from '../../responsive';
 
 
 const Container =styled.div`
@@ -15,6 +15,7 @@ const Container =styled.div`
     margin: 4rem 0;
     padding: 4rem 8rem;
 
+    ${bigDesktop({width: "1750px", margin: "0 auto"})}
     ${res1023({padding: "4rem 15rem"})}
     ${res860({padding: "4rem 5rem"})}
     ${res700({padding: "4rem 3rem"})}
@@ -266,11 +267,11 @@ const FilterContainer = styled.div`
 
 const FilterSelect = styled.select`
     font-family: Lato, sans-serif;
-    font-size: 2rem;
+    font-size: 1.5rem;
     border: none;
     color: #7E8485;
     border-bottom: 2px solid #7E8485;
-    padding: 0rem 4rem 3rem 1rem;
+    padding: 0rem 4rem 2rem 1rem;
     transition: all .5s ease;
     
     &:hover{

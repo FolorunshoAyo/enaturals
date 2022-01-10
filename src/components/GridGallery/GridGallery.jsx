@@ -2,10 +2,13 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import {galleryImages} from '../../data';
 import {SRLWrapper} from 'simple-react-lightbox';
-import {smallPhone, medPhone, res700} from '../../responsive';
+import {smallPhone, medPhone, res700, medDesktop, bigDesktop} from '../../responsive';
 
 const Container = styled.div`
     padding: 5rem 2rem;
+
+    ${bigDesktop({width: "1400px", margin: " 0 auto"})}
+    ${medDesktop({width: "100%", margin: "0 auto"})}
 `;
 
 const GalleryWrapper = styled.div`

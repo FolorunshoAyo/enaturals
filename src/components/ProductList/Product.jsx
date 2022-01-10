@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {medPhone, res700} from '../../responsive';
+import {medPhone, bigDesktop} from '../../responsive';
 
 const ProductCard = styled.div`
     flex: ${props => props.view === "list"? "none" : "0 0 50%" };
@@ -8,7 +8,7 @@ const ProductCard = styled.div`
     display: flex;
     flex-direction: ${props => props.view === "list"? "row" : "column"};
     padding: 4rem 1rem;
-    height: ${props => props.view === "list"? "320px": "auto"};
+    height: ${props => props.view === "list"? "auto": "auto"};
     justify-content: space-between;
 
     &:not(:last-child){
@@ -22,7 +22,8 @@ const ProductImageContainer = styled.div`
     flex: ${props => props.view === "list"? "0 0 35%": "none"};
     height: ${props => props.view === "list"? "auto": "300px"};
 
-    ${medPhone({flex: "0 0 300px"})}
+    ${medPhone({flex: "1"})}
+
 `;
 
 const ProductImage = styled.img`
@@ -35,6 +36,7 @@ const ProductDescription = styled.div`
     text-align: ${props => props.view === "list"? "left" : "center"};
     padding: ${props => props.view === "list"? "0" : "2.5rem 2rem 4rem"};
 
+    ${bigDesktop({marginTop: "2rem", padding: "0 2rem"})}
     ${medPhone({padding: "2rem 0"})}
 `;
 
@@ -67,6 +69,8 @@ const Price = styled.div`
     margin: ${props => props.view === "list"? "1rem 0" : "2.5rem 0"};
     color: #4B5354;
     font-weight: 700;
+
+    ${bigDesktop({margin: "1rem 0", fontSize: "1rem"})}
 `;
 
 const Button = styled.button`

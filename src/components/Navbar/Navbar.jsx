@@ -13,7 +13,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import {smallPhone, medPhone, tabPort, res1023} from '../../responsive';
+import {smallPhone, medPhone, tabPort, res1023, tabLand, medDesktop, bigDesktop} from '../../responsive';
 
 const ModalBackdrop = styled.div`
     display: ${props => props.openModal? "block" : "none"};
@@ -218,7 +218,9 @@ const Row = styled.div`
     align-items: center;
     height: 80px;
 
-    ${tabPort({width: "85%"})}
+    ${bigDesktop({width: "1100px"})}
+    ${medDesktop({width: "1100px"})}
+    ${tabLand({width: "80%"})}
 `;
 
 const CartAndLogin = styled.div`
@@ -278,7 +280,7 @@ const LogoImg = styled.img`
 
 const NavigationContainer = styled.div`
     display: flex;
-    height: 70px;
+    height: 80px;
     justify-content: center;
     align-items: center;
     background-color: #9AAF8F;
@@ -304,6 +306,8 @@ const NavMenu = styled.div`
     justify-content: space-between;
     align-items: center;
 
+    ${bigDesktop({width: "1000px"})}
+    ${medDesktop({width: "60%"})}
     ${tabPort({display: "none"})}
 `;
 
@@ -650,7 +654,7 @@ const Navbar = () =>{
                     <Row>
                         <ContactContainer>
                             <IconContainer>
-                                <PhoneIcon style={{fontSize: 15}}/> 
+                                <PhoneIcon style={{fontSize: 20}}/> 
                             </IconContainer>
                             <PhoneNo>+234 90 236 879 32 </PhoneNo> 
                         </ContactContainer>
