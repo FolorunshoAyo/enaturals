@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { states } from '../../data';
+import './datalist.css';
+import ReactHtmlDatalist from 'react-html-datalist';
 
 const PaymentContainer = styled.section`
-    padding: 5rem 10rem;
+    padding: 15rem 10rem;
 `;
 
 const PaymentWrapper = styled.div`
@@ -12,10 +14,11 @@ const PaymentWrapper = styled.div`
 
 const PaymentMainForm = styled.form`
     display: flex;
+    justify-content: space-between;
 `; 
 
 const BillingDetailsContainer = styled.div`
-    flex: 1;
+    flex: 0 0 48%;
 `;
 
 const BillingDetails = styled.div`
@@ -23,7 +26,7 @@ const BillingDetails = styled.div`
 `;
 
 const AdditionalInformationContainer = styled.div`
-    flex: 1;
+    flex: 0 0 48%;
 `;
 
 const AdditionalInformation = styled.div`
@@ -33,29 +36,101 @@ const AdditionalInformation = styled.div`
 const Title = styled.h3`
     margin-bottom: 1.5rem;
     color: #4B5354;
-    font-size: 2rem;
+    font-size: 3rem;
+    font-weight: 300;
+    text-transform: uppercase;
 `;
 
 const NameContainer = styled.div`
     display: flex;  
-    justify-content: space-betwwen;
+    justify-content: space-between;
+    margin-bottom: 1rem;
 `;
 
 const Firstname = styled.div`
     flex: 0 0 45%;
 `;
 
+const Lastname = styled.div`
+    flex: 0 0 45%;
+`;
+
 const Label = styled.label`
     display: block;
+    font-size: 1.5rem;
+    font-family: Lato, sans-serif;
 `;
 
 const Required = styled.span`
     color: #A00;
-    font-size: 0.8rem;
+    font-size: 2rem;
+`;
+
+const Input = styled.input`
+    width: 100%;
+    padding: 1.5rem 0.6rem;
+    font-family: Lato, sans-serif;
+    border: none;
+    border-bottom: 2px solid #bdc0c0;
+    transition: all .2s ease-in;
+
+    &:focus{
+        outline: none;
+        border-bottom: 2px solid #4B5354;
+    }
+`;
+
+const StreetAddress = styled.div`
+    margin-bottom: 1rem;
+`;
+
+const TownOrCity = styled.div`
+    margin-bottom: 1rem;
+`;
+
+const State = styled.div`
+    margin-bottom: 1rem;
+`;
+
+const Phone = styled.div`
+    margin-bottom: 1rem;
+`;
+
+const EmailAddress = styled.div`
+    margin-bottom: 1rem;
+`;
+
+const NoteContainer = styled.div`
+    margin-bottom: 1rem;
+
+`;
+
+const Note = styled.textarea`
+    height: 56px;
+    overflow-y: auto;
+    font-family: Lato, sans-serif;
+    border: none;
+    padding: 1.5rem 0.6rem;
+    border-bottom: 2px solid #bdc0c0;
+    resize: none;
+    width: 100%;
+    transition: all .2s ease-in;
+
+    &:focus{
+        outline: none;
+        border-bottom: 2px solid #4B5354;
+    }
 `;
 
 
+
 const PaymentForm = () => {
+    const [detail, setDetail] = useState({state: ""});
+
+    const handleChange = e => {
+        setDetail({...detail, [e.target.name]: e.target.value})
+    }
+
     return(
         <PaymentContainer>
             <PaymentWrapper>
@@ -95,12 +170,17 @@ const PaymentForm = () => {
                                 <Label for="state">
                                     State <Required>*</Required>
                                 </Label>
-                                <Input type="text" placeholder="Select an option..." name="state" list="states" id="state"/>
-                                <States id="state">
-                                    {states.map(state => {
-                                        <Option value={state} />
-                                    })}
-                                </States>
+                                <ReactHtmlDatalist 
+                                    name="state"
+                                    onChange={handleChange}
+                                    classNames={"datalistEl"}
+                                    options={[
+                                        { text: "Kwara", value: "Kwara"},
+                                        { text: "Kogi", value: "Kogi"},
+                                        { text: "Lagos", value: "Lgos"},
+                                        { text: "Ogun", value: "Ogun"}
+                                    ]}
+                                />
                             </State>
                             <Phone>
                                 <Label for="phone">
