@@ -361,3 +361,14 @@ export const teams = [
         ]
     }
 ];
+
+export const states = [
+    "Adamawa",
+    "Abuja",
+    "Kwara",
+    "Lagos",
+    "Zamfara",
+    "lokoja",
+    "bissau",
+    "gussau"
+];

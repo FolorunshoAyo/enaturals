@@ -23,7 +23,7 @@ const ProductName = styled.div`
         color: #ACBFA3;
     }
 
-    ${res1023({fontSize: "2rem"})}
+    ${res1023({fontSize: "2rem", fontWeight: "600"})}
 `;
 
 const ProductCard = styled.div`

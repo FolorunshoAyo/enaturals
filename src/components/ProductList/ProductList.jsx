@@ -10,7 +10,7 @@ import {allProducts} from '../../data';
 import {smallPhone, res480, medPhone, res700, res860 ,res1023, bigDesktop} from '../../responsive';
 
 
-const Container =styled.div`
+const Container = styled.section`
     line-height: initial; 
     margin: 4rem 0;
     padding: 4rem 8rem;
@@ -19,7 +19,7 @@ const Container =styled.div`
     ${res1023({padding: "4rem 15rem"})}
     ${res860({padding: "4rem 5rem"})}
     ${res700({padding: "4rem 3rem"})}
-    ${res480({padding: "4rem 1rem"})}
+    ${res480({padding: "4rem 1rem", margin: "0 0 4rem"})}
 `;
 
 const ProductOuterWrapper = styled.div`
@@ -196,7 +196,7 @@ const PriceRangeContainer = styled.div`
     ${res700({marginBottom: "3rem", alignSelf: "stretch"})}
 `;
 
-const RangeContainer = styled.div`
+const RangeContainer = styled.form`
     padding: 2rem 4rem;
 `;
 

@@ -24,9 +24,9 @@ const ProductsContainer = styled.div`
     padding: 5rem 8rem 2rem;
     height: 550px;
 
-    ${bigDesktop({width: "1200px", padding: "8rem 0rem", margin: "0 auto", height: "800px"})}
-    ${medDesktop({width: "1200px", padding: "8rem 0rem", margin: "0 auto", height: "800px"})}
-    ${tabLand({width: "85%", margin: "0 auto", padding: "4rem 0 0", height: "550px"})}
+    ${bigDesktop({width: "1200px", padding: "8rem 0rem", margin: "0 auto"})}
+    ${medDesktop({width: "1200px", padding: "8rem 0rem", margin: "0 auto"})}
+    ${tabLand({width: "85%", margin: "0 auto", padding: "4rem 0 0"})}
     ${res1023({width: "85%", margin: "0 auto", padding: "4rem 0 0"})}
     ${res700({width: "75%", flexWrap: "wrap", height: "auto"})}
     ${medPhone({width: "90%"})}
@@ -54,6 +54,8 @@ const Button = styled.button`
         background-color: #B8A398;
         color: #fff;
     }
+
+    ${smallPhone({padding: "10px 20px"})}
 `;
 
 const MajorProducts = () => {

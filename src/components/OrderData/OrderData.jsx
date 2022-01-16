@@ -10,9 +10,13 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
 import TableFooter from '@mui/material/TableFooter';
+import {medPhone ,res700, res860} from '../../responsive';
 
 const Container = styled.div`
     padding: 5rem 8rem;
+
+    ${res700({padding: "5rem"})}
+    ${medPhone({padding: "5rem 0"})}
 `;
 
 const TableWrapper = styled.div`
@@ -34,10 +38,14 @@ const Product = styled.div`
     display: flex;
     justify-content: space-between;
     height: 40px;
+
+    ${res700({justifyContent: "flex-start"})}
 `;
 
 const ProductImageContainer = styled.div`
     flex: 0 0 25%;
+
+    ${res700({display: "none"})}
 `;
 
 const ProductImg = styled.img`
@@ -50,6 +58,8 @@ const ProductName = styled.div`
     align-self: center;
     font-size: 1.5rem;
     text-transform: capitalize;
+
+    ${res700({flex: "1", fontSize: "1.2rem"})}
 `;
 
 const Price = styled.div`   
@@ -145,8 +155,9 @@ const ButtonContainer = styled.div`
 `;
 
 const Button = styled.button`
-    width: 160px;
-    height: 40px;
+    display: block;
+    width: 80%;
+    margin: 0 auto;
     padding: 1rem 2rem;
     background-color: transparent;
     border: 2px solid #BDBC91;
@@ -160,6 +171,7 @@ const Button = styled.button`
        background-color: #BDBC91;
        color: #fff;
     }
+    ${res700({width: "90%"})}
 `;
 
 const CartTotalContainer = styled.div`
@@ -169,6 +181,9 @@ const CartTotalContainer = styled.div`
 
 const CartTotal = styled.div`
     flex: 0 0 35%;
+
+    ${res860({flex: "0 0 50%"})}
+    ${medPhone({flex: "0 0 60%"})}
 `;
 
 const Title = styled.h3`

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { kitImages } from "../../data";
 import {smallPhone, medPhone, res700} from '../../responsive';
 
-const Container = styled.div`
+const Container = styled.section`
     margin-bottom: 5rem;
     padding: 6rem 5rem;
 `;
@@ -11,7 +11,7 @@ const Container = styled.div`
 const KitsWrapper = styled.div`
     padding: 0 2rem; 
 
-    ${smallPhone({width: "80%", margin: "0 auto"})}
+    ${smallPhone({width: "90%", padding: "0", margin: "0 auto"})}
 `;
 
 const FirstKit = styled.div`

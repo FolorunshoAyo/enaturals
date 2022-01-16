@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {medPhone, bigDesktop} from '../../responsive';
+import {smallPhone, medPhone, bigDesktop} from '../../responsive';
 
 const ProductCard = styled.div`
     flex: ${props => props.view === "list"? "none" : "0 0 50%" };
@@ -87,6 +87,8 @@ const Button = styled.button`
        background-color: #b8a398;
        color: #fff;
     }
+
+    ${smallPhone({padding: "10px 20px"})}
 `;
 
 const Product = ({productImage, price, description, productName, view}) => {

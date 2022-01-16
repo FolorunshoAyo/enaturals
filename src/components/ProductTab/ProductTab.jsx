@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import StarRating from '../StarRating/StartRating';
 import AllReviews from '../AllReviews/AllReviews';
-import {smallPhone, res480, res700, res1023} from '../../responsive';
+import {smallPhone, medPhone, res480, res700, res1023} from '../../responsive';
 
 const ProductTabContainer = styled.div`
     margin-top: 10rem;
@@ -12,7 +12,6 @@ const ProductTabContainer = styled.div`
 
 const ProductTabs = styled.div`
     display: flex;
-    justify-content: space-between;
 
     ${res480({flexDirection: "column"})}
 `;
@@ -29,6 +28,14 @@ const Tab = styled.div`
     color: ${props => props.active? '#4B5354' : '#fff'};
     cursor: pointer;
     height: 60px;
+    
+    &:not(:last-child){
+        margin-right: 20px;
+
+        ${res700({marginRight: "10px"})}
+        ${medPhone({marginRight: "5px"})}
+        ${res480({marginRight: "0"})}
+    }
     
     ${res1023({flex: "0 0 30%", fontSize: "1.5rem"})}
     ${res700({flex: "0 0 32%", fontSize: "1.3rem", textAlign: "center"})}
