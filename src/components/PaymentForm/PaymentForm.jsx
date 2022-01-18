@@ -6,11 +6,10 @@ import ReactHtmlDatalist from 'react-html-datalist';
 
 const PaymentContainer = styled.section`
     padding: 15rem 10rem;
+    color: #7E8485;
 `;
 
-const PaymentWrapper = styled.div`
-    color: #7E8485
-`;
+const PaymentWrapper = styled.div``;
 
 const PaymentMainForm = styled.form`
     display: flex;
@@ -123,6 +122,149 @@ const Note = styled.textarea`
 `;
 
 
+const YourOrderContainer = styled.section`
+    margin: 4rem 0 2rem;
+`;
+
+const TableContainer = styled.div`
+`;
+
+const Table = styled.table`
+    width: 100%;
+    border-spacing: 0.1rem;
+    font-size: 1.5rem;
+`; 
+
+const TableHeader = styled.thead`
+    background-color: #B8A398;
+    color: #fff;
+    text-transform: uppercase;
+`;
+
+const TableRow = styled.tr`
+    padding: 9px 12px;
+`;
+
+const TableHead = styled.th`
+    padding: 9px 12px;
+    text-align: left;
+`;
+
+const TableBody = styled.tbody`
+`;
+
+const CartItem = styled.tr`
+`;
+
+const ProductName = styled.td`
+    padding: 9px 12px;
+    border-bottom: 1px solid #cabbb2;
+`;
+
+const ProductPrice = styled.td`
+    padding: 9px 12px; 
+    border-bottom: 1px solid #cabbb2;
+`;
+
+const Subtotal = styled.td`
+    padding: 9px 12px;
+    text-transform: uppercase;
+`;
+
+const SubtotalPrice = styled.td`
+    padding: 9px 12px;
+    border-bottom: 1px solid #cabbb2;
+`;
+
+const Total = styled.td`
+    padding: 9px 12px;
+    text-transform: uppercase;
+`;
+
+const TotalPrice = styled.td`
+    padding: 9px 12px;
+    border-bottom: 1px solid #cabbb2;
+`;
+
+const PaymentOptionContainer = styled.div`
+    padding: 1.5rem;
+    margin: 5rem 0;
+    border-top: 2px solid #f4f5f5; 
+    border-bottom: 2px solid #f4f5f5; 
+`;
+
+const PaymentOption = styled.label`
+    font-family: Lato, sans-serif;
+    font-size: 1.5rem;
+`;
+
+const RadioInput = styled.input`
+`;
+
+const FlutterCaption = styled.span`
+    display: inline-block;
+    padding-left: 1.5rem;
+    font-family: Lato, sans-serif;
+`;
+
+const FlutterImage = styled.img`
+    width: 100px;
+    height: 30px;
+    vertical-align: middle;
+`;
+
+const PaymentBox = styled.div`
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+`;
+
+const Paragraph = styled.p`
+    font-family: Lato, sans-serif;
+    font-size: 1.5rem;
+`;
+
+const PlaceOrderBox = styled.div`
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+`;
+
+const Agreement = styled.label`
+    font-family: Lato, sans-serif;
+    font-size: 1.5rem;
+`;
+
+const AgreementCaption = styled.span`
+    padding-left: 1.5rem;
+    font-family: Lato, sans-serif;
+`;
+
+const Checkbox = styled.input`
+    vertical-align: middle;
+`;
+
+const SubmitButtonContainer = styled.div`
+    text-align: end;
+`;
+
+const SubmitButton = styled.input`
+    padding: 16px 35px;
+    border: 3px solid #B8A398;
+    font-family: Lato, sans-serif;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    background-color: transparent;
+    display: inline-block;
+    cursor: pointer;
+    color: #B8A398;
+    transition: all .5s ease;
+    font-weight: 600;
+
+    &:hover{
+        color: #fff;
+        background-color: #B8A398;
+    }
+`;
+
 
 const PaymentForm = () => {
     const [detail, setDetail] = useState({state: ""});
@@ -155,15 +297,15 @@ const PaymentForm = () => {
                                 </Lastname>
                             </NameContainer>
                             <StreetAddress>
-                                    <Label for="streetAddress">
-                                        Street address <Required>*</Required>
-                                    </Label>
-                                    <Input type="text" name="streetAddress" id="lname"/>
+                                <Label for="streetAddress">
+                                    Street address <Required>*</Required>
+                                </Label>
+                                <Input type="text" name="streetAddress" id="lname"/>
                             </StreetAddress>
                             <TownOrCity>
-                                    <Label for="city">
-                                        Town/City <Required>*</Required>
-                                    </Label>
+                                <Label for="city">
+                                    Town/City <Required>*</Required>
+                                </Label>
                                     <Input type="text" name="city" id="city"/>
                             </TownOrCity>
                             <State>
@@ -206,12 +348,78 @@ const PaymentForm = () => {
                                     Order notes (optional)
                                 </Label>
                                 <Note name="notes" placeholder="Notes about your order e.g special notes for delivery." id="notes">
-
                                 </Note>
                             </NoteContainer>
                         </AdditionalInformation>
                     </AdditionalInformationContainer>
                 </PaymentMainForm>
+                <YourOrderContainer>
+                    <Title>Your Order</Title>
+                    <TableContainer>
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>
+                                        Product
+                                    </TableHead>
+                                    <TableHead>
+                                        Subtotal
+                                    </TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                <CartItem>
+                                    <ProductName>
+                                        Hand care set with vitamin B x 1
+                                    </ProductName>
+                                    <ProductPrice>
+                                        47.00
+                                    </ProductPrice>
+                                </CartItem>
+                                <TableRow>
+                                    <Subtotal>
+                                        Subtotal
+                                    </Subtotal>
+                                    <SubtotalPrice>
+                                        47.00
+                                    </SubtotalPrice>
+                                </TableRow>
+                                <TableRow>
+                                    <Total>
+                                        Total
+                                    </Total>
+                                    <TotalPrice>
+                                        47.00
+                                    </TotalPrice>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </YourOrderContainer>
+                <PaymentOptionContainer>
+                    <PaymentOption>
+                        <RadioInput type="radio" disabled checked/> 
+                        <FlutterCaption> 
+                            Flutterwave Payment <FlutterImage src="../enaturals/flutterwave-logo.jpeg" alt="flutterwave image"/> 
+                        </FlutterCaption>
+                    </PaymentOption>
+                    <PaymentBox>
+                        <Paragraph>
+                            Pay through the Flutterwave Payment Gateway
+                        </Paragraph>
+                    </PaymentBox>
+                </PaymentOptionContainer>
+                <PlaceOrderBox>
+                    <Agreement for="agreement">
+                        <Checkbox type="checkbox" name="agreement" id="agreement"/>
+                        <AgreementCaption>
+                        By using this form, you agree with the storage and usage of data by this website.
+                        </AgreementCaption>
+                    </Agreement>
+                    <SubmitButtonContainer>
+                        <SubmitButton type="submit" value="Place Order"/>
+                    </SubmitButtonContainer>
+                </PlaceOrderBox>
             </PaymentWrapper>
         </PaymentContainer>
     );

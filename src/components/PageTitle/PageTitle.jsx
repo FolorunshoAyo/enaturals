@@ -29,6 +29,7 @@ const Title = styled.h2`
 
 const Location = styled.div`
     font-size: 1.5rem;
+    font-family: Lato, sans-serif;
 `;
 
 const PageTitle = ({title, pageLocation}) => {
