@@ -13,7 +13,8 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import {smallPhone, medPhone, tabPort, res1023, tabLand, medDesktop, bigDesktop} from '../../responsive';
+import {smallPhone, res480, medPhone, tabPort, res1023, tabLand, medDesktop, bigDesktop} from '../../responsive';
+import CartItems from '../CartItems/CartItems';
 
 const ModalBackdrop = styled.div`
     display: ${props => props.openModal? "block" : "none"};
@@ -237,6 +238,7 @@ const Text = styled.div`
     display: flex;
     align-items: center;
     font-size: 2rem;
+    position: relative;
 
     &:hover{
         color: #9AAF8F;
@@ -489,10 +491,36 @@ const MobileMenuSocialContainer = styled.div`
     }
 `;
 
+const CartItemsDropDown = styled.div`
+    background-color: #f5f5f5;
+    position: absolute;
+    top: 50px;
+    width: 300px;
+    left: -200px;
+    display: ${props => props.status? "block" : "none"};
+    transition: all .5s ease-in;
+
+    ${res480({width: "250px", left: "-150px"})}
+`;
+
+const DropDownClose = styled.div`
+    width: 10%;
+    padding-right: 5px;
+    padding-top: 10px; 
+    margin-left: auto;
+    text-align: center;
+
+    &:hover{
+        color: red;
+    }
+`;
+
+
 const Navbar = () =>{
     const [tabNo, setTabNo] = useState(1);
     const [modal, setModal] = useState(false);
     const [menuState, setMenuState] = useState("closed");
+    const [dropDownState, setDropDown] = useState(false);
 
     let isProfileClicked = false;
 
@@ -508,6 +536,10 @@ const Navbar = () =>{
     const toggleMobileMenu = (currState) => {
         setMenuState(currState);
     }
+
+    const toggleDropDown = (currState) => {
+        setDropDown(!currState);
+    };
 
     return (
         <>
@@ -664,8 +696,15 @@ const Navbar = () =>{
                         <CartAndLogin>
                             <Text>
                                 <Badge badgeContent={4} color="success" style={{fontSize: "1.5rem"}}>
-                                    <ShoppingCartOutlinedIcon style={{fontSize: 25, color: "#7E8485"}}/> 
+                                    <ShoppingCartOutlinedIcon style={{fontSize: 25, color: "#7E8485"}} onClick={() => toggleDropDown(dropDownState)}/> 
                                 </Badge>
+
+                                <CartItemsDropDown status={dropDownState}>
+                                    <DropDownClose onClick={() => toggleDropDown(dropDownState)}>
+                                        <CloseIcon style={{fontSize: 15}}/>
+                                    </DropDownClose>
+                                    <CartItems dropdown/>
+                                </CartItemsDropDown>
                             </Text>
                             <Text onClick={switchModal} active={isProfileClicked? true : false}>
                                 <AccountBoxOutlinedIcon style={{fontSize: 25, marginLeft: 20}}/>

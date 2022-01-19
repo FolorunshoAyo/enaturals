@@ -22,12 +22,13 @@ const ProductsContainer = styled.div`
     display: flex;
     justify-content: space-between;
     padding: 5rem 8rem;
+    height: 550px;
 
     ${bigDesktop({width: "1200px", padding: "8rem 0rem", margin: "0 auto"})}
     ${medDesktop({width: "1200px", padding: "8rem 0rem", margin: "0 auto"})}
     ${tabLand({width: "85%", margin: "0 auto", padding: "4rem 0 0"})}
     ${res1023({width: "85%", margin: "0 auto", padding: "4rem 0 0"})}
-    ${res700({width: "75%", flexWrap: "wrap"})}
+    ${res700({width: "75%", flexWrap: "wrap", height: "auto"})}
     ${medPhone({width: "90%"})}
     ${smallPhone({flexDirection: "column", flexWrap: "nowrap"})}
 `;
