@@ -15,6 +15,8 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import {smallPhone, res480, medPhone, tabPort, res1023, tabLand, medDesktop, bigDesktop} from '../../responsive';
 import CartItems from '../CartItems/CartItems';
+import {NavLink} from 'react-router-dom';
+import './Navbar.css';
 
 const ModalBackdrop = styled.div`
     display: ${props => props.openModal? "block" : "none"};
@@ -317,16 +319,8 @@ const NavItem = styled.div`
     padding: 0 1rem;
     font-size: 1.5rem;
     cursor: pointer;
-
-    &:hover{
-        color: #fff;
-    }
-`;
-
-const NavLink = styled.p `
     text-transform: uppercase;
 `;
-
 
 const MenuBarContainer = styled.div`
     flex: 0 0 10%;
@@ -718,22 +712,55 @@ const Navbar = () =>{
                     </NavLogoContainer>
                     <NavMenu>
                         <NavItem>
-                            <NavLink>Home</NavLink>
+                            <NavLink to="/" 
+                            className="navbar-item"
+                            activeClassName="isActive"
+                            >
+                                Home
+                            </NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink>About us</NavLink>
+                            <NavLink to="/aboutus" 
+                            className="navbar-item"
+                            activeClassName="isActive"
+                            >
+                                About us
+                            </NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink>Shop</NavLink>
+                            <NavLink to="/shop" 
+                            className="navbar-item"
+                            activeClassName="isActive"
+                            >
+                                Shop
+                            </NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink>Blog</NavLink>
+                            <NavLink 
+                            to="/blog" 
+                            className="navbar-item"
+                            activeClassName="isActive"
+                            >
+                                Blog
+                            </NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink>Gallery</NavLink>
+                            <NavLink 
+                            to="/gallery" 
+                            className="navbar-item"
+                            activeClassName="isActive"
+                            >
+                                Gallery
+                            </NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink>Reviews</NavLink>
+                            <NavLink 
+                            to="/reviews"
+                            className="navbar-item"
+                            activeClassName="isActive"
+                            >
+                                Reviews
+                            </NavLink>
                         </NavItem>
                     </NavMenu>
                     <MenuBarContainer>
