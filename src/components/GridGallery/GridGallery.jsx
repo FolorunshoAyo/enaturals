@@ -115,7 +115,7 @@ const GridGallery = () => {
                 <FilterButtons>
                     <FilterButton active={activeTag === 'all'? true : false} onClick={() => filterItem("all")}>Filter - All</FilterButton>
                     <FilterButton active={activeTag === 'skin care'? true : false} onClick={() => filterItem("skin care")}>Skin Care</FilterButton>
-                    <FilterButton active={activeTag === 'natural soap'? true : false} onClick={() => filterItem("natural soap")}>Natural Soap</FilterButton>
+                    <FilterButton active={activeTag === 'natural soap'? true : false} onClick={() => filterItem("results")}>Results</FilterButton>
                 </FilterButtons>
                 <SRLWrapper options={options}>
                     <ImagesGrid>    

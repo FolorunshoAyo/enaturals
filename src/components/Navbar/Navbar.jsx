@@ -233,9 +233,8 @@ const CartAndLogin = styled.div`
     justify-content: flex-end;
 `;
 
-const Text = styled.div`
+const Wrap = styled.div`
     color: ${props => props.active? '#9AAF8F' : '#7E8485'};
-    cursor: pointer;
     text-transform: uppercase;
     display: flex;
     align-items: center;
@@ -318,7 +317,6 @@ const NavMenu = styled.div`
 const NavItem = styled.div`
     padding: 0 1rem;
     font-size: 1.5rem;
-    cursor: pointer;
     text-transform: uppercase;
 `;
 
@@ -550,22 +548,64 @@ const Navbar = () =>{
                     <MobileMenuNav>
                         <MobileMenuLinks>
                             <MobileMenuItem>
-                                <MobileMenuLink>Home</MobileMenuLink>
+                                <MobileMenuLink onClick={() => toggleMobileMenu("closed")}>
+                                    <NavLink 
+                                    to="/"
+                                    className="navbar-item"
+                                    >
+                                        Home
+                                    </NavLink>
+                                </MobileMenuLink>
                             </MobileMenuItem>
                             <MobileMenuItem>
-                                <MobileMenuLink>About us</MobileMenuLink>
+                                <MobileMenuLink onClick={() => toggleMobileMenu("closed")}>
+                                    <NavLink
+                                    to="/aboutus"
+                                    className="navbar-item"
+                                    >
+                                        About us
+                                    </NavLink>
+                                </MobileMenuLink>
                             </MobileMenuItem>
                             <MobileMenuItem>
-                                <MobileMenuLink>Shop</MobileMenuLink>
+                                <MobileMenuLink onClick={() => toggleMobileMenu("closed")}>
+                                    <NavLink
+                                    to="/shop"
+                                    className="navbar-item"
+                                    >
+                                        Shop
+                                    </NavLink>
+                                </MobileMenuLink>
                             </MobileMenuItem>
                             <MobileMenuItem>
-                                <MobileMenuLink>Blog</MobileMenuLink>
+                                <MobileMenuLink onClick={() => toggleMobileMenu("closed")}>
+                                    <NavLink
+                                    to="/blog"
+                                    className="navbar-item"
+                                    >
+                                        Blog
+                                    </NavLink>
+                                </MobileMenuLink>
                             </MobileMenuItem>
                             <MobileMenuItem>
-                                <MobileMenuLink>Gallery</MobileMenuLink>
+                                <MobileMenuLink onClick={() => toggleMobileMenu("closed")}>
+                                    <NavLink
+                                    to="/gallery"
+                                    className="navbar-item"
+                                    >
+                                        Gallery
+                                    </NavLink>
+                                </MobileMenuLink>
                             </MobileMenuItem>
                             <MobileMenuItem>
-                                <MobileMenuLink>Reviews</MobileMenuLink>
+                            <MobileMenuLink onClick={() => toggleMobileMenu("closed")}>
+                                    <NavLink
+                                    to="/reviews"
+                                    className="navbar-item"
+                                    >
+                                        Reviews
+                                    </NavLink>
+                                </MobileMenuLink>
                             </MobileMenuItem>
                         </MobileMenuLinks>
                     </MobileMenuNav>
@@ -688,9 +728,9 @@ const Navbar = () =>{
                             <LogoImg src={logo} alt="Logo" />
                         </LogoContainer>
                         <CartAndLogin>
-                            <Text>
-                                <Badge badgeContent={4} color="success" style={{fontSize: "1.5rem"}}>
-                                    <ShoppingCartOutlinedIcon style={{fontSize: 25, color: "#7E8485"}} onClick={() => toggleDropDown(dropDownState)}/> 
+                            <Wrap>
+                                <Badge badgeContent={4} color="success" className="cartBadge">
+                                    <ShoppingCartOutlinedIcon style={{fontSize: 25, color: "#7E8485"}} className="navIcon" onClick={() => toggleDropDown(dropDownState)}/> 
                                 </Badge>
 
                                 <CartItemsDropDown status={dropDownState}>
@@ -699,10 +739,10 @@ const Navbar = () =>{
                                     </DropDownClose>
                                     <CartItems dropdown/>
                                 </CartItemsDropDown>
-                            </Text>
-                            <Text onClick={switchModal} active={isProfileClicked? true : false}>
-                                <AccountBoxOutlinedIcon style={{fontSize: 25, marginLeft: 20}}/>
-                            </Text>
+                            </Wrap>
+                            <Wrap active={isProfileClicked? true : false}>
+                                <AccountBoxOutlinedIcon style={{fontSize: 25, marginLeft: 20}} className="navIcon" onClick={switchModal}/>
+                            </Wrap>
                         </CartAndLogin>
                     </Row>
                 </RowContainer>
@@ -714,7 +754,6 @@ const Navbar = () =>{
                         <NavItem>
                             <NavLink to="/" 
                             className="navbar-item"
-                            activeClassName="isActive"
                             >
                                 Home
                             </NavLink>
@@ -722,7 +761,6 @@ const Navbar = () =>{
                         <NavItem>
                             <NavLink to="/aboutus" 
                             className="navbar-item"
-                            activeClassName="isActive"
                             >
                                 About us
                             </NavLink>
@@ -730,7 +768,6 @@ const Navbar = () =>{
                         <NavItem>
                             <NavLink to="/shop" 
                             className="navbar-item"
-                            activeClassName="isActive"
                             >
                                 Shop
                             </NavLink>
@@ -739,7 +776,6 @@ const Navbar = () =>{
                             <NavLink 
                             to="/blog" 
                             className="navbar-item"
-                            activeClassName="isActive"
                             >
                                 Blog
                             </NavLink>
@@ -748,7 +784,6 @@ const Navbar = () =>{
                             <NavLink 
                             to="/gallery" 
                             className="navbar-item"
-                            activeClassName="isActive"
                             >
                                 Gallery
                             </NavLink>
@@ -757,7 +792,6 @@ const Navbar = () =>{
                             <NavLink 
                             to="/reviews"
                             className="navbar-item"
-                            activeClassName="isActive"
                             >
                                 Reviews
                             </NavLink>

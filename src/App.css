@@ -1,0 +1,36 @@
+.btn-banner-link{
+    text-decoration: none;
+    color: #B092B0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    transition: all .3s;
+}
+
+.btn-banner-link:hover{
+    background-color: #B092B0;
+    color: #fff;
+}
+
+.btn-skincarekits-link{
+    text-decoration: none;
+    color: #B092B0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 1.6rem 3.2rem;
+    transition: all .3s;
+}
+
+.btn-skincarekits-link:hover{
+    color: #fff;
+    background-color: #B092B0;
+}
+
+.majorLink-btn{
+    padding: 16px 32.5px;
+    display: block;
+    text-decoration: none;
+    color: #fff;
+}

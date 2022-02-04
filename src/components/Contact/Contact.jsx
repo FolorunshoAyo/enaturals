@@ -129,7 +129,7 @@ const Contact = () => {
                     <ContactInfo>
                         <Title>contact us</Title>
                         <ContactDetails>
-                            <Address>129 SE Nehalem, Portland, OR 97202</Address>
+                            <Address>No.26, Teejay avenue Olumo Oreyo Ikorodu, Lagos</Address>
                             <Number>Call: +234 70 878 571 41</Number>
                             <Email>Email: info@enaturals.com</Email>
                         </ContactDetails>

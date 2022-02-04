@@ -20,6 +20,7 @@ const CustomSwitch = ({children}) => {
         if(location.pathname === prevLoc){
             setPrevLoc('')
         }
+        window.scrollTo(0, 0)
      }, [location]);
   
      useEffect(() => {

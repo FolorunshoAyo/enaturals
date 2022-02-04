@@ -3,7 +3,7 @@ export const sliderItems = [
         id: 1,
         img: "../enaturals/enaturals5.jpg",
         title: "Let Your Real Beauty Glow",
-        desc: "With our collection of skin and face products"
+        desc: "With our collection of skin and face products lorem ipsum dollor askimet today yesterday and tomorrow is comiing, i dont wanna dissapoint"
     },
     {
         id: 2,
@@ -55,7 +55,8 @@ export const bannerInfo = {
     productName: "Whitening Oil",
     discountedAmount: 20,
     textSnippet: "bla bla my name is folorunsho and i love to make ends meet and work day in day out to provide for family at all times",
-    productImg: "enaturals/enaturals12-stripped.png"
+    productImg: "enaturals/enaturals12-stripped.png",
+    tag: "new arrival"
 };
 
 export const newProducts = [
@@ -269,43 +270,43 @@ export const galleryImages = [
     {
         id: 6,
         img: '../enaturals/enaturals7.jpg',
-        category: 'natural soap',
+        category: 'results',
         caption: 'molato soap'
     },
     {
         id: 7,
         img: '../enaturals/enaturals8.jpg',
-        category: 'natural soap',
+        category: 'results',
         caption: 'model with products'
     },
     {
         id: 8,
         img: '../enaturals/enaturals9.jpg',
-        category: 'natural soap',
+        category: 'results',
         caption: 'black soap'
     },
     {
         id: 9,
         img: '../enaturals/enaturals10.jpg',
-        category: 'natural soap',
+        category: 'results',
         caption: 'different products'
     },
     {
         id: 10,
         img: '../enaturals/enaturals11.jpg',
-        category: 'natural soap',
+        category: 'results',
         caption: 'tumeric face pack'
     },
     {
         id: 11,
         img: '../enaturals/enaturals12.jpg',
-        category: 'natural soap',
+        category: 'results',
         caption: 'whitening oil'
     },
     {
         id: 12,
         img: '../enaturals/enaturals13.jpg',
-        category: 'natural soap',
+        category: 'results',
         caption: 'enaturals logo'
     }
 ];

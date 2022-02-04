@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import SlickSlider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Link } from 'react-router-dom';
 import { sliderItems } from "../../data";
 import {medPhone, tabPort} from '../../responsive';
 
@@ -74,7 +75,6 @@ const Desc = styled.p`
 `;
 
 const Button = styled.button`
-    padding: 16px 32.5px;
     background-color: transparent;
     border: 2px solid #b8a398;
     text-transform: uppercase;
@@ -111,7 +111,7 @@ const Slider = () => {
                                 <Desc>
                                     {sliderItem.desc}
                                 </Desc>
-                                <Button>Shop Now</Button>
+                                <Button><Link to="/shop" className="majorLink-btn"> Shop Now </Link></Button>
                             </InfoContainer>
                         </InfoWrapper>
                     </Slide>

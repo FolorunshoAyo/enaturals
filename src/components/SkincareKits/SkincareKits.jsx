@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { kitImages } from "../../data";
 import {smallPhone, medPhone, res700} from '../../responsive';
+import {Link} from 'react-router-dom';
 
 const Container = styled.section`
     margin-bottom: 5rem;
@@ -68,7 +69,6 @@ const KitImage = styled.div`
 `;
 
 const Button = styled.button`
-    padding: 1.6rem 3.2rem;
     background-color: transparent;
     border: 2px solid #B092B0;
     text-transform: uppercase;
@@ -103,7 +103,7 @@ const SkincareKits = () => {
                              will often include additives to the soap for their 
                              healing, exfoliating and esthetic properties.
                             </KitDescription>
-                            <Button>Shop Products</Button>
+                            <Button><Link to="/shop" className="btn-skincarekits-link">Shop Products</Link></Button>
                         </KitInfo>
                     </KitInfoContainer>
                     <KitImage bg={kitImages.kitImg1}>
@@ -124,7 +124,7 @@ const SkincareKits = () => {
                                     aabaubscye buehue iufhead lablablabal 
                                     dhvsdvsdvsaudddcd scdadsvdv dogavg ad
                             </KitDescription>
-                            <Button>Shop Products</Button>
+                            <Button><Link to="/shop" className="btn-skincarekits-link">Shop Products</Link></Button>
                         </KitInfo>
                     </KitInfoContainer>
                 </SecondKit>

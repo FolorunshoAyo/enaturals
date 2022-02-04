@@ -106,7 +106,7 @@ const Services = () =>{
                         Truly Handmade
                     </ServiceTitle>
                     <ServiceDescription>
-                        Everything in our shop is made by hand and wuth great care
+                        Everything in our shop is made by hand and with great care
                     </ServiceDescription>
                 </ServiceInfo>
             </ServiceItem>
@@ -119,7 +119,7 @@ const Services = () =>{
                         100% Organic
                     </ServiceTitle>
                     <ServiceDescription>
-                        Everything in our shop is made by hand and wuth great care
+                        Everything in our shop is made by hand and with great care
                     </ServiceDescription>
                 </ServiceInfo>
             </ServiceItem>

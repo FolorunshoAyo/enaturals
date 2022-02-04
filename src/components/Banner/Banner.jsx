@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { bannerInfo } from '../../data';
 import {res700,tabPort, res1100} from '../../responsive';
+import {Link} from 'react-router-dom';
 
 const Container = styled.div`
     margin: 5rem 0 5rem;
@@ -85,7 +86,6 @@ const TextSnippet = styled.p`
 const Button = styled.button`
     width: 160px;
     height: 40px;
-    padding: 10px;
     background-color: transparent;
     border: 2px solid #B092B0;
     text-transform: uppercase;
@@ -94,11 +94,7 @@ const Button = styled.button`
     font-weight: 700;
     cursor: pointer;
     transition: all .3s;
-
-    &:hover{
-        background-color: #B092B0;
-        color: #fff;
-    }
+    overflow: hidden;
 `;
 
 const Banner = () => {
@@ -115,7 +111,7 @@ const Banner = () => {
                         <ProductName>{bannerInfo.productName}</ProductName>
                         <DiscountLabel>Up to {bannerInfo.discountedAmount}% off</DiscountLabel>
                         <TextSnippet>{bannerInfo.textSnippet}</TextSnippet>
-                        <Button>Shop Now →</Button>
+                        <Button><Link to="/shop" className="btn-banner-link">Shop Now →</Link></Button>
                     </ProductInfo>
                 </ProductInfoContainer>
             </BannerWrapper>
