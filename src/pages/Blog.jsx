@@ -1,16 +1,16 @@
 import React from 'react';
 import NavBar from '../components/Navbar/Navbar';
 import PageTitle from '../components/PageTitle/PageTitle';
-import BlogApp from '../compoonents/BlogApp/BlogApp';
+import AllBlogPosts from '../components/AllBlogPosts/AllBlogPosts';
 import Footer from '../components/Footer/Footer';
 
 
 const Blog = () => {
     return (
         <>
-        <Navbar />
-        <PageTitle title="Blog" pageLocation="Home | Blog" />
-        <BlogApp />
+        <NavBar />
+        <PageTitle title="All Posts" pageLocation="Home | Blog" />
+        <AllBlogPosts itemsPerPage={6}/>
         <Footer borderTop/>
         </>
     );

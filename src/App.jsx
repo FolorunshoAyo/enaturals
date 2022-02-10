@@ -1,9 +1,10 @@
 import React from 'react';
-import {Routes, Route} from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Shop from './pages/Shop';
 import Cart from './pages/Cart';
 import Product from './pages/Product';
+import Blog from './pages/Blog';
 import Gallery from './pages/Gallery';
 import AboutUs from './pages/AboutUs';
 import SingleTeam from './pages/SingleTeam';
@@ -19,6 +20,7 @@ const App = () => {
       <Route exact path="/shop" element={<Shop />} />
       <Route exact path="/cart" element={<Cart />} />
       <Route exact path="/product/:productid" element={<Product />} />
+      <Route exact path="/blog" element={<Blog />} />
       <Route exact path="/gallery" element={<Gallery />} />
       <Route exact path="/aboutus" element={<AboutUs />} />
       <Route exact path="/aboutus/:memberName" element={<SingleTeam />} />

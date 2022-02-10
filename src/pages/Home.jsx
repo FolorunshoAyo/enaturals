@@ -8,7 +8,7 @@ import Banner from '../components/Banner/Banner';
 import SkincareKits from '../components/SkincareKits/SkincareKits';
 import NewProducts from '../components/NewProducts/NewProducts';
 import Testimonials from '../components/Testimonials/Testimonials';
-import BlogPosts from '../components/BlogPosts/BlogPosts'
+import NewBlogPosts from '../components/NewBlogPosts/NewBlogPosts'
 import Contact from '../components/Contact/Contact';
 import Footer from '../components/Footer/Footer';
 
@@ -24,7 +24,7 @@ const Home = () => {
             <SkincareKits />
             <NewProducts />
             <Testimonials />
-            <BlogPosts />
+            <NewBlogPosts />
             <Contact />
             <Footer borderTop={false}/>
         </div>

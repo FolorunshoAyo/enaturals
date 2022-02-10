@@ -42,7 +42,7 @@ const Date = styled.span``;
 const Comment = styled.span``;
 
 
-const BlogPost = ({ blogImg, title, date}) => {
+const NewBlogPost = ({ blogImg, title, date}) => {
     return (
         <BlogCard>
             <BlogImg>
@@ -58,4 +58,4 @@ const BlogPost = ({ blogImg, title, date}) => {
     );
 }
 
-export default BlogPost;
+export default NewBlogPost;
