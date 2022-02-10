@@ -5,7 +5,7 @@
 }
 
 .paginationContainer > ul{
-    width: 40%;
+    width: 35%;
     list-style-type: none;
     display: flex;  
     justify-content: space-between;

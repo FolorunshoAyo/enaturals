@@ -12,6 +12,7 @@ import Checkout from './pages/Checkout';
 import CustomSwitch from './components/CustomSwitch/CustomSwitch';
 import PageNotFound from './pages/PageNotFound';
 import './App.css';
+import SingleBlogPost from './pages/SingleBlogPost';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
       <Route exact path="/cart" element={<Cart />} />
       <Route exact path="/product/:productid" element={<Product />} />
       <Route exact path="/blog" element={<Blog />} />
+      <Route exact path="/blog/:blogTitle" element={<SingleBlogPost />} />
       <Route exact path="/gallery" element={<Gallery />} />
       <Route exact path="/aboutus" element={<AboutUs />} />
       <Route exact path="/aboutus/:memberName" element={<SingleTeam />} />
