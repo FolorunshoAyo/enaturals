@@ -1,19 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import styled from 'styled-components';
 import { blogPosts } from '../../data';
-import BlogPosts from '../BlogPosts/BlogPosts';
 import './AllBlogPosts.css';
-import {res750} from '../../responsive';
-
-
-const BlogWrapper = styled.div`
-    padding: 9.5rem 0;
-
-    ${res750({padding: "6rem 0"})}
-`;
+import BlogPosts from '../BlogPosts/BlogPosts';
+import { ArrowForwardIos } from '@mui/icons-material';
+import { ArrowBackIos } from '@mui/icons-material';
 
 const AllBlogPosts = ({ itemsPerPage }) => {
   const [posts, setCurrentItems] = useState(blogPosts);
@@ -29,25 +20,24 @@ const AllBlogPosts = ({ itemsPerPage }) => {
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % blogPosts.length;
     setItemOffset(newOffset);
-    window.scrollTo(0, 350);
   };
 
   return (
-    <BlogWrapper>
+    <div className="blogWrapper">
         <BlogPosts posts={posts} />
         <div className="paginationContainer">
             <ReactPaginate
-            nextLabel={<ArrowForwardIosIcon />}
+            nextLabel={<ArrowForwardIos className="paginationIcon"/>}
             breakLabel="..."
             onPageChange={handlePageClick}
             pageRangeDisplayed={5}
             pageCount={pageCount}
-            previousLabel={<ArrowBackIosIcon />}
+            previousLabel={<ArrowBackIos className="paginationIcon"/>}
             containerClassName={'reviewPagination'}
             activeClassName={'active'}
             />
         </div>
-    </BlogWrapper>
+    </div>
   );
 }
 

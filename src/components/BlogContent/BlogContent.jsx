@@ -6,6 +6,7 @@ import Twitter from "@mui/icons-material/Twitter";
 import Facebook from "@mui/icons-material/Facebook";
 import { Search, WhatsappOutlined } from "@mui/icons-material";
 import Instagram from "@mui/icons-material/Instagram";
+import {res480, medPhone, res700,tabPort, res1023, bigDesktop} from '../../responsive';
 
 const BlogContentWrapper = styled.section`
   padding: 5rem 0;
@@ -15,25 +16,39 @@ const BlogContentContainer = styled.div`
   width: 85%;
   margin: 0 auto;
   display: flex;
+
+  ${res1023({width: "70%", flexDirection: "column"})}
+  ${tabPort({width: "90%"})}
+  ${res700({width: "75%"})}
+  ${medPhone({width: "90%"})}
+  ${bigDesktop({width: "1440px"})}
 `;
 
 const BlogPostContent = styled.article`
   flex: 2;
   margin-right: 40px;
+
+  ${res1023({flex: "initial", marginRight: "0px", marginBottom: "50px"})}
 `;
 
 // Height of BlogPost should be 1030px
 const BlogPost = styled.div`
-  height: auto; 
+  
 `;
 
 const BlogPostAttachmentContainer = styled.div`
   width: 100%;
-  height: 30%;
+  height: 400px;
+
+  ${res1023({height: "450px"})}
+  ${res700({height: "300px"})}
 `;
 
 const Sidebar = styled.div`
   flex: 1;
+
+  ${res1023({display: "flex", flexFlow: "row wrap", justifyContent: "space-between"})}
+  ${res700({flexFlow: "column nowrap", justifyContent: "flex-start"})}
 `;
 
 const BlogPostImg = styled.img`
@@ -43,30 +58,41 @@ const BlogPostImg = styled.img`
 
 const PostMeta = styled.div`
   margin: 3.5rem 0 2rem;
-  font-family: Lato, sans-serif; 
   color: #ABB0B2;
   font-size: 13px;
+  font-weight: 300;
+
+  ${res480({display: "flex", flexDirection: "column"})}
 `;
 
 const PostMetaCateg = styled.span`
+  font-style: italic;
+  font-family: Lato,sans-serif; 
+
   &::after{
     content: "|";
-    margin: 0 25px;
+    font-style: normal;
+    margin: 0 20px;
+    ${res480({display: "none"})}
   }
 `;
 
 const PostMetaDate = styled.span`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-style: italic;
+  font-family: Lato,sans-serif; 
 
   &::after{
     content: "|";
-    margin: 0 25px;
+    font-style: normal;
+    margin: 0 20px;
+    ${res480({display: "none"})}
   }
 `;
 
-const PostCommentsCount = styled.span``;
+const PostCommentsCount = styled.span`
+  font-style: italic;
+  font-family: Lato,sans-serif; 
+`;
 
 
 const BlogBody = styled.div`
@@ -77,25 +103,38 @@ const BlogBody = styled.div`
 
 const Paragraph = styled.p`
   margin-bottom: 3.5rem;
+  font-family: Lato,sans-serif;
 `;
 
 const ShareContainer = styled.div`
-  text-align: end;
+  display: flex;
+  flex-direction: row-reverse;
+
+  ${res700({flexDirection: "row"})}
 `; 
 
 const Icons = styled.div`
-  display: inline-block;
+  display: flex;
+  align-items: center;
 `;
 
 const IconContainer = styled.div`
-  display: inline-block;
-  width: 40px;
-  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   color: #fff;
+  background-color: #acbfa3;
+  transition: all .5s;
+
+  &:hover{
+    background-color: #b8a398;
+  }
 
   &:not(:last-child){
-    margin-right: 10px;
+    margin: 0 5px;
   }
 `;
 
@@ -109,39 +148,50 @@ const RelatedTitle = styled.h3`
   font-size: 3rem;
   font-weight: 300;
   text-transform: uppercase;
-  margin-bottom:
+  margin-bottom: 4rem;
 `;
 
 const RelatedBlogPosts = styled.div`
   display: flex;
   justify-content: space-between;
+
+  ${res700({flexDirection: "column", justifyContent: "flex-start"})}
 `;
 
 const RelatedBlog = styled.div`
   flex: 0 0 48%;
+
+  &:not(:last-child){
+    ${res700({marginBottom: "20px"})}
+  }
+
+  ${res700({flex: "initial"})}
 `;
 
 const RelatedBlogImg = styled.img`
   width: 100%;
   height: 160px;
   margin-bottom: 10px;
+
+  ${res1023({height: "180px"})}
 `;
 
 const RelatedPostHeader = styled.div`
   text-align: center;
+  font-size: 1.5rem;
   display: flex;
   flex-direction: column;
 `;
 
 const RelatedPostDate = styled.span`
   color: #ACBFA3;
-  font-size: 1.2rem;
   font-family: Lato, sans-serif;
 `;
 
 const RelatedPostTitle = styled.span`
-  font-size: 1.5rem;
   color: #4b5354;
+  text-transform: uppercase;
+  font-weight: 300;
 `; 
 
 const CommentsFormWrap = styled.div`
@@ -151,13 +201,17 @@ const CommentsFormWrap = styled.div`
 `;
 
 const CommentFormTitle = styled.h4`
+  font-size: 2.5rem;
+  text-transform: uppercase;
   margin-bottom: 3.5rem;
-  collor: #4B5354;
+  color: #4B5354;
   font-weight: 300;
 `;
 
 const CommentForm = styled.form`
-  width: 70%;
+  width: 60%;
+
+  ${res700({width: "100%"})}
 `;
 
 const CommentFields = styled.div`
@@ -165,22 +219,38 @@ const CommentFields = styled.div`
 `;
 
 const CommentField = styled.div`
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 `;
 
 const Input = styled.input`
   padding: 20px 26px;
   border: none;
   width: 100%;
+  font-family: Lato,sans-serif;
   border-bottom: 2px solid #bdc0c0;
+  transition: all .5s ease;
+  
+  &:focus{
+    outline: none;
+    border-bottom: 2px solid #000;
+  }
 `; 
 
 
 const TextArea = styled.textarea`
   padding: 20px 26px;
   border: none;
+  width: 100%;
+  font-family: Lato,sans-serif;
   border-bottom: 2px solid #bdc0c0;
   height: 100px;
+  resize: none;
+  transition: all .5s ease;
+
+  &:focus{
+    outline: none;
+    border-bottom: 2px solid #000;
+  }
 `;
 
 const CommentFormCheckBox = styled.p`
@@ -190,27 +260,46 @@ const CommentFormCheckBox = styled.p`
 const CheckBoxLabel = styled.label`
   display: flex;
   align-items: center;
+  font-size: 1.3rem;
+  line-height: 1.4;
+  color: #7E8485;
+  font-family: Lato,sans-serif;
 `;
 
 const CheckBox = styled.input`
-  margin-right: 20px;
+  margin-right: 10px;
 `;
 
 const CommentBtnContainer = styled.div`
   padding: 2rem 0;
   text-align: end;
+
+  ${res480({textAlign: "left"})}
 `;
 
 const CommentBtn = styled.button`
-  padding: 2rem 4rem;
+  padding: 1.5rem 3rem;
+  background-color: transparent;
   border: 2px solid #b8a398;
   text-transform: uppercase;
-  font-size: 2rem; 
+  font-size: 1.5rem; 
+  cursor: pointer;
+  color: #b8a398;
+  transition: all .5s ease;
+
+  ${res480({width: "100%"})}
+  &:hover{
+    background-color: #b8a398;
+    color: #fff;
+  }
 `;
 
 const SearchWidget = styled.aside`
   background-color: #b8a398;
   padding-bottom: 4.5rem;
+
+  ${res1023({flex: "0 0 48%", alignSelf: "flex-start"})}
+  ${res700({flex: "initial", marginBottom: "20px", alignSelf: "initial"})}
 `;
 
 const SearchWidgetTitle = styled.h3`
@@ -261,6 +350,9 @@ const Widget = styled.div`
   background-color: #f2eeec;
   margin-top: 2.5rem;
   padding-bottom: 4.5rem;
+
+  ${res1023({flex: "0 0 48%", marginTop: "0", marginBottom: "20px", alignSelf: "flex-start"})}
+  ${res700({flex: "initial", marginBottom: "20px", alignSelf: "initial"})}
 `;
 
 const WidgetTitle = styled.h5`
@@ -394,32 +486,32 @@ const BlogContent = () => {
               />
             </BlogPostAttachmentContainer>
             <PostMeta>
-              <PostMetaCateg>Spa procedures</PostMetaCateg>
+              <PostMetaCateg>Spa Procedures</PostMetaCateg>
               <PostMetaDate>
-                <AccessAlarmIcon style={{fontSize: 10, color: "#b8a398", marginRight: "10px"}}/>
+                <AccessAlarmIcon style={{fontSize: 12, color: "#b8a398", marginRight: "10px", verticalAlign: "middle"}}/>
                 Semptember 30, 2019
               </PostMetaDate>
               <PostCommentsCount>
-                <ChatBubbleOutlineIcon style={{fontSize: 10, color: "#b8a398", marginRight: "10px"}}/> 0 Comments
+                <ChatBubbleOutlineIcon style={{fontSize: 12, color: "#b8a398", marginRight: "10px", verticalAlign: "middle"}}/> 0 Comments
               </PostCommentsCount>
             </PostMeta>
             <BlogBody>
               {insertParagraphs(3, "HelloThere MyNameIs Folorunhso")}
 
               <ShareContainer>
-                Share:
                 <Icons>
+                  Share:
                   <IconContainer>
-                    <Twitter style={{margin: "0 auto"}}/>
+                    <Twitter style={{fontSize: 15}}/>
                   </IconContainer>
                   <IconContainer>
-                    <Facebook style={{margin: "0 auto"}}/>
+                    <Facebook style={{fontSize: 15}}/>
                   </IconContainer>
                   <IconContainer>
-                    <Instagram style={{margin: "0 auto"}}/>
+                    <Instagram style={{fontSize: 15}}/>
                   </IconContainer>
                   <IconContainer>
-                    <WhatsappOutlined style={{margin: "0 auto"}}/>
+                    <WhatsappOutlined style={{fontSize: 15}}/>
                   </IconContainer>
                 </Icons>
               </ShareContainer>
@@ -528,14 +620,14 @@ const BlogContent = () => {
             <WidgetTitle>Comments</WidgetTitle>
             <RecentComments>
               <CommentItem>
-                <ChatBubbleOutlineIcon style={{fontSize: 25,color: "#b8a398", alignSelf: "flex-start"}}/>
+                <ChatBubbleOutlineIcon style={{fontSize: 25, color: "#b8a398", marginRight: "10px", alignSelf: "flex-start"}}/>
                 <CommentInfo>
                   <Commenter>Adam Brown on</Commenter>
                   <CommentedIn>Best Oils for skin moisturizing</CommentedIn>
                 </CommentInfo>
               </CommentItem>
               <CommentItem>
-              <ChatBubbleOutlineIcon style={{fontSize: 25,color: "#b8a398", alignSelf: "flex-start"}}/>
+              <ChatBubbleOutlineIcon style={{fontSize: 25,color: "#b8a398",marginRight: "10px", alignSelf: "flex-start"}}/>
                 <CommentInfo>
                   <Commenter>Adam Brown on</Commenter>
                   <CommentedIn>Best Oils for skin moisturizing</CommentedIn>

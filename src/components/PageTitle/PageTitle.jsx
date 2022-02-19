@@ -17,11 +17,11 @@ const TitleContainer = styled.div`
     transform: translate(-50%, -50%);
     text-align: center;
     color: #28272e;
-    width: 60%;
+    width: 80%;
 `;
 
-const Title = styled.h2`
-    font-size: 4.5rem;
+const Title = styled.h1`
+    font-size: 3.5rem;
     text-transform: uppercase;
     font-weight: 300;
     padding: 2rem 0;
