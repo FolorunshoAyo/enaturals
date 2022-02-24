@@ -3,10 +3,13 @@ import styled from 'styled-components';
 import { states } from '../../data';
 import './datalist.css';
 import ReactHtmlDatalist from 'react-html-datalist';
+import { res750, res860, smallPhone } from "../../responsive";
 
 const PaymentContainer = styled.section`
-    padding: 15rem 10rem;
+    padding: 5rem 10rem;
     color: #7E8485;
+
+    ${res860({padding: "5rem"})}
 `;
 
 const PaymentWrapper = styled.div``;
@@ -14,10 +17,14 @@ const PaymentWrapper = styled.div``;
 const PaymentMainForm = styled.form`
     display: flex;
     justify-content: space-between;
+
+    ${res750({flexDirection: "column", justifyContent: "flex-start"})}
 `; 
 
 const BillingDetailsContainer = styled.div`
     flex: 0 0 48%;
+
+    ${res750({flex: "initial", marginBottom: "20px"})}
 `;
 
 const BillingDetails = styled.div`
@@ -26,6 +33,8 @@ const BillingDetails = styled.div`
 
 const AdditionalInformationContainer = styled.div`
     flex: 0 0 48%;
+
+    ${res750({flex: "initial"})}
 `;
 
 const AdditionalInformation = styled.div`
@@ -43,7 +52,7 @@ const Title = styled.h3`
 const NameContainer = styled.div`
     display: flex;  
     justify-content: space-between;
-    margin-bottom: 1rem;
+    margin-bottom: 30px;
 `;
 
 const Firstname = styled.div`
@@ -80,27 +89,27 @@ const Input = styled.input`
 `;
 
 const StreetAddress = styled.div`
-    margin-bottom: 1rem;
+    margin-bottom: 30px;
 `;
 
 const TownOrCity = styled.div`
-    margin-bottom: 1rem;
+    margin-bottom: 30px;
 `;
 
 const State = styled.div`
-    margin-bottom: 1rem;
+    margin-bottom: 30px;
 `;
 
 const Phone = styled.div`
-    margin-bottom: 1rem;
+    margin-bottom: 30px;
 `;
 
 const EmailAddress = styled.div`
-    margin-bottom: 1rem;
+    margin-bottom: 30px;
 `;
 
 const NoteContainer = styled.div`
-    margin-bottom: 1rem;
+    margin-bottom: 30px;
 
 `;
 
@@ -194,6 +203,8 @@ const PaymentOptionContainer = styled.div`
 `;
 
 const PaymentOption = styled.label`
+    display: flex;
+    align-items: center;
     font-family: Lato, sans-serif;
     font-size: 1.5rem;
 `;
@@ -208,7 +219,7 @@ const FlutterCaption = styled.span`
 `;
 
 const FlutterImage = styled.img`
-    width: 100px;
+    width: 50px;
     height: 30px;
     vertical-align: middle;
 `;
@@ -243,6 +254,7 @@ const Checkbox = styled.input`
 `;
 
 const SubmitButtonContainer = styled.div`
+    margin-top: 20px;
     text-align: end;
 `;
 
@@ -263,6 +275,8 @@ const SubmitButton = styled.input`
         color: #fff;
         background-color: #B8A398;
     }
+
+    ${smallPhone({padding: "10px 20px", borderWidth: "2px"})}
 `;
 
 

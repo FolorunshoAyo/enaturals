@@ -4,9 +4,9 @@ import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import Twitter from "@mui/icons-material/Twitter";
 import Facebook from "@mui/icons-material/Facebook";
-import { Search, WhatsappOutlined } from "@mui/icons-material";
+import { Search, WhatsappOutlined, Comment } from "@mui/icons-material";
 import Instagram from "@mui/icons-material/Instagram";
-import {res480, medPhone, res700,tabPort, res1023, bigDesktop} from '../../responsive';
+import {res480, medPhone, res700,tabPort, res1023, bigDesktop, smallPhone} from '../../responsive';
 
 const BlogContentWrapper = styled.section`
   padding: 5rem 0;
@@ -453,7 +453,7 @@ const CommentItem = styled.li`
 const CommentInfo = styled.div`
   display: flex;
   flex-direction: column;
-  font-family: Lato,sans-serif;
+  font-family: Lato, sans-serif;
   font-size: 13px;
 `;
 
@@ -465,6 +465,96 @@ const Commenter = styled.span`
 const CommentedIn = styled.span`
   color: #7E8485;
 `;
+
+const CommentSection = styled.div`
+  margin-top: 50px;
+  border-top: 1px solid #f4f5f5;
+  padding-top: 50px;
+`;
+
+const CommentTitle = styled.h4`
+  font-size: 2.5rem;
+  color: #4b5354;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+  font-weight: 300;
+
+  ${smallPhone({marginBottom: "10px"})}
+`;
+
+const CommentsContainer = styled.div`
+  padding: 10px 0;
+`;
+
+const CommentContainer = styled.div`
+  display: flex;
+
+  &:not(:last-child){
+    margin-bottom: 40px
+  }
+
+  ${smallPhone({flexDirection: "column"})}
+`;
+
+const CommenterImgContainer = styled.div`
+  flex: 0 0 78px;
+  height: 78px;
+  align-self: flex-start;
+  margin-right: 20px;
+
+  ${smallPhone({marginRight: "0px", marginBottom: "20px", flex: "initial"})}
+`;
+
+const CommenterImg = styled.img`
+  width: 100%;
+  height: 100%;
+
+  ${smallPhone({width: "78px", height: "78px"})}
+`;
+
+const CommentDetails = styled.div`
+  flex: 1;
+`;
+
+const CommentInformation = styled.div`
+  margin-bottom: 5px;
+  color: #ABB0B2;
+  font-weight: 300;
+  font-style: italic;
+`;
+
+const CommentAuthor = styled.h6`
+  display: inline-block;
+  font-size: 1.5rem;
+  font-weight: 300;
+  font-family: Lato, sans-serif;
+
+  ${smallPhone({display: "block", marginBottom: "5px"})}
+`;
+
+const CommentDate = styled.div`
+  display: inline-block;
+  font-size: 1.5rem;
+  font-family: Lato, sans-serif;
+
+  &::before{
+    content: "|";
+    font-style: normal;
+    margin: 0 40px;
+
+    ${smallPhone({display: "none"})}
+  }
+
+  ${smallPhone({display: "block"})}
+`;
+
+const UserComment = styled.p`
+  color: #7E8485;
+  font-size: 1.5rem;
+  font-weight: 400;
+  font-family: Lato, sans-serif;
+`;
+
 
 const BlogContent = () => {
   const insertParagraphs = (noOfParagraphs, preText) => {
@@ -536,6 +626,50 @@ const BlogContent = () => {
                   </RelatedBlog>
               </RelatedBlogPosts>
           </RelatedPosts>
+          <CommentSection>
+            <CommentTitle>1 Comments</CommentTitle>
+
+            <CommentsContainer>
+              <CommentContainer>
+                <CommenterImgContainer>
+                  <CommenterImg src="../enaturals/enaturals5.jpg" />
+                </CommenterImgContainer>
+                <CommentDetails>
+                  <CommentInformation>
+                    <CommentAuthor>Tijani Abimbola</CommentAuthor>
+                    <CommentDate> 
+                      <Comment style={{verticalAlign: "middle", fontSize: 15, marginRight: "10px", color: "#b8a398"}} />
+                      July 31st, 2017
+                     </CommentDate>
+                  </CommentInformation>
+                  <UserComment>
+                    Lorem ipsum dolor, askimet what the heck is going onn today, and i am not feeling to fine. I am still 
+                    doing quite well at coding. I don't even need to think at all. It's become unconcious competence. 
+                  </UserComment>
+                </CommentDetails>
+              </CommentContainer>
+
+              <CommentContainer>
+                <CommenterImgContainer>
+                  <CommenterImg src="../enaturals/enaturals5.jpg" />
+                </CommenterImgContainer>
+                <CommentDetails>
+                  <CommentInformation>
+                    <CommentAuthor>Tijani Abimbola</CommentAuthor>
+                    <CommentDate> 
+                      <Comment style={{verticalAlign: "middle", fontSize: 15, marginRight: "10px", color: "#b8a398"}} />
+                      July 31st, 2017
+                     </CommentDate>
+                  </CommentInformation>
+                  <UserComment>
+                    Lorem ipsum dolor, askimet what the heck is going onn today, and i am not feeling to fine. I am still 
+                    doing quite well at coding. I don't even need to think at all. It's become unconcious competence. 
+                  </UserComment>
+                </CommentDetails>
+              </CommentContainer>
+            </CommentsContainer>
+
+          </CommentSection>
           <CommentsFormWrap>
               <CommentFormTitle>Leave a comment</CommentFormTitle>
               <CommentForm>
@@ -598,7 +732,7 @@ const BlogContent = () => {
                   <PostDescTitle>Types of relaxing Massage to make you happy</PostDescTitle>
                 </PostDesc>
                 <PostInfo>
-                  <PostInfoDate>Semptember 30, 2019</PostInfoDate> By <PostInfoPostedBy>Tijani Abimbola</PostInfoPostedBy>
+                  <PostInfoDate>Semptember 30, 2019</PostInfoDate> By <PostInfoPostedBy> Tijani Abimbola</PostInfoPostedBy>
                 </PostInfo>
               </PostItem>
             </PostItemContainer>

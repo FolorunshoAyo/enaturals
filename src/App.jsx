@@ -13,6 +13,7 @@ import CustomSwitch from './components/CustomSwitch/CustomSwitch';
 import PageNotFound from './pages/PageNotFound';
 import './App.css';
 import SingleBlogPost from './pages/SingleBlogPost';
+import Reviews from './pages/Reviews';
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
       <Route exact path="/blog" element={<Blog />} />
       <Route exact path="/blog/:blogTitle" element={<SingleBlogPost />} />
       <Route exact path="/gallery" element={<Gallery />} />
+      <Route exact path="/reviews" element={<Reviews />} />
       <Route exact path="/aboutus" element={<AboutUs />} />
       <Route exact path="/aboutus/:memberName" element={<SingleTeam />} />
       <Route exact path="/checkout" element={<Checkout />} />
