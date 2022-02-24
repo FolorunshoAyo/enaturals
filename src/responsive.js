@@ -3,17 +3,18 @@ import {css} from 'styled-components';
 
 // BREAKPOINTS
 /* 
-breakpoint-1: 1800px
-breakpoint-2: 1200px;
-breakpoint-3: 1100px;
-breakpoint-4: 1023px;
-breakpoint-5: 900px;
-breakpoint-6: 860px;
-breakpoint-7: 700px;
-breakpoint-8: 750px;
-breakpoint-9: 600px;
-breakpoint-10: 480px;
-breakpoint-11: 400px
+breakpoint-1: > 1800px;
+breakpoint-2: < 1800px;
+breakpoint-3: < 1200px;
+breakpoint-4: < 1100px;
+breakpoint-5: < 1023px;
+breakpoint-6: < 900px;
+breakpoint-7: < 860px;
+breakpoint-8: < 750px;
+breakpoint-9: < 700px;
+breakpoint-10: < 600px;
+breakpoint-11: < 480px;
+breakpoint-12: < 400px
 */
 
 // < 400px
