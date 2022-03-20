@@ -14,7 +14,8 @@ breakpoint-8: < 750px;
 breakpoint-9: < 700px;
 breakpoint-10: < 600px;
 breakpoint-11: < 480px;
-breakpoint-12: < 400px
+breakpoint-12: < 400px;
+
 */
 
 // < 400px

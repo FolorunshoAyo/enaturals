@@ -375,8 +375,7 @@ export const states = [
     "Cross River"
 ];
 
-
-export const blogPosts = [
+export const posts = [
     {
         id: 1,
         title: "Types of Relaxing Massage to Make You Happy",
@@ -384,42 +383,17 @@ export const blogPosts = [
         Condimentum erat penatibus, vestibulum donec. Velit lorem incidunt nibh commodo, arcu pretium in fusce sodales neque. Ipsum nunc volutpat congue morbi mi, eget arcu, semper vivamus amet. Lectus praesent blandit donec interdum sit. Ante ut integer venenatis, vel auctor a. Leo ante vestibulum vestibulum, ut nibh porttitor duis wisi fermentum, quam ultricies odio vel. Neque magna accumsan a lacus, ultrices erat taciti parturient metus. Diam leo ipsum auctor, quis amet ac, bibendum rhoncus dictum integer urna. Mi vestibulum neque orci wisi aliquam a. Fusce turpis illum a morbi. Reiciendis tortor sit aenean, velit nulla dignissim.
         Proin luctus, enim egestas, laoreet nec duis turpis ornare ut, et quam. Justo massa, ut commodo ligula animi leo, vestibulum morbi eu massa platea, neque rutrum hendrerit pellentesque pellentesque venenatis felis. Amet ultrices at felis curabitur, eget massa, felis massa eget, etiam aliquam blandit dis wisi eget posuere. Rutrum urna feugiat odio consectetuer porta, placerat feugiat blandit enim vel, quis wisi. Nec morbi volutpat urna, fugiat magna leo, a nam aenean nemo nullam auctor sem, fermentum nunc lacus et dui justo est, sapien tortor urna auctor.
         `,
-        tag: "skincare",
+        categories: [
+            "Oil",
+            "Research",
+            "Moisturizing"
+        ],
         photo: "../enaturals/enaturals5.jpg",
+        authorName: "Tijani Abmibola",
         status: "published",
         createTime: "9-22-2020",
         updateTime: "1-23-2021",
-        authorName: "Tijani Abmibola",
-        comments: [
-            {
-                id: 1,
-                name: "Shodiya Folorunsho",
-                email: "folorunshoayomide11@gmail.com",
-                comment: "Nice post 👏",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Damilola",
-                        email: "damilolashodiya@gmail.com",
-                        reply: "True talk man"
-                    }
-                ]
-            },
-            {
-                id: 2,
-                name: "Shodiya Damilola",
-                email: "damilolashodiya@gmail.com",
-                comment: "Thanks for the tip 😉",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Tolulope",
-                        email: "tolulopeshodiya46@gmail.com",
-                        reply: "This has literally saved my life"
-                    }
-                ]
-            }
-        ]
+        
     },
     {
         id: 2,
@@ -428,42 +402,17 @@ export const blogPosts = [
         Condimentum erat penatibus, vestibulum donec. Velit lorem incidunt nibh commodo, arcu pretium in fusce sodales neque. Ipsum nunc volutpat congue morbi mi, eget arcu, semper vivamus amet. Lectus praesent blandit donec interdum sit. Ante ut integer venenatis, vel auctor a. Leo ante vestibulum vestibulum, ut nibh porttitor duis wisi fermentum, quam ultricies odio vel. Neque magna accumsan a lacus, ultrices erat taciti parturient metus. Diam leo ipsum auctor, quis amet ac, bibendum rhoncus dictum integer urna. Mi vestibulum neque orci wisi aliquam a. Fusce turpis illum a morbi. Reiciendis tortor sit aenean, velit nulla dignissim.
         Proin luctus, enim egestas, laoreet nec duis turpis ornare ut, et quam. Justo massa, ut commodo ligula animi leo, vestibulum morbi eu massa platea, neque rutrum hendrerit pellentesque pellentesque venenatis felis. Amet ultrices at felis curabitur, eget massa, felis massa eget, etiam aliquam blandit dis wisi eget posuere. Rutrum urna feugiat odio consectetuer porta, placerat feugiat blandit enim vel, quis wisi. Nec morbi volutpat urna, fugiat magna leo, a nam aenean nemo nullam auctor sem, fermentum nunc lacus et dui justo est, sapien tortor urna auctor.
         `,
-        tag: "skincare",
+        categories: [
+            "Oil",
+            "Research",
+            "Moisturizing"
+        ],
         photo: "../enaturals/enaturals5.jpg",
+        authorName: "Tijani Abmibola",
         status: "published",
         createTime: "9-22-2020",
         updateTime: "1-23-2021",
-        authorName: "Tijani Abmibola",
-        comments: [
-            {
-                id: 1,
-                name: "Shodiya Folorunsho",
-                email: "folorunshoayomide11@gmail.com",
-                comment: "Nice post 👏",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Damilola",
-                        email: "damilolashodiya@gmail.com",
-                        reply: "True talk man"
-                    }
-                ]
-            },
-            {
-                id: 2,
-                name: "Shodiya Damilola",
-                email: "damilolashodiya@gmail.com",
-                comment: "Thanks for the tip 😉",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Tolulope",
-                        email: "tolulopeshodiya46@gmail.com",
-                        reply: "This has literally saved my life"
-                    }
-                ]
-            }
-        ]
+        
     },
     {
         id: 3,
@@ -472,42 +421,17 @@ export const blogPosts = [
         Condimentum erat penatibus, vestibulum donec. Velit lorem incidunt nibh commodo, arcu pretium in fusce sodales neque. Ipsum nunc volutpat congue morbi mi, eget arcu, semper vivamus amet. Lectus praesent blandit donec interdum sit. Ante ut integer venenatis, vel auctor a. Leo ante vestibulum vestibulum, ut nibh porttitor duis wisi fermentum, quam ultricies odio vel. Neque magna accumsan a lacus, ultrices erat taciti parturient metus. Diam leo ipsum auctor, quis amet ac, bibendum rhoncus dictum integer urna. Mi vestibulum neque orci wisi aliquam a. Fusce turpis illum a morbi. Reiciendis tortor sit aenean, velit nulla dignissim.
         Proin luctus, enim egestas, laoreet nec duis turpis ornare ut, et quam. Justo massa, ut commodo ligula animi leo, vestibulum morbi eu massa platea, neque rutrum hendrerit pellentesque pellentesque venenatis felis. Amet ultrices at felis curabitur, eget massa, felis massa eget, etiam aliquam blandit dis wisi eget posuere. Rutrum urna feugiat odio consectetuer porta, placerat feugiat blandit enim vel, quis wisi. Nec morbi volutpat urna, fugiat magna leo, a nam aenean nemo nullam auctor sem, fermentum nunc lacus et dui justo est, sapien tortor urna auctor.
         `,
-        tag: "skincare",
+        categories: [
+            "Oil",
+            "Research",
+            "Moisturizing"
+        ],
         photo: "../enaturals/enaturals5.jpg",
+        authorName: "Tijani Abmibola",
         status: "published",
         createTime: "9-22-2020",
         updateTime: "1-23-2021",
-        authorName: "Tijani Abmibola",
-        comments: [
-            {
-                id: 1,
-                name: "Shodiya Folorunsho",
-                email: "folorunshoayomide11@gmail.com",
-                comment: "Nice post 👏",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Damilola",
-                        email: "damilolashodiya@gmail.com",
-                        reply: "True talk man"
-                    }
-                ]
-            },
-            {
-                id: 2,
-                name: "Shodiya Damilola",
-                email: "damilolashodiya@gmail.com",
-                comment: "Thanks for the tip 😉",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Tolulope",
-                        email: "tolulopeshodiya46@gmail.com",
-                        reply: "This has literally saved my life"
-                    }
-                ]
-            }
-        ]
+        
     },
     {
         id: 4,
@@ -516,42 +440,17 @@ export const blogPosts = [
         Condimentum erat penatibus, vestibulum donec. Velit lorem incidunt nibh commodo, arcu pretium in fusce sodales neque. Ipsum nunc volutpat congue morbi mi, eget arcu, semper vivamus amet. Lectus praesent blandit donec interdum sit. Ante ut integer venenatis, vel auctor a. Leo ante vestibulum vestibulum, ut nibh porttitor duis wisi fermentum, quam ultricies odio vel. Neque magna accumsan a lacus, ultrices erat taciti parturient metus. Diam leo ipsum auctor, quis amet ac, bibendum rhoncus dictum integer urna. Mi vestibulum neque orci wisi aliquam a. Fusce turpis illum a morbi. Reiciendis tortor sit aenean, velit nulla dignissim.
         Proin luctus, enim egestas, laoreet nec duis turpis ornare ut, et quam. Justo massa, ut commodo ligula animi leo, vestibulum morbi eu massa platea, neque rutrum hendrerit pellentesque pellentesque venenatis felis. Amet ultrices at felis curabitur, eget massa, felis massa eget, etiam aliquam blandit dis wisi eget posuere. Rutrum urna feugiat odio consectetuer porta, placerat feugiat blandit enim vel, quis wisi. Nec morbi volutpat urna, fugiat magna leo, a nam aenean nemo nullam auctor sem, fermentum nunc lacus et dui justo est, sapien tortor urna auctor.
         `,
-        tag: "skincare",
+        categories: [
+            "Oil",
+            "Research",
+            "Moisturizing"
+        ],
         photo: "../enaturals/enaturals5.jpg",
+        authorName: "Tijani Abmibola",
         status: "published",
         createTime: "9-22-2020",
         updateTime: "1-23-2021",
-        authorName: "Tijani Abmibola",
-        comments: [
-            {
-                id: 1,
-                name: "Shodiya Folorunsho",
-                email: "folorunshoayomide11@gmail.com",
-                comment: "Nice post 👏",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Damilola",
-                        email: "damilolashodiya@gmail.com",
-                        reply: "True talk man"
-                    }
-                ]
-            },
-            {
-                id: 2,
-                name: "Shodiya Damilola",
-                email: "damilolashodiya@gmail.com",
-                comment: "Thanks for the tip 😉",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Tolulope",
-                        email: "tolulopeshodiya46@gmail.com",
-                        reply: "This has literally saved my life"
-                    }
-                ]
-            }
-        ]
+        
     },
     {
         id: 5,
@@ -560,42 +459,17 @@ export const blogPosts = [
         Condimentum erat penatibus, vestibulum donec. Velit lorem incidunt nibh commodo, arcu pretium in fusce sodales neque. Ipsum nunc volutpat congue morbi mi, eget arcu, semper vivamus amet. Lectus praesent blandit donec interdum sit. Ante ut integer venenatis, vel auctor a. Leo ante vestibulum vestibulum, ut nibh porttitor duis wisi fermentum, quam ultricies odio vel. Neque magna accumsan a lacus, ultrices erat taciti parturient metus. Diam leo ipsum auctor, quis amet ac, bibendum rhoncus dictum integer urna. Mi vestibulum neque orci wisi aliquam a. Fusce turpis illum a morbi. Reiciendis tortor sit aenean, velit nulla dignissim.
         Proin luctus, enim egestas, laoreet nec duis turpis ornare ut, et quam. Justo massa, ut commodo ligula animi leo, vestibulum morbi eu massa platea, neque rutrum hendrerit pellentesque pellentesque venenatis felis. Amet ultrices at felis curabitur, eget massa, felis massa eget, etiam aliquam blandit dis wisi eget posuere. Rutrum urna feugiat odio consectetuer porta, placerat feugiat blandit enim vel, quis wisi. Nec morbi volutpat urna, fugiat magna leo, a nam aenean nemo nullam auctor sem, fermentum nunc lacus et dui justo est, sapien tortor urna auctor.
         `,
-        tag: "skincare",
+        categories: [
+            "Oil",
+            "Research",
+            "Moisturizing"
+        ],
         photo: "../enaturals/enaturals5.jpg",
+        authorName: "Tijani Abmibola",
         status: "published",
         createTime: "9-22-2020",
         updateTime: "1-23-2021",
-        authorName: "Tijani Abmibola",
-        comments: [
-            {
-                id: 1,
-                name: "Shodiya Folorunsho",
-                email: "folorunshoayomide11@gmail.com",
-                comment: "Nice post 👏",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Damilola",
-                        email: "damilolashodiya@gmail.com",
-                        reply: "True talk man"
-                    }
-                ]
-            },
-            {
-                id: 2,
-                name: "Shodiya Damilola",
-                email: "damilolashodiya@gmail.com",
-                comment: "Thanks for the tip 😉",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Tolulope",
-                        email: "tolulopeshodiya46@gmail.com",
-                        reply: "This has literally saved my life"
-                    }
-                ]
-            }
-        ]
+        
     },
     {
         id: 6,
@@ -604,42 +478,17 @@ export const blogPosts = [
         Condimentum erat penatibus, vestibulum donec. Velit lorem incidunt nibh commodo, arcu pretium in fusce sodales neque. Ipsum nunc volutpat congue morbi mi, eget arcu, semper vivamus amet. Lectus praesent blandit donec interdum sit. Ante ut integer venenatis, vel auctor a. Leo ante vestibulum vestibulum, ut nibh porttitor duis wisi fermentum, quam ultricies odio vel. Neque magna accumsan a lacus, ultrices erat taciti parturient metus. Diam leo ipsum auctor, quis amet ac, bibendum rhoncus dictum integer urna. Mi vestibulum neque orci wisi aliquam a. Fusce turpis illum a morbi. Reiciendis tortor sit aenean, velit nulla dignissim.
         Proin luctus, enim egestas, laoreet nec duis turpis ornare ut, et quam. Justo massa, ut commodo ligula animi leo, vestibulum morbi eu massa platea, neque rutrum hendrerit pellentesque pellentesque venenatis felis. Amet ultrices at felis curabitur, eget massa, felis massa eget, etiam aliquam blandit dis wisi eget posuere. Rutrum urna feugiat odio consectetuer porta, placerat feugiat blandit enim vel, quis wisi. Nec morbi volutpat urna, fugiat magna leo, a nam aenean nemo nullam auctor sem, fermentum nunc lacus et dui justo est, sapien tortor urna auctor.
         `,
-        tag: "skincare",
+        categories: [
+            "Oil",
+            "Research",
+            "Moisturizing"
+        ],
         photo: "../enaturals/enaturals5.jpg",
+        authorName: "Tijani Abmibola",
         status: "published",
         createTime: "9-22-2020",
         updateTime: "1-23-2021",
-        authorName: "Tijani Abmibola",
-        comments: [
-            {
-                id: 1,
-                name: "Shodiya Folorunsho",
-                email: "folorunshoayomide11@gmail.com",
-                comment: "Nice post 👏",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Damilola",
-                        email: "damilolashodiya@gmail.com",
-                        reply: "True talk man"
-                    }
-                ]
-            },
-            {
-                id: 2,
-                name: "Shodiya Damilola",
-                email: "damilolashodiya@gmail.com",
-                comment: "Thanks for the tip 😉",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Tolulope",
-                        email: "tolulopeshodiya46@gmail.com",
-                        reply: "This has literally saved my life"
-                    }
-                ]
-            }
-        ]
+        
     },
     {
         id: 7,
@@ -648,42 +497,17 @@ export const blogPosts = [
         Condimentum erat penatibus, vestibulum donec. Velit lorem incidunt nibh commodo, arcu pretium in fusce sodales neque. Ipsum nunc volutpat congue morbi mi, eget arcu, semper vivamus amet. Lectus praesent blandit donec interdum sit. Ante ut integer venenatis, vel auctor a. Leo ante vestibulum vestibulum, ut nibh porttitor duis wisi fermentum, quam ultricies odio vel. Neque magna accumsan a lacus, ultrices erat taciti parturient metus. Diam leo ipsum auctor, quis amet ac, bibendum rhoncus dictum integer urna. Mi vestibulum neque orci wisi aliquam a. Fusce turpis illum a morbi. Reiciendis tortor sit aenean, velit nulla dignissim.
         Proin luctus, enim egestas, laoreet nec duis turpis ornare ut, et quam. Justo massa, ut commodo ligula animi leo, vestibulum morbi eu massa platea, neque rutrum hendrerit pellentesque pellentesque venenatis felis. Amet ultrices at felis curabitur, eget massa, felis massa eget, etiam aliquam blandit dis wisi eget posuere. Rutrum urna feugiat odio consectetuer porta, placerat feugiat blandit enim vel, quis wisi. Nec morbi volutpat urna, fugiat magna leo, a nam aenean nemo nullam auctor sem, fermentum nunc lacus et dui justo est, sapien tortor urna auctor.
         `,
-        tag: "skincare",
+        categories: [
+            "Oil",
+            "Research",
+            "Moisturizing"
+        ],
         photo: "../enaturals/enaturals5.jpg",
+        authorName: "Tijani Abmibola",
         status: "published",
         createTime: "9-22-2020",
         updateTime: "1-23-2021",
-        authorName: "Tijani Abmibola",
-        comments: [
-            {
-                id: 1,
-                name: "Shodiya Folorunsho",
-                email: "folorunshoayomide11@gmail.com",
-                comment: "Nice post 👏",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Damilola",
-                        email: "damilolashodiya@gmail.com",
-                        reply: "True talk man"
-                    }
-                ]
-            },
-            {
-                id: 2,
-                name: "Shodiya Damilola",
-                email: "damilolashodiya@gmail.com",
-                comment: "Thanks for the tip 😉",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Tolulope",
-                        email: "tolulopeshodiya46@gmail.com",
-                        reply: "This has literally saved my life"
-                    }
-                ]
-            }
-        ]
+        
     },
     {
         id: 8,
@@ -692,42 +516,17 @@ export const blogPosts = [
         Condimentum erat penatibus, vestibulum donec. Velit lorem incidunt nibh commodo, arcu pretium in fusce sodales neque. Ipsum nunc volutpat congue morbi mi, eget arcu, semper vivamus amet. Lectus praesent blandit donec interdum sit. Ante ut integer venenatis, vel auctor a. Leo ante vestibulum vestibulum, ut nibh porttitor duis wisi fermentum, quam ultricies odio vel. Neque magna accumsan a lacus, ultrices erat taciti parturient metus. Diam leo ipsum auctor, quis amet ac, bibendum rhoncus dictum integer urna. Mi vestibulum neque orci wisi aliquam a. Fusce turpis illum a morbi. Reiciendis tortor sit aenean, velit nulla dignissim.
         Proin luctus, enim egestas, laoreet nec duis turpis ornare ut, et quam. Justo massa, ut commodo ligula animi leo, vestibulum morbi eu massa platea, neque rutrum hendrerit pellentesque pellentesque venenatis felis. Amet ultrices at felis curabitur, eget massa, felis massa eget, etiam aliquam blandit dis wisi eget posuere. Rutrum urna feugiat odio consectetuer porta, placerat feugiat blandit enim vel, quis wisi. Nec morbi volutpat urna, fugiat magna leo, a nam aenean nemo nullam auctor sem, fermentum nunc lacus et dui justo est, sapien tortor urna auctor.
         `,
-        tag: "skincare",
+        categories: [
+            "Oil",
+            "Research",
+            "Moisturizing"
+        ],
         photo: "../enaturals/enaturals5.jpg",
+        authorName: "Tijani Abmibola",
         status: "published",
         createTime: "9-22-2020",
         updateTime: "1-23-2021",
-        authorName: "Tijani Abmibola",
-        comments: [
-            {
-                id: 1,
-                name: "Shodiya Folorunsho",
-                email: "folorunshoayomide11@gmail.com",
-                comment: "Nice post 👏",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Damilola",
-                        email: "damilolashodiya@gmail.com",
-                        reply: "True talk man"
-                    }
-                ]
-            },
-            {
-                id: 2,
-                name: "Shodiya Damilola",
-                email: "damilolashodiya@gmail.com",
-                comment: "Thanks for the tip 😉",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Tolulope",
-                        email: "tolulopeshodiya46@gmail.com",
-                        reply: "This has literally saved my life"
-                    }
-                ]
-            }
-        ]
+        
     },
     {
         id: 9,
@@ -736,42 +535,17 @@ export const blogPosts = [
         Condimentum erat penatibus, vestibulum donec. Velit lorem incidunt nibh commodo, arcu pretium in fusce sodales neque. Ipsum nunc volutpat congue morbi mi, eget arcu, semper vivamus amet. Lectus praesent blandit donec interdum sit. Ante ut integer venenatis, vel auctor a. Leo ante vestibulum vestibulum, ut nibh porttitor duis wisi fermentum, quam ultricies odio vel. Neque magna accumsan a lacus, ultrices erat taciti parturient metus. Diam leo ipsum auctor, quis amet ac, bibendum rhoncus dictum integer urna. Mi vestibulum neque orci wisi aliquam a. Fusce turpis illum a morbi. Reiciendis tortor sit aenean, velit nulla dignissim.
         Proin luctus, enim egestas, laoreet nec duis turpis ornare ut, et quam. Justo massa, ut commodo ligula animi leo, vestibulum morbi eu massa platea, neque rutrum hendrerit pellentesque pellentesque venenatis felis. Amet ultrices at felis curabitur, eget massa, felis massa eget, etiam aliquam blandit dis wisi eget posuere. Rutrum urna feugiat odio consectetuer porta, placerat feugiat blandit enim vel, quis wisi. Nec morbi volutpat urna, fugiat magna leo, a nam aenean nemo nullam auctor sem, fermentum nunc lacus et dui justo est, sapien tortor urna auctor.
         `,
-        tag: "skincare",
+        categories: [
+            "Oil",
+            "Research",
+            "Moisturizing"
+        ],
         photo: "../enaturals/enaturals9.jpg",
+        authorName: "Tijani Abmibola",
         status: "published",
         createTime: "9-22-2020",
         updateTime: "1-23-2021",
-        authorName: "Tijani Abmibola",
-        comments: [
-            {
-                id: 1,
-                name: "Shodiya Folorunsho",
-                email: "folorunshoayomide11@gmail.com",
-                comment: "Nice post 👏",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Damilola",
-                        email: "damilolashodiya@gmail.com",
-                        reply: "True talk man"
-                    }
-                ]
-            },
-            {
-                id: 2,
-                name: "Shodiya Damilola",
-                email: "damilolashodiya@gmail.com",
-                comment: "Thanks for the tip 😉",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Tolulope",
-                        email: "tolulopeshodiya46@gmail.com",
-                        reply: "This has literally saved my life"
-                    }
-                ]
-            }
-        ]
+        
     },
     {
         id: 10,
@@ -780,42 +554,17 @@ export const blogPosts = [
         Condimentum erat penatibus, vestibulum donec. Velit lorem incidunt nibh commodo, arcu pretium in fusce sodales neque. Ipsum nunc volutpat congue morbi mi, eget arcu, semper vivamus amet. Lectus praesent blandit donec interdum sit. Ante ut integer venenatis, vel auctor a. Leo ante vestibulum vestibulum, ut nibh porttitor duis wisi fermentum, quam ultricies odio vel. Neque magna accumsan a lacus, ultrices erat taciti parturient metus. Diam leo ipsum auctor, quis amet ac, bibendum rhoncus dictum integer urna. Mi vestibulum neque orci wisi aliquam a. Fusce turpis illum a morbi. Reiciendis tortor sit aenean, velit nulla dignissim.
         Proin luctus, enim egestas, laoreet nec duis turpis ornare ut, et quam. Justo massa, ut commodo ligula animi leo, vestibulum morbi eu massa platea, neque rutrum hendrerit pellentesque pellentesque venenatis felis. Amet ultrices at felis curabitur, eget massa, felis massa eget, etiam aliquam blandit dis wisi eget posuere. Rutrum urna feugiat odio consectetuer porta, placerat feugiat blandit enim vel, quis wisi. Nec morbi volutpat urna, fugiat magna leo, a nam aenean nemo nullam auctor sem, fermentum nunc lacus et dui justo est, sapien tortor urna auctor.
         `,
-        tag: "skincare",
+        categories: [
+            "Oil",
+            "Research",
+            "Moisturizing"
+        ],
         photo: "../enaturals/enaturals5.jpg",
+        authorName: "Tijani Abmibola",
         status: "published",
         createTime: "9-22-2020",
         updateTime: "1-23-2021",
-        authorName: "Tijani Abmibola",
-        comments: [
-            {
-                id: 1,
-                name: "Shodiya Folorunsho",
-                email: "folorunshoayomide11@gmail.com",
-                comment: "Nice post 👏",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Damilola",
-                        email: "damilolashodiya@gmail.com",
-                        reply: "True talk man"
-                    }
-                ]
-            },
-            {
-                id: 2,
-                name: "Shodiya Damilola",
-                email: "damilolashodiya@gmail.com",
-                comment: "Thanks for the tip 😉",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Tolulope",
-                        email: "tolulopeshodiya46@gmail.com",
-                        reply: "This has literally saved my life"
-                    }
-                ]
-            }
-        ]
+        
     },
     {
         id: 11,
@@ -824,42 +573,17 @@ export const blogPosts = [
         Condimentum erat penatibus, vestibulum donec. Velit lorem incidunt nibh commodo, arcu pretium in fusce sodales neque. Ipsum nunc volutpat congue morbi mi, eget arcu, semper vivamus amet. Lectus praesent blandit donec interdum sit. Ante ut integer venenatis, vel auctor a. Leo ante vestibulum vestibulum, ut nibh porttitor duis wisi fermentum, quam ultricies odio vel. Neque magna accumsan a lacus, ultrices erat taciti parturient metus. Diam leo ipsum auctor, quis amet ac, bibendum rhoncus dictum integer urna. Mi vestibulum neque orci wisi aliquam a. Fusce turpis illum a morbi. Reiciendis tortor sit aenean, velit nulla dignissim.
         Proin luctus, enim egestas, laoreet nec duis turpis ornare ut, et quam. Justo massa, ut commodo ligula animi leo, vestibulum morbi eu massa platea, neque rutrum hendrerit pellentesque pellentesque venenatis felis. Amet ultrices at felis curabitur, eget massa, felis massa eget, etiam aliquam blandit dis wisi eget posuere. Rutrum urna feugiat odio consectetuer porta, placerat feugiat blandit enim vel, quis wisi. Nec morbi volutpat urna, fugiat magna leo, a nam aenean nemo nullam auctor sem, fermentum nunc lacus et dui justo est, sapien tortor urna auctor.
         `,
-        tag: "skincare",
+        categories: [
+            "Oil",
+            "Research",
+            "Moisturizing"
+        ],
         photo: "../enaturals/enaturals5.jpg",
+        authorName: "Tijani Abmibola",
         status: "published",
         createTime: "9-22-2020",
         updateTime: "1-23-2021",
-        authorName: "Tijani Abmibola",
-        comments: [
-            {
-                id: 1,
-                name: "Shodiya Folorunsho",
-                email: "folorunshoayomide11@gmail.com",
-                comment: "Nice post 👏",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Damilola",
-                        email: "damilolashodiya@gmail.com",
-                        reply: "True talk man"
-                    }
-                ]
-            },
-            {
-                id: 2,
-                name: "Shodiya Damilola",
-                email: "damilolashodiya@gmail.com",
-                comment: "Thanks for the tip 😉",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Tolulope",
-                        email: "tolulopeshodiya46@gmail.com",
-                        reply: "This has literally saved my life"
-                    }
-                ]
-            }
-        ]
+        
     },
     {
         id: 12,
@@ -868,42 +592,17 @@ export const blogPosts = [
         Condimentum erat penatibus, vestibulum donec. Velit lorem incidunt nibh commodo, arcu pretium in fusce sodales neque. Ipsum nunc volutpat congue morbi mi, eget arcu, semper vivamus amet. Lectus praesent blandit donec interdum sit. Ante ut integer venenatis, vel auctor a. Leo ante vestibulum vestibulum, ut nibh porttitor duis wisi fermentum, quam ultricies odio vel. Neque magna accumsan a lacus, ultrices erat taciti parturient metus. Diam leo ipsum auctor, quis amet ac, bibendum rhoncus dictum integer urna. Mi vestibulum neque orci wisi aliquam a. Fusce turpis illum a morbi. Reiciendis tortor sit aenean, velit nulla dignissim.
         Proin luctus, enim egestas, laoreet nec duis turpis ornare ut, et quam. Justo massa, ut commodo ligula animi leo, vestibulum morbi eu massa platea, neque rutrum hendrerit pellentesque pellentesque venenatis felis. Amet ultrices at felis curabitur, eget massa, felis massa eget, etiam aliquam blandit dis wisi eget posuere. Rutrum urna feugiat odio consectetuer porta, placerat feugiat blandit enim vel, quis wisi. Nec morbi volutpat urna, fugiat magna leo, a nam aenean nemo nullam auctor sem, fermentum nunc lacus et dui justo est, sapien tortor urna auctor.
         `,
-        tag: "skincare",
+        categories: [
+            "Oil",
+            "Research",
+            "Moisturizing"
+        ],
         photo: "../enaturals/enaturals5.jpg",
+        authorName: "Tijani Abmibola",
         status: "published",
         createTime: "9-22-2020",
         updateTime: "1-23-2021",
-        authorName: "Tijani Abmibola",
-        comments: [
-            {
-                id: 1,
-                name: "Shodiya Folorunsho",
-                email: "folorunshoayomide11@gmail.com",
-                comment: "Nice post 👏",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Damilola",
-                        email: "damilolashodiya@gmail.com",
-                        reply: "True talk man"
-                    }
-                ]
-            },
-            {
-                id: 2,
-                name: "Shodiya Damilola",
-                email: "damilolashodiya@gmail.com",
-                comment: "Thanks for the tip 😉",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Tolulope",
-                        email: "tolulopeshodiya46@gmail.com",
-                        reply: "This has literally saved my life"
-                    }
-                ]
-            }
-        ]
+        
     },
     {
         id: 13,
@@ -912,42 +611,17 @@ export const blogPosts = [
         Condimentum erat penatibus, vestibulum donec. Velit lorem incidunt nibh commodo, arcu pretium in fusce sodales neque. Ipsum nunc volutpat congue morbi mi, eget arcu, semper vivamus amet. Lectus praesent blandit donec interdum sit. Ante ut integer venenatis, vel auctor a. Leo ante vestibulum vestibulum, ut nibh porttitor duis wisi fermentum, quam ultricies odio vel. Neque magna accumsan a lacus, ultrices erat taciti parturient metus. Diam leo ipsum auctor, quis amet ac, bibendum rhoncus dictum integer urna. Mi vestibulum neque orci wisi aliquam a. Fusce turpis illum a morbi. Reiciendis tortor sit aenean, velit nulla dignissim.
         Proin luctus, enim egestas, laoreet nec duis turpis ornare ut, et quam. Justo massa, ut commodo ligula animi leo, vestibulum morbi eu massa platea, neque rutrum hendrerit pellentesque pellentesque venenatis felis. Amet ultrices at felis curabitur, eget massa, felis massa eget, etiam aliquam blandit dis wisi eget posuere. Rutrum urna feugiat odio consectetuer porta, placerat feugiat blandit enim vel, quis wisi. Nec morbi volutpat urna, fugiat magna leo, a nam aenean nemo nullam auctor sem, fermentum nunc lacus et dui justo est, sapien tortor urna auctor.
         `,
-        tag: "skincare",
+        categories: [
+            "Oil",
+            "Research",
+            "Moisturizing"
+        ],
         photo: "../enaturals/enaturals5.jpg",
+        authorName: "Tijani Abmibola",
         status: "published",
         createTime: "9-22-2020",
         updateTime: "1-23-2021",
-        authorName: "Tijani Abmibola",
-        comments: [
-            {
-                id: 1,
-                name: "Shodiya Folorunsho",
-                email: "folorunshoayomide11@gmail.com",
-                comment: "Nice post 👏",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Damilola",
-                        email: "damilolashodiya@gmail.com",
-                        reply: "True talk man"
-                    }
-                ]
-            },
-            {
-                id: 2,
-                name: "Shodiya Damilola",
-                email: "damilolashodiya@gmail.com",
-                comment: "Thanks for the tip 😉",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Tolulope",
-                        email: "tolulopeshodiya46@gmail.com",
-                        reply: "This has literally saved my life"
-                    }
-                ]
-            }
-        ]
+        
     },
     {
         id: 14,
@@ -956,42 +630,17 @@ export const blogPosts = [
         Condimentum erat penatibus, vestibulum donec. Velit lorem incidunt nibh commodo, arcu pretium in fusce sodales neque. Ipsum nunc volutpat congue morbi mi, eget arcu, semper vivamus amet. Lectus praesent blandit donec interdum sit. Ante ut integer venenatis, vel auctor a. Leo ante vestibulum vestibulum, ut nibh porttitor duis wisi fermentum, quam ultricies odio vel. Neque magna accumsan a lacus, ultrices erat taciti parturient metus. Diam leo ipsum auctor, quis amet ac, bibendum rhoncus dictum integer urna. Mi vestibulum neque orci wisi aliquam a. Fusce turpis illum a morbi. Reiciendis tortor sit aenean, velit nulla dignissim.
         Proin luctus, enim egestas, laoreet nec duis turpis ornare ut, et quam. Justo massa, ut commodo ligula animi leo, vestibulum morbi eu massa platea, neque rutrum hendrerit pellentesque pellentesque venenatis felis. Amet ultrices at felis curabitur, eget massa, felis massa eget, etiam aliquam blandit dis wisi eget posuere. Rutrum urna feugiat odio consectetuer porta, placerat feugiat blandit enim vel, quis wisi. Nec morbi volutpat urna, fugiat magna leo, a nam aenean nemo nullam auctor sem, fermentum nunc lacus et dui justo est, sapien tortor urna auctor.
         `,
-        tag: "skincare",
+        categories: [
+            "Oil",
+            "Research",
+            "Moisturizing"
+        ],
         photo: "../enaturals/enaturals5.jpg",
+        authorName: "Tijani Abmibola",
         status: "published",
         createTime: "9-22-2020",
         updateTime: "1-23-2021",
-        authorName: "Tijani Abmibola",
-        comments: [
-            {
-                id: 1,
-                name: "Shodiya Folorunsho",
-                email: "folorunshoayomide11@gmail.com",
-                comment: "Nice post 👏",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Damilola",
-                        email: "damilolashodiya@gmail.com",
-                        reply: "True talk man"
-                    }
-                ]
-            },
-            {
-                id: 2,
-                name: "Shodiya Damilola",
-                email: "damilolashodiya@gmail.com",
-                comment: "Thanks for the tip 😉",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Tolulope",
-                        email: "tolulopeshodiya46@gmail.com",
-                        reply: "This has literally saved my life"
-                    }
-                ]
-            }
-        ]
+        
     },
     {
         id: 15,
@@ -1000,42 +649,17 @@ export const blogPosts = [
         Condimentum erat penatibus, vestibulum donec. Velit lorem incidunt nibh commodo, arcu pretium in fusce sodales neque. Ipsum nunc volutpat congue morbi mi, eget arcu, semper vivamus amet. Lectus praesent blandit donec interdum sit. Ante ut integer venenatis, vel auctor a. Leo ante vestibulum vestibulum, ut nibh porttitor duis wisi fermentum, quam ultricies odio vel. Neque magna accumsan a lacus, ultrices erat taciti parturient metus. Diam leo ipsum auctor, quis amet ac, bibendum rhoncus dictum integer urna. Mi vestibulum neque orci wisi aliquam a. Fusce turpis illum a morbi. Reiciendis tortor sit aenean, velit nulla dignissim.
         Proin luctus, enim egestas, laoreet nec duis turpis ornare ut, et quam. Justo massa, ut commodo ligula animi leo, vestibulum morbi eu massa platea, neque rutrum hendrerit pellentesque pellentesque venenatis felis. Amet ultrices at felis curabitur, eget massa, felis massa eget, etiam aliquam blandit dis wisi eget posuere. Rutrum urna feugiat odio consectetuer porta, placerat feugiat blandit enim vel, quis wisi. Nec morbi volutpat urna, fugiat magna leo, a nam aenean nemo nullam auctor sem, fermentum nunc lacus et dui justo est, sapien tortor urna auctor.
         `,
-        tag: "skincare",
+        categories: [
+            "Oil",
+            "Research",
+            "Moisturizing"
+        ],
         photo: "../enaturals/enaturals5.jpg",
+        authorName: "Tijani Abmibola",
         status: "published",
         createTime: "9-22-2020",
         updateTime: "1-23-2021",
-        authorName: "Tijani Abmibola",
-        comments: [
-            {
-                id: 1,
-                name: "Shodiya Folorunsho",
-                email: "folorunshoayomide11@gmail.com",
-                comment: "Nice post 👏",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Damilola",
-                        email: "damilolashodiya@gmail.com",
-                        reply: "True talk man"
-                    }
-                ]
-            },
-            {
-                id: 2,
-                name: "Shodiya Damilola",
-                email: "damilolashodiya@gmail.com",
-                comment: "Thanks for the tip 😉",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Tolulope",
-                        email: "tolulopeshodiya46@gmail.com",
-                        reply: "This has literally saved my life"
-                    }
-                ]
-            }
-        ]
+        
     },
     {
         id: 16,
@@ -1044,42 +668,17 @@ export const blogPosts = [
         Condimentum erat penatibus, vestibulum donec. Velit lorem incidunt nibh commodo, arcu pretium in fusce sodales neque. Ipsum nunc volutpat congue morbi mi, eget arcu, semper vivamus amet. Lectus praesent blandit donec interdum sit. Ante ut integer venenatis, vel auctor a. Leo ante vestibulum vestibulum, ut nibh porttitor duis wisi fermentum, quam ultricies odio vel. Neque magna accumsan a lacus, ultrices erat taciti parturient metus. Diam leo ipsum auctor, quis amet ac, bibendum rhoncus dictum integer urna. Mi vestibulum neque orci wisi aliquam a. Fusce turpis illum a morbi. Reiciendis tortor sit aenean, velit nulla dignissim.
         Proin luctus, enim egestas, laoreet nec duis turpis ornare ut, et quam. Justo massa, ut commodo ligula animi leo, vestibulum morbi eu massa platea, neque rutrum hendrerit pellentesque pellentesque venenatis felis. Amet ultrices at felis curabitur, eget massa, felis massa eget, etiam aliquam blandit dis wisi eget posuere. Rutrum urna feugiat odio consectetuer porta, placerat feugiat blandit enim vel, quis wisi. Nec morbi volutpat urna, fugiat magna leo, a nam aenean nemo nullam auctor sem, fermentum nunc lacus et dui justo est, sapien tortor urna auctor.
         `,
-        tag: "skincare",
+        categories: [
+            "Oil",
+            "Research",
+            "Moisturizing"
+        ],
         photo: "../enaturals/enaturals13.jpg",
+        authorName: "Tijani Abmibola",
         status: "published",
         createTime: "9-22-2020",
         updateTime: "1-23-2021",
-        authorName: "Tijani Abmibola",
-        comments: [
-            {
-                id: 1,
-                name: "Shodiya Folorunsho",
-                email: "folorunshoayomide11@gmail.com",
-                comment: "Nice post 👏",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Damilola",
-                        email: "damilolashodiya@gmail.com",
-                        reply: "True talk man"
-                    }
-                ]
-            },
-            {
-                id: 2,
-                name: "Shodiya Damilola",
-                email: "damilolashodiya@gmail.com",
-                comment: "Thanks for the tip 😉",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Tolulope",
-                        email: "tolulopeshodiya46@gmail.com",
-                        reply: "This has literally saved my life"
-                    }
-                ]
-            }
-        ]
+        
     },
     {
         id: 17,
@@ -1088,42 +687,17 @@ export const blogPosts = [
         Condimentum erat penatibus, vestibulum donec. Velit lorem incidunt nibh commodo, arcu pretium in fusce sodales neque. Ipsum nunc volutpat congue morbi mi, eget arcu, semper vivamus amet. Lectus praesent blandit donec interdum sit. Ante ut integer venenatis, vel auctor a. Leo ante vestibulum vestibulum, ut nibh porttitor duis wisi fermentum, quam ultricies odio vel. Neque magna accumsan a lacus, ultrices erat taciti parturient metus. Diam leo ipsum auctor, quis amet ac, bibendum rhoncus dictum integer urna. Mi vestibulum neque orci wisi aliquam a. Fusce turpis illum a morbi. Reiciendis tortor sit aenean, velit nulla dignissim.
         Proin luctus, enim egestas, laoreet nec duis turpis ornare ut, et quam. Justo massa, ut commodo ligula animi leo, vestibulum morbi eu massa platea, neque rutrum hendrerit pellentesque pellentesque venenatis felis. Amet ultrices at felis curabitur, eget massa, felis massa eget, etiam aliquam blandit dis wisi eget posuere. Rutrum urna feugiat odio consectetuer porta, placerat feugiat blandit enim vel, quis wisi. Nec morbi volutpat urna, fugiat magna leo, a nam aenean nemo nullam auctor sem, fermentum nunc lacus et dui justo est, sapien tortor urna auctor.
         `,
-        tag: "skincare",
+        categories: [
+            "Oil",
+            "Research",
+            "Moisturizing"
+        ],
         photo: "../enaturals/enaturals5.jpg",
+        authorName: "Tijani Abmibola",
         status: "published",
         createTime: "9-22-2020",
         updateTime: "1-23-2021",
-        authorName: "Tijani Abmibola",
-        comments: [
-            {
-                id: 1,
-                name: "Shodiya Folorunsho",
-                email: "folorunshoayomide11@gmail.com",
-                comment: "Nice post 👏",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Damilola",
-                        email: "damilolashodiya@gmail.com",
-                        reply: "True talk man"
-                    }
-                ]
-            },
-            {
-                id: 2,
-                name: "Shodiya Damilola",
-                email: "damilolashodiya@gmail.com",
-                comment: "Thanks for the tip 😉",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Tolulope",
-                        email: "tolulopeshodiya46@gmail.com",
-                        reply: "This has literally saved my life"
-                    }
-                ]
-            }
-        ]
+        
     },
     {
         id: 18,
@@ -1132,42 +706,17 @@ export const blogPosts = [
         Condimentum erat penatibus, vestibulum donec. Velit lorem incidunt nibh commodo, arcu pretium in fusce sodales neque. Ipsum nunc volutpat congue morbi mi, eget arcu, semper vivamus amet. Lectus praesent blandit donec interdum sit. Ante ut integer venenatis, vel auctor a. Leo ante vestibulum vestibulum, ut nibh porttitor duis wisi fermentum, quam ultricies odio vel. Neque magna accumsan a lacus, ultrices erat taciti parturient metus. Diam leo ipsum auctor, quis amet ac, bibendum rhoncus dictum integer urna. Mi vestibulum neque orci wisi aliquam a. Fusce turpis illum a morbi. Reiciendis tortor sit aenean, velit nulla dignissim.
         Proin luctus, enim egestas, laoreet nec duis turpis ornare ut, et quam. Justo massa, ut commodo ligula animi leo, vestibulum morbi eu massa platea, neque rutrum hendrerit pellentesque pellentesque venenatis felis. Amet ultrices at felis curabitur, eget massa, felis massa eget, etiam aliquam blandit dis wisi eget posuere. Rutrum urna feugiat odio consectetuer porta, placerat feugiat blandit enim vel, quis wisi. Nec morbi volutpat urna, fugiat magna leo, a nam aenean nemo nullam auctor sem, fermentum nunc lacus et dui justo est, sapien tortor urna auctor.
         `,
-        tag: "skincare",
+        categories: [
+            "Oil",
+            "Research",
+            "Moisturizing"
+        ],
         photo: "../enaturals/enaturals5.jpg",
+        authorName: "Tijani Abmibola",
         status: "published",
         createTime: "9-22-2020",
         updateTime: "1-23-2021",
-        authorName: "Tijani Abmibola",
-        comments: [
-            {
-                id: 1,
-                name: "Shodiya Folorunsho",
-                email: "folorunshoayomide11@gmail.com",
-                comment: "Nice post 👏",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Damilola",
-                        email: "damilolashodiya@gmail.com",
-                        reply: "True talk man"
-                    }
-                ]
-            },
-            {
-                id: 2,
-                name: "Shodiya Damilola",
-                email: "damilolashodiya@gmail.com",
-                comment: "Thanks for the tip 😉",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Tolulope",
-                        email: "tolulopeshodiya46@gmail.com",
-                        reply: "This has literally saved my life"
-                    }
-                ]
-            }
-        ]
+        
     },
     {
         id: 19,
@@ -1176,42 +725,17 @@ export const blogPosts = [
         Condimentum erat penatibus, vestibulum donec. Velit lorem incidunt nibh commodo, arcu pretium in fusce sodales neque. Ipsum nunc volutpat congue morbi mi, eget arcu, semper vivamus amet. Lectus praesent blandit donec interdum sit. Ante ut integer venenatis, vel auctor a. Leo ante vestibulum vestibulum, ut nibh porttitor duis wisi fermentum, quam ultricies odio vel. Neque magna accumsan a lacus, ultrices erat taciti parturient metus. Diam leo ipsum auctor, quis amet ac, bibendum rhoncus dictum integer urna. Mi vestibulum neque orci wisi aliquam a. Fusce turpis illum a morbi. Reiciendis tortor sit aenean, velit nulla dignissim.
         Proin luctus, enim egestas, laoreet nec duis turpis ornare ut, et quam. Justo massa, ut commodo ligula animi leo, vestibulum morbi eu massa platea, neque rutrum hendrerit pellentesque pellentesque venenatis felis. Amet ultrices at felis curabitur, eget massa, felis massa eget, etiam aliquam blandit dis wisi eget posuere. Rutrum urna feugiat odio consectetuer porta, placerat feugiat blandit enim vel, quis wisi. Nec morbi volutpat urna, fugiat magna leo, a nam aenean nemo nullam auctor sem, fermentum nunc lacus et dui justo est, sapien tortor urna auctor.
         `,
-        tag: "skincare",
+        categories: [
+            "Oil",
+            "Research",
+            "Moisturizing"
+        ],
         photo: "../enaturals/enaturals5.jpg",
+        authorName: "Tijani Abmibola",
         status: "published",
         createTime: "9-22-2020",
         updateTime: "1-23-2021",
-        authorName: "Tijani Abmibola",
-        comments: [
-            {
-                id: 1,
-                name: "Shodiya Folorunsho",
-                email: "folorunshoayomide11@gmail.com",
-                comment: "Nice post 👏",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Damilola",
-                        email: "damilolashodiya@gmail.com",
-                        reply: "True talk man"
-                    }
-                ]
-            },
-            {
-                id: 2,
-                name: "Shodiya Damilola",
-                email: "damilolashodiya@gmail.com",
-                comment: "Thanks for the tip 😉",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Tolulope",
-                        email: "tolulopeshodiya46@gmail.com",
-                        reply: "This has literally saved my life"
-                    }
-                ]
-            }
-        ]
+        
     },
     {
         id: 20,
@@ -1220,42 +744,17 @@ export const blogPosts = [
         Condimentum erat penatibus, vestibulum donec. Velit lorem incidunt nibh commodo, arcu pretium in fusce sodales neque. Ipsum nunc volutpat congue morbi mi, eget arcu, semper vivamus amet. Lectus praesent blandit donec interdum sit. Ante ut integer venenatis, vel auctor a. Leo ante vestibulum vestibulum, ut nibh porttitor duis wisi fermentum, quam ultricies odio vel. Neque magna accumsan a lacus, ultrices erat taciti parturient metus. Diam leo ipsum auctor, quis amet ac, bibendum rhoncus dictum integer urna. Mi vestibulum neque orci wisi aliquam a. Fusce turpis illum a morbi. Reiciendis tortor sit aenean, velit nulla dignissim.
         Proin luctus, enim egestas, laoreet nec duis turpis ornare ut, et quam. Justo massa, ut commodo ligula animi leo, vestibulum morbi eu massa platea, neque rutrum hendrerit pellentesque pellentesque venenatis felis. Amet ultrices at felis curabitur, eget massa, felis massa eget, etiam aliquam blandit dis wisi eget posuere. Rutrum urna feugiat odio consectetuer porta, placerat feugiat blandit enim vel, quis wisi. Nec morbi volutpat urna, fugiat magna leo, a nam aenean nemo nullam auctor sem, fermentum nunc lacus et dui justo est, sapien tortor urna auctor.
         `,
-        tag: "skincare",
+        categories: [
+            "Oil",
+            "Research",
+            "Moisturizing"
+        ],
         photo: "../enaturals/enaturals5.jpg",
+        authorName: "Tijani Abmibola",
         status: "published",
         createTime: "9-22-2020",
         updateTime: "1-23-2021",
-        authorName: "Tijani Abmibola",
-        comments: [
-            {
-                id: 1,
-                name: "Shodiya Folorunsho",
-                email: "folorunshoayomide11@gmail.com",
-                comment: "Nice post 👏",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Damilola",
-                        email: "damilolashodiya@gmail.com",
-                        reply: "True talk man"
-                    }
-                ]
-            },
-            {
-                id: 2,
-                name: "Shodiya Damilola",
-                email: "damilolashodiya@gmail.com",
-                comment: "Thanks for the tip 😉",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Tolulope",
-                        email: "tolulopeshodiya46@gmail.com",
-                        reply: "This has literally saved my life"
-                    }
-                ]
-            }
-        ]
+        
     },
     {
         id: 21,
@@ -1264,42 +763,17 @@ export const blogPosts = [
         Condimentum erat penatibus, vestibulum donec. Velit lorem incidunt nibh commodo, arcu pretium in fusce sodales neque. Ipsum nunc volutpat congue morbi mi, eget arcu, semper vivamus amet. Lectus praesent blandit donec interdum sit. Ante ut integer venenatis, vel auctor a. Leo ante vestibulum vestibulum, ut nibh porttitor duis wisi fermentum, quam ultricies odio vel. Neque magna accumsan a lacus, ultrices erat taciti parturient metus. Diam leo ipsum auctor, quis amet ac, bibendum rhoncus dictum integer urna. Mi vestibulum neque orci wisi aliquam a. Fusce turpis illum a morbi. Reiciendis tortor sit aenean, velit nulla dignissim.
         Proin luctus, enim egestas, laoreet nec duis turpis ornare ut, et quam. Justo massa, ut commodo ligula animi leo, vestibulum morbi eu massa platea, neque rutrum hendrerit pellentesque pellentesque venenatis felis. Amet ultrices at felis curabitur, eget massa, felis massa eget, etiam aliquam blandit dis wisi eget posuere. Rutrum urna feugiat odio consectetuer porta, placerat feugiat blandit enim vel, quis wisi. Nec morbi volutpat urna, fugiat magna leo, a nam aenean nemo nullam auctor sem, fermentum nunc lacus et dui justo est, sapien tortor urna auctor.
         `,
-        tag: "skincare",
+        categories: [
+            "Oil",
+            "Research",
+            "Moisturizing"
+        ],
         photo: "../enaturals/enaturals5.jpg",
+        authorName: "Tijani Abmibola",
         status: "published",
         createTime: "9-22-2020",
         updateTime: "1-23-2021",
-        authorName: "Tijani Abmibola",
-        comments: [
-            {
-                id: 1,
-                name: "Shodiya Folorunsho",
-                email: "folorunshoayomide11@gmail.com",
-                comment: "Nice post 👏",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Damilola",
-                        email: "damilolashodiya@gmail.com",
-                        reply: "True talk man"
-                    }
-                ]
-            },
-            {
-                id: 2,
-                name: "Shodiya Damilola",
-                email: "damilolashodiya@gmail.com",
-                comment: "Thanks for the tip 😉",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Tolulope",
-                        email: "tolulopeshodiya46@gmail.com",
-                        reply: "This has literally saved my life"
-                    }
-                ]
-            }
-        ]
+        
     },
     {
         id: 22,
@@ -1308,42 +782,17 @@ export const blogPosts = [
         Condimentum erat penatibus, vestibulum donec. Velit lorem incidunt nibh commodo, arcu pretium in fusce sodales neque. Ipsum nunc volutpat congue morbi mi, eget arcu, semper vivamus amet. Lectus praesent blandit donec interdum sit. Ante ut integer venenatis, vel auctor a. Leo ante vestibulum vestibulum, ut nibh porttitor duis wisi fermentum, quam ultricies odio vel. Neque magna accumsan a lacus, ultrices erat taciti parturient metus. Diam leo ipsum auctor, quis amet ac, bibendum rhoncus dictum integer urna. Mi vestibulum neque orci wisi aliquam a. Fusce turpis illum a morbi. Reiciendis tortor sit aenean, velit nulla dignissim.
         Proin luctus, enim egestas, laoreet nec duis turpis ornare ut, et quam. Justo massa, ut commodo ligula animi leo, vestibulum morbi eu massa platea, neque rutrum hendrerit pellentesque pellentesque venenatis felis. Amet ultrices at felis curabitur, eget massa, felis massa eget, etiam aliquam blandit dis wisi eget posuere. Rutrum urna feugiat odio consectetuer porta, placerat feugiat blandit enim vel, quis wisi. Nec morbi volutpat urna, fugiat magna leo, a nam aenean nemo nullam auctor sem, fermentum nunc lacus et dui justo est, sapien tortor urna auctor.
         `,
-        tag: "skincare",
+        categories: [
+            "Oil",
+            "Research",
+            "Moisturizing"
+        ],
         photo: "../enaturals/enaturals10.jpg",
+        authorName: "Tijani Abmibola",
         status: "published",
         createTime: "9-22-2020",
         updateTime: "1-23-2021",
-        authorName: "Tijani Abmibola",
-        comments: [
-            {
-                id: 1,
-                name: "Shodiya Folorunsho",
-                email: "folorunshoayomide11@gmail.com",
-                comment: "Nice post 👏",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Damilola",
-                        email: "damilolashodiya@gmail.com",
-                        reply: "True talk man"
-                    }
-                ]
-            },
-            {
-                id: 2,
-                name: "Shodiya Damilola",
-                email: "damilolashodiya@gmail.com",
-                comment: "Thanks for the tip 😉",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Tolulope",
-                        email: "tolulopeshodiya46@gmail.com",
-                        reply: "This has literally saved my life"
-                    }
-                ]
-            }
-        ]
+        
     },
     {
         id: 23,
@@ -1352,42 +801,17 @@ export const blogPosts = [
         Condimentum erat penatibus, vestibulum donec. Velit lorem incidunt nibh commodo, arcu pretium in fusce sodales neque. Ipsum nunc volutpat congue morbi mi, eget arcu, semper vivamus amet. Lectus praesent blandit donec interdum sit. Ante ut integer venenatis, vel auctor a. Leo ante vestibulum vestibulum, ut nibh porttitor duis wisi fermentum, quam ultricies odio vel. Neque magna accumsan a lacus, ultrices erat taciti parturient metus. Diam leo ipsum auctor, quis amet ac, bibendum rhoncus dictum integer urna. Mi vestibulum neque orci wisi aliquam a. Fusce turpis illum a morbi. Reiciendis tortor sit aenean, velit nulla dignissim.
         Proin luctus, enim egestas, laoreet nec duis turpis ornare ut, et quam. Justo massa, ut commodo ligula animi leo, vestibulum morbi eu massa platea, neque rutrum hendrerit pellentesque pellentesque venenatis felis. Amet ultrices at felis curabitur, eget massa, felis massa eget, etiam aliquam blandit dis wisi eget posuere. Rutrum urna feugiat odio consectetuer porta, placerat feugiat blandit enim vel, quis wisi. Nec morbi volutpat urna, fugiat magna leo, a nam aenean nemo nullam auctor sem, fermentum nunc lacus et dui justo est, sapien tortor urna auctor.
         `,
-        tag: "skincare",
+        categories: [
+            "Oil",
+            "Research",
+            "Moisturizing"
+        ],
         photo: "../enaturals/enaturals5.jpg",
+        authorName: "Tijani Abmibola",
         status: "published",
         createTime: "9-22-2020",
         updateTime: "1-23-2021",
-        authorName: "Tijani Abmibola",
-        comments: [
-            {
-                id: 1,
-                name: "Shodiya Folorunsho",
-                email: "folorunshoayomide11@gmail.com",
-                comment: "Nice post 👏",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Damilola",
-                        email: "damilolashodiya@gmail.com",
-                        reply: "True talk man"
-                    }
-                ]
-            },
-            {
-                id: 2,
-                name: "Shodiya Damilola",
-                email: "damilolashodiya@gmail.com",
-                comment: "Thanks for the tip 😉",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Tolulope",
-                        email: "tolulopeshodiya46@gmail.com",
-                        reply: "This has literally saved my life"
-                    }
-                ]
-            }
-        ]
+        
     },
     {
         id: 24,
@@ -1396,41 +820,105 @@ export const blogPosts = [
         Condimentum erat penatibus, vestibulum donec. Velit lorem incidunt nibh commodo, arcu pretium in fusce sodales neque. Ipsum nunc volutpat congue morbi mi, eget arcu, semper vivamus amet. Lectus praesent blandit donec interdum sit. Ante ut integer venenatis, vel auctor a. Leo ante vestibulum vestibulum, ut nibh porttitor duis wisi fermentum, quam ultricies odio vel. Neque magna accumsan a lacus, ultrices erat taciti parturient metus. Diam leo ipsum auctor, quis amet ac, bibendum rhoncus dictum integer urna. Mi vestibulum neque orci wisi aliquam a. Fusce turpis illum a morbi. Reiciendis tortor sit aenean, velit nulla dignissim.
         Proin luctus, enim egestas, laoreet nec duis turpis ornare ut, et quam. Justo massa, ut commodo ligula animi leo, vestibulum morbi eu massa platea, neque rutrum hendrerit pellentesque pellentesque venenatis felis. Amet ultrices at felis curabitur, eget massa, felis massa eget, etiam aliquam blandit dis wisi eget posuere. Rutrum urna feugiat odio consectetuer porta, placerat feugiat blandit enim vel, quis wisi. Nec morbi volutpat urna, fugiat magna leo, a nam aenean nemo nullam auctor sem, fermentum nunc lacus et dui justo est, sapien tortor urna auctor.
         `,
-        tag: "skincare",
+        categories: [
+            "Oil",
+            "Research",
+            "Moisturizing"
+        ],
         photo: "../enaturals/enaturals5.jpg",
+        authorName: "Tijani Abmibola",
         status: "published",
         createTime: "9-22-2020",
         updateTime: "1-23-2021",
-        authorName: "Tijani Abmibola",
-        comments: [
-            {
-                id: 1,
-                name: "Shodiya Folorunsho",
-                email: "folorunshoayomide11@gmail.com",
-                comment: "Nice post 👏",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Damilola",
-                        email: "damilolashodiya@gmail.com",
-                        reply: "True talk man"
-                    }
-                ]
-            },
-            {
-                id: 2,
-                name: "Shodiya Damilola",
-                email: "damilolashodiya@gmail.com",
-                comment: "Thanks for the tip 😉",
-                replies: [
-                    {
-                        id: 1,
-                        name: "Shodiya Tolulope",
-                        email: "tolulopeshodiya46@gmail.com",
-                        reply: "This has literally saved my life"
-                    }
-                ]
-            }
-        ]
+    }
+];
+
+export const allComments = [
+    {
+        id: 1,
+        name: "Famade-lola Olaoluwa",
+        email: "olaoluwa@gmail.com",
+        PostID: 1,
+        comment: "Lovely Post"
+    },
+    {
+        id: 2,
+        name: "Okoroafor Daniel",
+        PostID: 2,
+        email: "daniel34@gmail.com",
+        comment: "I enjoyed this article"
+    },
+    {
+        id: 3,
+        name: "Okorodudu Victor",
+        PostID: 3,
+        email: "Okoro34Daddy@gmail.com",
+        comment: "Cool tips, thanks for this."
+    },
+    {
+        id: 4,
+        name: "Raji Shakirat",
+        PostID: 1,
+        email: "whatsmyname@gmail.com",
+        comment: "I bought everyone of your product."
+    },
+    {
+        id: 5,
+        name: "Anaekwe Vera",
+        PostID: 2,
+        email: "goodnessAbounds@gmail.com",
+        comment: "Nice post."
+    },
+    {
+        id: 6,
+        name: "Famade-lola Olaoluwa",
+        PostID: 3,
+        email: "olaoluwa@gmail.com",
+        comment: "WoW 😍"
+    }
+];
+
+export const allReplies = [
+    {
+        id: 1,
+        name: "Anaekwe Vera",
+        email: "goodnessAbounds@gmail.com",
+        CommentID: 1,
+        reply: "That's true"
+    },
+    {
+        id: 2,
+        name: "Raji Shakirat",
+        CommentID: 2,
+        email: "whatsmyname@gmail.com",
+        reply: "It's an amazing piece."
+    },
+    {
+        id: 3,
+        name: "Famade-lola Olaoluwa",
+        CommentID: 3,
+        email: "olaoluwa@gmail.com",
+        reply: "It helps whenever we see informations like this."
+    },
+    {
+        id: 4,
+        name: "Okoroafor Daniel",
+        CommentID: 4,
+        email: "daniel34@gmail.com",
+        reply: "Mee tooo!!!"
+    },
+    {
+        id: 5,
+        name: "Famade-lola Olaoluwa",
+        CommentID: 5,
+        email: "olaoluwa@gmail.com",
+        reply: "I loved it"
+    },
+    {
+        id: 6,
+        name: "Okorodudu Victor",
+        CommentID: 6,
+        email: "Okoro34Daddy@gmail.com",
+        reply: "😘🥰"
     }
 ];

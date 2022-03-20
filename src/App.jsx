@@ -11,9 +11,10 @@ import SingleTeam from './pages/SingleTeam';
 import Checkout from './pages/Checkout';
 import CustomSwitch from './components/CustomSwitch/CustomSwitch';
 import PageNotFound from './pages/PageNotFound';
-import './App.css';
 import SingleBlogPost from './pages/SingleBlogPost';
 import Reviews from './pages/Reviews';
+import AdminLogin from './pages/AdminLogin';
+import './App.css';
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
       <Route exact path="/aboutus" element={<AboutUs />} />
       <Route exact path="/aboutus/:memberName" element={<SingleTeam />} />
       <Route exact path="/checkout" element={<Checkout />} />
+      <Route exact path="/admin" element={<AdminLogin />} />
       <Route path="*" element={<PageNotFound />} />
     </CustomSwitch>
   );

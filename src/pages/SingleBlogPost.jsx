@@ -1,8 +1,8 @@
 import React from 'react';
-import Footer from '../components/Footer/Footer';
 import Navbar from '../components/Navbar/Navbar';
 import BlogContent from "../components/BlogContent/BlogContent";
 import PageTitle from '../components/PageTitle/PageTitle';
+import Footer from '../components/Footer/Footer';
 
 
 
@@ -19,4 +19,4 @@ const SingleBlogPost = () => {
 
 
 
-export default SingleBlogPost
+export default SingleBlogPost;

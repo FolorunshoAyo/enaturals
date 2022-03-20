@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
-import { blogPosts } from '../../data';
+import { posts as blogPosts } from '../../data';
 import './AllBlogPosts.css';
 import BlogPosts from '../BlogPosts/BlogPosts';
 import { ArrowForwardIos } from '@mui/icons-material';

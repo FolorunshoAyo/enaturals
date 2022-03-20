@@ -1,13 +1,17 @@
 import React from 'react';
+import styled from 'styled-components';
 
+
+const Container = styled.div`
+`;
 
 const ScrapeReviews = () => {
     return (
-        <div>
-            Reviews Here
-        </div>
+        <Container>
+            Some text
+        </Container>
     );
-}
+};
 
 
 

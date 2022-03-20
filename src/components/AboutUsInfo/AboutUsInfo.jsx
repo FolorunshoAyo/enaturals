@@ -14,6 +14,7 @@ const AboutUsInfoWrapper = styled.section`
     ${res1023({padding: "10rem 2rem 2rem"})}
     ${res700({padding: "7rem 10rem 2rem"})}
     ${medPhone({padding: "7rem 5rem 2rem"})}
+    ${smallPhone({padding: "4rem 3rem 2rem"})}
 `;
 
 const AboutUsWrapper = styled.div`
@@ -63,7 +64,7 @@ const Brand = styled.span`
 const AboutUsContent = styled.p`
     margin: 2rem 0;
     font-family: Lato, sans-serif;
-    font-size: 15px;
+    font-size: 1.5rem;
     color: #465354;
 `;
 

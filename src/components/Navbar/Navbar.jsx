@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import logo from './logo.jpg';
 import strippedLogo from './stripped-logo.png';
 import styled from 'styled-components';
@@ -203,10 +203,14 @@ const SubmitButton = styled.button`
 `;
 
 const Wrapper = styled.div`
-    position: sticky;
-    top: 0px;
+    position: fixed;
+    width: 100%;
+    top: 30px;
     left: 0px;
     z-index: 100;
+    transition: all .5s ease-out;
+
+    transform: ${props => props.hide? "translateY(-200%)" : "translateY(0%)"};
 `;
 
 const RowContainer = styled.div`
@@ -350,7 +354,7 @@ const MobileMenuOverlay = styled.div`
     z-index: 1000;
     transition: all .5s ease;
 
-    transform: ${props => props.status === "closed"? "translateY(-110%)" : "translateY(0)"};
+    transform: ${props => props.status === "closed"? "translateY(-200%)" : "translateY(0)"};
 `;
 
 const MobileMenuWrapper = styled.div`
@@ -513,6 +517,8 @@ const Navbar = () =>{
     const [modal, setModal] = useState(false);
     const [menuState, setMenuState] = useState("closed");
     const [dropDownState, setDropDown] = useState(false);
+    const [y, setY] = useState(document.scrollingElement.scrollHeight);
+    const [minimizeHeader, setMinimizeHeader] = useState(false);
 
     let isProfileClicked = false;
 
@@ -532,6 +538,29 @@ const Navbar = () =>{
     const toggleDropDown = (currState) => {
         setDropDown(!currState);
     };
+
+    
+      const handleNavigation = useCallback((e) => {
+    
+        if (y > window.scrollY) {
+            //upscroll code
+          setMinimizeHeader(false);
+          console.log("scrolling up");
+        } else if (y < window.scrollY) {
+            setMinimizeHeader(true);
+            console.log("scrolling down");
+        }
+        setY(window.scrollY)
+      }, [y]);
+    
+      useEffect(() => {
+    
+        window.addEventListener("scroll", handleNavigation);
+    
+        return () => {
+          window.removeEventListener("scroll", handleNavigation);
+        };
+      }, [handleNavigation]);
 
     return (
         <>
@@ -715,7 +744,7 @@ const Navbar = () =>{
                     </ModalBody>
                 </ModalContainer>
             </Modal>
-            <Wrapper>
+            <Wrapper hide={minimizeHeader}>
                 <RowContainer>
                     <Row>
                         <ContactContainer>

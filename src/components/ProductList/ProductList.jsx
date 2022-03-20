@@ -147,6 +147,7 @@ const FilterSelect = styled.select`
     font-size: 1.5rem;
     border: none;
     color: #7E8485;
+    background-color: transparent;
     border-bottom: 2px solid #7E8485;
     padding: 0rem 4rem 2rem 1rem;
     transition: all .5s ease;

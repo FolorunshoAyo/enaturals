@@ -1,12 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import Twitter from "@mui/icons-material/Twitter";
 import Facebook from "@mui/icons-material/Facebook";
-import { Search, WhatsappOutlined, Comment } from "@mui/icons-material";
-import Instagram from "@mui/icons-material/Instagram";
+import { Comment, Search, WhatsappOutlined, Instagram, Close } from "@mui/icons-material";
 import {res480, medPhone, res700,tabPort, res1023, bigDesktop, smallPhone} from '../../responsive';
+import { posts, allComments, allReplies } from "../../data";
 
 const BlogContentWrapper = styled.section`
   padding: 5rem 0;
@@ -194,6 +194,153 @@ const RelatedPostTitle = styled.span`
   font-weight: 300;
 `; 
 
+const Comments = styled.div``;
+
+const CommentContainer = styled.div`
+  display: flex;
+
+  &:not(:last-child){
+    margin-bottom: 40px
+  }
+`;
+
+const CommenterImgContainer = styled.div`
+  flex: 0 0 78px;
+  height: 78px;
+  align-self: flex-start;
+  margin-right: 20px;
+`;
+
+const CommenterImg = styled.img`
+  width: 100%;
+  height: 100%;
+
+  ${smallPhone({width: "78px", height: "78px"})}
+`;
+
+const CommentDetails = styled.div`
+  flex: 1;
+`;
+
+const CommentInformation = styled.div`
+  margin-bottom: 5px;
+  color: #ABB0B2;
+  font-weight: 300;
+  font-style: italic;
+
+  ${res480({display: "flex", flexDirection: "column", })}
+`;
+
+const CommentAuthor = styled.h6`
+  display: inline-block;
+  font-size: 1.5rem;
+  font-weight: 300;
+  font-family: Lato, sans-serif;
+
+  ${res480({display: "block", marginBottom: "5px"})}
+`;
+
+const CommentDate = styled.div`
+  display: inline-block;
+  font-size: 1.5rem;
+  font-family: Lato, sans-serif;
+
+  &::before{
+    content: "|";
+    font-style: normal;
+    margin: 0 40px;
+
+    ${res480({display: "none"})}
+  }
+
+  ${smallPhone({display: "block"})}
+`;
+
+const UserComment = styled.p`
+  color: #7E8485;
+  font-size: 1.5rem;
+  font-weight: 400;
+  font-family: Lato, sans-serif;
+`;
+
+const Replies = styled.div` 
+  margin-left: 30px;
+`;
+
+const ReplierImgContainer = styled.div`
+  flex: 0 0 50px;
+  height: 50px;
+  align-self: flex-start;
+  margin-right: 20px;
+`;
+
+const ReplyImg = styled.img`
+  width: 100%;
+  height: 100%;
+
+  ${smallPhone({width: "78px", height: "78px"})}
+`;
+
+const ReplyDetails = styled.div`
+  flex: 1;
+`;
+
+const ReplyInformation = styled.div`
+  margin-bottom: 5px;
+  color: #ABB0B2;
+  font-weight: 300;
+  font-style: italic;
+`;
+
+const ReplyAuthor = styled.h6`
+  display: inline-block;
+  font-size: 1.5rem;
+  font-weight: 300;
+  font-family: Lato, sans-serif;
+
+  ${res480({display: "block", marginBottom: "5px"})}
+`;
+
+const ReplyDate = styled.div`
+  display: inline-block;
+  font-size: 1.5rem;
+  font-family: Lato, sans-serif;
+
+  &::before{
+    content: "|";
+    font-style: normal;
+    margin: 0 40px;
+
+    ${res480({display: "none"})}
+  }
+
+  ${res480({display: "block"})}
+`;
+
+const ReplyComment = styled.p`
+  color: #7E8485;
+  font-size: 1.5rem;
+  font-weight: 400;
+  font-family: Lato, sans-serif;
+`;
+
+const ReplyButton = styled.button`
+  border: none;
+  background-color: transparent;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  color: #4b5354;
+  font-weight: 700;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: all .3s;
+
+  &:focus{
+    color: #b8a398;
+  }
+`;
+
+
 const CommentsFormWrap = styled.div`
   margin-top: 50px;
   padding-top: 50px;
@@ -223,12 +370,13 @@ const CommentField = styled.div`
 `;
 
 const Input = styled.input`
-  padding: 20px 26px;
+  padding: 2rem 2.6rem;
   border: none;
   width: 100%;
   font-family: Lato,sans-serif;
   border-bottom: 2px solid #bdc0c0;
   transition: all .5s ease;
+  font-size: 1.5rem;
   
   &:focus{
     outline: none;
@@ -237,14 +385,15 @@ const Input = styled.input`
 `; 
 
 
-const TextArea = styled.textarea`
-  padding: 20px 26px;
+const CommentTextArea = styled.textarea`
+  padding: 2rem 2.6rem;
   border: none;
   width: 100%;
   font-family: Lato,sans-serif;
   border-bottom: 2px solid #bdc0c0;
   height: 100px;
   resize: none;
+  font-size: 1.5rem;
   transition: all .5s ease;
 
   &:focus{
@@ -486,84 +635,182 @@ const CommentsContainer = styled.div`
   padding: 10px 0;
 `;
 
-const CommentContainer = styled.div`
-  display: flex;
+const ReplyFormWrap = styled.div`
+  display: ${props => props.display? "block" : "none"};
+  margin: 3rem 0;
+`;
 
-  &:not(:last-child){
-    margin-bottom: 40px
+const ReplyForm = styled.form`
+`;
+
+const ReplyTitle = styled.h4`
+  margin-bottom: 3rem;
+  color: #4B5354;
+  font-weight: 300;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 2.5rem;
+
+  ${res480({fontSize: "2rem"})}
+`;
+
+const CloseIconContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all .3s;
+
+  &:hover{
+    color: #acbfa3;
   }
+`;
+
+const ReplyContainer = styled.div``;
+
+const ReplyInputGroup = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
 
   ${smallPhone({flexDirection: "column"})}
 `;
 
-const CommenterImgContainer = styled.div`
-  flex: 0 0 78px;
-  height: 78px;
-  align-self: flex-start;
-  margin-right: 20px;
-
-  ${smallPhone({marginRight: "0px", marginBottom: "20px", flex: "initial"})}
-`;
-
-const CommenterImg = styled.img`
-  width: 100%;
-  height: 100%;
-
-  ${smallPhone({width: "78px", height: "78px"})}
-`;
-
-const CommentDetails = styled.div`
-  flex: 1;
-`;
-
-const CommentInformation = styled.div`
-  margin-bottom: 5px;
-  color: #ABB0B2;
-  font-weight: 300;
-  font-style: italic;
-`;
-
-const CommentAuthor = styled.h6`
-  display: inline-block;
-  font-size: 1.5rem;
-  font-weight: 300;
+const ReplyInput = styled.input`
+  flex: 0 0 45%; 
+  padding: 2rem 2.6rem;
   font-family: Lato, sans-serif;
-
-  ${smallPhone({display: "block", marginBottom: "5px"})}
-`;
-
-const CommentDate = styled.div`
-  display: inline-block;
+  color: #4b5354;
   font-size: 1.5rem;
-  font-family: Lato, sans-serif;
+  border: none;
+  border-bottom: 2px solid #bdc0c0;
 
-  &::before{
-    content: "|";
-    font-style: normal;
-    margin: 0 40px;
-
-    ${smallPhone({display: "none"})}
+  &:focus{
+    outline: none;
+    border-color: #b8a398;
   }
 
-  ${smallPhone({display: "block"})}
+  &:not(:last-child){
+    ${smallPhone({marginBottom: "15px"})}
+  }
 `;
 
-const UserComment = styled.p`
-  color: #7E8485;
-  font-size: 1.5rem;
-  font-weight: 400;
+const ReplyTextArea = styled.textarea`
+  height: 200px;
   font-family: Lato, sans-serif;
-`;
+  color: #4b5354;
+  font-size: 1.5rem;
+  padding: 2rem 2.6rem;
+  resize: none;
+  border none;
+  border-bottom: 2px solid #bdc0c0;
+  width: 100%;
+  margin-bottom: 30px;
 
+  &:focus{
+    outline: none;
+    border-color: #b8a398;
+  }
+`;
 
 const BlogContent = () => {
-  const insertParagraphs = (noOfParagraphs, preText) => {
-    const splicedParagraphs = preText.split(" ")
+  const POST_ID = 1;
+  const [showReplyForm, setShowReplyForm] = useState(false);
 
-    return [...Array(noOfParagraphs)].map((paragraph, i) => (
-      <Paragraph>{splicedParagraphs[i]}</Paragraph>
-    ));
+  const handleReplyClick = (e) => {
+    if(e.target.classList[0] === "sc-uWCef"){
+      setShowReplyForm(true);
+    }else{
+      setShowReplyForm(false);
+    }
   };
+
+  const insertComments = (postID) => {
+    const comment = allComments[postID - 1];
+    return (
+      <Comments>
+        <CommentContainer>
+          <CommenterImgContainer>
+            <CommenterImg src="../enaturals/enaturals5.jpg" />
+          </CommenterImgContainer>
+          <CommentDetails>
+            <CommentInformation>
+              <CommentAuthor>{comment.name}</CommentAuthor>
+                <CommentDate> 
+                  <Comment style={{verticalAlign: "middle", fontSize: 15, marginRight: "5px", color: "#b8a398"}} />
+                    July 31st, 2017
+                </CommentDate>
+            </CommentInformation>
+            <UserComment>
+                {comment.comment} 
+            </UserComment>
+            <ReplyButton onClick={handleReplyClick}>Reply</ReplyButton>
+          </CommentDetails>
+        </CommentContainer>
+        <ReplyFormWrap display={showReplyForm}>
+          <ReplyForm>
+            <ReplyTitle>
+              Reply to {comment.name}
+              <CloseIconContainer onClick={handleReplyClick}>
+                <Close style={{fontSize: 25}}/>
+              </CloseIconContainer>
+            </ReplyTitle>
+            <ReplyContainer>
+              <ReplyInputGroup>
+                <ReplyInput type="text" placeholder="Your Name *"/>
+                <ReplyInput type="email" placeholder="Your Email *" />
+              </ReplyInputGroup>
+              <ReplyTextArea placeholder="Your comment *"></ReplyTextArea>
+              <CheckBoxLabel for="comment-form-checkbox">
+                <CheckBox type="checkbox" id="coment-form-checkbox"/>
+                By using this form you agree with the storage and handling of your data by this website.
+              </CheckBoxLabel>
+              <CommentBtnContainer>
+                <CommentBtn type="submit">Leave a comment</CommentBtn>
+              </CommentBtnContainer>
+            </ReplyContainer>
+          </ReplyForm>
+        </ReplyFormWrap>
+        {insertReplies(1)}
+      </Comments>
+    );
+  };
+
+  const insertReplies = (commentID) => {
+    // Handle Replies
+    const reply = allReplies[commentID - 1];
+
+    return(
+      <Replies>
+        <CommentContainer>
+          <ReplierImgContainer>
+            <ReplyImg src="../enaturals/enaturals5.jpg" />
+          </ReplierImgContainer>
+          <ReplyDetails>
+            <ReplyInformation>
+              <ReplyAuthor>{reply.name}</ReplyAuthor>
+                <ReplyDate> 
+                  <Comment style={{verticalAlign: "middle", fontSize: 15, marginRight: "5px", color: "#b8a398"}} />
+                    July 31st, 2017
+                </ReplyDate>
+            </ReplyInformation>
+            <UserComment>
+                {reply.reply} 
+            </UserComment>
+          </ReplyDetails>
+        </CommentContainer>
+      </Replies>
+    );
+  }
+
+  const insertCategories = (categories) => {
+    const result = categories.join(", ");
+
+    return result; 
+  }
+
   return (
     <BlogContentWrapper>
       <BlogContentContainer>
@@ -576,7 +823,7 @@ const BlogContent = () => {
               />
             </BlogPostAttachmentContainer>
             <PostMeta>
-              <PostMetaCateg>Spa Procedures</PostMetaCateg>
+              <PostMetaCateg>{insertCategories(posts[POST_ID - 1].categories)}</PostMetaCateg>
               <PostMetaDate>
                 <AccessAlarmIcon style={{fontSize: 12, color: "#b8a398", marginRight: "10px", verticalAlign: "middle"}}/>
                 Semptember 30, 2019
@@ -586,7 +833,7 @@ const BlogContent = () => {
               </PostCommentsCount>
             </PostMeta>
             <BlogBody>
-              {insertParagraphs(3, "HelloThere MyNameIs Folorunhso")}
+              {posts[POST_ID - 1].content}
 
               <ShareContainer>
                 <Icons>
@@ -630,43 +877,7 @@ const BlogContent = () => {
             <CommentTitle>1 Comments</CommentTitle>
 
             <CommentsContainer>
-              <CommentContainer>
-                <CommenterImgContainer>
-                  <CommenterImg src="../enaturals/enaturals5.jpg" />
-                </CommenterImgContainer>
-                <CommentDetails>
-                  <CommentInformation>
-                    <CommentAuthor>Tijani Abimbola</CommentAuthor>
-                    <CommentDate> 
-                      <Comment style={{verticalAlign: "middle", fontSize: 15, marginRight: "10px", color: "#b8a398"}} />
-                      July 31st, 2017
-                     </CommentDate>
-                  </CommentInformation>
-                  <UserComment>
-                    Lorem ipsum dolor, askimet what the heck is going onn today, and i am not feeling to fine. I am still 
-                    doing quite well at coding. I don't even need to think at all. It's become unconcious competence. 
-                  </UserComment>
-                </CommentDetails>
-              </CommentContainer>
-
-              <CommentContainer>
-                <CommenterImgContainer>
-                  <CommenterImg src="../enaturals/enaturals5.jpg" />
-                </CommenterImgContainer>
-                <CommentDetails>
-                  <CommentInformation>
-                    <CommentAuthor>Tijani Abimbola</CommentAuthor>
-                    <CommentDate> 
-                      <Comment style={{verticalAlign: "middle", fontSize: 15, marginRight: "10px", color: "#b8a398"}} />
-                      July 31st, 2017
-                     </CommentDate>
-                  </CommentInformation>
-                  <UserComment>
-                    Lorem ipsum dolor, askimet what the heck is going onn today, and i am not feeling to fine. I am still 
-                    doing quite well at coding. I don't even need to think at all. It's become unconcious competence. 
-                  </UserComment>
-                </CommentDetails>
-              </CommentContainer>
+              {insertComments(POST_ID)}
             </CommentsContainer>
 
           </CommentSection>
@@ -681,11 +892,11 @@ const BlogContent = () => {
                         <Input type="email" placeholder="Your E-mail *"/>
                       </CommentField>
                       <CommentField>
-                        <TextArea placeholder="Your comment *"/>
+                        <CommentTextArea placeholder="Your comment *"/>
                       </CommentField>
                   </CommentFields>
                   <CommentFormCheckBox>
-                    <CheckBoxLabel htmlFor="comment-form-checkbox">
+                    <CheckBoxLabel for="comment-form-checkbox">
                       <CheckBox type="checkbox" id="coment-form-checkbox"/>
                       By using this form you agree with the storage and handling of your data by this website.
                     </CheckBoxLabel>
