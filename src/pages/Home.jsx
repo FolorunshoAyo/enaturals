@@ -1,5 +1,5 @@
 import React from 'react';
-import Announcements from '../components/Announcements/Announcements';
+import Announcement from '../components/Announcement/Announcement';
 import Navbar from '../components/Navbar/Navbar';
 import Slider from '../components/Slider/Slider';
 import Services from '../components/Services/Services';
@@ -14,8 +14,8 @@ import Footer from '../components/Footer/Footer';
 
 const Home = () => {
     return (
-        <div style={{overflow: "hidden"}}>
-            <Announcements />
+        <>
+            <Announcement />
             <Navbar />
             <Slider />
             <Services />
@@ -27,7 +27,7 @@ const Home = () => {
             <NewBlogPosts />
             <Contact />
             <Footer borderTop={false}/>
-        </div>
+        </>
     );
 }
 

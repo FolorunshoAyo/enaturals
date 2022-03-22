@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-    position: fixed;
+    position: sticky;
     width: 100%;
     top: 0px;
     left: 0px;

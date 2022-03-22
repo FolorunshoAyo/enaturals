@@ -203,14 +203,14 @@ const SubmitButton = styled.button`
 `;
 
 const Wrapper = styled.div`
-    position: fixed;
+    position: sticky;
     width: 100%;
     top: 30px;
     left: 0px;
     z-index: 100;
-    transition: all .5s ease-out;
+    transition: all .8s ease-out;
 
-    transform: ${props => props.hide? "translateY(-200%)" : "translateY(0%)"};
+    transform: ${props => props.hide? "translateY(-300%)" : "translateY(0%)"};
 `;
 
 const RowContainer = styled.div`
@@ -541,16 +541,15 @@ const Navbar = () =>{
 
     
       const handleNavigation = useCallback((e) => {
-    
-        if (y > window.scrollY) {
-            //upscroll code
-          setMinimizeHeader(false);
-          console.log("scrolling up");
-        } else if (y < window.scrollY) {
-            setMinimizeHeader(true);
-            console.log("scrolling down");
-        }
-        setY(window.scrollY)
+          if(window.scrollY > 150){
+            if (y > window.scrollY) {
+                //upscroll code
+              setMinimizeHeader(false);
+            } else if (y < window.scrollY) {
+                setMinimizeHeader(true);
+            }
+            setY(window.scrollY)
+          }
       }, [y]);
     
       useEffect(() => {

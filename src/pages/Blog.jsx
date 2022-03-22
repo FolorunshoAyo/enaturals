@@ -11,7 +11,7 @@ const Blog = () => {
         <>
         <Announcement />
         <NavBar />
-        <PageTitle title="All Posts" pageLocation="Home | Blog" />
+        <PageTitle title="All Posts" pageLocation="Home | All Posts" />
         <AllBlogPosts itemsPerPage={6}/>
         <Footer borderTop/>
         </>

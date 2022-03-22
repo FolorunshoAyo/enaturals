@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import {galleryImages} from '../../data';
+import {galleryImages, galleryVideos} from '../../data';
+import ReactPlayer from "react-player";
 import {SRLWrapper} from 'simple-react-lightbox';
-import {smallPhone, medPhone, res700, medDesktop, bigDesktop} from '../../responsive';
+import {smallPhone, medPhone, res700, medDesktop, bigDesktop, res480} from '../../responsive';
+import "./Video.css";
 
 const Container = styled.div`
     padding: 5rem 2rem;
@@ -35,11 +37,11 @@ const FilterButton = styled.button`
     
     &:not(:last-child){
         margin-right: 10px;
-        ${smallPhone({marginRight: "auto"})}
+        ${res480({marginRight: "auto"})}
     }
 
     &:last-child{
-        ${smallPhone({marginBottom: "0"})} 
+        ${res480({marginBottom: "0"})} 
     }
 
     &:hover{
@@ -47,10 +49,20 @@ const FilterButton = styled.button`
         color: #fff;
     }
 
-    ${smallPhone({display: "block", width: "40%", margin: "0 auto 1rem"})}
+    ${res480({display: "block", width: "40%", margin: "0 auto 1rem"})}
 `;
 
 const ImagesGrid = styled.div`
+    padding: 4rem 0;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+
+    ${medPhone({flexFlow: "column nowrap"})}
+    ${smallPhone({padding: "2rem 0"})}
+`;
+
+const VideosGrid = styled.div`
     padding: 4rem 0;
     display: flex;
     flex-flow: row wrap;
@@ -68,6 +80,15 @@ const ImageContainer = styled.div`
     background-position: center center;
     height: 230px;
     margin-bottom: 2rem;
+
+    ${res700({flex: "0 0 48%", height: "350px"})}
+    ${medPhone({flex: "0 0 350px"})}
+`;
+
+const VideoContainer = styled.div`
+    flex: 0 0 31%;
+    height: 400px;
+    margin-bottom: 4rem;
 
     ${res700({flex: "0 0 48%", height: "350px"})}
     ${medPhone({flex: "0 0 350px"})}
@@ -103,11 +124,14 @@ const GridGallery = () => {
     const [activeTag, setActiveTag] = useState('all');
 
     const filterItem = (category) => {
-        const updatedItems = galleryImages.filter(image => category === 'all'? true : image.category === category);
-        setImages(updatedItems);
-        setActiveTag(category);
+        if(category !== "videos"){
+            const updatedItems = galleryImages.filter(image => category === 'all'? true : image.category === category);
+            setImages(updatedItems);
+            setActiveTag(category);
+        }else{
+            setActiveTag(category);
+        }
     };
-
 
     return (
         <Container>
@@ -116,8 +140,21 @@ const GridGallery = () => {
                     <FilterButton active={activeTag === 'all'? true : false} onClick={() => filterItem("all")}>Filter - All</FilterButton>
                     <FilterButton active={activeTag === 'skin care'? true : false} onClick={() => filterItem("skin care")}>Skin Care</FilterButton>
                     <FilterButton active={activeTag === 'natural soap'? true : false} onClick={() => filterItem("results")}>Results</FilterButton>
+                    <FilterButton active={activeTag === 'videos'? true : false} onClick={() => filterItem("videos")}>Videos</FilterButton>
                 </FilterButtons>
-                <SRLWrapper options={options}>
+                {
+                    activeTag === "videos"? 
+                    <VideosGrid>
+                        {
+                            galleryVideos.map(video => (
+                                <VideoContainer>
+                                    <ReactPlayer url={video.vid} light={video.previewImg} width="100%" controls/>
+                                </VideoContainer>
+                            ))
+                        }
+                    </VideosGrid>
+                    :
+                    <SRLWrapper options={options}>
                     <ImagesGrid>    
                             {
                                 images.map(image => (
@@ -130,6 +167,7 @@ const GridGallery = () => {
                             }
                     </ImagesGrid>
                 </SRLWrapper>
+                }
             </GalleryWrapper>
         </Container>
     );

@@ -311,6 +311,82 @@ export const galleryImages = [
     }
 ];
 
+export const galleryVideos = [
+    {
+        id: 1,
+        vid: '../enaturals/test.mp4',
+        previewImg: '../enaturals/enaturals13.jpg',
+        caption: 'Lightening Kit'
+    },
+    {
+        id: 2,
+        vid: '../enaturals/test.mp4',
+        previewImg: '../enaturals/enaturals13.jpg',
+        caption: 'whitening oil'
+    },
+    {
+        id: 3,
+        vid: '../enaturals/test.mp4',
+        previewImg: '../enaturals/enaturals13.jpg',
+        caption: 'molato soap'
+    },
+    {
+        id: 4,
+        vid: '../enaturals/test.mp4',
+        previewImg: '../enaturals/enaturals13.jpg',
+        caption: 'glow soap'
+    },
+    {
+        id: 5,
+        vid: '../enaturals/test.mp4',
+        previewImg: '../enaturals/enaturals13.jpg',
+        caption: 'hot choco lotion'
+    },
+    {
+        id: 6,
+        vid: '../enaturals/test.mp4',
+        previewImg: '../enaturals/enaturals13.jpg',
+        caption: 'molato soap'
+    },
+    {
+        id: 7,
+        vid: '../enaturals/test.mp4',
+        previewImg: '../enaturals/enaturals13.jpg',
+        caption: 'model with products'
+    },
+    {
+        id: 8,
+        vid: '../enaturals/test.mp4',
+        previewImg: '../enaturals/enaturals13.jpg',
+        caption: 'black soap'
+    },
+    {
+        id: 9,
+        vid: '../enaturals/test.mp4',
+        previewImg: '../enaturals/enaturals13.jpg',
+        caption: 'different products'
+    },
+    {
+        id: 10,
+        vid: '../enaturals/test.mp4',
+        previewImg: '../enaturals/enaturals13.jpg',
+        caption: 'tumeric face pack'
+    },
+    {
+        id: 11,
+        vid: '../enaturals/test.mp4',
+        previewImg: '../enaturals/enaturals13.jpg',
+        caption: 'whitening oil'
+    },
+    {
+        id: 12,
+        vid: '../enaturals/test.mp4',
+        previewImg: '../enaturals/enaturals13.jpg',
+        caption: 'enaturals logo'
+    }
+];
+
+
 
 export const teams = [
     {

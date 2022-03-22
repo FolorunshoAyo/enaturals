@@ -90,7 +90,7 @@ const Slider = () => {
         fade: true,
         infinite: true,
         autoplay: true,
-        autoplaySpeed: 2000,
+        autoplaySpeed: 5000,
         slidesToShow: 1,
         slidesToScroll: 2
     };
