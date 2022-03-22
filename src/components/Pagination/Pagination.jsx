@@ -108,6 +108,8 @@ const Pagination = ({data, RenderComponent, pageLimit, dataLimit, view})=>{
                     price={product.priceRange}
                     description={product.description}
                     productName={product.productName}
+                    size={product.size}
+                    productTag={product.productTag}
                     view={view}
                     />
                 ))}

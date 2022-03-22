@@ -31,9 +31,8 @@ const TitleContainer = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 3.5rem;
+  font-size: 4rem;
   text-transform: uppercase;
-  font-family: Lato, sans-serif;
   font-weight: 300;
   padding: 2rem 0;
 `;
@@ -45,6 +44,7 @@ const Location = styled.div`
 
 const PaginationItem = styled.span`
   text-transform: capitalize;
+  color: #28272e;
   font-family: Lato, sans-serif;
 `;
 
@@ -164,6 +164,21 @@ const PageTitle = ({ title, pageLocation, params}) => {
         ); 
         break;
         case `/checkout`:
+          result = (
+            <>
+              <Link to="/" className="paginationLink">
+                {links[0]}
+              </Link>
+              <Link to="/shop" className="paginationLink">
+                {links[1]}
+              </Link>
+              <PaginationItem>
+                {links[2]}
+              </PaginationItem>
+            </>
+        ); 
+        break;
+        case `/product-tag/${params}`:
           result = (
             <>
               <Link to="/" className="paginationLink">

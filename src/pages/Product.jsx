@@ -4,7 +4,7 @@ import PageTitle from '../components/PageTitle/PageTitle';
 import SingleProduct from '../components/SingleProduct/SingleProduct';
 import Footer from '../components/Footer/Footer';
 import Announcement from "../components/Announcement/Announcement";
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
 import { splitAndSpace } from '../usefulFunc';
 
 

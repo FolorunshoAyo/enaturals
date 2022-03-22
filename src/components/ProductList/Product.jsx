@@ -1,6 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import {smallPhone, medPhone, bigDesktop} from '../../responsive';
+import { findAndReplace } from '../../usefulFunc';
 
 const ProductCard = styled.div`
     flex: ${props => props.view === "list"? "none" : "0 0 50%" };
@@ -91,7 +93,9 @@ const Button = styled.button`
     ${smallPhone({padding: "10px 20px"})}
 `;
 
-const Product = ({productImage, price, description, productName, view}) => {
+const Product = ({productImage, price, description, productName, view, size, productTag}) => {
+    const modProductName = findAndReplace(productName);
+    
     return (
         <ProductCard view={view}>
             <ProductImageContainer view={view}>
@@ -100,9 +104,9 @@ const Product = ({productImage, price, description, productName, view}) => {
             <ProductDescription view={view}>
                 <ProductName>{productName}</ProductName>
                 <Description display={view === "grid"? "none" : "block"}>{description}</Description>
-                <ProductTag>Restoring</ProductTag>
+                <ProductTag><Link to={`/product-tag/${findAndReplace(productTag)}`} className="productTagLink">{productTag}</Link></ProductTag>
                 <Price view={view}>{price}</Price>
-                <Button>Add To Cart</Button>
+                {size === "No size"? <Button>Add To Cart</Button> : <Link to={`/product/${modProductName}`} className="addToCartLink"> Add To Cart </Link>}
             </ProductDescription>
         </ProductCard>
     );

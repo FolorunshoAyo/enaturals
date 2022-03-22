@@ -45,7 +45,7 @@ const NewProducts = () => {
                         productImg={popularProduct.img}
                         productName={popularProduct.productName}
                         priceRange={popularProduct.priceRange}
-                        productDetails={popularProduct.productDetails}
+                        productDetails={popularProduct.productTag}
                     />
                     ))
                 }
