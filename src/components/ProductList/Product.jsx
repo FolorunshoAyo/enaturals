@@ -102,7 +102,11 @@ const Product = ({productImage, price, description, productName, view, size, pro
                 <ProductImage src={productImage}/>
             </ProductImageContainer>
             <ProductDescription view={view}>
-                <ProductName>{productName}</ProductName>
+                <ProductName>
+                    <Link to={`/product/${modProductName}`} className="productLink">
+                        {productName}
+                    </Link>
+                </ProductName>
                 <Description display={view === "grid"? "none" : "block"}>{description}</Description>
                 <ProductTag><Link to={`/product-tag/${findAndReplace(productTag)}`} className="productTagLink">{productTag}</Link></ProductTag>
                 <Price view={view}>{price}</Price>
