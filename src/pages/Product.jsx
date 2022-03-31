@@ -11,6 +11,8 @@ import { splitAndSpace } from '../usefulFunc';
 const Product = () => {
     const { productName } = useParams();
 
+    console.log(splitAndSpace(productName, "-"));
+    
     return(
         <>
             <Announcement /> 

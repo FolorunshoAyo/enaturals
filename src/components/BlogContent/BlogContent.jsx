@@ -720,7 +720,7 @@ const BlogContent = () => {
   const [showReplyForm, setShowReplyForm] = useState(false);
 
   const handleReplyClick = (e) => {
-    if(e.target.classList[0] === "sc-uWCef"){
+    if(e.target.innerHTML === "Reply"){
       setShowReplyForm(true);
     }else{
       setShowReplyForm(false);

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Slider from '@mui/material/Slider';
 import ViewListIcon from '@mui/icons-material/ViewList';
@@ -210,6 +210,22 @@ const PaginationContainer= styled.div`
 const ProductList = () => {
     const [currView, setView] = useState("list");
 
+    // MERGING SIMILAR PPRODUCTS BY NAME
+    const productNames = [];
+    const reArrangedProducts = [];
+
+    allProducts.forEach(product => {
+        if(productNames.includes(product.productName)){
+
+        }else{
+            productNames.push(product.productName);
+        } 
+    });
+
+    productNames.forEach(name => {
+        reArrangedProducts.push(allProducts.filter(product => product.productName === name));
+    });
+
     const changeToGrid = () => {
         setView("grid");
     };
@@ -282,7 +298,7 @@ const ProductList = () => {
                             <PaginationContainer>
                                 {allProducts.length > 0 ? 
                                 <Pagination 
-                                    data={allProducts}
+                                    data={reArrangedProducts}
                                     RenderComponent={Product}
                                     pageLimit={5}
                                     dataLimit={4}

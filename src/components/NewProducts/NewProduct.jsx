@@ -54,7 +54,7 @@ const ProductDescription = styled.div`
     ${res1023({padding: "1.5rem 0"})}
 `;
 
-const ProductDetails = styled.div`
+const ProductTag = styled.div`
     font-size: 1.5rem;
     color: #7e8485;
     font-family: Lato, sans-serif;
@@ -95,7 +95,7 @@ const ProductActionButton = styled.button`
     ${res1023({padding: "14px 18px"})}
 `;
 
-const NewProduct = ({productImg, productName, priceRange, productDetails}) => {
+const NewProduct = ({productImg, productName, price, productTag}) => {
     return (
         <ProductCard>
             <ProductImage>
@@ -105,11 +105,11 @@ const NewProduct = ({productImg, productName, priceRange, productDetails}) => {
                 <ProductName>
                     {productName}
                 </ProductName>
-                <ProductDetails>
-                    {productDetails}
-                </ProductDetails>
+                <ProductTag>
+                    {productTag}
+                </ProductTag>
                 <ProductPrice>
-                    {priceRange}
+                    {price}
                 </ProductPrice>
                 <ButtonsContainer>
                     <ProductActionButton>Add To Cart</ProductActionButton>

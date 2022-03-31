@@ -44,8 +44,8 @@ const NewProducts = () => {
                         key={popularProduct.id} 
                         productImg={popularProduct.img}
                         productName={popularProduct.productName}
-                        priceRange={popularProduct.priceRange}
-                        productDetails={popularProduct.productTag}
+                        price={popularProduct.price}
+                        productTag={popularProduct.productTag}
                     />
                     ))
                 }

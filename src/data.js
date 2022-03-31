@@ -65,28 +65,28 @@ export const newProducts = [
         img:  "../enaturals/enaturals-1.jpg",
         productName: "Body Milk",
         productTag: "Handmade Soap",
-        priceRange: "₦2000 - ₦6000"
+        price: 6000
     },
     {
         id: 2,
         img: "../enaturals/enaturals3.jpg",
         productName: "Glow Oil",
         productTag: "Handmade Soap",
-        priceRange: "₦3000 - ₦8000"
+        price: 4000
     },
     {
         id: 3,
         img: "../enaturals/enaturals6.jpg",
         productName: "Hot Choco Lotion",
         productTag: "Handmade Soap",
-        priceRange: "₦8000 - ₦12000"
+        price: 2000
     },
     {
         id: 4,
         img: "../enaturals/enaturals12.jpg",
         productName: "Whitening Oil",
         productTag: "Handmade Soap",
-        priceRange: "₦5000 - ₦8000"
+        price: 3000
     }
 ]
 
@@ -131,7 +131,6 @@ export const allProducts = [
         productName: "Body Milk",
         description: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
         productTag: "Handmade Soap",
-        priceRange: "₦2000 - ₦6000",
         packingOptions: ["Gift", "Original"],
         size: "No size",
         price: 5000
@@ -142,7 +141,6 @@ export const allProducts = [
         productName: "Glow Oil",
         description: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
         productTag: "Handmade Soap",
-        priceRange: "₦3000 - ₦8000",
         packingOptions: ["Gift", "Original"],
         size: "No size",
         price: 5000
@@ -153,40 +151,36 @@ export const allProducts = [
         productName: "Hot Choco Lotion",
         description: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
         productTag: "Handmade Soap",
-        priceRange: "₦8000 - ₦12000",
         packingOptions: ["Gift", "Original"],
         size: "small",
-        price: 5000
+        price: 3000
     },
     {
         id: 4,
-        img: "../enaturals/enaturals12.jpg",
-        productName: "Whitening Oil",
+        img: "../enaturals/enaturals6.jpg",
+        productName: "Hot Choco Lotion",
         description: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
         productTag: "Handmade Soap",
-        priceRange: "₦5000 - ₦8000",
         packingOptions: ["Gift", "Original"],
-        size: "No size",
-        price: 5000
+        size: "medium",
+        price: 6000
     },
     {
         id: 5,
-        img: "../enaturals/enaturals12.jpg",
-        productName: "Whitening Oil",
+        img: "../enaturals/enaturals6.jpg",
+        productName: "Hot Choco Lotion",
         description: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
         productTag: "Handmade Soap",
-        priceRange: "₦5000 - ₦8000",
         packingOptions: ["Gift", "Original"],
-        size: "No size",
-        price: 5000
+        size: "large",
+        price: 10000
     },
     {
         id: 6,
         img: "../enaturals/enaturals12.jpg",
-        productName: "Whitening Oil",
+        productName: "Eye Bag Oil",
         description: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
         productTag: "Handmade Soap",
-        priceRange: "₦5000 - ₦8000",
         packingOptions: ["Gift", "Original"],
         size: "No size",
         price: 5000
@@ -197,10 +191,9 @@ export const allProducts = [
         productName: "Whitening Oil",
         description: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
         productTag: "Handmade Soap",
-        priceRange: "₦5000 - ₦8000",
         packingOptions: ["Gift", "Original"],
-        size: "No size",
-        price: 5000
+        size: "small",
+        price: 2000
     },
     {
         id: 8,
@@ -208,7 +201,26 @@ export const allProducts = [
         productName: "Whitening Oil",
         description: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
         productTag: "Handmade Soap",
-        priceRange: "₦5000 - ₦8000",
+        packingOptions: ["Gift", "Original"],
+        size: "medium",
+        price: 4000
+    },
+    {
+        id: 9,
+        img: "../enaturals/enaturals12.jpg",
+        productName: "Whitening Oil",
+        description: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
+        productTag: "Handmade Soap",
+        packingOptions: ["Gift", "Original"],
+        size: "large",
+        price: 6000
+    },
+    {
+        id: 10,
+        img: "../enaturals/enaturals12.jpg",
+        productName: "Aloe Vera Gel",
+        description: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
+        productTag: "Handmade Soap",
         packingOptions: ["Gift", "Original"],
         size: "No size",
         price: 5000
