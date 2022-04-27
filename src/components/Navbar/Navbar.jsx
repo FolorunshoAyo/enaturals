@@ -16,6 +16,10 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import {smallPhone, res480, medPhone, tabPort, res1023, tabLand, medDesktop, bigDesktop} from '../../responsive';
 import CartItems from '../CartItems/CartItems';
 import {NavLink} from 'react-router-dom';
+import DatePicker from "react-datepicker";
+import PhoneInputWithCountrySelect from 'react-phone-number-input';
+import "react-datepicker/dist/react-datepicker.css";
+import 'react-phone-number-input/style.css';
 import './Navbar.css';
 
 const ModalBackdrop = styled.div`
@@ -179,6 +183,26 @@ const RegisterFormGroup = styled.div`
     &:not(:last-child){
         margin-bottom: 3rem;
     }
+`;
+
+const DateOfBirthContainer = styled.div`
+`;
+
+const GenderSelect = styled.select`
+    padding: 1.5rem 0rem 1rem 1rem;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #7E8485;
+
+    &:focus{
+        border-bottom: 2px solid #000;
+        outline: none;
+    }
+`;
+
+const GenderOption = styled.option`
+
 `;
 
 const InputContainer = styled.div`
@@ -519,6 +543,8 @@ const Navbar = () =>{
     const [dropDownState, setDropDown] = useState(false);
     const [y, setY] = useState(document.scrollingElement.scrollHeight);
     const [minimizeHeader, setMinimizeHeader] = useState(false);
+    const [startDate, setStartDate] = useState(new Date());
+    const [value, setValue] = useState("");
 
     let isProfileClicked = false;
 
@@ -706,7 +732,7 @@ const Navbar = () =>{
                                 <RegisterForm>
                                     <RegisterFormGroup>
                                         <InputContainer>
-                                            <Label for="name">Name <Required>*</Required></Label>
+                                            <Label for="name">First Name <Required>*</Required></Label>
                                             <Input type="text" placeholder="e.g vivian" id="name"/>
                                         </InputContainer>
                                         <InputContainer>
@@ -726,12 +752,42 @@ const Navbar = () =>{
                                     </RegisterFormGroup>
                                     <RegisterFormGroup>
                                         <InputContainer>
-                                            <Label for="pwd">Password <Required>*</Required></Label>
-                                            <Input type="password" id="pwd"/>
+                                            <Label for="dob">Date of Birth <Required>*</Required></Label>
+                                            <DateOfBirthContainer>
+                                               <DatePicker 
+                                                    selected={startDate} 
+                                                    onChange={(date) => setStartDate(date)}
+                                               />
+                                            </DateOfBirthContainer>
                                         </InputContainer>
                                         <InputContainer>
-                                            <Label for="cpwd">Confirm Password<Required>*</Required></Label>
-                                            <Input type="password" id="cpwd"/>
+                                            <Label for="gender">Gender <Required>*</Required></Label>
+                                            <GenderSelect name="gender" id="gender">
+                                                <GenderOption value="">Select gender</GenderOption>
+                                                <GenderOption>Male</GenderOption>
+                                                <GenderOption>Female</GenderOption>
+                                                <GenderOption>Other</GenderOption>
+                                            </GenderSelect>
+                                        </InputContainer>
+                                    </RegisterFormGroup>
+                                    <RegisterFormGroup>
+                                        <InputContainer>
+                                            <Label for="pwd">Password <Required>*</Required></Label>
+                                            <Input type="password" id="pwd" placeholder="must contain an uppercase letter and two numbers"/>
+                                        </InputContainer>
+                                        <InputContainer>
+                                            <Label for="cpwd">Confirm Password <Required>*</Required></Label>
+                                            <Input type="password" id="cpwd" placeholder="Retype password"/>
+                                        </InputContainer>
+                                    </RegisterFormGroup>
+                                    <RegisterFormGroup>
+                                        <InputContainer>
+                                            <Label for="pwd">Phone No <Required>*</Required></Label>
+                                            <PhoneInputWithCountrySelect 
+                                                placeholder="Enter phone number" 
+                                                value={value}
+                                                onChange={setValue}
+                                            />
                                         </InputContainer>
                                     </RegisterFormGroup>
                                     <SubmitButton scope="register">

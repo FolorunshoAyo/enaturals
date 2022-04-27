@@ -5,7 +5,7 @@ import { newProducts } from '../../data';
 import {smallPhone, medPhone, res700, res1023, tabLand, medDesktop, bigDesktop} from '../../responsive';
 
 const Container = styled.section`
-    padding: 6rem 3rem;
+    padding: 4rem 3rem 0;
 `;
 
 const Header = styled.div`

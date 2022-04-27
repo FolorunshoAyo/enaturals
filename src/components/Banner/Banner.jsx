@@ -5,7 +5,7 @@ import {res700,tabPort, res1100} from '../../responsive';
 import {Link} from 'react-router-dom';
 
 const Container = styled.div`
-    margin: 5rem 0 5rem;
+    margin: 0rem 0 5rem;
     padding: 6rem 8rem;
     background-color: #EFFCE8;
 

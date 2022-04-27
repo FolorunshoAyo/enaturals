@@ -209,6 +209,12 @@ const PaginationContainer= styled.div`
 
 const ProductList = () => {
     const [currView, setView] = useState("list");
+    const [value, setValue] = useState([0, 20]);
+
+    // FOR SLIDER
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
 
     // MERGING SIMILAR PPRODUCTS BY NAME
     const productNames = [];
@@ -252,13 +258,14 @@ const ProductList = () => {
                             <RangeContainer>
                                 <Slider 
                                     getArialLabel={() => 'Minimum price'}
-                                    value={[0, 20]}
+                                    onChange={handleChange}
+                                    value={value}
                                     valueLabel="auto"
                                     disableSwap
                                 />
                                 <FilterPriceContainer>
                                     <PriceRange>
-                                        <PriceTitle>Price</PriceTitle>: ₦1000 - ₦20000
+                                        <PriceTitle>Price</PriceTitle>: ₦{value[0] * 100} - ₦{value[1] * 100}
                                     </PriceRange>
                                     <FilterButton>Filter</FilterButton>
                                 </FilterPriceContainer>
@@ -269,10 +276,11 @@ const ProductList = () => {
                                 Categories
                             </Title>
                             <Categories>
-                                <CategoryItem>Curative</CategoryItem>
-                                <CategoryItem>For Kids</CategoryItem>
-                                <CategoryItem>Gift Card</CategoryItem>
+                                <CategoryItem>Handmade</CategoryItem>
+                                <CategoryItem>Restoring</CategoryItem>
                                 <CategoryItem>Refreshing</CategoryItem>
+                                <CategoryItem>Scrubbing</CategoryItem>
+                                <CategoryItem>Uncategorized</CategoryItem>
                             </Categories>
                         </CategoriesContainer>
                     </ToolsSection>

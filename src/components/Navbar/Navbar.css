@@ -19,3 +19,16 @@
 .navIcon{
     cursor: pointer;
 }
+
+.react-datepicker__input-container input, .PhoneInputInput{
+    padding: 1.5rem 0rem 1rem 1rem;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #7E8485;
+}
+
+.react-datepicker__input-container input:focus, .PhoneInputInput:focus{
+    border-bottom: 2px solid #000;
+    outline: none;
+}
