@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Slider from '@mui/material/Slider';
 import ViewListIcon from '@mui/icons-material/ViewList';
@@ -8,6 +8,11 @@ import Pagination from '../Pagination/Pagination';
 import {allProducts} from '../../data';
 import {res480, medPhone, res700, res860 ,res1023, bigDesktop} from '../../responsive';
 import CartItems from '../CartItems/CartItems';
+import { convertToDefaultProductTag, mergeSimilarProduct } from '../../usefulFunc';
+import "./ProductList.css";
+import { Link } from 'react-router-dom';
+import { CircularProgress } from '@mui/material';
+import { publicRequest } from '../../requestMethod';
 
 
 const Container = styled.section`
@@ -73,7 +78,7 @@ const PriceRangeContainer = styled.div`
     ${res700({marginBottom: "3rem", alignSelf: "stretch"})}
 `;
 
-const RangeContainer = styled.form`
+const RangeContainer = styled.div`
     padding: 2rem 4rem;
 `;
 
@@ -84,7 +89,12 @@ const CategoriesContainer = styled.div`
     ${res1023({flex: "0 0 48%"})}
 `;
 
-const CategoryItem = styled.div`
+const Categories = styled.ul`
+    padding: 2rem;
+    list-style-type: none;
+`;
+
+const CategoryItem = styled.li`
     font-size: 1.3rem;
     font-family: Lato, sans-serif;
     transition: all .3s ease-in;
@@ -97,11 +107,7 @@ const CategoryItem = styled.div`
     &::before{
         content: "> ";
         margin-right: 12px;
-        color: #9AAF8F;
-    }
-
-    &:hover{
-        color: #ACBFA3;
+        color: #b8a398;
     }
 `;
 
@@ -109,9 +115,7 @@ const ProductsContainer = styled.div`
     padding: 0 1.5rem;
     flex: 1;
 `;
-const Categories = styled.div`
-    padding: 2rem;
-`;
+
 const FilterProductsContainer = styled.div`
     display: flex;
     justify-content: space-between;
@@ -205,32 +209,109 @@ const Products = styled.div`
 `;
 
 const PaginationContainer= styled.div`
+    display: ${props => props.loader? "flex" : "block"};
+    height: ${props => props.loader? "200px" : "auto"};
+    justify-content: center;
+    align-items: center;
 `;
 
-const ProductList = () => {
+const ProductList = ({productTag}) => {
+    const [products, setProducts] = useState([]);
     const [currView, setView] = useState("list");
-    const [value, setValue] = useState([0, 20]);
+    const [sliderValue, setSliderValue] = useState([0, 50]);
+    const [isLoading, setLoading] = useState(true);
+    const [sort, setSort] = useState("newest");
 
-    // FOR SLIDER
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
+    // Handle URL FOR SORTING
+    const endPointGen = sortType => {
+        switch (sortType){
+            case "newest":
+                return `/products/`
+            break;
+            case "asc":
+                return `/api/products/?sortby=asc`;
+            break;
+            case "desc":
+                return `/api/products/?sortby=desc`;
+            break;
+            default:
+                console.log("No other sort type.");
+
+        }
     };
 
-    // MERGING SIMILAR PPRODUCTS BY NAME
-    const productNames = [];
-    const reArrangedProducts = [];
+   // FETCH ALL PRODUCTS BASED ON FILTER SELECT
+    useEffect(() => {
+        const getProducts = async () => {
+            setLoading(true);
 
-    allProducts.forEach(product => {
-        if(productNames.includes(product.productName)){
+            const result = await publicRequest.get(endPointGen(sort), {timeout: 5000});
 
-        }else{
-            productNames.push(product.productName);
-        } 
-    });
+            console.log(result.data);
+            setProducts(result.data);
+            setLoading(false);
+        };
 
-    productNames.forEach(name => {
-        reArrangedProducts.push(allProducts.filter(product => product.productName === name));
-    });
+        getProducts();
+    }, [sort, productTag]);
+
+    // FETCH ALL PRODUCTS BASED ON RANGED PRICING
+    const handleFilteredProductGeneration = () => {
+
+        const getProductsByRange = async () => {
+            setLoading(true);
+
+            const result = await publicRequest.get(`/products?max=${sliderValue[0] * 100}&min=${sliderValue[1] * 100}`, {timeout: 5000});
+
+            setProducts(result.data);
+            setLoading(false);
+        };
+
+        getProductsByRange();
+    };
+
+    // FOR SLIDER
+    const handleSliderChange = (event, newValue) => {
+        setSliderValue(newValue);
+    };
+
+    // FOR FILTER SELECT 
+    const handleChange = (e) => {
+        setSort(e.target.value);
+    }
+
+    //MERGE SIMILAR PRODUCTS 
+    const reArrangedProducts = mergeSimilarProduct(products);
+
+    // FILTER PRODUCTS BY TAG
+    const filteredProductsByProductTag = [];
+
+    if(productTag && products){
+        const modProductTag = convertToDefaultProductTag(productTag);
+
+        reArrangedProducts.forEach((reArrangedProduct) => {
+            const noOfSimilarProduct = reArrangedProduct.length;
+
+            if(noOfSimilarProduct === 4){
+                if(reArrangedProduct[0].categories.includes(modProductTag) || reArrangedProduct[1].categories.includes(modProductTag) || reArrangedProduct[2].categories.includes(modProductTag) || reArrangedProduct[3].categories.includes(modProductTag)){
+                    filteredProductsByProductTag.push(reArrangedProduct);
+                } 
+            }else if(noOfSimilarProduct === 3){
+                if(reArrangedProduct[0].categories.includes(modProductTag) || reArrangedProduct[1].categories.includes(modProductTag) || reArrangedProduct[2].categories.includes(modProductTag)){
+                    filteredProductsByProductTag.push(reArrangedProduct);
+                } 
+            }else if(noOfSimilarProduct === 2){
+                if(reArrangedProduct[0].categories.includes(modProductTag) || reArrangedProduct[1].categories.includes(modProductTag)){
+                    filteredProductsByProductTag.push(reArrangedProduct);
+                }
+            }else if (noOfSimilarProduct === 1){
+                if(reArrangedProduct[0].categories.includes(modProductTag)){
+                    filteredProductsByProductTag.push(reArrangedProduct);
+                }
+            }
+        });
+    }
+
 
     const changeToGrid = () => {
         setView("grid");
@@ -258,16 +339,16 @@ const ProductList = () => {
                             <RangeContainer>
                                 <Slider 
                                     getArialLabel={() => 'Minimum price'}
-                                    onChange={handleChange}
-                                    value={value}
+                                    onChange={handleSliderChange}
+                                    value={sliderValue}
                                     valueLabel="auto"
                                     disableSwap
                                 />
                                 <FilterPriceContainer>
                                     <PriceRange>
-                                        <PriceTitle>Price</PriceTitle>: ₦{value[0] * 100} - ₦{value[1] * 100}
+                                        <PriceTitle>Price</PriceTitle>: ₦{sliderValue[0] * 100} - ₦{sliderValue[1] * 100}
                                     </PriceRange>
-                                    <FilterButton>Filter</FilterButton>
+                                    <FilterButton onClick={handleFilteredProductGeneration}>Filter</FilterButton>
                                 </FilterPriceContainer>
                             </RangeContainer>
                         </PriceRangeContainer>
@@ -276,11 +357,56 @@ const ProductList = () => {
                                 Categories
                             </Title>
                             <Categories>
-                                <CategoryItem>Handmade</CategoryItem>
-                                <CategoryItem>Restoring</CategoryItem>
-                                <CategoryItem>Refreshing</CategoryItem>
-                                <CategoryItem>Scrubbing</CategoryItem>
-                                <CategoryItem>Uncategorized</CategoryItem>
+                                <CategoryItem>
+                                    <Link to="/product-category/body-exfoliant" className="categoryLink">
+                                        Body Exfoliant
+                                    </Link>
+                                </CategoryItem>
+                                <CategoryItem>
+                                    <Link to="/product-category/brightening" className="categoryLink">
+                                        Brighteneing
+                                    </Link>
+                                </CategoryItem>
+                                <CategoryItem>
+                                    <Link to="/product-category/handmade-soap" className="categoryLink">
+                                        Handmade Soap
+                                    </Link>
+                                </CategoryItem>
+                                <CategoryItem>
+                                    <Link to="/product-category/refreshing" className="categoryLink">
+                                        Refreshing
+                                    </Link>
+                                </CategoryItem>
+                                <CategoryItem>
+                                    <Link to="/product-category/rejuvenating" className="categoryLink">
+                                        Rejuvenating
+                                    </Link>
+                                </CategoryItem>
+                                <CategoryItem>
+                                    <Link to="/product-category/repairing" className="categoryLink">
+                                        Repairing
+                                    </Link>
+                                </CategoryItem>
+                                <CategoryItem>
+                                    <Link to="/product-category/restoring" className="categoryLink">
+                                        Restoring
+                                    </Link>
+                                </CategoryItem>
+                                <CategoryItem>
+                                    <Link to="/product-category/scrubbing" className="categoryLink">
+                                        Scrubbing
+                                    </Link>
+                                </CategoryItem>
+                                <CategoryItem>
+                                    <Link to="/product-category/refreshing" className="categoryLink">
+                                        Refreshing
+                                    </Link>
+                                </CategoryItem>
+                                <CategoryItem>
+                                    <Link to="/product-category/uncategorized" className="categoryLink">
+                                        Uncategorized
+                                    </Link>
+                                </CategoryItem>
                             </Categories>
                         </CategoriesContainer>
                     </ToolsSection>
@@ -295,25 +421,27 @@ const ProductList = () => {
                                 </Icon>
                             </ViewsContainer>   
                             <FilterContainer>
-                                <FilterSelect>
-                                    <FilterOption>Sort by latest</FilterOption>
-                                    <FilterOption>Sort by price: low to high</FilterOption>
-                                    <FilterOption>Sort by price: high to low</FilterOption>
+                                <FilterSelect name="sort" onChange={handleChange}>
+                                    <FilterOption value="newest">Sort by latest</FilterOption>
+                                    <FilterOption value="asc">Sort by price: low to high</FilterOption>
+                                    <FilterOption value="desc">Sort by price: high to low</FilterOption>
                                 </FilterSelect>
                             </FilterContainer>                     
                         </FilterProductsContainer>
                         <Products>
-                            <PaginationContainer>
-                                {allProducts.length > 0 ? 
-                                <Pagination 
-                                    data={reArrangedProducts}
-                                    RenderComponent={Product}
-                                    pageLimit={5}
-                                    dataLimit={4}
-                                    view={currView}
-                                /> 
-                                :
-                                <h1>No products to display</h1> 
+                            <PaginationContainer loader={isLoading}>
+                                {
+                                    isLoading ?
+                                    (<CircularProgress size="8rem" />)
+                                    :
+                                    (<Pagination 
+                                        data={productTag? filteredProductsByProductTag : reArrangedProducts}
+                                        pageType={productTag? "productTagPage" : "productsPage"}
+                                        RenderComponent={Product}
+                                        pageLimit={5}
+                                        dataLimit={4}
+                                        view={currView}
+                                    />)
                                 }
                             </PaginationContainer>
                         </Products>

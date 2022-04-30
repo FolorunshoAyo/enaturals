@@ -10,15 +10,13 @@ import { splitAndSpace } from '../usefulFunc';
 
 const Product = () => {
     const { productName } = useParams();
-
-    console.log(splitAndSpace(productName, "-"));
     
     return(
         <>
             <Announcement /> 
             <Navbar />
             <PageTitle title={splitAndSpace(productName, "-")} pageLocation={"Home | Shop | ... | " + productName} params={productName}/>
-            <SingleProduct />
+            <SingleProduct productName={productName}/>
             <Footer borderTop/>
         </>
     );

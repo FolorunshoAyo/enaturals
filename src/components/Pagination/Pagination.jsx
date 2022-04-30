@@ -3,7 +3,7 @@ import styled from "styled-components";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import { smallPhone, medPhone, res860 } from "../../responsive";
-import { ContactSupportOutlined } from "@mui/icons-material";
+import { ContactSupportOutlined, DataArray } from "@mui/icons-material";
 import { findMax, findMin } from "../../usefulFunc";
 
 const Container = styled.div``;
@@ -11,6 +11,14 @@ const Container = styled.div``;
 const ProductsContainer = styled.div`
   display: ${(props) => (props.view === "list" ? "block" : "flex")};
   flex-flow: ${(props) => (props.view === "list" ? "none" : "row wrap")};
+`;
+
+const NoProductMessage = styled.h1`
+  text-align: center;
+  font-family: Lato, sans-serif;
+  font-size: 3rem;
+  font-weight: 300;
+  margin: 100px 0;
 `;
 
 const PaginationNav = styled.div`
@@ -68,7 +76,7 @@ const PageNumbers = styled.button`
   }
 `;
 
-const Pagination = ({ data, RenderComponent, pageLimit, dataLimit, view }) => {
+const Pagination = ({ data, RenderComponent, pageLimit, dataLimit, view, pageType}) => {
   const [pages] = useState(Math.round(data.length / dataLimit));
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -93,7 +101,11 @@ const Pagination = ({ data, RenderComponent, pageLimit, dataLimit, view }) => {
     const startIndex = currentPage * dataLimit - dataLimit;
     const endIndex = startIndex + dataLimit;
 
-    return data.slice(startIndex, endIndex);
+    if(data.length === 0){
+      return data;
+    }else{
+      return data.slice(startIndex, endIndex);
+    }
   };
 
   const getPaginatedGroup = () => {
@@ -104,50 +116,56 @@ const Pagination = ({ data, RenderComponent, pageLimit, dataLimit, view }) => {
   return (
     <Container>
       <ProductsContainer view={view}>
-        {getPaginatedData().map((groupOfSimilarProducts) => {
-          if (groupOfSimilarProducts.length === 1) {
-            const product = groupOfSimilarProducts[0];
+        {
+          (getPaginatedData().length !== 0) ?
 
-            return (
-              <RenderComponent
-                key={product.id}
-                productImage={product.img}
-                price={`₦${product.price}`}
-                description={product.description}
-                productName={product.productName}
-                size={product.size}
-                productTag={product.productTag}
-                view={view}
-              />
-            );
-          } else {
-            const productSizes = groupOfSimilarProducts.map(
-              (product) => product.size
-            );
-            const productPrices = groupOfSimilarProducts.map(
-              (product) => product.price
-            );
-            const similarProducts = groupOfSimilarProducts;
+          getPaginatedData().map((groupOfSimilarProducts) => {
+            if (groupOfSimilarProducts.length === 1) {
+              const product = groupOfSimilarProducts[0];
 
-            const maxAndMinPrice = [
-              findMin(productPrices),
-              findMax(productPrices),
-            ];
+              return (
+                <RenderComponent
+                  key={product._id}
+                  productImage={product.img}
+                  price={`₦${product.price}`}
+                  description={product.desc}
+                  productName={product.productName}
+                  size={product.size}
+                  productTags={product.categories}
+                  view={view}
+                />
+              );
+            } else {
+              const productSizes = groupOfSimilarProducts.map(
+                (product) => product.size
+              );
+              const productPrices = groupOfSimilarProducts.map(
+                (product) => product.price
+              );
+              const similarProducts = groupOfSimilarProducts;
 
-            return (
-              <RenderComponent
-                key={similarProducts[0].id}
-                productImage={similarProducts[0].img}
-                price={`₦${maxAndMinPrice[0]} - ₦${maxAndMinPrice[1]}`}
-                description={similarProducts[0].description}
-                productName={similarProducts[0].productName}
-                size={productSizes}
-                productTag={similarProducts[0].productTag}
-                view={view}
-              />
-            );
-          }
-        })}
+              const maxAndMinPrice = [
+                findMin(productPrices),
+                findMax(productPrices),
+              ];
+
+              return (
+                <RenderComponent
+                  key={similarProducts[0]._id}
+                  productImage={similarProducts[0].img}
+                  price={`₦${maxAndMinPrice[0]} - ₦${maxAndMinPrice[1]}`}
+                  description={similarProducts[0].desc}
+                  productName={similarProducts[0].productName}
+                  size={productSizes}
+                  productTags={similarProducts[0].categories}
+                  view={view}
+                />
+              );
+            }
+          }) 
+          :        
+          (pageType === "productTagPage") ? <NoProductMessage> No product matches your selection</NoProductMessage> : <NoProductMessage> No Products Available </NoProductMessage>
+        }
       </ProductsContainer>
       <PaginationNav>
         <PrevBtn

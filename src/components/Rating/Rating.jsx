@@ -12,9 +12,9 @@ const Rating = ({rating}) => {
             {[...Array(5)].map((star, i) => {
                 return (
                     rating >= i + 1? 
-                    <StarBorderIcon style={{color: '#B8A398', fontSize: 20}} /> 
+                    <StarBorderIcon key={i + 1} style={{color: '#B8A398', fontSize: 20}} /> 
                     :
-                    <StarBorderIcon style={{fontSize: 20}}/>
+                    <StarBorderIcon key={i + 1} style={{fontSize: 20}}/>
                 )
             })
             }

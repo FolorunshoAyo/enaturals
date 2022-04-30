@@ -16,7 +16,7 @@ const Shop = () => {
                 <Announcement />
                 <Navbar />
                 <PageTitle title={splitAndSpace(productTag, "-")} pageLocation={"Home | Shop | " + productTag} params={productTag}/>
-                <ProductList />
+                <ProductList productTag={productTag}/>
                 <Footer borderTop/>
             </>
         );

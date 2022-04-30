@@ -24,8 +24,8 @@ const ProductsContainer = styled.div`
     padding: 5rem 8rem;
     height: 550px;
 
-    ${bigDesktop({width: "1200px", padding: "8rem 0rem", margin: "0 auto"})}
-    ${medDesktop({width: "1200px", padding: "8rem 0rem", margin: "0 auto"})}
+    ${bigDesktop({height: "600px", width: "1200px", padding: "8rem 0rem", margin: "0 auto 8rem"})}
+    ${medDesktop({width: "1200px", padding: "8rem 0rem", margin: "0 auto 8rem"})}
     ${tabLand({width: "85%", margin: "0 auto", padding: "4rem 0 0"})}
     ${res1023({width: "85%", margin: "0 auto", padding: "4rem 0 0"})}
     ${res700({width: "75%", flexWrap: "wrap", height: "auto"})}
@@ -45,7 +45,7 @@ const NewProducts = () => {
                         productImg={popularProduct.img}
                         productName={popularProduct.productName}
                         price={popularProduct.price}
-                        productTag={popularProduct.productTag}
+                        productTag={popularProduct.categories}
                     />
                     ))
                 }

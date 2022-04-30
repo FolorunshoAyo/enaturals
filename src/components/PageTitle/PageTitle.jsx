@@ -178,7 +178,7 @@ const PageTitle = ({ title, pageLocation, params}) => {
             </>
         ); 
         break;
-        case `/product-tag/${params}`:
+        case `/product-category/${params}`:
           result = (
             <>
               <Link to="/" className="paginationLink">

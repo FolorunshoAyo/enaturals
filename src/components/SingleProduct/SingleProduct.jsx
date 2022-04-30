@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import SearchIcon from '@mui/icons-material/Search';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -8,6 +8,8 @@ import ProductImage from '../ProductImage/ProductImage';
 import ProductTab from '../ProductTab/ProductTab';
 import RelatedProducts from '../RelatedProducts/RelatedProducts';
 import {smallPhone, res480, res700, res860, res1023} from '../../responsive';
+import { publicRequest } from '../../requestMethod';
+import { convertToDefaultProductName } from '../../usefulFunc';
 
 const Container = styled.div`
     padding: 5rem 8rem;
@@ -244,13 +246,23 @@ const CloseIconContainer = styled.div`
     cursor: pointer;
 `;
 
-const SingleProduct = () => {
+const SingleProduct = ({productName}) => {
     const [showProduct, setShowProduct] = useState(false);
+    const [product, setProduct]= useState([]);
+
+    useEffect(() => {
+        
+        const getProduct = async () => {
+            const result = await publicRequest.get(`/find/${convertToDefaultProductName(productName)}`);
+
+        };
+
+
+    }, [productName]);
 
     const toggleView = () => {
         setShowProduct(!showProduct);
     };
-
     return (
         <Container>
             <ProductWrapper>

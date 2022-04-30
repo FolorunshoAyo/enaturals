@@ -24,28 +24,28 @@ export const popularProducts = [
         id: 1,
         img:  "../enaturals/enaturals-1.jpg",
         productName: "Body Milk",
-        productTag: "Handmade Soap",
+        categories: ["Handmade Soap", "Restoring"],
         priceRange: "₦2000 - ₦6000"
     },
     {
         id: 2,
         img: "../enaturals/enaturals3.jpg",
         productName: "Glow Oil",
-        productTag: "Handmade Soap",
+        categories: ["Handmade Soap", "Restoring"],
         priceRange: "₦3000 - ₦8000"
     },
     {
         id: 3,
         img: "../enaturals/enaturals6.jpg",
         productName: "Hot Choco Lotion",
-        productTag: "Handmade Soap",
+        categories: ["Handmade Soap", "Restoring"],
         priceRange: "₦8000 - ₦12000"
     },
     {
         id: 4,
         img: "../enaturals/enaturals12.jpg",
         productName: "Whitening Oil",
-        productTag: "Handmade Soap",
+        categories: ["Handmade Soap", "Restoring"],
         priceRange: "₦5000 - ₦8000"
     }
 ];
@@ -64,28 +64,28 @@ export const newProducts = [
         id: 1,
         img:  "../enaturals/enaturals-1.jpg",
         productName: "Body Milk",
-        productTag: "Handmade Soap",
+        categories: ["Handmade Soap", "Restoring"],
         price: 6000
     },
     {
         id: 2,
         img: "../enaturals/enaturals3.jpg",
         productName: "Glow Oil",
-        productTag: "Handmade Soap",
+        categories: ["Handmade Soap", "Restoring"],
         price: 4000
     },
     {
         id: 3,
         img: "../enaturals/enaturals6.jpg",
         productName: "Hot Choco Lotion",
-        productTag: "Handmade Soap",
+        categories: ["Handmade Soap", "Restoring"],
         price: 2000
     },
     {
         id: 4,
         img: "../enaturals/enaturals12.jpg",
         productName: "Whitening Oil",
-        productTag: "Handmade Soap",
+        categories: ["Handmade Soap", "Restoring"],
         price: 3000
     }
 ]
@@ -129,8 +129,8 @@ export const allProducts = [
         id: 1,
         img:  "../enaturals/enaturals-1.jpg",
         productName: "Body Milk",
-        description: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
-        productTag: "Handmade Soap",
+        desc: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
+        categories: ["Refreshing", "Rejuvenating"],
         packingOptions: ["Gift", "Original"],
         size: "No size",
         price: 5000
@@ -138,9 +138,9 @@ export const allProducts = [
     {
         id: 2,
         img: "../enaturals/enaturals3.jpg",
-        productName: "Glow Oil",
-        description: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
-        productTag: "Handmade Soap",
+        productName: "Glow Oil", 
+        desc: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
+        categories: ["Uncategorized"],
         packingOptions: ["Gift", "Original"],
         size: "No size",
         price: 5000
@@ -149,38 +149,38 @@ export const allProducts = [
         id: 3,
         img: "../enaturals/enaturals6.jpg",
         productName: "Hot Choco Lotion",
-        description: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
-        productTag: "Handmade Soap",
-        packingOptions: ["Gift", "Original"],
-        size: "small",
-        price: 3000
-    },
-    {
-        id: 4,
-        img: "../enaturals/enaturals6.jpg",
-        productName: "Hot Choco Lotion",
-        description: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
-        productTag: "Handmade Soap",
+        desc: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
+        categories: ["Handmade Soap", "Restoring"],
         packingOptions: ["Gift", "Original"],
         size: "medium",
         price: 6000
     },
     {
-        id: 5,
+        id: 4,
         img: "../enaturals/enaturals6.jpg",
         productName: "Hot Choco Lotion",
-        description: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
-        productTag: "Handmade Soap",
+        desc: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
+        categories: ["Handmade Soap", "Restoring"],
         packingOptions: ["Gift", "Original"],
         size: "large",
         price: 10000
     },
     {
+        id: 5,
+        img: "../enaturals/enaturals6.jpg",
+        productName: "Hot Choco Lotion",
+        desc: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
+        categories: ["Handmade Soap", "Restoring"],
+        packingOptions: ["Gift", "Original"],
+        size: "small",
+        price: 3000
+    },
+    {
         id: 6,
         img: "../enaturals/enaturals12.jpg",
         productName: "Eye Bag Oil",
-        description: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
-        productTag: "Handmade Soap",
+        desc: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
+        categories: ["Handmade Soap", "Restoring"],
         packingOptions: ["Gift", "Original"],
         size: "No size",
         price: 5000
@@ -189,38 +189,38 @@ export const allProducts = [
         id: 7,
         img: "../enaturals/enaturals12.jpg",
         productName: "Whitening Oil",
-        description: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
-        productTag: "Handmade Soap",
-        packingOptions: ["Gift", "Original"],
-        size: "small",
-        price: 2000
-    },
-    {
-        id: 8,
-        img: "../enaturals/enaturals12.jpg",
-        productName: "Whitening Oil",
-        description: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
-        productTag: "Handmade Soap",
+        desc: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
+        categories: ["Repairing", "Softening"],
         packingOptions: ["Gift", "Original"],
         size: "medium",
         price: 4000
     },
     {
-        id: 9,
+        id: 8,
         img: "../enaturals/enaturals12.jpg",
         productName: "Whitening Oil",
-        description: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
-        productTag: "Handmade Soap",
+        desc: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
+        categories: ["Repairing", "Softening"],
         packingOptions: ["Gift", "Original"],
         size: "large",
         price: 6000
     },
     {
+        id: 9,
+        img: "../enaturals/enaturals12.jpg",
+        productName: "Whitening Oil",
+        desc: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
+        categories: ["Repairing", "Softening"],
+        packingOptions: ["Gift", "Original"],
+        size: "small",
+        price: 2000
+    },
+    {
         id: 10,
         img: "../enaturals/enaturals12.jpg",
         productName: "Aloe Vera Gel",
-        description: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
-        productTag: "Handmade Soap",
+        desc: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
+        categories: ["Scrubbing", "Softening"],
         packingOptions: ["Gift", "Original"],
         size: "No size",
         price: 5000

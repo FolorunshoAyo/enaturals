@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import {smallPhone ,res700 ,res1023, tabLand, medDesktop, bigDesktop} from '../../responsive';
+import {res700 ,res1023, tabLand, medDesktop, bigDesktop} from '../../responsive';
+import { Link } from 'react-router-dom';
+import { findAndReplace } from '../../usefulFunc';
 
 
 const Image = styled.img`
@@ -96,15 +98,18 @@ const ProductActionButton = styled.button`
 `;
 
 const NewProduct = ({productImg, productName, price, productTag}) => {
+
+    const productLink = findAndReplace(productName);
+
     return (
         <ProductCard>
             <ProductImage>
                 <Image src={productImg}/>
             </ProductImage>
             <ProductDescription>
-                <ProductName>
-                    {productName}
-                </ProductName>
+                    <Link to={`/product/${productLink}`} className="productLink">
+                        {productName}
+                    </Link>
                 <ProductTag>
                     {productTag}
                 </ProductTag>

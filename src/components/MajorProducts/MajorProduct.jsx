@@ -1,6 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import {res700, res1023, tabLand, medDesktop, bigDesktop} from '../../responsive';
+import { findAndReplace } from '../../usefulFunc';
 
 const Image = styled.img`
     width: 100%;
@@ -96,6 +98,9 @@ const ProductActionButton = styled.button`
 `;
 
 const MajorProduct = ({productImg, productName, priceRange, productTag}) => {
+
+    const productLink = findAndReplace(productName);
+
     return (
         <ProductCard>
             <ProductImage>
@@ -103,7 +108,9 @@ const MajorProduct = ({productImg, productName, priceRange, productTag}) => {
             </ProductImage>
             <ProductDescription>
                 <ProductName>
-                    {productName}
+                    <Link to={`/product/${productLink}`} className="productLink">
+                        {productName}
+                    </Link>
                 </ProductName>
                 <ProductTag>
                     {productTag}
