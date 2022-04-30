@@ -247,7 +247,6 @@ const ProductList = ({productTag}) => {
 
             const result = await publicRequest.get(endPointGen(sort), {timeout: 5000});
 
-            console.log(result.data);
             setProducts(result.data);
             setLoading(false);
         };

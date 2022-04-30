@@ -16,11 +16,11 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import {smallPhone, res480, medPhone, tabPort, res1023, tabLand, medDesktop, bigDesktop} from '../../responsive';
 import CartItems from '../CartItems/CartItems';
 import {NavLink} from 'react-router-dom';
-import DatePicker from "react-datepicker";
-import PhoneInputWithCountrySelect from 'react-phone-number-input';
 import "react-datepicker/dist/react-datepicker.css";
 import 'react-phone-number-input/style.css';
 import './Navbar.css';
+import RegisterationForm from '../RegisterationForm/RegisterationForm';
+import LoginForm from '../LoginForm/LoginForm';
 
 const ModalBackdrop = styled.div`
     display: ${props => props.openModal? "block" : "none"};
@@ -98,132 +98,17 @@ const LoginBody = styled.div`
     height: 100%;
 `;
 
-const LoginBodyContainer = styled.div`
-    padding: 4rem 2rem 2rem;
-`; 
-
-const LoginForm = styled.form`
-`;
-
-const LoginFormGroup = styled.div`
-    padding: 0 2rem;
-
-    &:not(:last-child){
-        margin-bottom: 3rem;
-    }
-`;
-
-const Label = styled.label`
-    display: block;
-    font-size: 1.5rem;
-    color: #7E8485;
-`;
-
-const Required = styled.span`
-    color: red;
-`;
-
-const Input = styled.input`
-    padding: 1.5rem 0rem 1rem 1rem;
-    width: 100%;
-    background-color: transparent;
-    border: none;
-    border-bottom: 2px solid #7E8485;
-
-    &:focus{
-        border-bottom: 2px solid #000;
-        outline: none;
-    }
-`;
-
-const ForgotContainer = styled.div`
-    padding-left: 2rem;
-    margin: 1.5rem 0;
-    font-size: 1.5rem;
-    font-weight: 400;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-`;
-
-const ForgotPassword = styled.a`
-    display: block;
-    cursor: pointer
-    align-items: center;
-    color: black;
-    text-decoration: none;
-`;
-
-const CreateNewAccount = styled.a`
-    display: block;
-    cursor: pointer
-    align-items: center;
-    color: black;
-    margin-top: 10px;
-    text-decoration: none;
-`;
-
 const RegisterBody = styled.div`
     display: ${props => props.active? "block" : "none"};
     height: 100%;
 `;
 
-const RegisterBodyContainer = styled.div`
+const LoginBodyContainer = styled.div`
     padding: 4rem 2rem 2rem;
 `;
 
-const RegisterForm = styled.div`
-
-`;
-
-const RegisterFormGroup = styled.div`
-    padding: 0 2rem;
-    display: flex;
-    justify-content: space-between;
-
-    &:not(:last-child){
-        margin-bottom: 3rem;
-    }
-`;
-
-const DateOfBirthContainer = styled.div`
-`;
-
-const GenderSelect = styled.select`
-    padding: 1.5rem 0rem 1rem 1rem;
-    width: 100%;
-    background-color: transparent;
-    border: none;
-    border-bottom: 2px solid #7E8485;
-
-    &:focus{
-        border-bottom: 2px solid #000;
-        outline: none;
-    }
-`;
-
-const GenderOption = styled.option`
-
-`;
-
-const InputContainer = styled.div`
-    flex: 0 0 48%;
-`;
-
-const SubmitButton = styled.button`
-    padding: 1.5rem 2.5rem;
-    margin-left: ${props => props.scope === 'login'? 'none' : '2rem'};
-    background-color: transparent;
-    border: 2px solid #B8A398;
-    text-transform: uppercase;
-    color: #B8A398;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all .3s ease-in;
-
-   &:hover{
-       background-color: #B8A398;
-       color: #fff;
-    }
+const RegisterBodyContainer = styled.div`
+    padding: 4rem 2rem 2rem;
 `;
 
 const Wrapper = styled.div`
@@ -543,8 +428,6 @@ const Navbar = () =>{
     const [dropDownState, setDropDown] = useState(false);
     const [y, setY] = useState(document.scrollingElement.scrollHeight);
     const [minimizeHeader, setMinimizeHeader] = useState(false);
-    const [startDate, setStartDate] = useState(new Date());
-    const [value, setValue] = useState("");
 
     let isProfileClicked = false;
 
@@ -706,94 +589,12 @@ const Navbar = () =>{
                     <ModalBody>
                         <LoginBody active={tabNo === 1? true : false}>
                             <LoginBodyContainer>
-                                <LoginForm>
-                                    <LoginFormGroup>
-                                        <Label for="username">Username <Required>*</Required></Label>
-                                        <Input type="text" placeholder="Userame" id="username"/>
-                                    </LoginFormGroup>
-                                    <LoginFormGroup>
-                                        <Label for="pwd">Password <Required>*</Required></Label>
-                                        <Input type="password" placeholder="Password" id="pwd"/>
-                                    </LoginFormGroup>
-                                    <ForgotContainer>
-                                        <ForgotPassword href="#">Forgot Password?</ForgotPassword>
-                                        <CreateNewAccount href="#">Create A New Account</CreateNewAccount>
-                                    </ForgotContainer>
-                                    <LoginFormGroup>
-                                        <SubmitButton scope="login">
-                                            Login
-                                        </SubmitButton>
-                                    </LoginFormGroup>
-                                </LoginForm>
+                                <LoginForm />
                             </LoginBodyContainer>
                         </LoginBody>
                         <RegisterBody active={tabNo === 2? true : false}>
                             <RegisterBodyContainer>
-                                <RegisterForm>
-                                    <RegisterFormGroup>
-                                        <InputContainer>
-                                            <Label for="name">First Name <Required>*</Required></Label>
-                                            <Input type="text" placeholder="e.g vivian" id="name"/>
-                                        </InputContainer>
-                                        <InputContainer>
-                                            <Label for="lastname">Last Name <Required>*</Required></Label>
-                                            <Input type="text" placeholder="e.g smith" id="lastname"/>
-                                        </InputContainer>
-                                    </RegisterFormGroup>
-                                    <RegisterFormGroup>
-                                        <InputContainer>
-                                            <Label for="username">Username <Required>*</Required></Label>
-                                            <Input type="text" placeholder="e.g trixx" id="username"/>
-                                        </InputContainer>
-                                        <InputContainer>
-                                            <Label for="email">Email <Required>*</Required></Label>
-                                            <Input type="email" placeholder="e.g host@server.com" id="email"/>
-                                        </InputContainer>
-                                    </RegisterFormGroup>
-                                    <RegisterFormGroup>
-                                        <InputContainer>
-                                            <Label for="dob">Date of Birth <Required>*</Required></Label>
-                                            <DateOfBirthContainer>
-                                               <DatePicker 
-                                                    selected={startDate} 
-                                                    onChange={(date) => setStartDate(date)}
-                                               />
-                                            </DateOfBirthContainer>
-                                        </InputContainer>
-                                        <InputContainer>
-                                            <Label for="gender">Gender <Required>*</Required></Label>
-                                            <GenderSelect name="gender" id="gender">
-                                                <GenderOption value="">Select gender</GenderOption>
-                                                <GenderOption>Male</GenderOption>
-                                                <GenderOption>Female</GenderOption>
-                                                <GenderOption>Other</GenderOption>
-                                            </GenderSelect>
-                                        </InputContainer>
-                                    </RegisterFormGroup>
-                                    <RegisterFormGroup>
-                                        <InputContainer>
-                                            <Label for="pwd">Password <Required>*</Required></Label>
-                                            <Input type="password" id="pwd" placeholder="must contain an uppercase letter and two numbers"/>
-                                        </InputContainer>
-                                        <InputContainer>
-                                            <Label for="cpwd">Confirm Password <Required>*</Required></Label>
-                                            <Input type="password" id="cpwd" placeholder="Retype password"/>
-                                        </InputContainer>
-                                    </RegisterFormGroup>
-                                    <RegisterFormGroup>
-                                        <InputContainer>
-                                            <Label for="pwd">Phone No <Required>*</Required></Label>
-                                            <PhoneInputWithCountrySelect 
-                                                placeholder="Enter phone number" 
-                                                value={value}
-                                                onChange={setValue}
-                                            />
-                                        </InputContainer>
-                                    </RegisterFormGroup>
-                                    <SubmitButton scope="register">
-                                        Register
-                                    </SubmitButton>
-                                </RegisterForm>
+                                <RegisterationForm />
                             </RegisterBodyContainer>
                         </RegisterBody>
                     </ModalBody>
