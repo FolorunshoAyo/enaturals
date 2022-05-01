@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import StarRating from '../StarRating/StartRating';
 import AllReviews from '../AllReviews/AllReviews';
 import {smallPhone, medPhone, res480, res700, res1023} from '../../responsive';
+import { commaListed } from '../../usefulFunc';
 
 const ProductTabContainer = styled.div`
     margin-top: 10rem;
@@ -226,8 +227,54 @@ const Button = styled.button`
 
     ${smallPhone({width: "60%"})}
 `;
-const ProductTab = () => {
+const ProductTab = ({size, productDetails}) => {
     const [tabNo, toggleTab] = useState(1);
+    
+    const setLongDescription = size => {
+        if(productDetails.length === 1){
+            return `${productDetails[0].desc}`
+        }else{
+            if(size === ""){
+                return `Select size to view description`
+            }else if(size === "small"){
+                return `${productDetails[0].desc}`
+            }else if(size === "medium"){
+                return `${productDetails[1].desc}`;
+            }else if(size === "large"){
+                return `${productDetails[2].desc}`;
+            }
+        }
+    };
+
+    const setPackingOptions = size => {
+        if(productDetails.length === 1){
+            return `${productDetails[0].packingOptions}`
+        }else{
+            if(size === ""){
+                return `Select size to view description`
+            }else if(size === "small"){
+                return `${commaListed(productDetails[0].packingOptions)}`
+            }else if(size === "medium"){
+                return `${commaListed(productDetails[1].packingOptions)}`;
+            }else if(size === "large"){
+                return `${commaListed(productDetails[2].packingOptions)}`;
+            }
+        }
+    };
+
+    const setSizes = () => {
+        let sizes = "";
+
+        productDetails.forEach((product, i) => {
+            if(productDetails.length === i){
+                sizes += `${productDetails[productDetails.length - 1].size}.`;
+            }else{
+                sizes += `${product.size}, `
+            }
+        });
+
+        return sizes;
+    };
 
     const switchTab = (tabNumber) => {
         toggleTab(tabNumber);
@@ -249,8 +296,7 @@ const ProductTab = () => {
             <ProductTabBody>
                 <DescriptionContent active={tabNo === 1? true : false}>
                     <Description>
-                        This product is a free product that contains all the necessary requirement for a wonderful experience.
-                        It has all the required nutrient and e.t.c for a brilliant skin.
+                        {setLongDescription(size)}
                     </Description>
                 </DescriptionContent>
                 <AdditionalInformationContent active={tabNo === 2? true : false}>
@@ -261,7 +307,7 @@ const ProductTab = () => {
                                 Packing
                             </Label>
                             <Info>
-                                Gift, original
+                                {setPackingOptions(size)}
                             </Info>
                         </PackingTypes>
                         <SizeTypes>
@@ -269,7 +315,7 @@ const ProductTab = () => {
                                 Sizes
                             </Label>
                             <Info>
-                                Small, Medium, Large
+                                {setSizes()}
                             </Info>
                         </SizeTypes>
                     </AdditionalInformation>

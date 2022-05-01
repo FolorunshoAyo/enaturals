@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import {res480, res700, res1023} from '../../responsive';
+import { Link } from 'react-router-dom';
+import { findAndReplace } from '../../usefulFunc';
 
 const ProductCard = styled.div`
     flex: 0 0 32%;
@@ -80,7 +82,10 @@ const Button = styled.button`
     }
 `;
 
-const RelatedProducts = ({name, productImg, price}) => {
+const RelatedProducts = ({name, productImg, price, size}) => {
+    
+    const modProductName = findAndReplace(name);
+
     return(
         <ProductCard>
             <FrontView>
@@ -90,7 +95,7 @@ const RelatedProducts = ({name, productImg, price}) => {
                 <ProductInfoContainer>
                     <ProductName>{name}</ProductName>
                     <PriceRange>{price}</PriceRange>
-                    <Button>Add To Cart</Button>
+                     {size === "No Size"? <Button>Add To Cart</Button> : <Link to={`/product/${modProductName}`} className="relAddToCartLink"> Add To Cart </Link>}
                 </ProductInfoContainer>
             </BackView>
         </ProductCard>

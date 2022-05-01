@@ -87,8 +87,8 @@ const LoginForm = () => {
                 <Input type="text" placeholder="Userame" id="loginUsername"/>
             </LoginFormGroup>
             <LoginFormGroup>
-                <Label htmlFor="pwd">Password <Required>*</Required></Label>
-                <Input type="password" placeholder="Password" id="pwd"/>
+                <Label htmlFor="loginpwd">Password <Required>*</Required></Label>
+                <Input type="password" placeholder="Password" id="loginpwd"/>
             </LoginFormGroup>
             <ForgotContainer>
                 <ForgotPassword href="#">Forgot Password?</ForgotPassword>

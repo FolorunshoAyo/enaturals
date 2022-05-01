@@ -12,22 +12,6 @@ const Image = styled.img`
     transition: all .3s ease-out;
 `;
 
-const ProductName = styled.div`
-    font-size: 2.5rem;
-    color: #7e8485;
-    text-transform: uppercase;
-    font-weight: 400;
-    line-height: 1.2;
-    cursor: pointer; 
-    transition: all .3s;
-
-    &:hover{
-        color: #ACBFA3;
-    }
-
-    ${res1023({fontSize: "2rem", fontWeight: "600"})}
-`;
-
 const ProductCard = styled.div`
     flex: 0 0 22%;
 

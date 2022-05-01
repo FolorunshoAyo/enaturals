@@ -15,9 +15,10 @@ import SingleBlogPost from './pages/SingleBlogPost';
 import Reviews from './pages/Reviews';
 import AdminLogin from './pages/AdminLogin';
 import './App.css';
+import NetworkDetector from './Hoc/NetworkDetector';
 
 const App = () => {
-  const user = true;
+  
   return (
     <CustomSwitch>
       <Route exact path="/" element={<Home />} />
@@ -38,4 +39,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default NetworkDetector(App);

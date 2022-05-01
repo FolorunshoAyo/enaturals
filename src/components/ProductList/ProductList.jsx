@@ -222,17 +222,17 @@ const ProductList = ({productTag}) => {
     const [isLoading, setLoading] = useState(true);
     const [sort, setSort] = useState("newest");
 
-    // Handle URL FOR SORTING
+    // HANDLE ENDPOINTS FOR SORTING
     const endPointGen = sortType => {
         switch (sortType){
             case "newest":
                 return `/products/`
             break;
             case "asc":
-                return `/api/products/?sortby=asc`;
+                return `/products/?sortby=asc`;
             break;
             case "desc":
-                return `/api/products/?sortby=desc`;
+                return `/products/?sortby=desc`;
             break;
             default:
                 console.log("No other sort type.");
@@ -243,12 +243,16 @@ const ProductList = ({productTag}) => {
    // FETCH ALL PRODUCTS BASED ON FILTER SELECT
     useEffect(() => {
         const getProducts = async () => {
-            setLoading(true);
+            try{
+                setLoading(true);
 
-            const result = await publicRequest.get(endPointGen(sort), {timeout: 5000});
+                const result = await publicRequest.get(endPointGen(sort), {timeout: 10000});
 
-            setProducts(result.data);
-            setLoading(false);
+                setProducts(result.data);
+                setLoading(false);
+            }catch(err){
+                setLoading(false);
+            }
         };
 
         getProducts();
@@ -258,12 +262,16 @@ const ProductList = ({productTag}) => {
     const handleFilteredProductGeneration = () => {
 
         const getProductsByRange = async () => {
-            setLoading(true);
+            try{
+                setLoading(true);
 
-            const result = await publicRequest.get(`/products?max=${sliderValue[0] * 100}&min=${sliderValue[1] * 100}`, {timeout: 5000});
+                const result = await publicRequest.get(`/products?max=${sliderValue[0] * 100}&min=${sliderValue[1] * 100}`, {timeout: 10000});
 
-            setProducts(result.data);
-            setLoading(false);
+                setProducts(result.data);
+                setLoading(false);
+            }catch(err){
+                setLoading(false);
+            }
         };
 
         getProductsByRange();
@@ -337,10 +345,8 @@ const ProductList = ({productTag}) => {
                             </Title>
                             <RangeContainer>
                                 <Slider 
-                                    getArialLabel={() => 'Minimum price'}
                                     onChange={handleSliderChange}
                                     value={sliderValue}
-                                    valueLabel="auto"
                                     disableSwap
                                 />
                                 <FilterPriceContainer>

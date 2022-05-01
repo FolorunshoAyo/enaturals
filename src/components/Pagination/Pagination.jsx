@@ -5,6 +5,7 @@ import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import { smallPhone, medPhone, res860 } from "../../responsive";
 import { ContactSupportOutlined, DataArray } from "@mui/icons-material";
 import { findMax, findMin } from "../../usefulFunc";
+import { Link } from "react-router-dom";
 
 const Container = styled.div``;
 
@@ -13,12 +14,20 @@ const ProductsContainer = styled.div`
   flex-flow: ${(props) => (props.view === "list" ? "none" : "row wrap")};
 `;
 
-const NoProductMessage = styled.h1`
+const NoProductMessage = styled.div`
   text-align: center;
   font-family: Lato, sans-serif;
-  font-size: 3rem;
-  font-weight: 300;
   margin: 100px 0;
+`;
+
+const NoProductMessageTitle = styled.h3`
+  font-size: 3rem;
+  font-weight: 600;
+`;
+
+const NoProductMessageDesc = styled.p`
+  font-size: 1.5rem;
+  font-weight: 300;
 `;
 
 const PaginationNav = styled.div`
@@ -29,7 +38,7 @@ const PaginationNav = styled.div`
 
   ${res860({ width: "60%" })}
   ${medPhone({ width: "70%" })}
-    ${smallPhone({ width: "80%" })}
+  ${smallPhone({ width: "80%" })}
 `;
 
 const PrevBtn = styled.button`
@@ -47,7 +56,7 @@ const PrevBtn = styled.button`
 
 const NextBtn = styled.button`
   background: transparent;
-  display: ${(props) => (props.display ? "none" : "block")};
+  display: ${(props) => (props.display === "true" ? "none" : "block")};
   padding: 2rem;
   font-size: 1.3rem;
   border: none;
@@ -164,7 +173,24 @@ const Pagination = ({ data, RenderComponent, pageLimit, dataLimit, view, pageTyp
             }
           }) 
           :        
-          (pageType === "productTagPage") ? <NoProductMessage> No product matches your selection</NoProductMessage> : <NoProductMessage> No Products Available </NoProductMessage>
+          (pageType === "productTagPage") ? 
+          <NoProductMessage> 
+            <NoProductMessageTitle>
+              No product matches your selection
+            </NoProductMessageTitle>
+            <NoProductMessageDesc>
+              Please, Try another selection or <Link to="/shop"> refresh </Link> this page if neccessary.
+            </NoProductMessageDesc>
+          </NoProductMessage> 
+          : 
+          <NoProductMessage> 
+            <NoProductMessageTitle>
+              No Products Available
+            </NoProductMessageTitle>
+            <NoProductMessageDesc>
+              Please <Link to="/shop"> refresh </Link> this page if neccessary.
+            </NoProductMessageDesc>
+          </NoProductMessage>
         }
       </ProductsContainer>
       <PaginationNav>
@@ -185,7 +211,7 @@ const Pagination = ({ data, RenderComponent, pageLimit, dataLimit, view, pageTyp
         ))}
         <NextBtn
           onClick={goToNextPage}
-          display={currentPage === pages ? true : false}
+          display={currentPage === pages ? "true" : "false"}
         >
           <NavigateNextIcon style={{ fontSize: 20 }} />
         </NextBtn>

@@ -62,11 +62,13 @@ export const findMin = (numbers) => {
 export const commaListed = (listItems) => {
     let result = "";
 
-    listItems.forEach(item => {
-        if(listItems.length > 1){
-            result = listItems.toString;
+    listItems.forEach((item) => {
+        if(listItems.length === 1){
+            result = listItems.toString();
+        }else if(listItems[listItems.length - 1] === item){
+            result += `${item}.`;
         }else{
-            result += `${item}, `;
+            result += `${item}, `
         }
     });
 
@@ -90,8 +92,6 @@ export const convertToDefaultProductTag = (productTag) => {
 export const convertToDefaultProductName = (productName) => {
     let lowercaseProductName = productName.replace(/-/g, " ");
 
-    console.log(productName, lowercaseProductName);
-
     let words = lowercaseProductName.split(' ');  
     let capitalizedWords = [];  
     words.forEach(word => {  
@@ -104,8 +104,7 @@ export const convertToDefaultProductName = (productName) => {
 export const mergeSimilarProduct = (productList) => {
     const productNames = [];
     const reArrangedProducts = [];
-
-
+    
     productList.forEach(product => {
         if(productNames.includes(product.productName)){
 
@@ -127,9 +126,7 @@ export const mergeSimilarProduct = (productList) => {
 };
 
 export const sortSimilarProduct = products => {
-    products.forEach(reArrangedProducts => {
-        reArrangedProducts.sort((a, b) => a.price > b.price? 1 : -1);
-    });
+    return products.sort((a, b) => a.price > b.price? 1 : -1);
 };
 
 export const convertToNumber = (commaSeperatedInput) => {

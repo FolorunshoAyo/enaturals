@@ -130,8 +130,8 @@ const RegisterationForm = () => {
             </RegisterFormGroup>
             <RegisterFormGroup>
                 <InputContainer>
-                    <Label htmlFor="pwd">Password <Required>*</Required></Label>
-                    <Input type="password" id="pwd" placeholder="must contain an uppercase letter and two numbers"/>
+                    <Label htmlFor="rpwd">Password <Required>*</Required></Label>
+                    <Input type="password" id="rpwd" placeholder="must contain an uppercase letter and two numbers"/>
                 </InputContainer>
                 <InputContainer>
                     <Label htmlFor="cpwd">Confirm Password <Required>*</Required></Label>
