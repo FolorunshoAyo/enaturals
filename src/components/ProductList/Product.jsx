@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import {smallPhone, medPhone, bigDesktop} from '../../responsive';
-import { commaListed, findAndReplace } from '../../usefulFunc';
+import { generateTagLinks, findAndReplace } from '../../usefulFunc';
 
 const ProductCard = styled.div`
     flex: ${props => props.view === "list"? "none" : "0 0 50%" };
@@ -96,65 +96,6 @@ const Button = styled.button`
 const Product = ({productImage, price, description, productName, view, size, productTags}) => {
 
     const modProductName = findAndReplace(productName);
-
-    const generateTagLinks = (productTags) => {
-        const sortedProductTags = productTags.sort();
-        const sortedProductTagsLength = sortedProductTags.length;
-        
-        let tagLinks;
-
-        if(sortedProductTagsLength === 1){
-            tagLinks = (
-                <Link to={`/product-category/${findAndReplace(sortedProductTags[0])}`} className="productTagLink">
-                    {sortedProductTags[0]}
-                </Link>
-            );
-        }else if(sortedProductTagsLength === 2){
-            tagLinks = (
-                <>
-                    <Link to={`/product-category/${findAndReplace(sortedProductTags[0])}`} className="productTagLink">
-                        {sortedProductTags[0]}
-                    </Link>,{" "}
-                    <Link to={`/product-category/${findAndReplace(sortedProductTags[1])}`} className="productTagLink">
-                    {sortedProductTags[1]}
-                    </Link>
-                </>
-            );
-        }else if(sortedProductTagsLength === 3){
-            tagLinks = (
-                <>
-                    <Link to={`/product-category/${findAndReplace(sortedProductTags[0])}`} className="productTagLink">
-                        {sortedProductTags[0]}
-                    </Link>,
-                    <Link to={`/product-category/${findAndReplace(sortedProductTags[1])}`} className="productTagLink">
-                    {sortedProductTags[1]}
-                    </Link>,
-                    <Link to={`/product-category/${findAndReplace(sortedProductTags[2])}`} className="productTagLink">
-                    {sortedProductTags[2]}
-                    </Link>
-                </>
-            );
-        }else if(sortedProductTagsLength === 4){
-            tagLinks = (
-                <>
-                    <Link to={`/product-category/${findAndReplace(sortedProductTags[0])}`} className="productTagLink">
-                        {sortedProductTags[0]}
-                    </Link>,{" "}
-                    <Link to={`/product-category/${findAndReplace(sortedProductTags[1])}`} className="productTagLink">
-                    {sortedProductTags[1]}
-                    </Link>,{" "}
-                    <Link to={`/product-category/${findAndReplace(sortedProductTags[2])}`} className="productTagLink">
-                    {sortedProductTags[2]}
-                    </Link>,{" "}
-                    <Link to={`/product-category/${findAndReplace(sortedProductTags[3])}`} className="productTagLink">
-                    {sortedProductTags[3]}
-                    </Link>
-                </>
-            );
-        }
-
-        return tagLinks;
-    }
     
     return (
         <ProductCard view={view}>

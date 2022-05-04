@@ -3,9 +3,7 @@ import styled from "styled-components";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import { smallPhone, medPhone, res860 } from "../../responsive";
-import { ContactSupportOutlined, DataArray } from "@mui/icons-material";
 import { findMax, findMin } from "../../usefulFunc";
-import { Link } from "react-router-dom";
 
 const Container = styled.div``;
 
@@ -179,7 +177,7 @@ const Pagination = ({ data, RenderComponent, pageLimit, dataLimit, view, pageTyp
               No product matches your selection
             </NoProductMessageTitle>
             <NoProductMessageDesc>
-              Please, Try another selection or <Link to="/shop"> refresh </Link> this page if neccessary.
+              Please, Try another selection or <span className="pageRefresh" onClick={() => { window.location.reload() }}> refresh </span> this page if neccessary.
             </NoProductMessageDesc>
           </NoProductMessage> 
           : 
@@ -188,7 +186,7 @@ const Pagination = ({ data, RenderComponent, pageLimit, dataLimit, view, pageTyp
               No Products Available
             </NoProductMessageTitle>
             <NoProductMessageDesc>
-              Please <Link to="/shop"> refresh </Link> this page if neccessary.
+              Please <span className="pageRefresh" onClick={() => { window.location.reload() } }> refresh </span> this page if neccessary.
             </NoProductMessageDesc>
           </NoProductMessage>
         }

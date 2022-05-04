@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export const splitLink = (link, delimiter) => {
     return link.split(delimiter);
 };
@@ -58,6 +60,65 @@ export const findMin = (numbers) => {
 
     return minimum;
 };
+
+export const generateTagLinks = (productTags) => {
+    const sortedProductTags = productTags.sort();
+    const sortedProductTagsLength = sortedProductTags.length;
+    
+    let tagLinks;
+
+    if(sortedProductTagsLength === 1){
+        tagLinks = (
+            <Link to={`/product-category/${findAndReplace(sortedProductTags[0])}`} className="productTagLink">
+                {sortedProductTags[0]}
+            </Link>
+        );
+    }else if(sortedProductTagsLength === 2){
+        tagLinks = (
+            <>
+                <Link to={`/product-category/${findAndReplace(sortedProductTags[0])}`} className="productTagLink">
+                    {sortedProductTags[0]}
+                </Link>,{" "}
+                <Link to={`/product-category/${findAndReplace(sortedProductTags[1])}`} className="productTagLink">
+                {sortedProductTags[1]}
+                </Link>
+            </>
+        );
+    }else if(sortedProductTagsLength === 3){
+        tagLinks = (
+            <>
+                <Link to={`/product-category/${findAndReplace(sortedProductTags[0])}`} className="productTagLink">
+                    {sortedProductTags[0]}
+                </Link>,
+                <Link to={`/product-category/${findAndReplace(sortedProductTags[1])}`} className="productTagLink">
+                {sortedProductTags[1]}
+                </Link>,
+                <Link to={`/product-category/${findAndReplace(sortedProductTags[2])}`} className="productTagLink">
+                {sortedProductTags[2]}
+                </Link>
+            </>
+        );
+    }else if(sortedProductTagsLength === 4){
+        tagLinks = (
+            <>
+                <Link to={`/product-category/${findAndReplace(sortedProductTags[0])}`} className="productTagLink">
+                    {sortedProductTags[0]}
+                </Link>,{" "}
+                <Link to={`/product-category/${findAndReplace(sortedProductTags[1])}`} className="productTagLink">
+                {sortedProductTags[1]}
+                </Link>,{" "}
+                <Link to={`/product-category/${findAndReplace(sortedProductTags[2])}`} className="productTagLink">
+                {sortedProductTags[2]}
+                </Link>,{" "}
+                <Link to={`/product-category/${findAndReplace(sortedProductTags[3])}`} className="productTagLink">
+                {sortedProductTags[3]}
+                </Link>
+            </>
+        );
+    }
+
+    return tagLinks;
+}
 
 export const commaListed = (listItems) => {
     let result = "";
@@ -127,6 +188,10 @@ export const mergeSimilarProduct = (productList) => {
 
 export const sortSimilarProduct = products => {
     return products.sort((a, b) => a.price > b.price? 1 : -1);
+};
+
+export const filterReviewsForStatusPublished = (reviews) => {
+    return reviews.filter(review => review.status === "published");
 };
 
 export const convertToNumber = (commaSeperatedInput) => {

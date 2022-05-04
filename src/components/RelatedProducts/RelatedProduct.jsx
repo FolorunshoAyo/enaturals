@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import {res480, res700, res1023} from '../../responsive';
 import { Link } from 'react-router-dom';
-import { findAndReplace } from '../../usefulFunc';
+import { findAndReplace, generateTagLinks } from '../../usefulFunc';
+import { CategorySharp } from '@mui/icons-material';
 
 const ProductCard = styled.div`
     flex: 0 0 32%;
@@ -53,6 +54,12 @@ const ProductName = styled.p`
     font-weight: 400;
 `;
 
+const ProductTag = styled.div`
+    color: #fff;
+    font-family: Lato, sans-serif;
+    font-size: 1.8rem;
+`;
+
 const PriceRange = styled.p`
     font-size: 1.9rem;
     color: #fff;
@@ -82,7 +89,7 @@ const Button = styled.button`
     }
 `;
 
-const RelatedProducts = ({name, productImg, price, size}) => {
+const RelatedProducts = ({name, productImg, price, categories, size}) => {
     
     const modProductName = findAndReplace(name);
 
@@ -93,7 +100,12 @@ const RelatedProducts = ({name, productImg, price, size}) => {
             </FrontView>
             <BackView>
                 <ProductInfoContainer>
-                    <ProductName>{name}</ProductName>
+                    <ProductName>
+                        <Link to={`/product/${modProductName}`} className="productLink">
+                            {name}
+                        </Link>
+                    </ProductName>
+                    <ProductTag>{generateTagLinks(categories)}</ProductTag>
                     <PriceRange>{price}</PriceRange>
                      {size === "No Size"? <Button>Add To Cart</Button> : <Link to={`/product/${modProductName}`} className="relAddToCartLink"> Add To Cart </Link>}
                 </ProductInfoContainer>

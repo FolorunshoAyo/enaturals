@@ -125,7 +125,7 @@ const ProductQuantity = styled.div`
     display: flex;
 `;
 
-const Input = styled.input`
+const InputNumber = styled.input`
     width: 100%;
     height: 100%;
     padding-left: 0.5rem;
@@ -157,6 +157,7 @@ const IncreaseButton = styled.button`
     background-color: transparent;
     border: none;
     display: block;
+    cursor: pointer;
     width: 100%;
     height: 50%;
 `;
@@ -166,6 +167,7 @@ const DecreaseButton = styled.button`
     border: none;
     display: block;
     width: 100%;
+    cursor: pointer;
     height: 50%;
 `;
 
@@ -257,11 +259,30 @@ const SingleProductDetails = ({productName,productDetails}) => {
 
     const [size, setSize] = useState("");
     const [showProduct, setShowProduct] = useState(false);
+    const [quantity, setQuantity] = useState(1);
 
     const toggleView = () => {
         setShowProduct(!showProduct);
     };
 
+    const updateProductQuantity = e  => {
+        const inputtedValue = Number(e.target.value);
+
+        if(inputtedValue > 50 || inputtedValue < 1) return
+        setQuantity(inputtedValue);
+    };
+
+    const incrementQuantity = () => {
+        if(quantity === 50) return
+        setQuantity(quantity + 1);
+        console.log(quantity);
+    };
+
+    const decrementQuantity = () => {
+        if(quantity === 1) return;
+        setQuantity(quantity - 1);
+    };
+    
     const setProductPrice = size => {
         if(productDetails.length === 1){
             return `₦${productDetails[0].price}`
@@ -464,13 +485,20 @@ const SingleProductDetails = ({productName,productDetails}) => {
                             <ProductQuantityContainer>
                                 <ProductQuantity>
                                     <InputContainer>
-                                        <Input type="text"/>
+                                        <InputNumber 
+                                            type="number"
+                                            name="productQuantity"
+                                            min={1}
+                                            max={50}
+                                            value={quantity}
+                                            onChange={updateProductQuantity}
+                                        />
                                     </InputContainer>
                                     <ButtonContainer>
-                                        <IncreaseButton>
+                                        <IncreaseButton onClick={incrementQuantity}>
                                             <KeyboardArrowUpIcon style={{fontSize: 20}}/>
                                         </IncreaseButton>
-                                        <DecreaseButton>
+                                        <DecreaseButton onClick={decrementQuantity}>
                                             <KeyboardArrowDownIcon style={{fontSize: 20}}/>
                                         </DecreaseButton>
                                     </ButtonContainer>

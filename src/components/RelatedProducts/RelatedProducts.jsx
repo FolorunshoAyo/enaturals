@@ -25,8 +25,8 @@ const Title = styled.h2`
 `;
 
 const RelatedProductsContainer = styled.div` 
-    display: ${props => props.reAdjust? "block" : "flex"};
-    justify-content: space-between;
+    display: flex;
+    justify-content: ${props => props.centerContent? "center" : "space-between"};
 
     ${res700({flexDirection: "column"})}
 `;
@@ -58,17 +58,16 @@ const RelatedProducts = ({productName, categories}) => {
 
     useEffect(() => {
 
-        const getProduct = async () => {
+        const getRelatedProduct = async () => {
             setLoading(true);
 
             const result = await publicRequest.get(`/products/category/${productName}?${formCategoryTags(categories)}`);
 
-            console.log("FETCHED =====>", result.data);
             setRelatedProducts(result.data);
             setLoading(false);
         };
 
-        getProduct();
+        getRelatedProduct();
 
     }, [productName]);
 
@@ -77,7 +76,7 @@ const RelatedProducts = ({productName, categories}) => {
     return (
         <Container>
             <Title>Related Products</Title>
-            <RelatedProductsContainer reAdjust={reOrderedRelatedProducts.length === 0}>
+            <RelatedProductsContainer centerContent={reOrderedRelatedProducts.length === 0 || reOrderedRelatedProducts.length === 1}>
                 { (loading)?
                 <>
                     <Skeleton variant="rectangular" />
@@ -95,6 +94,7 @@ const RelatedProducts = ({productName, categories}) => {
                         name={product[0].productName}
                         productImg={product[0].img}
                         price={`₦${product[0].price}`}
+                        categories={product[0].categories}
                         size={product[0].size}
                     />
                     :
@@ -103,6 +103,7 @@ const RelatedProducts = ({productName, categories}) => {
                         name={product[0].productName}
                         productImg={product[0].img}
                         price={`₦${product[0].price} - ₦${product[product.length - 1].price}`}
+                        categories={product[0].categories}
                         size={product[0].size}
                     />
                 ))

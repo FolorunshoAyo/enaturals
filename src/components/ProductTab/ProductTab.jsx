@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import StarRating from '../StarRating/StartRating';
 import AllReviews from '../AllReviews/AllReviews';
 import {smallPhone, medPhone, res480, res700, res1023} from '../../responsive';
-import { commaListed } from '../../usefulFunc';
+import { commaListed, filterReviewsForStatusPublished } from '../../usefulFunc';
+import { publicRequest } from '../../requestMethod';
+import { CircularProgress } from '@mui/material';
 
 const ProductTabContainer = styled.div`
     margin-top: 10rem;
@@ -111,6 +113,7 @@ const ReviewsContent = styled.div`
     display: ${props => props.active? 'flex' : 'none'};
     justify-content: space-between;
     padding: 3rem;
+    font-size: 1.8rem;
 
     ${res700({flexDirection: "column"})}
 `;
@@ -120,7 +123,10 @@ const Reviews = styled.div`
 `;
 
 const ReviewsBody = styled.div`
-    font-size: 1.3rem;
+    display: ${props => props.loading? "flex" : "block"};
+    justify-content: ${props => props.loading? "center" : "flex-start"};
+    font-family: Lato, sans-serif;
+    font-size: 1.5rem;
     height: 100%;
     overflow: auto;
 `;
@@ -228,14 +234,63 @@ const Button = styled.button`
     ${smallPhone({width: "60%"})}
 `;
 const ProductTab = ({size, productDetails}) => {
+    // PRODUCT DETAILS CONTAINS AN ARRAY OF SORTED PRODUCTS ACCORDING TO PRICE i.e FROM SMALL TO LARGE SIZES
+
+    const [loading, setLoading] = useState(false);
     const [tabNo, toggleTab] = useState(1);
-    
+    const [publishedReviews, setPublishedReviews] = useState([]);
+
+    const retrieveProductID = (size, isNoSize) => {
+        if(isNoSize){
+            return productDetails[0]._id;
+        }else{
+            switch (size){
+                case "":
+                    return false;
+                break;
+                case "small":
+                    return productDetails[0]._id;
+                break;
+                case "medium":
+                    return productDetails[1]._id;
+                break;
+                case "large":
+                    return productDetails[2]._id;
+                break;
+                default:
+                    console.log("This product does not exist");
+            }
+        }
+    };
+
+    const productID = retrieveProductID(size, productDetails[0].size === "No Size");
+
+    useEffect(() => {
+        if(productID){
+
+            const getProductReviews = async () => {
+                try{
+                    setLoading(true);
+                    const reviews = await publicRequest.get(`/productReview/${productID}`, {timeout: 10000});
+
+                    const filteredReviews = filterReviewsForStatusPublished(reviews.data);
+                    setLoading(false);
+                    setPublishedReviews(filteredReviews);
+                }catch(err){
+                    console.log(err);
+                }
+            };
+
+            getProductReviews();
+        }
+    }, [productID])
+
     const setLongDescription = size => {
         if(productDetails.length === 1){
             return `${productDetails[0].desc}`
         }else{
             if(size === ""){
-                return `Select size to view description`
+                return "Select size to view description.";
             }else if(size === "small"){
                 return `${productDetails[0].desc}`
             }else if(size === "medium"){
@@ -251,7 +306,7 @@ const ProductTab = ({size, productDetails}) => {
             return `${productDetails[0].packingOptions}`
         }else{
             if(size === ""){
-                return `Select size to view description`
+                return `Select size to view packing.`
             }else if(size === "small"){
                 return `${commaListed(productDetails[0].packingOptions)}`
             }else if(size === "medium"){
@@ -266,7 +321,7 @@ const ProductTab = ({size, productDetails}) => {
         let sizes = "";
 
         productDetails.forEach((product, i) => {
-            if(productDetails.length === i){
+            if(productDetails.length === i + 1){
                 sizes += `${productDetails[productDetails.length - 1].size}.`;
             }else{
                 sizes += `${product.size}, `
@@ -274,6 +329,16 @@ const ProductTab = ({size, productDetails}) => {
         });
 
         return sizes;
+    };
+
+    const displayReviews = (reviews) => {
+       if (reviews.length === 0) {
+           return "There are no reviews";
+        } else{
+            return (
+                <AllReviews productReviews={publishedReviews} />
+            );
+        }
     };
 
     const switchTab = (tabNumber) => {
@@ -321,44 +386,50 @@ const ProductTab = ({size, productDetails}) => {
                     </AdditionalInformation>
                 </AdditionalInformationContent>
                 <ReviewsContent active={tabNo === 3? true : false} >
-                    <Reviews>
-                        <Title>Reviews</Title>
-                        <ReviewsBody>
-                           <AllReviews />
-                        </ReviewsBody>
-                    </Reviews>
-                    <ReviewFormContainer>
-                        <ReviewForm>
-                            <Title>{window.innerWidth <= 700? "Add a Review" :"Be the first to review Whitening oil"}</Title>
-                            <Instructions>Your email address will not be published. Required fields are marked *</Instructions>
-                            <ReviewFormGroup>
-                                <Input type="text" placeholder="Name *"/>
-                            </ReviewFormGroup>
-                            <ReviewFormGroup>
-                                <Input type="text" placeholder="Email *"/>
-                            </ReviewFormGroup>
-                            <ReviewFormGroup>
-                                <RatingLabel>Your Rating *</RatingLabel>
-                                <StarRating />
-                            </ReviewFormGroup>
-                            <ReviewFormGroup>
-                                <TextInput placeholder="Your Review *">
+                    { (!productID) ? 
+                        "Select size to review product"
+                        :
+                        <>
+                            <Reviews>
+                                <Title>Reviews</Title>
+                                <ReviewsBody loading={loading}>
+                                   { loading? <CircularProgress size="6rem"/> : displayReviews(publishedReviews)}
+                                </ReviewsBody>
+                            </Reviews>
+                            <ReviewFormContainer>
+                                <ReviewForm>
+                                    <Title>{(publishedReviews !== [])? `Review ${productDetails[0].productName} (${(size === "No Size")? "" : size})` : `Be the first to review ${productDetails[0].productName} (${(size === "No Size")? "" : size}`}</Title>
+                                    <Instructions>Your email address will not be published. Required fields are marked *</Instructions>
+                                    <ReviewFormGroup>
+                                        <Input type="text" placeholder="Name *"/>
+                                    </ReviewFormGroup>
+                                    <ReviewFormGroup>
+                                        <Input type="text" placeholder="Email *"/>
+                                    </ReviewFormGroup>
+                                    <ReviewFormGroup>
+                                        <RatingLabel>Your Rating *</RatingLabel>
+                                        <StarRating />
+                                    </ReviewFormGroup>
+                                    <ReviewFormGroup>
+                                        <TextInput placeholder="Your Review *">
 
-                                </TextInput>
-                            </ReviewFormGroup>
-                            <ValidationContainer>
-                                <ValidationInfo>
-                                    <Checkbox type="checkbox"/>
-                                    <ValidationText>
-                                        By using this form you agree with the storage and handling of your data by this website. *
-                                    </ValidationText>
-                                </ValidationInfo>
-                                <ButtonContainer>
-                                    <Button> Submit </Button>
-                                </ButtonContainer>
-                            </ValidationContainer>
-                        </ReviewForm>
-                    </ReviewFormContainer>
+                                        </TextInput>
+                                    </ReviewFormGroup>
+                                    <ValidationContainer>
+                                        <ValidationInfo>
+                                            <Checkbox type="checkbox"/>
+                                            <ValidationText>
+                                                By using this form you agree with the storage and handling of your data by this website. *
+                                            </ValidationText>
+                                        </ValidationInfo>
+                                        <ButtonContainer>
+                                            <Button> Submit </Button>
+                                        </ButtonContainer>
+                                    </ValidationContainer>
+                                </ReviewForm>
+                            </ReviewFormContainer>
+                        </>
+                    }
                 </ReviewsContent>   
             </ProductTabBody>
         </ProductTabContainer>

@@ -247,7 +247,7 @@ const ProductList = ({productTag}) => {
                 setLoading(true);
 
                 const result = await publicRequest.get(endPointGen(sort), {timeout: 10000});
-
+                
                 setProducts(result.data);
                 setLoading(false);
             }catch(err){
@@ -351,7 +351,7 @@ const ProductList = ({productTag}) => {
                                 />
                                 <FilterPriceContainer>
                                     <PriceRange>
-                                        <PriceTitle>Price</PriceTitle>: ₦{sliderValue[0] * 100} - ₦{sliderValue[1] * 100}
+                                        <PriceTitle>Price</PriceTitle>: ₦{(sliderValue[0] * 1000)/2} - ₦{(sliderValue[1] * 1000) / 2}
                                     </PriceRange>
                                     <FilterButton onClick={handleFilteredProductGeneration}>Filter</FilterButton>
                                 </FilterPriceContainer>
