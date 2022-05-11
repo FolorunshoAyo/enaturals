@@ -233,12 +233,17 @@ const Button = styled.button`
 
     ${smallPhone({width: "60%"})}
 `;
+
+const ErrMessage = styled.p`
+`;
+
 const ProductTab = ({size, productDetails}) => {
     // PRODUCT DETAILS CONTAINS AN ARRAY OF SORTED PRODUCTS ACCORDING TO PRICE i.e FROM SMALL TO LARGE SIZES
 
     const [loading, setLoading] = useState(false);
     const [tabNo, toggleTab] = useState(1);
     const [publishedReviews, setPublishedReviews] = useState([]);
+    const [error, setError] = useState(false);
 
     const retrieveProductID = (size, isNoSize) => {
         if(isNoSize){
@@ -271,12 +276,14 @@ const ProductTab = ({size, productDetails}) => {
             const getProductReviews = async () => {
                 try{
                     setLoading(true);
-                    const reviews = await publicRequest.get(`/productReview/${productID}`, {timeout: 10000});
+                    const reviews = await publicRequest.get(`/productReview/${productID}`, {timeout: 20000});
 
                     const filteredReviews = filterReviewsForStatusPublished(reviews.data);
                     setLoading(false);
                     setPublishedReviews(filteredReviews);
                 }catch(err){
+                    setLoading(false);
+                    setError(true);
                     console.log(err);
                 }
             };
@@ -331,7 +338,12 @@ const ProductTab = ({size, productDetails}) => {
         return sizes;
     };
 
-    const displayReviews = (reviews) => {
+    const displayReviews = (reviews, err) => {
+        if(err){
+            return (
+                <ErrMessage>Could not fetch reviews, try <span className="pageRefresh" onClick={() => {window.location.reload()}}> refreshing </span> this page</ErrMessage>
+            )   
+        }
        if (reviews.length === 0) {
            return "There are no reviews";
         } else{
@@ -345,6 +357,21 @@ const ProductTab = ({size, productDetails}) => {
         toggleTab(tabNumber);
     }
 
+    const setReviewFormTitle = (reviews) => {
+        if(productDetails[0].size === "No Size"){
+            if (reviews.length !== 0){
+                return `Review ${productDetails[0].productName}`;
+            } else{
+                 return `Be the first to review ${productDetails[0].productName}`;
+            }
+        }else{
+            if (reviews.length !== 0){
+                return `Review ${productDetails[0].productName} (${(size === "No Size")? "" : size})`
+            } else{
+                 return `Be the first to review ${productDetails[0].productName} (${(size === "No Size")? "" : size})`
+            }
+        }
+    };
     return (
         <ProductTabContainer>
             <ProductTabs>
@@ -393,12 +420,12 @@ const ProductTab = ({size, productDetails}) => {
                             <Reviews>
                                 <Title>Reviews</Title>
                                 <ReviewsBody loading={loading}>
-                                   { loading? <CircularProgress size="6rem"/> : displayReviews(publishedReviews)}
+                                   { loading? <CircularProgress size="6rem"/> : displayReviews(publishedReviews, error)}
                                 </ReviewsBody>
                             </Reviews>
                             <ReviewFormContainer>
                                 <ReviewForm>
-                                    <Title>{(publishedReviews !== [])? `Review ${productDetails[0].productName} (${(size === "No Size")? "" : size})` : `Be the first to review ${productDetails[0].productName} (${(size === "No Size")? "" : size}`}</Title>
+                                    <Title>{setReviewFormTitle(publishedReviews)}</Title>
                                     <Instructions>Your email address will not be published. Required fields are marked *</Instructions>
                                     <ReviewFormGroup>
                                         <Input type="text" placeholder="Name *"/>

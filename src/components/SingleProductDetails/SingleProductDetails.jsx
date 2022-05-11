@@ -9,6 +9,8 @@ import ProductTab from '../ProductTab/ProductTab';
 import RelatedProducts from '../RelatedProducts/RelatedProducts';
 import {smallPhone, res480, res700, res860, res1023} from '../../responsive';
 import { commaListed } from "../../usefulFunc";
+import { addProduct } from '../../redux/cartRedux';
+import { useDispatch } from "react-redux";
 
 const ProductWrapper = styled.div`
     padding-bottom: 5rem;
@@ -188,8 +190,8 @@ const AddToCartButton = styled.button`
     transition: all .3s ease-in;
 
     &:hover{
-    background-color: #B8A398;
-    color: #fff;
+        background-color: #B8A398;
+        color: #fff;
     }
 
     ${smallPhone({padding: "0.8rem 1.5rem"})}
@@ -253,34 +255,33 @@ const CloseIconContainer = styled.div`
 `;
 
 
-const SingleProductDetails = ({productName,productDetails}) => {
+const SingleProductDetails = ({productName,productDetails, errorMsg}) => {
 
     // 0- SMALL 1- MEDIUM 2- LARGE (SIZE INDEXES);
 
     const [size, setSize] = useState("");
     const [showProduct, setShowProduct] = useState(false);
     const [quantity, setQuantity] = useState(1);
+    const [isDisabled, setIsDisabled] = useState(true);
+
+    const dispatch = useDispatch();
 
     const toggleView = () => {
         setShowProduct(!showProduct);
     };
 
     const updateProductQuantity = e  => {
-        const inputtedValue = Number(e.target.value);
+        const inputedValue = Number(e.target.value);
 
-        if(inputtedValue > 50 || inputtedValue < 1) return
-        setQuantity(inputtedValue);
+        setQuantity(inputedValue);
     };
 
     const incrementQuantity = () => {
-        if(quantity === 50) return
-        setQuantity(quantity + 1);
-        console.log(quantity);
+       setQuantity(quantity + 1);
     };
 
     const decrementQuantity = () => {
-        if(quantity === 1) return;
-        setQuantity(quantity - 1);
+        quantity > 1 && setQuantity(quantity - 1);
     };
     
     const setProductPrice = size => {
@@ -288,7 +289,7 @@ const SingleProductDetails = ({productName,productDetails}) => {
             return `₦${productDetails[0].price}`
         }else{
             if(size === ""){
-                return `₦${productDetails[0].price}- ₦${productDetails[productDetails.length - 1].price}`
+                return `₦${productDetails[0].price}-₦${productDetails[productDetails.length - 1].price}`
             }else if(size === "small"){
                 return `₦${productDetails[0].price}`
             }else if(size === "medium"){
@@ -342,90 +343,90 @@ const SingleProductDetails = ({productName,productDetails}) => {
         }
     };
 
-    const setSingleProductPackingOption = packingOption => {
-        if(packingOption.length === 1){
-            return (
-                <PackingSelect>
-                        <PackingOption>choose an option</PackingOption>
-                        <PackingOption>{productDetails[0].packingOptions[0]}</PackingOption>
-                </PackingSelect>
-            );
-        }else {
-            return (
-                <PackingSelect>
-                        <PackingOption>choose an option</PackingOption>
-                        <PackingOption>{productDetails[0].packingOptions[0]}</PackingOption>
-                        <PackingOption>{productDetails[0].packingOptions[1]}</PackingOption>
-                </PackingSelect>
-            );
-        }
-    };
+    // const setSingleProductPackingOption = packingOption => {
+    //     if(packingOption.length === 1){
+    //         return (
+    //             <PackingSelect>
+    //                     <PackingOption>choose an option</PackingOption>
+    //                     <PackingOption>{productDetails[0].packingOptions[0]}</PackingOption>
+    //             </PackingSelect>
+    //         );
+    //     }else {
+    //         return (
+    //             <PackingSelect>
+    //                     <PackingOption>choose an option</PackingOption>
+    //                     <PackingOption>{productDetails[0].packingOptions[0]}</PackingOption>
+    //                     <PackingOption>{productDetails[0].packingOptions[1]}</PackingOption>
+    //             </PackingSelect>
+    //         );
+    //     }
+    // };
 
-    const setPackingOptions = size => {
-        //handle packing options here
-        switch (size){
-            case "":
-                return (
-                    <ProductPackingMessage>
-                        Select size to view packing options available
-                    </ProductPackingMessage>
-                );
-            case "small":
-                if(productDetails[0].packingOptions.length === 1){
-                    return (
-                        <PackingSelect>
-                            <PackingOption>choose an option</PackingOption>
-                            <PackingOption>{productDetails[0].packingOptions[0]}</PackingOption>
-                        </PackingSelect>
-                    );
-                }else{
-                    return (
-                        <PackingSelect>
-                            <PackingOption>choose an option</PackingOption>
-                            <PackingOption>{productDetails[0].packingOptions[0]}</PackingOption>
-                            <PackingOption>{productDetails[0].packingOptions[1]}</PackingOption>
-                        </PackingSelect>
-                    );
-                }
-            break; 
-            case "medium":
-                if(productDetails[1].packingOptions.length === 1){
-                    return (
-                        <PackingSelect>
-                            <PackingOption>choose an option</PackingOption>
-                            <PackingOption>{productDetails[1].packingOptions[0]}</PackingOption>
-                        </PackingSelect>
-                    );
-                }else{
-                    return (
-                        <PackingSelect>
-                            <PackingOption>choose an option</PackingOption>
-                            <PackingOption>{productDetails[1].packingOptions[0]}</PackingOption>
-                            <PackingOption>{productDetails[1].packingOptions[1]}</PackingOption>
-                        </PackingSelect>
-                    );
-                }
-            break; 
-            case "large":
-                if(productDetails[2].packingOptions.length === 1){
-                    return (
-                        <PackingSelect>
-                            <PackingOption>choose an option</PackingOption>
-                            <PackingOption>{productDetails[2].packingOptions[0]}</PackingOption>
-                        </PackingSelect>
-                    );
-                }else{
-                    return (
-                        <PackingSelect>
-                            <PackingOption>choose an option</PackingOption>
-                            <PackingOption>{productDetails[2].packingOptions[0]}</PackingOption>
-                            <PackingOption>{productDetails[2].packingOptions[1]}</PackingOption>
-                        </PackingSelect>
-                    );
-                }
-            break; 
-        }
-    };
+    // const setPackingOptions = size => {
+    //     //handle packing options here
+    //     switch (size){
+    //         case "":
+    //             return (
+    //                 <ProductPackingMessage>
+    //                     Select size to view packing options available
+    //                 </ProductPackingMessage>
+    //             );
+    //         case "small":
+    //             if(productDetails[0].packingOptions.length === 1){
+    //                 return (
+    //                     <PackingSelect>
+    //                         <PackingOption>choose an option</PackingOption>
+    //                         <PackingOption>{productDetails[0].packingOptions[0]}</PackingOption>
+    //                     </PackingSelect>
+    //                 );
+    //             }else{
+    //                 return (
+    //                     <PackingSelect>
+    //                         <PackingOption>choose an option</PackingOption>
+    //                         <PackingOption>{productDetails[0].packingOptions[0]}</PackingOption>
+    //                         <PackingOption>{productDetails[0].packingOptions[1]}</PackingOption>
+    //                     </PackingSelect>
+    //                 );
+    //             }
+    //         break; 
+    //         case "medium":
+    //             if(productDetails[1].packingOptions.length === 1){
+    //                 return (
+    //                     <PackingSelect>
+    //                         <PackingOption>choose an option</PackingOption>
+    //                         <PackingOption>{productDetails[1].packingOptions[0]}</PackingOption>
+    //                     </PackingSelect>
+    //                 );
+    //             }else{
+    //                 return (
+    //                     <PackingSelect>
+    //                         <PackingOption>choose an option</PackingOption>
+    //                         <PackingOption>{productDetails[1].packingOptions[0]}</PackingOption>
+    //                         <PackingOption>{productDetails[1].packingOptions[1]}</PackingOption>
+    //                     </PackingSelect>
+    //                 );
+    //             }
+    //         break; 
+    //         case "large":
+    //             if(productDetails[2].packingOptions.length === 1){
+    //                 return (
+    //                     <PackingSelect>
+    //                         <PackingOption>choose an option</PackingOption>
+    //                         <PackingOption>{productDetails[2].packingOptions[0]}</PackingOption>
+    //                     </PackingSelect>
+    //                 );
+    //             }else{
+    //                 return (
+    //                     <PackingSelect>
+    //                         <PackingOption>choose an option</PackingOption>
+    //                         <PackingOption>{productDetails[2].packingOptions[0]}</PackingOption>
+    //                         <PackingOption>{productDetails[2].packingOptions[1]}</PackingOption>
+    //                     </PackingSelect>
+    //                 );
+    //             }
+    //         break; 
+    //     }
+    // };
 
     const setProductID = size => {
         if(productDetails.length === 1){
@@ -447,8 +448,34 @@ const SingleProductDetails = ({productName,productDetails}) => {
         setSize(e.target.value);
     }
 
+    const handleCartAddition = () => {
+        if(productDetails.length === 1){
+            const product = productDetails[0];
+            dispatch(addProduct({ ...product, quantity}));
+        }else{
+            if(size === ""){
+                alert("select a size before adding to cart");
+            }else if (size === "small"){
+                const product = productDetails[0];
+                dispatch(addProduct({ ...product, quantity}));
+            }else if (size === "medium"){
+                const product = productDetails[1];
+                dispatch(addProduct({ ...product, quantity}));
+            }else if(size ==="large"){
+                const product = productDetails[2];
+                dispatch(addProduct({ ...product, quantity}));   
+            }
+        }
+    };
+
     return (
         <>
+        {
+            errorMsg? 
+            <errMsg>Unable to fetch product, please <span className="pageRefresh" onClick={() => { window.location.reload() } }> reload </span> page or check your internet connection and try again.</errMsg>
+            :
+            (
+            <>
             <ProductWrapper>
                 <Product>
                     <ImageContainer>
@@ -464,10 +491,10 @@ const SingleProductDetails = ({productName,productDetails}) => {
                             </ProductOverview>
                             <ProductPrice>{setProductPrice(size)}</ProductPrice>
                             <ProductOptionsContainer>
-                                <ProductPacking>
+                                {/* <ProductPacking>
                                     <OptionTitle>Packing</OptionTitle>
                                     {(productDetails.length === 1)? setSingleProductPackingOption(productDetails[0].packingOptions) : setPackingOptions(size)}
-                                </ProductPacking>
+                                </ProductPacking> */}
                                 {productDetails.length === 1?
                                     (<ProductSize>
                                         <OptionTitle>Size</OptionTitle>
@@ -486,10 +513,8 @@ const SingleProductDetails = ({productName,productDetails}) => {
                                 <ProductQuantity>
                                     <InputContainer>
                                         <InputNumber 
-                                            type="number"
+                                            type="text"
                                             name="productQuantity"
-                                            min={1}
-                                            max={50}
                                             value={quantity}
                                             onChange={updateProductQuantity}
                                         />
@@ -504,7 +529,7 @@ const SingleProductDetails = ({productName,productDetails}) => {
                                     </ButtonContainer>
                                 </ProductQuantity>
                                 <AddToCartContainer>
-                                    <AddToCartButton>
+                                    <AddToCartButton onClick={handleCartAddition}>
                                         Add To Cart
                                     </AddToCartButton>
                                 </AddToCartContainer>
@@ -529,6 +554,9 @@ const SingleProductDetails = ({productName,productDetails}) => {
                     <CloseIcon style={{fontSize: 20, color: '#fff'}}/>
                 </CloseIconContainer>
             </ModalContainer>
+            </>
+            )
+        }
         </>
     );
 };

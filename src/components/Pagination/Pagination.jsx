@@ -133,6 +133,8 @@ const Pagination = ({ data, RenderComponent, pageLimit, dataLimit, view, pageTyp
               return (
                 <RenderComponent
                   key={product._id}
+                  productInfo={product}
+                  productID={product._id}
                   productImage={product.img}
                   price={`₦${product.price}`}
                   description={product.desc}
@@ -186,7 +188,7 @@ const Pagination = ({ data, RenderComponent, pageLimit, dataLimit, view, pageTyp
               No Products Available
             </NoProductMessageTitle>
             <NoProductMessageDesc>
-              Please <span className="pageRefresh" onClick={() => { window.location.reload() } }> refresh </span> this page if neccessary.
+              Please <span className="pageRefresh" onClick={() => { window.location.reload() } }> refresh </span> this page if neccessary or check your internet connection and try again
             </NoProductMessageDesc>
           </NoProductMessage>
         }

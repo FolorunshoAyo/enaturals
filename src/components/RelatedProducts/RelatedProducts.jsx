@@ -4,9 +4,8 @@ import styled from 'styled-components';
 import RelatedProduct from './RelatedProduct';
 import {res700} from '../../responsive';
 import { Skeleton } from '@mui/material';
-import { mergeSimilarProduct } from '../../usefulFunc';
+import { mergeSimilarProductAccToName } from '../../usefulFunc';
 import { publicRequest } from '../../requestMethod';
-import { Category } from '@mui/icons-material';
 
 const Container = styled.div`
     margin-top: 5rem;
@@ -71,7 +70,7 @@ const RelatedProducts = ({productName, categories}) => {
 
     }, [productName]);
 
-    const reOrderedRelatedProducts = mergeSimilarProduct(relatedProducts);
+    const reOrderedRelatedProducts = mergeSimilarProductAccToName(relatedProducts);
 
     return (
         <Container>

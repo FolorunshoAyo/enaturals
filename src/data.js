@@ -132,7 +132,7 @@ export const allProducts = [
         desc: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
         categories: ["Refreshing", "Rejuvenating"],
         packingOptions: ["Gift", "Original"],
-        size: "No size",
+        size: "No Size",
         price: 5000
     },
     {
@@ -142,7 +142,7 @@ export const allProducts = [
         desc: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
         categories: ["Uncategorized"],
         packingOptions: ["Gift", "Original"],
-        size: "No size",
+        size: "No Size",
         price: 5000
     },
     {
@@ -182,7 +182,7 @@ export const allProducts = [
         desc: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
         categories: ["Handmade Soap", "Restoring"],
         packingOptions: ["Gift", "Original"],
-        size: "No size",
+        size: "No Size",
         price: 5000
     },
     {
@@ -222,7 +222,7 @@ export const allProducts = [
         desc: "wqwyg gqwyfgwqfwqg hhqwufqwh w8qgfwyvq gyqgvyqvuge gvywegvhye egvyevgheyv wqgvyuvgqhyv egvq vywqv gyq",
         categories: ["Scrubbing", "Softening"],
         packingOptions: ["Gift", "Original"],
-        size: "No size",
+        size: "No Size",
         price: 5000
     }
 ];

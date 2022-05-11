@@ -7,8 +7,8 @@ import Product from './Product';
 import Pagination from '../Pagination/Pagination';
 import {allProducts} from '../../data';
 import {res480, medPhone, res700, res860 ,res1023, bigDesktop} from '../../responsive';
-import CartItems from '../CartItems/CartItems';
-import { convertToDefaultProductTag, mergeSimilarProduct } from '../../usefulFunc';
+import Cart from '../Cart/Cart';
+import { convertToDefaultProductTag, mergeSimilarProductAccToName } from '../../usefulFunc';
 import "./ProductList.css";
 import { Link } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';
@@ -265,7 +265,7 @@ const ProductList = ({productTag}) => {
             try{
                 setLoading(true);
 
-                const result = await publicRequest.get(`/products?max=${sliderValue[0] * 100}&min=${sliderValue[1] * 100}`, {timeout: 10000});
+                const result = await publicRequest.get(`/products/?max=${(sliderValue[0] * 1000)/2}&min=${(sliderValue[1] * 1000)/2}`, {timeout: 10000});
 
                 setProducts(result.data);
                 setLoading(false);
@@ -288,7 +288,7 @@ const ProductList = ({productTag}) => {
     }
 
     //MERGE SIMILAR PRODUCTS 
-    const reArrangedProducts = mergeSimilarProduct(products);
+    const reArrangedProducts = mergeSimilarProductAccToName(products);
 
     // FILTER PRODUCTS BY TAG
     const filteredProductsByProductTag = [];
@@ -337,7 +337,7 @@ const ProductList = ({productTag}) => {
                             <Title>
                                 My Cart
                             </Title>
-                            <CartItems />
+                            <Cart />
                         </CartPreview>
                         <PriceRangeContainer>
                             <Title>

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState, useEffect} from 'react';
 import styled from 'styled-components';
 import { res860 } from '../../responsive';
 import { publicRequest } from '../../requestMethod';
@@ -18,26 +18,35 @@ const Container = styled.div`
 
 
 const SingleProduct = ({productName}) => {
-    const [loading, setLoading] = useState(true);
     const [product, setProduct]= useState([]);
-
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+    // The line of code helps to convert hyphenated text to a spaced out text for database reading.
     const convertedProductName = convertToDefaultProductName(productName);
 
     useEffect(() => {
+        let isSuscribed = true;
 
         const getProduct = async () => {
-            setLoading(true);
+            try{
+                const result = isSuscribed? await publicRequest.get(`products/find/${convertedProductName}`, {timeout: 10000}) : null;
 
-            const result = await publicRequest.get(`products/find/${convertedProductName}`);
-
-            setProduct(result.data);
-            setLoading(false);
+                setProduct(result.data);
+                setLoading(false);
+            }catch(err){
+                console.log(err);
+                setLoading(false);
+            }
         };
 
         getProduct();
 
+        return () => { isSuscribed = false }
+
     }, [productName]);
 
+
+    console.log(product, loading);
     const reOrderedProduct = sortSimilarProduct(product);
 
     return (
@@ -46,7 +55,7 @@ const SingleProduct = ({productName}) => {
                 loading ? 
                 <CircularProgress size="8rem"/>
                 :
-                <SingleProductDetails productName={convertedProductName} productDetails={reOrderedProduct}/>
+                <SingleProductDetails productName={convertedProductName} productDetails={reOrderedProduct} errorMsg={error}/>
             }
         </Container>
     );

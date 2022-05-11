@@ -14,13 +14,14 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import {smallPhone, res480, medPhone, tabPort, res1023, tabLand, medDesktop, bigDesktop} from '../../responsive';
-import CartItems from '../CartItems/CartItems';
+import Cart from '../Cart/Cart';
 import {NavLink} from 'react-router-dom';
 import "react-datepicker/dist/react-datepicker.css";
 import 'react-phone-number-input/style.css';
 import './Navbar.css';
 import RegisterationForm from '../RegisterationForm/RegisterationForm';
 import LoginForm from '../LoginForm/LoginForm';
+import { useSelector } from "react-redux";
 
 const ModalBackdrop = styled.div`
     display: ${props => props.openModal? "block" : "none"};
@@ -420,7 +421,6 @@ const DropDownClose = styled.div`
     }
 `;
 
-
 const Navbar = () =>{
     const [tabNo, setTabNo] = useState(1);
     const [modal, setModal] = useState(false);
@@ -428,6 +428,7 @@ const Navbar = () =>{
     const [dropDownState, setDropDown] = useState(false);
     const [y, setY] = useState(document.scrollingElement.scrollHeight);
     const [minimizeHeader, setMinimizeHeader] = useState(false);
+    const quantity = useSelector(state => state.cart.quantity);
 
     let isProfileClicked = false;
 
@@ -614,7 +615,7 @@ const Navbar = () =>{
                         </LogoContainer>
                         <CartAndLogin>
                             <Wrap>
-                                <Badge badgeContent={4} color="success" className="cartBadge">
+                                <Badge badgeContent={quantity} color="success" className="cartBadge">
                                     <ShoppingCartOutlinedIcon style={{fontSize: 25, color: "#7E8485"}} className="navIcon" onClick={() => toggleDropDown(dropDownState)}/> 
                                 </Badge>
 
@@ -622,7 +623,7 @@ const Navbar = () =>{
                                     <DropDownClose onClick={() => toggleDropDown(dropDownState)}>
                                         <CloseIcon style={{fontSize: 15}}/>
                                     </DropDownClose>
-                                    <CartItems dropdown/>
+                                    <Cart dropdown/>
                                 </CartItemsDropDown>
                             </Wrap>
                             <Wrap active={isProfileClicked? true : false}>

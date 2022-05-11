@@ -1,67 +1,13 @@
-import React from 'react';
-import styled from 'styled-components';
-import CloseIcon from '@mui/icons-material/Close';
+import React from "react";
+import styled from "styled-components";
+import { useSelector } from "react-redux";
+import { mergeSimilarProductAccToID } from "../../usefulFunc";
+import CartItem from "../CartItem/CartItem";
 import { smallPhone } from '../../responsive';
 
-const CartItemsContainer = styled.div`
-    padding: ${props => props.isNav? "1rem 2rem" : "4rem 2rem"}; 
-`;
-
-const CartItem = styled.div`
-    display: flex;
-    height: 65px;
-
-    &:not(:last-child){
-        margin-bottom: 20px;
-    }
-`;
-
-const ItemImgContainer = styled.div`
-    flex: 0 0 25%;
-    margin-right: 10px;
-`;
-
-const ItemImg = styled.img`
-    width: 100%;
-    height: 100%;
-`;
-
-const ItemDescription = styled.div`
-    align-self: flex-start;
-    font-size: 1.5rem;
-`;
-
-const ItemName = styled.h4`
-    color: #4B5354;
-    font-size: 1.3rem;
-    text-transform: capitalize;
-    margin-bottom: 5px;
-    font-family: Lato, sans-serif;
-    cursor: pointer;
-    font-weight: 400;
-    transition: all .3s;
-
-    &:hover{
-        color: #ACBFA3;
-    }
-`;
-
-const ItemPrice = styled.p`
-    font-size: 1.5rem;
-    font-family: Lato, sans-serif;
-    color: #4B5354;
-    font-weight: 600;
-`;
-
-const Close = styled.div`
-    align-self: flex-start;
-    margin-left: auto;
-    transition: all .3s;
-    cursor: pointer;
-
-    &:hover{
-        color: red;
-    }
+const CartContainer = styled.div`
+    max-height: 300px;
+    overflow-y: auto;
 `;
 
 const BillingContainer = styled.div`
@@ -127,25 +73,37 @@ const ViewCartButton = styled.button`
     ${smallPhone({width: "50%", fontSize: "1.2rem"})}
 `;
 
+const CartItems = () => {
+    const cart = useSelector(state => state.cart);
 
-const CartItems = ({ dropdown }) => {
+    const reArrangedCart = mergeSimilarProductAccToID(cart.products);
+
+    // fetch subtotal
+    const subtotal = reArrangedCart[1].reduce((prev, current) => {
+        const returns = prev + current;
+
+        return returns;
+    }, 0);
+
     return (
-        <CartItemsContainer isNav={dropdown}>
-            <CartItem>
-                <ItemImgContainer>
-                    <ItemImg src="../enaturals/enaturals12.jpg"/>
-                </ItemImgContainer>
-                <ItemDescription>
-                    <ItemName>Face cream with olive oil</ItemName>
-                    <ItemPrice> 2 x ₦1000</ItemPrice>
-                </ItemDescription>
-                <Close>
-                    <CloseIcon style={{backgroundColor: "#fff", fontSize: 15}}/>
-                </Close>
-            </CartItem>
+        <>
+            <CartContainer>
+                {
+                    reArrangedCart[0].map((similarProducts, i) => (
+                        <CartItem 
+                            productImage={similarProducts[0].img}
+                            productName={similarProducts[0].productName}
+                            size={similarProducts[0].size}
+                            //total={reArrangedCart[1][i]} In case of total for each product added to cart
+                            price={similarProducts[0].price}
+                            quantity={reArrangedCart[2][i]}
+                        />
+                    ))
+                }
+            </CartContainer>
             <BillingContainer>
                 <SubTotal>
-                    <SubTotalTitle>Subtotal:</SubTotalTitle> ₦2000
+                    <SubTotalTitle>Subtotal:</SubTotalTitle> ₦{subtotal}
                 </SubTotal>
                 <OrderButtonContainer>
                     <CheckoutButton>
@@ -156,10 +114,10 @@ const CartItems = ({ dropdown }) => {
                     </ViewCartButton>
                 </OrderButtonContainer>
             </BillingContainer>
-        </CartItemsContainer>
+        </>
     );
 };
 
 
-
 export default CartItems;
+

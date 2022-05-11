@@ -162,7 +162,7 @@ export const convertToDefaultProductName = (productName) => {
     return capitalizedWords.join(' ');
 };
 
-export const mergeSimilarProduct = (productList) => {
+export const mergeSimilarProductAccToName = (productList) => {
     const productNames = [];
     const reArrangedProducts = [];
     
@@ -185,6 +185,42 @@ export const mergeSimilarProduct = (productList) => {
 
     return reArrangedProducts;
 };
+
+export const mergeSimilarProductAccToID = (productList) => {
+    const productIDs = [];
+    const reArrangedProducts = [];
+    const totalPricesOfEachProduct = [];
+    const totalQuantityOfEachProduct = [];
+
+    productList.forEach(product => {
+        if(productIDs.includes(product._id)){
+
+        }else{
+            productIDs.push(product._id);
+        } 
+    });
+
+    productIDs.forEach(id => {
+        reArrangedProducts.push(productList.filter(product => product._id === id));
+    });
+
+    // Get the total of each similar product
+    reArrangedProducts.forEach(similarProducts => {
+        const noOfSimilarProducts = similarProducts.length;
+        const totalPriceOfSimilarProducts = similarProducts[0].price * noOfSimilarProducts;
+        let totalQuantity = 0;
+
+        // Find the total quantity of each product
+        similarProducts.forEach(product => {
+            totalQuantity += product.quantity;
+        });
+
+        totalQuantityOfEachProduct.push(totalQuantity);
+        totalPricesOfEachProduct.push(totalPriceOfSimilarProducts);
+    });
+
+    return [reArrangedProducts, totalPricesOfEachProduct, totalQuantityOfEachProduct];
+}
 
 export const sortSimilarProduct = products => {
     return products.sort((a, b) => a.price > b.price? 1 : -1);

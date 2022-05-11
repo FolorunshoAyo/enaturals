@@ -51,6 +51,8 @@ const PaginationItem = styled.span`
 const PageTitle = ({ title, pageLocation, params}) => {
   const { pathname } = useLocation();
 
+  console.log(pathname);
+
   const separateIndividualLinks = (pageLocation, pagePath) => {
     let result;
     let links = splitLink(pageLocation, " | ");
@@ -105,9 +107,10 @@ const PageTitle = ({ title, pageLocation, params}) => {
             <Link to="/shop" className="paginationLink">
               {links[1]}
             </Link>
-            {links[0]}
+            {links[2]}
           </>
         );
+        break;
         case `/product/${params}`:
           const product = splitAndSpace(links[3], "-");
             result = (
@@ -128,6 +131,7 @@ const PageTitle = ({ title, pageLocation, params}) => {
             ); 
         break;
         case `/blog/${params}`:
+          console.log("ran");
           const title = splitAndSpace(links[3], "-");
 
           result = (
@@ -148,6 +152,7 @@ const PageTitle = ({ title, pageLocation, params}) => {
         ); 
         break;
         case `/aboutus/${params}`:
+          console.log("ran");
           const name = splitAndSpace(links[2], "-");
           result = (
             <>

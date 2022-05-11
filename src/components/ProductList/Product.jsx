@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { addProduct } from '../../redux/cartRedux';
+import { useDispatch } from "react-redux";
 import {smallPhone, medPhone, bigDesktop} from '../../responsive';
 import { generateTagLinks, findAndReplace } from '../../usefulFunc';
 
@@ -93,10 +95,15 @@ const Button = styled.button`
     ${smallPhone({padding: "10px 20px"})}
 `;
 
-const Product = ({productImage, price, description, productName, view, size, productTags}) => {
-
+const Product = ({productInfo, productImage, price, description, productName, view, size, productTags}) => {
     const modProductName = findAndReplace(productName);
-    
+    const quantity = 1;
+    const dispatch = useDispatch();
+
+    const handleCartAddition = () => {
+        dispatch(addProduct({ ...productInfo, quantity }));
+    };
+
     return (
         <ProductCard view={view}>
             <ProductImageContainer view={view}>
@@ -111,7 +118,7 @@ const Product = ({productImage, price, description, productName, view, size, pro
                 <Description display={view === "grid"? "none" : "block"}>{description}</Description>
                 <ProductTag>{generateTagLinks(productTags)}</ProductTag>
                 <Price view={view}>{price}</Price>
-                {size === "No size"? <Button>Add To Cart</Button> : <Link to={`/product/${modProductName}`} className="addToCartLink"> Add To Cart </Link>}
+                {size === "No Size"? <Button onClick={handleCartAddition}>Add To Cart</Button> : <Link to={`/product/${modProductName}`} className="addToCartLink"> Add To Cart </Link>}
             </ProductDescription>
         </ProductCard>
     );
