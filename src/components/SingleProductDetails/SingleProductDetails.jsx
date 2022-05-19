@@ -263,8 +263,8 @@ const SingleProductDetails = ({productName,productDetails, errorMsg}) => {
     const [showProduct, setShowProduct] = useState(false);
     const [quantity, setQuantity] = useState(1);
     const [isDisabled, setIsDisabled] = useState(true);
-
     const dispatch = useDispatch();
+    
 
     const toggleView = () => {
         setShowProduct(!showProduct);
@@ -454,14 +454,26 @@ const SingleProductDetails = ({productName,productDetails, errorMsg}) => {
             dispatch(addProduct({ ...product, quantity}));
         }else{
             if(size === ""){
-                alert("select a size before adding to cart");
+                alert("Please select a size before adding this product to your cart.");
             }else if (size === "small"){
+                if(quantity === 0){
+                    alert("Please select a valid amount before adding this product to your cart.");
+                    return;
+                }
                 const product = productDetails[0];
                 dispatch(addProduct({ ...product, quantity}));
             }else if (size === "medium"){
+                if(quantity === 0){
+                    alert("Please select a valid amount before adding this product to your cart.");
+                    return;
+                }
                 const product = productDetails[1];
                 dispatch(addProduct({ ...product, quantity}));
             }else if(size ==="large"){
+                if(quantity === 0){
+                    alert("Please select a valid amount before adding this product to your cart.");
+                    return;
+                }
                 const product = productDetails[2];
                 dispatch(addProduct({ ...product, quantity}));   
             }

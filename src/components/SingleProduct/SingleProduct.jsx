@@ -46,7 +46,7 @@ const SingleProduct = ({productName}) => {
     }, [productName]);
 
 
-    console.log(product, loading);
+    // console.log(product, loading);
     const reOrderedProduct = sortSimilarProduct(product);
 
     return (

@@ -206,14 +206,14 @@ export const mergeSimilarProductAccToID = (productList) => {
 
     // Get the total of each similar product
     reArrangedProducts.forEach(similarProducts => {
-        const noOfSimilarProducts = similarProducts.length;
-        const totalPriceOfSimilarProducts = similarProducts[0].price * noOfSimilarProducts;
+         // Find the total quantity of each product
         let totalQuantity = 0;
-
-        // Find the total quantity of each product
         similarProducts.forEach(product => {
             totalQuantity += product.quantity;
         });
+        
+        const totalPriceOfSimilarProducts = similarProducts[0].price * totalQuantity;
+
 
         totalQuantityOfEachProduct.push(totalQuantity);
         totalPricesOfEachProduct.push(totalPriceOfSimilarProducts);
@@ -232,4 +232,8 @@ export const filterReviewsForStatusPublished = (reviews) => {
 
 export const convertToNumber = (commaSeperatedInput) => {
     return parseFloat(commaSeperatedInput.replace(/,/g, ''));
+}
+
+export const numberWithCommas = number => {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }

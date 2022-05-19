@@ -15,7 +15,7 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import {smallPhone, res480, medPhone, tabPort, res1023, tabLand, medDesktop, bigDesktop} from '../../responsive';
 import Cart from '../Cart/Cart';
-import {NavLink} from 'react-router-dom';
+import {NavLink, useLocation} from 'react-router-dom';
 import "react-datepicker/dist/react-datepicker.css";
 import 'react-phone-number-input/style.css';
 import './Navbar.css';
@@ -422,6 +422,7 @@ const DropDownClose = styled.div`
 `;
 
 const Navbar = () =>{
+    const { pathname } = useLocation();
     const [tabNo, setTabNo] = useState(1);
     const [modal, setModal] = useState(false);
     const [menuState, setMenuState] = useState("closed");
@@ -430,6 +431,11 @@ const Navbar = () =>{
     const [minimizeHeader, setMinimizeHeader] = useState(false);
     const quantity = useSelector(state => state.cart.quantity);
 
+
+    useEffect(() => {
+        setMinimizeHeader(false);
+    }, [pathname]);
+    
     let isProfileClicked = false;
 
     const changeTab = (selectedTabNo) =>{
@@ -450,7 +456,7 @@ const Navbar = () =>{
     };
 
     
-      const handleNavigation = useCallback((e) => {
+      const handleNavigation = useCallback(() => {
           if(window.scrollY > 150){
             if (y > window.scrollY) {
                 //upscroll code
@@ -623,7 +629,7 @@ const Navbar = () =>{
                                     <DropDownClose onClick={() => toggleDropDown(dropDownState)}>
                                         <CloseIcon style={{fontSize: 15}}/>
                                     </DropDownClose>
-                                    <Cart dropdown/>
+                                    <Cart dropdown isNav/>
                                 </CartItemsDropDown>
                             </Wrap>
                             <Wrap active={isProfileClicked? true : false}>

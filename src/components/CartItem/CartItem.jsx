@@ -65,6 +65,12 @@ const CartItem = ({ productImage, productName, size, price, quantity}) => {
 
     // console.log(productImage, productName, size, quantity);
 
+    const initialOfSize = (size) => {
+        const firstLetter = size[0].toUpperCase();
+
+        return firstLetter;
+    };
+
     const modProductName = findAndReplace(productName);
     return(
         <>
@@ -75,7 +81,7 @@ const CartItem = ({ productImage, productName, size, price, quantity}) => {
                 <ItemDescription>
                     <ItemName>
                         <Link to={`/product/${modProductName}`} className="cartProductLink">
-                            {productName}
+                            {productName} {size === "No Size"? "" : `(${initialOfSize(size)})`}
                         </Link>
                     </ItemName>
                     <ItemPrice> {quantity} x ₦{price}</ItemPrice>

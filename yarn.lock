@@ -7991,6 +7991,11 @@
     "dns-packet" "^1.3.1"
     "thunky" "^1.0.2"
 
+"naija-locations@^1.0.0":
+  "integrity" "sha512-BZMH1hF79VnKteEQLLRnzkg1/21XAohnVz5gIADJLVtofAKwvXzaJkFVkAcgQxC9/zCETkWuIREgSsYIQDgD7g=="
+  "resolved" "https://registry.npmjs.org/naija-locations/-/naija-locations-1.0.0.tgz"
+  "version" "1.0.0"
+
 "nan@^2.12.1":
   "integrity" "sha512-M2ufzIiINKCuDfBSAUr1vWQ+vuVcA9kqx8JJUsbQi6yf1uGRyb7HfpdfUr5qLXf3B/t8dPvcjhKMmlfnP47EzQ=="
   "resolved" "https://registry.npmjs.org/nan/-/nan-2.14.2.tgz"

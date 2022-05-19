@@ -4,7 +4,7 @@ import BlogPost from "../BlogPost/BlogPost";
 import {res480, res750 ,res1023, bigDesktop} from "../../responsive";
 
 const BlogContainer = styled.div`
-  margin: 0 auto;
+  margin: 3rem auto;
   width: 85%;
   display: flex;
   flex-flow: row wrap;

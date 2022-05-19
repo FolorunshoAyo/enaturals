@@ -16,6 +16,7 @@ import Reviews from './pages/Reviews';
 import AdminLogin from './pages/AdminLogin';
 import './App.css';
 import NetworkDetector from './Hoc/NetworkDetector';
+import CustomerAccount from './pages/CustomerAccount';
 
 const App = () => {
   
@@ -24,6 +25,13 @@ const App = () => {
       <Route exact path="/" element={<Home />} />
       <Route exact path="/shop" element={<Shop />} />
       <Route exact path="/cart" element={<Cart />} />
+      <Route exact path="/customer/account" element={<CustomerAccount />} />
+      <Route exact path="/customer/order" element={<CustomerAccount />} />
+      <Route exact path="/customer/account/edit" element={<CustomerAccount />} />
+      <Route exact path="/customer/address" element={<CustomerAccount />} />
+      <Route exact path="/customer/account/changepass" element={<CustomerAccount />} />
+      <Route exact path="/customer/address/edit/:addressNo" element={<CustomerAccount />} />
+      <Route exact path="/customer/address/create" element={<CustomerAccount />} />
       <Route exact path="/product/:productName" element={<Product />} />
       <Route exact path="/product-category/:productTag" element={<Shop />} />
       <Route exact path="/blog" element={<Blog />} />

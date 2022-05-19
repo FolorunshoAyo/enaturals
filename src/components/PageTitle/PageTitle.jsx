@@ -4,11 +4,23 @@ import { Link, useLocation } from "react-router-dom";
 import { splitLink, splitAndSpace  } from "../../usefulFunc";
 
 const Wrapper = styled.div`
-  height: 300px;
+  height: 350px;
   position: relative;
-  background-image: url(../enaturals/enaturals13.jpg);
-  background-size: cover;
-  background-position: center;
+`;
+
+const ImageOverlayContainer = styled.div`
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+`;
+
+const ImageOverlay = styled.img`
+  height: 100%;
+  width: 100%;
 `;
 
 const Ellipses = styled.span`
@@ -28,6 +40,7 @@ const TitleContainer = styled.div`
   text-align: center;
   color: #28272e;
   width: 80%;
+  z-index: 3;
 `;
 
 const Title = styled.h1`
@@ -51,8 +64,6 @@ const PaginationItem = styled.span`
 const PageTitle = ({ title, pageLocation, params}) => {
   const { pathname } = useLocation();
 
-  console.log(pathname);
-
   const separateIndividualLinks = (pageLocation, pagePath) => {
     let result;
     let links = splitLink(pageLocation, " | ");
@@ -68,6 +79,13 @@ const PageTitle = ({ title, pageLocation, params}) => {
           </>
         );
         break;
+      case "/customer/account":
+      case "/customer/order":
+      case "/customer/account/edit":
+      case "/customer/address":
+      case "/customer/account/changepass":
+      case `/customer/address/edit/${params}`:
+        case `/customer/address/create`:
       case "/aboutus":
         result = (
           <>
@@ -77,7 +95,7 @@ const PageTitle = ({ title, pageLocation, params}) => {
             {links[1]}
           </>
         );
-        break;
+      break;
       case "/blog":
         result = (
           <>
@@ -207,6 +225,9 @@ const PageTitle = ({ title, pageLocation, params}) => {
   };
   return (
     <Wrapper>
+      <ImageOverlayContainer>
+          <ImageOverlay src="../enaturals/background-image.jpg" alt="page title cover"/>
+        </ImageOverlayContainer>
       <TitleContainer>
         <Title>{title}</Title>
         <Location>{separateIndividualLinks(pageLocation, pathname)}</Location>

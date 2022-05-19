@@ -1,13 +1,26 @@
 import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import { mergeSimilarProductAccToID } from "../../usefulFunc";
+import { mergeSimilarProductAccToID, numberWithCommas } from "../../usefulFunc";
 import CartItem from "../CartItem/CartItem";
 import { smallPhone } from '../../responsive';
 
 const CartContainer = styled.div`
     max-height: 300px;
     overflow-y: auto;
+`;
+
+const NavEmptyCartMsg = styled.p`
+    font-family: Lato, sans-serif;
+    color: #000;
+    text-align: center;
+    text-transform: lowercase;
+`;
+
+const EmptyCartMsg = styled.p`
+    font-family: Lato, sans-serif;
+    font-size: 2rem;
+    color: #7E8485;
 `;
 
 const BillingContainer = styled.div`
@@ -73,11 +86,14 @@ const ViewCartButton = styled.button`
     ${smallPhone({width: "50%", fontSize: "1.2rem"})}
 `;
 
-const CartItems = () => {
+const CartItems = ({isNav}) => {
     const cart = useSelector(state => state.cart);
 
     const reArrangedCart = mergeSimilarProductAccToID(cart.products);
 
+    // logging an array of similar product subtotals 
+    // console.log(reArrangedCart[1]);
+    
     // fetch subtotal
     const subtotal = reArrangedCart[1].reduce((prev, current) => {
         const returns = prev + current;
@@ -85,35 +101,47 @@ const CartItems = () => {
         return returns;
     }, 0);
 
+    const convertedSubTotal = numberWithCommas(subtotal);
+
     return (
         <>
-            <CartContainer>
-                {
-                    reArrangedCart[0].map((similarProducts, i) => (
-                        <CartItem 
-                            productImage={similarProducts[0].img}
-                            productName={similarProducts[0].productName}
-                            size={similarProducts[0].size}
-                            //total={reArrangedCart[1][i]} In case of total for each product added to cart
-                            price={similarProducts[0].price}
-                            quantity={reArrangedCart[2][i]}
-                        />
-                    ))
-                }
-            </CartContainer>
-            <BillingContainer>
-                <SubTotal>
-                    <SubTotalTitle>Subtotal:</SubTotalTitle> ₦{subtotal}
-                </SubTotal>
-                <OrderButtonContainer>
-                    <CheckoutButton>
-                        Checkout
-                    </CheckoutButton>
-                    <ViewCartButton>
-                        View Cart
-                    </ViewCartButton>
-                </OrderButtonContainer>
-            </BillingContainer>
+        {
+            (cart.products.length === 0)?
+            <>
+                {(isNav)? <NavEmptyCartMsg>Cart is Empty</NavEmptyCartMsg> : <EmptyCartMsg>Cart is Empty</EmptyCartMsg>}
+            </>
+            : 
+            <>
+                <CartContainer>
+                    {
+                        reArrangedCart[0].map((similarProducts, i) => (
+                            <CartItem
+                                key={i} 
+                                productImage={similarProducts[0].img}
+                                productName={similarProducts[0].productName}
+                                size={similarProducts[0].size}
+                                //total={reArrangedCart[1][i]} In case of total for each product added to cart
+                                price={similarProducts[0].price}
+                                quantity={reArrangedCart[2][i]}
+                            />
+                        ))
+                    }
+                </CartContainer>
+                <BillingContainer>
+                    <SubTotal>
+                        <SubTotalTitle>Subtotal:</SubTotalTitle> ₦{convertedSubTotal}
+                    </SubTotal>
+                    <OrderButtonContainer>
+                        <CheckoutButton>
+                            Checkout
+                        </CheckoutButton>
+                        <ViewCartButton>
+                            View Cart
+                        </ViewCartButton>
+                    </OrderButtonContainer>
+                </BillingContainer>
+            </>
+        }
         </>
     );
 };
