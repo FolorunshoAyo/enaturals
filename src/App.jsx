@@ -17,8 +17,10 @@ import AdminLogin from './pages/AdminLogin';
 import './App.css';
 import NetworkDetector from './Hoc/NetworkDetector';
 import CustomerAccount from './pages/CustomerAccount';
+import { useSelector } from 'react-redux';
 
 const App = () => {
+  const user = useSelector(state => state.user.currentuser);
   
   return (
     <CustomSwitch>

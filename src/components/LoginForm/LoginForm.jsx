@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { login } from "../../redux/apiCalls";
 
 
 const LoginFormContainer = styled.form`
@@ -36,6 +38,13 @@ const Input = styled.input`
     }
 `;
 
+const Error = styled.p`
+    padding: 0 2rem;
+    margin-bottom: 1rem;
+    font-family: Lato, sans-serif;
+    font-size: 1.5rem;
+    color: red;
+`;
 const ForgotContainer = styled.div`
     padding-left: 2rem;
     margin: 1.5rem 0;
@@ -77,25 +86,41 @@ const SubmitButton = styled.button`
        background-color: #B8A398;
        color: #fff;
     }
+
+    &:disabled{
+        cursor: not-allowed
+    }
 `;
 
 const LoginForm = () => {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const {isFetching, error} = useSelector(state => state.user);
+    const dispatch = useDispatch();
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+
+        login(dispatch, { username, password });
+    };
+
     return (
         <LoginFormContainer>
             <LoginFormGroup>
                 <Label htmlFor="loginUsername">Username <Required>*</Required></Label>
-                <Input type="text" placeholder="Userame" id="loginUsername"/>
+                <Input type="text" placeholder="Userame" id="loginUsername" onChange={e => setUsername(e.target.value)}/>
             </LoginFormGroup>
             <LoginFormGroup>
                 <Label htmlFor="loginpwd">Password <Required>*</Required></Label>
-                <Input type="password" placeholder="Password" id="loginpwd"/>
+                <Input type="password" placeholder="Password" id="loginpwd" onChange={e => setPassword(e.target.value)}/>
             </LoginFormGroup>
+            {error && <Error>{error}</Error>}
             <ForgotContainer>
                 <ForgotPassword href="#">Forgot Password?</ForgotPassword>
                 <CreateNewAccount href="#">Create A New Account</CreateNewAccount>
             </ForgotContainer>
             <LoginFormGroup>
-                <SubmitButton scope="login">
+                <SubmitButton scope="login" onClick={handleLogin} disabled={isFetching}>
                     Login
                 </SubmitButton>
             </LoginFormGroup>

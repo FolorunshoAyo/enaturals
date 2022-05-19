@@ -13,7 +13,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import {smallPhone, res480, medPhone, tabPort, res1023, tabLand, medDesktop, bigDesktop} from '../../responsive';
+import {smallPhone, res480, medPhone, tabPort, res1023, tabLand, medDesktop, bigDesktop, res860} from '../../responsive';
 import Cart from '../Cart/Cart';
 import {NavLink, useLocation} from 'react-router-dom';
 import "react-datepicker/dist/react-datepicker.css";
@@ -22,6 +22,9 @@ import './Navbar.css';
 import RegisterationForm from '../RegisterationForm/RegisterationForm';
 import LoginForm from '../LoginForm/LoginForm';
 import { useSelector } from "react-redux";
+import { HowToRegOutlined, Logout, Person } from '@mui/icons-material';
+import { display } from '@mui/system';
+import { Button, Menu, MenuItem } from '@mui/material';
 
 const ModalBackdrop = styled.div`
     display: ${props => props.openModal? "block" : "none"};
@@ -128,7 +131,7 @@ const RowContainer = styled.div`
 `;
 
 const Row = styled.div`
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -137,14 +140,20 @@ const Row = styled.div`
 
     ${bigDesktop({width: "1100px"})}
     ${medDesktop({width: "1100px"})}
-    ${tabLand({width: "80%"})}
+    ${tabLand({width: "85%"})}
+    ${smallPhone({width: "95%"})}
 `;
 
+// make sure the flex basis of the below element is increased to accomodate menu listing default: 0 0 15%, flex-end;
 const CartAndLogin = styled.div`
-    flex: 0 0 15%;
+    flex: ${props => props.isLoggedIn? "0 0 17%" : "0 0 15%"};
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: ${props => props.isLoggedIn? "flex-start" : "flex-end"};
+
+    ${res1023({flex: "0 0 20%"})}
+    ${res860({flex: "0 0 150px"})}
+    ${smallPhone({flex: "0 0 115px"})}
 `;
 
 const Wrap = styled.div`
@@ -158,6 +167,20 @@ const Wrap = styled.div`
     &:hover{
         color: #9AAF8F;
     }
+`;
+
+const VerifiedPersonContainer= styled.div`
+    flex: 1;
+`;
+
+const VerifiedPersonIcon = styled.div`
+    flex: 0 0 20px;
+    margin-right: 5px;
+`;
+
+const VerifiedPersonMsg = styled.div`  
+    flex: 1;
+    font-size: 1.1rem;
 `;
 
 const IconContainer = styled.div`
@@ -430,6 +453,16 @@ const Navbar = () =>{
     const [y, setY] = useState(document.scrollingElement.scrollHeight);
     const [minimizeHeader, setMinimizeHeader] = useState(false);
     const quantity = useSelector(state => state.cart.quantity);
+    const user = useSelector(state => state.user.currentUser);
+    const [anchorEl, setAnchorEl] = useState(null);
+  
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
 
 
     useEffect(() => {
@@ -619,10 +652,10 @@ const Navbar = () =>{
                         <LogoContainer>
                             <LogoImg src={logo} alt="Logo" />
                         </LogoContainer>
-                        <CartAndLogin>
+                        <CartAndLogin isLoggedIn={user === null? false : true}>
                             <Wrap>
                                 <Badge badgeContent={quantity} color="success" className="cartBadge">
-                                    <ShoppingCartOutlinedIcon style={{fontSize: 25, color: "#7E8485"}} className="navIcon" onClick={() => toggleDropDown(dropDownState)}/> 
+                                    <ShoppingCartOutlinedIcon style={{fontSize: "2.5rem", color: "#7E8485"}} className="navIcon" onClick={() => toggleDropDown(dropDownState)}/> 
                                 </Badge>
 
                                 <CartItemsDropDown status={dropDownState}>
@@ -632,9 +665,42 @@ const Navbar = () =>{
                                     <Cart dropdown isNav/>
                                 </CartItemsDropDown>
                             </Wrap>
-                            <Wrap active={isProfileClicked? true : false}>
-                                <AccountBoxOutlinedIcon style={{fontSize: 25, marginLeft: 20}} className="navIcon" onClick={switchModal}/>
-                            </Wrap>
+                            { 
+                            (user === null)?
+                                <Wrap active={isProfileClicked? true : false}>
+                                    <AccountBoxOutlinedIcon style={{fontSize: 25, marginLeft: 15}} className="navIcon" onClick={switchModal}/>
+                                </Wrap>
+                                :
+                                <VerifiedPersonContainer>
+                                    <Button
+                                    className="menuBtn"
+                                    aria-controls="simple-menu"
+                                    aria-haspopup="true"
+                                    onClick={handleClick}>
+                                        <VerifiedPersonIcon>
+                                            <HowToRegOutlined className="verifiedIcon"/>
+                                        </VerifiedPersonIcon>
+                                        <VerifiedPersonMsg>
+                                            Hi, folumania
+                                        </VerifiedPersonMsg> 
+                                    </Button>
+                                    <Menu
+                                        keepMounted
+                                        anchorEl={anchorEl}
+                                        onClose={handleClose}
+                                        open={Boolean(anchorEl)}
+                                    >
+                                        <MenuItem onClick={handleClose}>
+                                            <Person style={{marginRight: "10px"}}/>
+                                            My Account
+                                        </MenuItem>
+                                        <MenuItem onClick={handleClose}>
+                                            <Logout style={{marginRight: "10px"}}/>
+                                            Logout
+                                        </MenuItem>
+                                    </Menu>
+                                </VerifiedPersonContainer>
+                            }
                         </CartAndLogin>
                     </Row>
                 </RowContainer>

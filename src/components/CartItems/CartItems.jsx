@@ -117,6 +117,7 @@ const CartItems = ({isNav}) => {
                         reArrangedCart[0].map((similarProducts, i) => (
                             <CartItem
                                 key={i} 
+                                productID={similarProducts[0]._id}
                                 productImage={similarProducts[0].img}
                                 productName={similarProducts[0].productName}
                                 size={similarProducts[0].size}

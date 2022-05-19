@@ -20,6 +20,25 @@
     cursor: pointer;
 }
 
+.verifiedIcon{
+    font-size: 2.5rem !important;
+}
+
+.menuBtn{
+    width: 100%;
+    color: #7e8485 !important;
+    font-size: 1rem !important;
+    justify-content: flex-start !important;
+}
+
+.menuBtn:hover{
+    color: #acbfa3;
+}
+
+ul.MuiMenu-list{
+    width: 150px;
+}
+
 .react-datepicker__input-container input, .PhoneInputInput{
     padding: 1.5rem 0rem 1rem 1rem;
     width: 100%;

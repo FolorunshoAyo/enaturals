@@ -3,6 +3,8 @@ import styled from "styled-components";
 import CloseIcon from '@mui/icons-material/Close';
 import { findAndReplace } from "../../usefulFunc";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { removeProduct } from '../../redux/cartRedux';
 
 const SingleItem = styled.div`
     display: flex;
@@ -61,8 +63,8 @@ const Close = styled.div`
     }
 `;
 
-const CartItem = ({ productImage, productName, size, price, quantity}) => {
-
+const CartItem = ({ productID, productImage, productName, size, price, quantity}) => {
+    const dispatch = useDispatch();
     // console.log(productImage, productName, size, quantity);
 
     const initialOfSize = (size) => {
@@ -72,6 +74,13 @@ const CartItem = ({ productImage, productName, size, price, quantity}) => {
     };
 
     const modProductName = findAndReplace(productName);
+
+    console.log({ productID, quantity, price});
+    
+    const handleCartRemoval = () => {
+        dispatch(removeProduct({ productID, quantity, price}));
+    };
+
     return(
         <>
             <SingleItem>
@@ -86,7 +95,7 @@ const CartItem = ({ productImage, productName, size, price, quantity}) => {
                     </ItemName>
                     <ItemPrice> {quantity} x ₦{price}</ItemPrice>
                 </ItemDescription>
-                <Close>
+                <Close onClick={handleCartRemoval}>
                     <CloseIcon style={{backgroundColor: "#fff", fontSize: 15}}/>
                 </Close>
             </SingleItem>
