@@ -87,9 +87,9 @@ const Pagination = ({ data, RenderComponent, pageLimit, dataLimit, view, pageTyp
   const [pages] = useState(Math.round(data.length / dataLimit));
   const [currentPage, setCurrentPage] = useState(1);
 
-  useEffect(() => {
-    window.scrollTo({ behaviour: "smooth", top: "0px" });
-  }, [currentPage]);
+  // useEffect(() => {
+  //   window.scrollTo({ behaviour: "smooth", top: "800px" });
+  // }, [currentPage]);
 
   function goToNextPage() {
     setCurrentPage((page) => page + 1);

@@ -13,7 +13,6 @@ import CustomSwitch from './components/CustomSwitch/CustomSwitch';
 import PageNotFound from './pages/PageNotFound';
 import SingleBlogPost from './pages/SingleBlogPost';
 import Reviews from './pages/Reviews';
-import AdminLogin from './pages/AdminLogin';
 import './App.css';
 import NetworkDetector from './Hoc/NetworkDetector';
 import CustomerAccount from './pages/CustomerAccount';
@@ -43,7 +42,6 @@ const App = () => {
       <Route exact path="/aboutus" element={<AboutUs />} />
       <Route exact path="/aboutus/:memberName" element={<SingleTeam />} />
       <Route exact path="/checkout" element={<Checkout />} />
-      <Route exact path="/admin" element={<AdminLogin />} />
       <Route path="*" element={<PageNotFound />} />
     </CustomSwitch>
   );
