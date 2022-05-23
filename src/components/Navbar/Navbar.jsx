@@ -157,7 +157,7 @@ const CartAndLogin = styled.div`
 `;
 
 const Wrap = styled.div`
-    color: ${props => props.active? '#9AAF8F' : '#7E8485'};
+    color: #7E8485;
     text-transform: uppercase;
     display: flex;
     align-items: center;
@@ -175,7 +175,6 @@ const VerifiedPersonContainer= styled.div`
 
 const VerifiedPersonIcon = styled.div`
     flex: 0 0 20px;
-    margin-right: 5px;
 `;
 
 const VerifiedPersonMsg = styled.div`  
@@ -468,8 +467,12 @@ const Navbar = () =>{
     useEffect(() => {
         setMinimizeHeader(false);
     }, [pathname]);
-    
-    let isProfileClicked = false;
+
+    useEffect(() => {
+        if(user !== null){
+            setModal(false);
+        }
+    },[user]);
 
     const changeTab = (selectedTabNo) =>{
         setTabNo(selectedTabNo);
@@ -477,7 +480,6 @@ const Navbar = () =>{
 
     const switchModal = () => {
         setModal(!modal);
-        isProfileClicked = !isProfileClicked;
     };
 
     const toggleMobileMenu = (currState) => {
@@ -667,7 +669,7 @@ const Navbar = () =>{
                             </Wrap>
                             { 
                             (user === null)?
-                                <Wrap active={isProfileClicked? true : false}>
+                                <Wrap>
                                     <AccountBoxOutlinedIcon style={{fontSize: 25, marginLeft: 15}} className="navIcon" onClick={switchModal}/>
                                 </Wrap>
                                 :
@@ -681,7 +683,7 @@ const Navbar = () =>{
                                             <HowToRegOutlined className="verifiedIcon"/>
                                         </VerifiedPersonIcon>
                                         <VerifiedPersonMsg>
-                                            Hi, folumania
+                                            Hi, {user.username}
                                         </VerifiedPersonMsg> 
                                     </Button>
                                     <Menu
