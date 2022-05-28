@@ -15,7 +15,7 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import {smallPhone, res480, medPhone, tabPort, res1023, tabLand, medDesktop, bigDesktop, res860} from '../../responsive';
 import Cart from '../Cart/Cart';
-import {NavLink, useLocation} from 'react-router-dom';
+import {NavLink, Link, useLocation} from 'react-router-dom';
 import "react-datepicker/dist/react-datepicker.css";
 import 'react-phone-number-input/style.css';
 import './Navbar.css';
@@ -23,7 +23,7 @@ import RegisterationForm from '../RegisterationForm/RegisterationForm';
 import LoginForm from '../LoginForm/LoginForm';
 import { useSelector } from "react-redux";
 import { HowToRegOutlined, Logout, Person } from '@mui/icons-material';
-import { display } from '@mui/system';
+// import { display } from '@mui/system';
 import { Button, Menu, MenuItem } from '@mui/material';
 
 const ModalBackdrop = styled.div`
@@ -184,6 +184,9 @@ const VerifiedPersonMsg = styled.div`
 
 const IconContainer = styled.div`
     margin-right: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `;
 
 const ContactContainer = styled.div`
@@ -197,11 +200,11 @@ const ContactContainer = styled.div`
     }
 `;
 
-const PhoneNo = styled.div`
-    font-size: 1.8rem;
+const PhoneNo = styled.a`
+    font-size: 1.5rem;
     font-weight: 700;
-
-    ${tabPort({fontSize: "2rem"})}
+    text-decoration: none;
+    color: inherit;
 `;
 
 const LogoContainer = styled.div`
@@ -284,7 +287,7 @@ const MobileMenuOverlay = styled.div`
     width: 100%;
     height: 100%;
     z-index: 1000;
-    transition: all .5s ease;
+    transition: all .5s linear;
 
     transform: ${props => props.status === "closed"? "translateY(-200%)" : "translateY(0)"};
 `;
@@ -517,7 +520,7 @@ const Navbar = () =>{
             <MobileMenuOverlay status={menuState}>
                 <MobileMenuWrapper>
                     <MobileMenuCloseContainer>
-                        <MobileMenuClose onClick={() => toggleMobileMenu("closed")}>
+                        <MobileMenuClose>
                             <CloseIcon style={{fontSize: 20}} />
                         </MobileMenuClose>
                     </MobileMenuCloseContainer>
@@ -527,7 +530,7 @@ const Navbar = () =>{
                     <MobileMenuNav>
                         <MobileMenuLinks>
                             <MobileMenuItem>
-                                <MobileMenuLink onClick={() => toggleMobileMenu("closed")}>
+                                <MobileMenuLink>
                                     <NavLink 
                                     to="/"
                                     className="navbar-item"
@@ -537,7 +540,7 @@ const Navbar = () =>{
                                 </MobileMenuLink>
                             </MobileMenuItem>
                             <MobileMenuItem>
-                                <MobileMenuLink onClick={() => toggleMobileMenu("closed")}>
+                                <MobileMenuLink>
                                     <NavLink
                                     to="/aboutus"
                                     className="navbar-item"
@@ -547,7 +550,7 @@ const Navbar = () =>{
                                 </MobileMenuLink>
                             </MobileMenuItem>
                             <MobileMenuItem>
-                                <MobileMenuLink onClick={() => toggleMobileMenu("closed")}>
+                                <MobileMenuLink>
                                     <NavLink
                                     to="/shop"
                                     className="navbar-item"
@@ -557,7 +560,7 @@ const Navbar = () =>{
                                 </MobileMenuLink>
                             </MobileMenuItem>
                             <MobileMenuItem>
-                                <MobileMenuLink onClick={() => toggleMobileMenu("closed")}>
+                                <MobileMenuLink>
                                     <NavLink
                                     to="/blog"
                                     className="navbar-item"
@@ -567,7 +570,7 @@ const Navbar = () =>{
                                 </MobileMenuLink>
                             </MobileMenuItem>
                             <MobileMenuItem>
-                                <MobileMenuLink onClick={() => toggleMobileMenu("closed")}>
+                                <MobileMenuLink>
                                     <NavLink
                                     to="/gallery"
                                     className="navbar-item"
@@ -577,7 +580,7 @@ const Navbar = () =>{
                                 </MobileMenuLink>
                             </MobileMenuItem>
                             <MobileMenuItem>
-                            <MobileMenuLink onClick={() => toggleMobileMenu("closed")}>
+                            <MobileMenuLink>
                                     <NavLink
                                     to="/reviews"
                                     className="navbar-item"
@@ -647,12 +650,14 @@ const Navbar = () =>{
                     <Row>
                         <ContactContainer>
                             <IconContainer>
-                                <PhoneIcon style={{fontSize: 20}}/> 
+                                <PhoneIcon style={{fontSize: "2rem"}}/> 
                             </IconContainer>
-                            <PhoneNo>+234 90 236 879 32 </PhoneNo> 
+                            <PhoneNo href="tel:09023687932">+234 90 236 879 32 </PhoneNo> 
                         </ContactContainer>
                         <LogoContainer>
-                            <LogoImg src={logo} alt="Logo" />
+                            <Link to="/">
+                                <LogoImg src={logo} alt="Logo" />
+                            </Link>
                         </LogoContainer>
                         <CartAndLogin isLoggedIn={user === null? false : true}>
                             <Wrap>
@@ -670,7 +675,7 @@ const Navbar = () =>{
                             { 
                             (user === null)?
                                 <Wrap>
-                                    <AccountBoxOutlinedIcon style={{fontSize: 25, marginLeft: 15}} className="navIcon" onClick={switchModal}/>
+                                    <AccountBoxOutlinedIcon style={{fontSize: "2.5rem", marginLeft: 15}} className="navIcon" onClick={switchModal}/>
                                 </Wrap>
                                 :
                                 <VerifiedPersonContainer>
@@ -708,7 +713,9 @@ const Navbar = () =>{
                 </RowContainer>
                 <NavigationContainer>
                     <NavLogoContainer>
-                        <LogoImg src={strippedLogo} alt="Logo" />
+                        <Link to="/">
+                            <LogoImg src={strippedLogo} alt="Logo" />
+                        </Link>
                     </NavLogoContainer>
                     <NavMenu>
                         <NavItem>

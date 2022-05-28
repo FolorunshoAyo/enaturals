@@ -8,6 +8,7 @@ import { generateTagLinks, findAndReplace } from '../../usefulFunc';
 
 const ProductCard = styled.div`
     flex: ${props => props.view === "list"? "none" : "0 0 50%" };
+    position: relative;
 
     display: flex;
     flex-direction: ${props => props.view === "list"? "row" : "column"};
@@ -20,6 +21,23 @@ const ProductCard = styled.div`
     }
 
     ${medPhone({flex: "0 0 100%", flexDirection: "column", height: "auto"})}
+`;
+
+const OutOfStockText = styled.div`
+    display: ${(props) => props.inStock === "in-stock"? "none": "flex"};
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    width: 50px;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 0.7rem;
+    font-family: Lato, sans-serif;
+    background-color: #acbfa3;
+    border-radius: 50%;
 `;
 
 const ProductImageContainer = styled.div`
@@ -95,17 +113,24 @@ const Button = styled.button`
     ${smallPhone({padding: "10px 20px"})}
 `;
 
-const Product = ({productInfo, productImage, price, description, productName, view, size, productTags}) => {
+const Product = ({productInfo, productImage, price, description, productName, view, size, inStock, productTags}) => {
     const modProductName = findAndReplace(productName);
     const quantity = 1;
     const dispatch = useDispatch();
 
     const handleCartAddition = () => {
-        dispatch(addProduct({ ...productInfo, quantity }));
+        if(!inStock){
+            alert("Item is currently out of stock, please check back later or shop more products.")
+        }else{
+            dispatch(addProduct({ ...productInfo, quantity }));
+        }
     };
 
     return (
         <ProductCard view={view}>
+            <OutOfStockText inStock={inStock? "in-stock" : "not-in-stock"}>
+                Out of stock
+            </OutOfStockText>
             <ProductImageContainer view={view}>
                 <ProductImage src={productImage}/>
             </ProductImageContainer>

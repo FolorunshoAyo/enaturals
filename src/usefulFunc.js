@@ -237,3 +237,7 @@ export const convertToNumber = (commaSeperatedInput) => {
 export const numberWithCommas = number => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+export const capitalizeFirstLetterOfWord = (word) => {
+    return word[0].toUpperCase() + word.substr(1);
+};

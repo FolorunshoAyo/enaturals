@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { states } from '../../data';
+// import { states } from '../../data';
 import './datalist.css';
 import ReactHtmlDatalist from 'react-html-datalist';
 import { res750, res860, smallPhone } from "../../responsive";

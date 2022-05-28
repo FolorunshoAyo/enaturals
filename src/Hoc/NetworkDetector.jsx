@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default function (ComposedComponent) {
+export default function NetworkDetector (ComposedComponent) {
   class NetworkDetector extends Component {
     state = {
       isDisconnected: false

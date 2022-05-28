@@ -101,10 +101,10 @@ const BlogBody = styled.div`
   font-family: Lato, sans-serif;
 `;
 
-const Paragraph = styled.p`
-  margin-bottom: 3.5rem;
-  font-family: Lato,sans-serif;
-`;
+// const Paragraph = styled.p`
+//   margin-bottom: 3.5rem;
+//   font-family: Lato,sans-serif;
+// `;
 
 const ShareContainer = styled.div`
   display: flex;
@@ -317,12 +317,12 @@ const ReplyDate = styled.div`
   ${res480({display: "block"})}
 `;
 
-const ReplyComment = styled.p`
-  color: #7E8485;
-  font-size: 1.5rem;
-  font-weight: 400;
-  font-family: Lato, sans-serif;
-`;
+// const ReplyComment = styled.p`
+//   color: #7E8485;
+//   font-size: 1.5rem;
+//   font-weight: 400;
+//   font-family: Lato, sans-serif;
+// `;
 
 const ReplyButton = styled.button`
   border: none;

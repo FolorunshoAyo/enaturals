@@ -8,29 +8,27 @@ import SingleProductDetails from '../SingleProductDetails/SingleProductDetails';
 
 const Container = styled.div`
     padding: 5rem 8rem;
-    display: ${props => props.loading? "flex" : "block"};
-    height: ${props => props.loading? "300px" : "auto"};
+    display: ${props => props.loading === "isLoading"? "flex" : "block"};
+    height: ${props => (props.loading === "isLoading")? "300px" : "auto"};
     justify-content: center;
     align-items; center;
 
     ${res860({padding: "5rem 2rem"})}
 `;
 
-
-const SingleProduct = ({productName}) => {
+const SingleProduct = ({ productName }) => {
     const [product, setProduct]= useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
+    // const [error, setError] = useState(false);
     // The line of code helps to convert hyphenated text to a spaced out text for database reading.
     const convertedProductName = convertToDefaultProductName(productName);
 
     useEffect(() => {
-        let isSuscribed = true;
-
         const getProduct = async () => {
             try{
-                const result = isSuscribed? await publicRequest.get(`products/find/${convertedProductName}`, {timeout: 10000}) : null;
-
+                setLoading(true);
+                const result = await publicRequest.get(`/products/find/${convertedProductName}`);
+                
                 setProduct(result.data);
                 setLoading(false);
             }catch(err){
@@ -41,21 +39,18 @@ const SingleProduct = ({productName}) => {
 
         getProduct();
 
-        return () => { isSuscribed = false }
-
-    }, [productName]);
+    }, [productName, convertedProductName]);
 
 
-    // console.log(product, loading);
     const reOrderedProduct = sortSimilarProduct(product);
-
+    
     return (
-        <Container loading={loading}>
+        <Container loading={loading? "isLoading" : "isNotLoading"}>
             {
                 loading ? 
                 <CircularProgress size="8rem"/>
                 :
-                <SingleProductDetails productName={convertedProductName} productDetails={reOrderedProduct} errorMsg={error}/>
+                <SingleProductDetails productName={convertedProductName} productDetails={reOrderedProduct} />
             }
         </Container>
     );

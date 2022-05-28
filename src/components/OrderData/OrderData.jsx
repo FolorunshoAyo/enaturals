@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+// import NotificationsIcon from '@mui/icons-material/Notifications';
 import CloseIcon from '@mui/icons-material/Close';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -152,38 +152,38 @@ const SubTotal = styled.div`
     font-weight: 600;
 `;
 
-const EmptyCart = styled.div`
-    display: flex;
-    flex-direction: column;
-`;
+// const EmptyCart = styled.div`
+//     display: flex;
+//     flex-direction: column;
+// `;
 
-const NotificationContainer = styled.div`
-    padding: 2rem 0 2rem 2rem; 
-    display: flex;
-    border-top: 5px solid #b8a398;
-    background-color: #b8a398;
-`; 
+// const NotificationContainer = styled.div`
+//     padding: 2rem 0 2rem 2rem; 
+//     display: flex;
+//     border-top: 5px solid #b8a398;
+//     background-color: #b8a398;
+// `; 
 
-const IconContainer = styled.div`
-    flex: 0 0 5%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`;
+// const IconContainer = styled.div`
+//     flex: 0 0 5%;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+// `;
 
-const Notification = styled.div`
-    flex: 1;
-    display: flex;
-    align-items: center;
-`;
+// const Notification = styled.div`
+//     flex: 1;
+//     display: flex;
+//     align-items: center;
+// `;
 
-const NotificationText = styled.div`
-    font-size: 1.8rem;
-`;
+// const NotificationText = styled.div`
+//     font-size: 1.8rem;
+// `;
 
-const ButtonContainer = styled.div`
-    padding: 4rem 0;
-`;
+// const ButtonContainer = styled.div`
+//     padding: 4rem 0;
+// `;
 
 const Button = styled.button`
     padding: 1rem 2rem;
@@ -279,19 +279,20 @@ const CheckoutButton = styled.button`
 `;
 
 const OrderData = () => {
-    const emptyCart = <EmptyCart>
-            <NotificationContainer>
-                <IconContainer>
-                    <NotificationsIcon style={{fontSize: 20}}/>
-                </IconContainer>
-                <Notification>
-                    <NotificationText>Your cart is currently empty</NotificationText>
-                </Notification>
-            </NotificationContainer>
-            <ButtonContainer>
-                <Button>Return To Shop</Button>
-            </ButtonContainer>
-    </EmptyCart>
+    // const emptyCart = <EmptyCart>
+    //         <NotificationContainer>
+    //             <IconContainer>
+    //                 <NotificationsIcon style={{fontSize: 20}}/>
+    //             </IconContainer>
+    //             <Notification>
+    //                 <NotificationText>Your cart is currently empty</NotificationText>
+    //             </Notification>
+    //         </NotificationContainer>
+    //         <ButtonContainer>
+    //             <Button>Return To Shop</Button>
+    //         </ButtonContainer>
+    // </EmptyCart>
+
     return (
         <Container>
             <TableWrapper>

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import {res480, res700, res1023} from '../../responsive';
 import { Link } from 'react-router-dom';
 import { findAndReplace, generateTagLinks } from '../../usefulFunc';
-import { CategorySharp } from '@mui/icons-material';
 
 const ProductCard = styled.div`
     flex: 0 0 32%;

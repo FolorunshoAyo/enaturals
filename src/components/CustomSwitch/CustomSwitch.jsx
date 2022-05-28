@@ -10,22 +10,22 @@ TopBarProgress.config({
 });
 
 const CustomSwitch = ({children}) => {
-    const [progress, setProgress] = useState(false)
-    const [prevLocation, setPrevLoc] = useState("")
+    const [progress, setProgress] = useState(false);
+    const [prevLocation, setPrevLoc] = useState("");
     const location = useLocation();
 
     useEffect(() => {
-        setPrevLoc(location.pathname)
+        setPrevLoc(location.pathname);
         setProgress(true)
         if(location.pathname === prevLocation){
-            setPrevLoc('')
+            setPrevLoc('');
         }
-        window.scrollTo(0, 0)
-     }, [location]);
+        window.scrollTo(0, 0);
+    }, [location]);
   
-     useEffect(() => {
-        setProgress(false)
-     }, [prevLocation]);
+    useEffect(() => {
+        setProgress(false);
+    }, [prevLocation]);
 
     return(
         <>

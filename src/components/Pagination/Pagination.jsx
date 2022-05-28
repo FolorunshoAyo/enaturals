@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
@@ -34,14 +34,14 @@ const PaginationNav = styled.div`
   width: 50%;
   justify-content: space-between;
 
-  ${res860({ width: "60%" })}
-  ${medPhone({ width: "70%" })}
-  ${smallPhone({ width: "80%" })}
+  ${res860({ width: "40%" })}
+  ${medPhone({ width: "60%" })}
+  ${smallPhone({ width: "60%" })}
 `;
 
 const PrevBtn = styled.button`
   background: transparent;
-  display: ${(props) => (props.display ? "none" : "block")};
+  display: ${(props) => (props.display === "active" ? "block" : "none")};
   padding: 2rem;
   font-size: 1.3rem;
   border: none;
@@ -54,7 +54,7 @@ const PrevBtn = styled.button`
 
 const NextBtn = styled.button`
   background: transparent;
-  display: ${(props) => (props.display === "true" ? "none" : "block")};
+  display: ${(props) => (props.display === "active" ? "block" : "none")};
   padding: 2rem;
   font-size: 1.3rem;
   border: none;
@@ -92,6 +92,9 @@ const Pagination = ({ data, RenderComponent, pageLimit, dataLimit, view, pageTyp
   // }, [currentPage]);
 
   function goToNextPage() {
+    if(currentPage === pages){
+      return;
+    }
     setCurrentPage((page) => page + 1);
   }
 
@@ -140,6 +143,7 @@ const Pagination = ({ data, RenderComponent, pageLimit, dataLimit, view, pageTyp
                   description={product.desc}
                   productName={product.productName}
                   size={product.size}
+                  inStock={product.inStock}
                   productTags={product.categories}
                   view={view}
                 />
@@ -152,6 +156,7 @@ const Pagination = ({ data, RenderComponent, pageLimit, dataLimit, view, pageTyp
                 (product) => product.price
               );
               const similarProducts = groupOfSimilarProducts;
+              const isAllSimilarProductsOutOfStock = !similarProducts.every(similarProduct => similarProduct.inStock === false);
 
               const maxAndMinPrice = [
                 findMin(productPrices),
@@ -167,6 +172,7 @@ const Pagination = ({ data, RenderComponent, pageLimit, dataLimit, view, pageTyp
                   productName={similarProducts[0].productName}
                   size={productSizes}
                   productTags={similarProducts[0].categories}
+                  inStock={isAllSimilarProductsOutOfStock}
                   view={view}
                 />
               );
@@ -196,7 +202,7 @@ const Pagination = ({ data, RenderComponent, pageLimit, dataLimit, view, pageTyp
       <PaginationNav>
         <PrevBtn
           onClick={goToPreviousPage}
-          display={currentPage === 1 ? true : false}
+          display={currentPage === 1 ? "not-active" : "active"}
         >
           <NavigateBeforeIcon style={{ fontSize: 20 }} />
         </PrevBtn>
@@ -211,7 +217,7 @@ const Pagination = ({ data, RenderComponent, pageLimit, dataLimit, view, pageTyp
         ))}
         <NextBtn
           onClick={goToNextPage}
-          display={currentPage === pages ? "true" : "false"}
+          display={currentPage === pages ? "not-active" : "active"}
         >
           <NavigateNextIcon style={{ fontSize: 20 }} />
         </NextBtn>

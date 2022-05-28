@@ -5,7 +5,7 @@ import ViewListIcon from '@mui/icons-material/ViewList';
 import ViewModuleIcon from '@mui/icons-material/ViewModule';
 import Product from './Product';
 import Pagination from '../Pagination/Pagination';
-import {allProducts} from '../../data';
+// import {allProducts} from '../../data';
 import {res480, medPhone, res700, res860 ,res1023, bigDesktop} from '../../responsive';
 import Cart from '../Cart/Cart';
 import { convertToDefaultProductTag, mergeSimilarProductAccToName } from '../../usefulFunc';
@@ -369,7 +369,7 @@ const ProductList = ({productTag}) => {
                                 </CategoryItem>
                                 <CategoryItem>
                                     <Link to="/product-category/brightening" className="categoryLink">
-                                        Brighteneing
+                                        Brightening
                                     </Link>
                                 </CategoryItem>
                                 <CategoryItem>
@@ -443,7 +443,7 @@ const ProductList = ({productTag}) => {
                                         data={productTag? filteredProductsByProductTag : reArrangedProducts}
                                         pageType={productTag? "productTagPage" : "productsPage"}
                                         RenderComponent={Product}
-                                        pageLimit={5}
+                                        pageLimit={3}
                                         dataLimit={4}
                                         view={currView}
                                     />)

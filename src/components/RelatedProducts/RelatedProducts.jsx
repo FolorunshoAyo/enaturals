@@ -68,7 +68,7 @@ const RelatedProducts = ({productName, categories}) => {
 
         getRelatedProduct();
 
-    }, [productName]);
+    }, [productName, categories]);
 
     const reOrderedRelatedProducts = mergeSimilarProductAccToName(relatedProducts);
 

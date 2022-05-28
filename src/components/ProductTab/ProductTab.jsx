@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import StarRating from '../StarRating/StartRating';
 import AllReviews from '../AllReviews/AllReviews';
 import {smallPhone, medPhone, res480, res700, res1023} from '../../responsive';
-import { commaListed, filterReviewsForStatusPublished } from '../../usefulFunc';
+import { filterReviewsForStatusPublished } from '../../usefulFunc';
 import { publicRequest } from '../../requestMethod';
 import { CircularProgress } from '@mui/material';
 
@@ -81,12 +81,12 @@ const AdditionalInformation = styled.div`
     padding: 2rem 0;
 `;
 
-const PackingTypes = styled.div`
-    display: flex;
-    border-top: 2px dotted #7e8485;
-    border-bottom: 2px dotted #7e8485;
-    padding: 1rem 2rem;
-`;
+// const PackingTypes = styled.div`
+//     display: flex;
+//     border-top: 2px dotted #7e8485;
+//     border-bottom: 2px dotted #7e8485;
+//     padding: 1rem 2rem;
+// `;
 
 const Label = styled.div`
     flex: 0 0 20%;
@@ -245,30 +245,21 @@ const ProductTab = ({size, productDetails}) => {
     const [publishedReviews, setPublishedReviews] = useState([]);
     const [error, setError] = useState(false);
 
-    const retrieveProductID = (size, isNoSize) => {
-        if(isNoSize){
-            return productDetails[0]._id;
+    const retrieveProductID = (size, productDetails) => {
+        const productInfo = productDetails.find(product => product.size === size);
+
+        if(productDetails.length === 1){
+            return `${productDetails[0]._id}`
         }else{
-            switch (size){
-                case "":
-                    return false;
-                break;
-                case "small":
-                    return productDetails[0]._id;
-                break;
-                case "medium":
-                    return productDetails[1]._id;
-                break;
-                case "large":
-                    return productDetails[2]._id;
-                break;
-                default:
-                    console.log("This product does not exist");
+            if(size === ""){
+                return `Select size to view Product ID`
+            }else{
+                return `${productInfo._id}`
             }
         }
     };
 
-    const productID = retrieveProductID(size, productDetails[0].size === "No Size");
+    const productID = (size === "")? "": retrieveProductID(size, productDetails);
 
     useEffect(() => {
         if(productID){
@@ -293,36 +284,34 @@ const ProductTab = ({size, productDetails}) => {
     }, [productID])
 
     const setLongDescription = size => {
+        const productInfo = productDetails.find(product => product.size === size);
+        
         if(productDetails.length === 1){
             return `${productDetails[0].desc}`
         }else{
             if(size === ""){
                 return "Select size to view description.";
-            }else if(size === "small"){
-                return `${productDetails[0].desc}`
-            }else if(size === "medium"){
-                return `${productDetails[1].desc}`;
-            }else if(size === "large"){
-                return `${productDetails[2].desc}`;
+            }else {
+                return productInfo.desc;
             }
         }
     };
 
-    const setPackingOptions = size => {
-        if(productDetails.length === 1){
-            return `${productDetails[0].packingOptions}`
-        }else{
-            if(size === ""){
-                return `Select size to view packing.`
-            }else if(size === "small"){
-                return `${commaListed(productDetails[0].packingOptions)}`
-            }else if(size === "medium"){
-                return `${commaListed(productDetails[1].packingOptions)}`;
-            }else if(size === "large"){
-                return `${commaListed(productDetails[2].packingOptions)}`;
-            }
-        }
-    };
+    // const setPackingOptions = size => {
+    //     if(productDetails.length === 1){
+    //         return `${productDetails[0].packingOptions}`
+    //     }else{
+    //         if(size === ""){
+    //             return `Select size to view packing.`
+    //         }else if(size === "small"){
+    //             return `${commaListed(productDetails[0].packingOptions)}`
+    //         }else if(size === "medium"){
+    //             return `${commaListed(productDetails[1].packingOptions)}`;
+    //         }else if(size === "large"){
+    //             return `${commaListed(productDetails[2].packingOptions)}`;
+    //         }
+    //     }
+    // };
 
     const setSizes = () => {
         let sizes = "";
@@ -362,7 +351,7 @@ const ProductTab = ({size, productDetails}) => {
             if (reviews.length !== 0){
                 return `Review ${productDetails[0].productName}`;
             } else{
-                 return `Be the first to review ${productDetails[0].productName}`;
+                return `Be the first to review ${productDetails[0].productName}`;
             }
         }else{
             if (reviews.length !== 0){
@@ -394,14 +383,14 @@ const ProductTab = ({size, productDetails}) => {
                 <AdditionalInformationContent active={tabNo === 2? true : false}>
                     <Title>Additional Information</Title>
                     <AdditionalInformation>
-                        <PackingTypes>
+                        {/* <PackingTypes>
                             <Label>
                                 Packing
                             </Label>
                             <Info>
                                 {setPackingOptions(size)}
                             </Info>
-                        </PackingTypes>
+                        </PackingTypes> */}
                         <SizeTypes>
                             <Label>
                                 Sizes

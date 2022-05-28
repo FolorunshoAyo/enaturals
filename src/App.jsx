@@ -16,10 +16,10 @@ import Reviews from './pages/Reviews';
 import './App.css';
 import NetworkDetector from './Hoc/NetworkDetector';
 import CustomerAccount from './pages/CustomerAccount';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 const App = () => {
-  const user = useSelector(state => state.user.currentuser);
+  // const user = useSelector(state => state.user.currentuser);
   
   return (
     <CustomSwitch>

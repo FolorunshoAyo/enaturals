@@ -8,7 +8,7 @@ import ProductImage from '../ProductImage/ProductImage';
 import ProductTab from '../ProductTab/ProductTab';
 import RelatedProducts from '../RelatedProducts/RelatedProducts';
 import {smallPhone, res480, res700, res860, res1023} from '../../responsive';
-import { commaListed } from "../../usefulFunc";
+import { commaListed, capitalizeFirstLetterOfWord } from "../../usefulFunc";
 import { addProduct } from '../../redux/cartRedux';
 import { useDispatch } from "react-redux";
 
@@ -74,13 +74,13 @@ const ProductOptionsContainer = styled.div`
     padding: 1rem;
 `; 
 
-const ProductPacking = styled.div`
-    padding-bottom: 2rem;
-`;
+// const ProductPacking = styled.div`
+//     padding-bottom: 2rem;
+// `;
 
-const ProductPackingMessage = styled.p`
-    font-size: 1.5rem;
-`;
+// const ProductPackingMessage = styled.p`
+//     font-size: 1.5rem;
+// `;
 
 const OptionTitle = styled.h4`
     font-size: 1.3rem;
@@ -262,7 +262,7 @@ const SingleProductDetails = ({productName,productDetails, errorMsg}) => {
     const [size, setSize] = useState("");
     const [showProduct, setShowProduct] = useState(false);
     const [quantity, setQuantity] = useState(1);
-    const [isDisabled, setIsDisabled] = useState(true);
+    // const [isDisabled, setIsDisabled] = useState(true);
     const dispatch = useDispatch();
     
 
@@ -285,17 +285,15 @@ const SingleProductDetails = ({productName,productDetails, errorMsg}) => {
     };
     
     const setProductPrice = size => {
+        const productInfo = productDetails.find(product => product.size === size);
+
         if(productDetails.length === 1){
             return `₦${productDetails[0].price}`
         }else{
             if(size === ""){
                 return `₦${productDetails[0].price}-₦${productDetails[productDetails.length - 1].price}`
-            }else if(size === "small"){
-                return `₦${productDetails[0].price}`
-            }else if(size === "medium"){
-                return `₦${productDetails[1].price}`;
             }else{
-                return `₦${productDetails[2].price}`;
+                return `₦${productInfo.price}`;
             }
         }
     };
@@ -306,8 +304,8 @@ const SingleProductDetails = ({productName,productDetails, errorMsg}) => {
                 return(
                 <>
                     <PackingOption value="">choose an option</PackingOption>
-                    <PackingOption value="small">Small</PackingOption>
-                    <PackingOption value="medium">Medium</PackingOption>
+                    <PackingOption value={productDetails[0].size}>{capitalizeFirstLetterOfWord(productDetails[0].size)}</PackingOption>
+                    <PackingOption value={productDetails[1].size}>{capitalizeFirstLetterOfWord(productDetails[1].size)}</PackingOption>
                 </>
                 );
             break;
@@ -315,9 +313,9 @@ const SingleProductDetails = ({productName,productDetails, errorMsg}) => {
                 return (
                 <>
                     <PackingOption value="">choose an option</PackingOption>
-                    <PackingOption value="small">Small</PackingOption>
-                    <PackingOption value="medium">Medium</PackingOption>
-                    <PackingOption value="large">Large</PackingOption>
+                    <PackingOption value={productDetails[0].size}>{capitalizeFirstLetterOfWord(productDetails[0].size)}</PackingOption>
+                    <PackingOption value={productDetails[1].size}>{capitalizeFirstLetterOfWord(productDetails[1].size)}</PackingOption>
+                    <PackingOption value={productDetails[2].size}>{capitalizeFirstLetterOfWord(productDetails[2].size)}</PackingOption>
                 </>
                 );
             break;
@@ -328,17 +326,15 @@ const SingleProductDetails = ({productName,productDetails, errorMsg}) => {
     };
 
     const setShortDescription = size => {
+        const productInfo = productDetails.find(product => product.size === size);
+        
         if(productDetails.length === 1){
             return `${productDetails[0].shortDesc}`
         }else{
             if(size === ""){
-                return `Select size to view description`
-            }else if(size === "small"){
-                return `${productDetails[0].shortDesc}`
-            }else if(size === "medium"){
-                return `${productDetails[1].shortDesc}`;
+                return "Select size to view description"
             }else{
-                return `${productDetails[2].shortDesc}`;
+                return productInfo.shortDesc;
             }
         }
     };
@@ -429,17 +425,15 @@ const SingleProductDetails = ({productName,productDetails, errorMsg}) => {
     // };
 
     const setProductID = size => {
+        const productInfo = productDetails.find(product => product.size === size);
+
         if(productDetails.length === 1){
             return `${productDetails[0]._id}`
         }else{
             if(size === ""){
                 return `Select size to view Product ID`
-            }else if(size === "small"){
-                return `${productDetails[0]._id}`
-            }else if(size === "medium"){
-                return `${productDetails[1]._id}`;
             }else{
-                return `${productDetails[2]._id}`;
+                return `${productInfo._id}`
             }
         }
     };
@@ -448,34 +442,29 @@ const SingleProductDetails = ({productName,productDetails, errorMsg}) => {
         setSize(e.target.value);
     }
 
-    const handleCartAddition = () => {
+    const handleCartAddition = size => {
+        const productInfo = productDetails.find(product => product.size === size);
+
         if(productDetails.length === 1){
             const product = productDetails[0];
+            if(!product.inStock){
+                alert("Item is currently out of stock, please check back later or shop more products.");
+                return;
+            }
             dispatch(addProduct({ ...product, quantity}));
         }else{
             if(size === ""){
                 alert("Please select a size before adding this product to your cart.");
-            }else if (size === "small"){
+            }else{
                 if(quantity === 0){
                     alert("Please select a valid amount before adding this product to your cart.");
                     return;
                 }
-                const product = productDetails[0];
-                dispatch(addProduct({ ...product, quantity}));
-            }else if (size === "medium"){
-                if(quantity === 0){
-                    alert("Please select a valid amount before adding this product to your cart.");
+                if(!productInfo.inStock){
+                    alert("Item is currently out of stock, please check back later or shop more products.");
                     return;
                 }
-                const product = productDetails[1];
-                dispatch(addProduct({ ...product, quantity}));
-            }else if(size ==="large"){
-                if(quantity === 0){
-                    alert("Please select a valid amount before adding this product to your cart.");
-                    return;
-                }
-                const product = productDetails[2];
-                dispatch(addProduct({ ...product, quantity}));   
+                dispatch(addProduct({ ...productInfo, quantity}));
             }
         }
     };
@@ -541,7 +530,7 @@ const SingleProductDetails = ({productName,productDetails, errorMsg}) => {
                                     </ButtonContainer>
                                 </ProductQuantity>
                                 <AddToCartContainer>
-                                    <AddToCartButton onClick={handleCartAddition}>
+                                    <AddToCartButton onClick={() => handleCartAddition(size)}>
                                         Add To Cart
                                     </AddToCartButton>
                                 </AddToCartContainer>

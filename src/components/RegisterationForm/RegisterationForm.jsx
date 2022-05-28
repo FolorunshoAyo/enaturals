@@ -131,11 +131,11 @@ const RegisterationForm = () => {
             <RegisterFormGroup>
                 <InputContainer>
                     <Label htmlFor="rpwd">Password <Required>*</Required></Label>
-                    <Input type="password" id="rpwd" placeholder="must contain an uppercase letter and two numbers"/>
+                    <Input type="password" id="rpwd" placeholder="type password"/>
                 </InputContainer>
                 <InputContainer>
                     <Label htmlFor="cpwd">Confirm Password <Required>*</Required></Label>
-                    <Input type="password" id="cpwd" placeholder="Retype password"/>
+                    <Input type="password" id="cpwd" placeholder="retype password"/>
                 </InputContainer>
             </RegisterFormGroup>
             <RegisterFormGroup>

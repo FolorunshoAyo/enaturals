@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import BlogPost from "../BlogPost/BlogPost";
-import {res480, res750 ,res1023, bigDesktop} from "../../responsive";
+import { res750 ,res1023, bigDesktop } from "../../responsive";
 
 const BlogContainer = styled.div`
   margin: 3rem auto;
