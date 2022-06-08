@@ -363,6 +363,11 @@ const ProductList = ({productTag}) => {
                             </Title>
                             <Categories>
                                 <CategoryItem>
+                                    <Link to="/product-category/kit" className="categoryLink">
+                                       Kit
+                                    </Link>
+                                </CategoryItem>
+                                <CategoryItem>
                                     <Link to="/product-category/body-exfoliant" className="categoryLink">
                                         Body Exfoliant
                                     </Link>

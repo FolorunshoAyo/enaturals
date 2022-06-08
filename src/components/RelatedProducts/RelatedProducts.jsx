@@ -78,9 +78,9 @@ const RelatedProducts = ({productName, categories}) => {
             <RelatedProductsContainer centerContent={reOrderedRelatedProducts.length === 0 || reOrderedRelatedProducts.length === 1}>
                 { (loading)?
                 <>
-                    <Skeleton variant="rectangular" />
-                    <Skeleton variant="rectangular" />
-                    <Skeleton variant="rectangular" />
+                    <Skeleton variant="rectangular" animation="wave" width="33.33%"/>
+                    <Skeleton variant="rectangular" animation="wave" width="33.33%"/>
+                    <Skeleton variant="rectangular" animation="wave" width="33.33%"/>
                 </>
                 :
                 (reOrderedRelatedProducts.length === 0)?

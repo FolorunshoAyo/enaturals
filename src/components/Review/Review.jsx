@@ -37,15 +37,15 @@ const ReviewContent = styled.p`
 
 
 
-const Review = ({name, rating, review}) => {
+const Review = ({fullname, rating, review}) => {
     return (
         <>
             <Reviewer>
                 <ReviewerImgContainer>
-                    <ReviewerImg src="../enaturals/enaturals7.jpg" alt="Reviewers Image"/>
+                    <ReviewerImg src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="Reviewers Image"/>
                 </ReviewerImgContainer>
                 <CommentText>
-                    <Name>{name}</Name>
+                    <Name>{fullname}</Name>
                     <Rating rating={rating}/>
                     <ReviewContent>
                         {review}

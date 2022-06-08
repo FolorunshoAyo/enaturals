@@ -13,7 +13,7 @@ const AllReviews = ({productReviews}) => {
                 productReviews.map(productReview => (
                     <Review 
                         key={productReview._id}
-                        name={productReview.name}
+                        fullname={productReview.fullname}
                         rating={productReview.rating}
                         review={productReview.review}
                     />

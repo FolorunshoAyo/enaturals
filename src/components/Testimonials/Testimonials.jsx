@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import SlickSlider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import FormatQuoteOutlinedIcon from '@mui/icons-material/FormatQuoteOutlined';
-import { testimonials } from '../../data';
+// import { testimonials } from '../../data';
 import {smallPhone, medPhone, res700, res1023} from '../../responsive';
+import { publicRequest } from '../../requestMethod';
+import { Skeleton } from '@mui/material';
 
 const Container = styled.div`
     padding: 3rem 4rem;
@@ -68,6 +70,11 @@ const Title = styled.h2`
     margin-bottom: 4rem;
 `;
 
+const Center = styled.div`
+    width: 40px;
+    margin: 20px auto;
+`;
+
 const Testifier = styled.figure` 
     margin-top: 1.5rem;
     text-align: center;
@@ -75,35 +82,64 @@ const Testifier = styled.figure`
     ${smallPhone({marginTop: "1.8rem"})}
 `;
 
+const settings = {
+    infinite: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 4000,
+    pauseOnHover: true
+}
+
 const Testimonials = () => {
-    const settings = {
-        infinite: true,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 4000,
-        pauseOnHover: true
-    }
+    const [testimonials, setTestimonials] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const getTestimonials = async () => {
+            try{
+                const res = await publicRequest.get("/testimonials/");
+                setTestimonials(res.data);
+                setLoading(false);
+            }catch(err){
+                console.log(err);
+            }
+        };
+
+        getTestimonials();
+    }, []);
+    
     return (
         <Container>
             <TestimonialWrapper>
                     <Title>Clients About Us</Title>
-                    <SlickSlider {...settings}>
-                        {testimonials.map(testimonial => {
-                            return (
-                                <Testimonial key={testimonial.id}>
-                                    {testimonial.caption}
-                                    <QuoteContainer>
-                                        <FormatQuoteOutlinedIcon style={{fontSize: 50}}/>
-                                    </QuoteContainer>
-                                    <Testifier>
-                                        <Image src={testimonial.profile.image} />
-                                        <Name>{testimonial.profile.name}</Name>
-                                    </Testifier>
-                                </Testimonial>
-                            );
-                        })}
-                    </SlickSlider>
+                    {
+                        loading?
+                        <>
+                            <Skeleton variant="rectangular" animation="wave" width={"100%"} height={118} />
+                            <Center>
+                                <Skeleton variant="circular" animation="wave" width={40} height={40} />
+                            </Center>
+                            <Skeleton variant="text" animation="wave" />
+                        </>
+                        :
+                        <SlickSlider {...settings}>
+                            {testimonials.map(testimonial => {
+                                return (
+                                    <Testimonial key={testimonial._id}>
+                                        {testimonial.testimony}
+                                        <QuoteContainer>
+                                            <FormatQuoteOutlinedIcon style={{fontSize: 50}}/>
+                                        </QuoteContainer>
+                                        <Testifier>
+                                            <Image src={testimonial.testifierImg} />
+                                            <Name>{testimonial.testifier}</Name>
+                                        </Testifier>
+                                    </Testimonial>
+                                );
+                            })}
+                        </SlickSlider>
+                    }
             </TestimonialWrapper>
         </Container>
     );

@@ -1,18 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import SlickSlider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from 'react-router-dom';
-import { sliderItems } from "../../data";
+// import { sliderItems } from "../../data";
 import {medPhone, tabPort} from '../../responsive';
+import { publicRequest } from "../../requestMethod";
+import { CircularProgress } from '@mui/material';
 
 const Container = styled.div`
+    margin-top: 190px;
     height: 100vh;
     background-color: #516348;
 
     ${tabPort({backgroundColor: "transparent"})}
 `;
+
+const LoadingContainer = styled.div`
+    height: 100%;
+    background-color: rgba(0,0,0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
 
 const Slide = styled.div`
     width: 100%;
@@ -26,7 +38,20 @@ const Slide = styled.div`
     ${tabPort({visibility: "visible"})}
 `;
 
+const SlideOverlay = styled.div`
+    position: absolute;
+    right: 0px;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    display: none;
+
+    ${tabPort({display: "block", background: "linear-gradient(to bottom, transparent, rgba(0,0,0))"})}
+`;
+
 const InfoWrapper = styled.div`
+    position: relative;
     height: 100%;
     width: 100%;
     background: linear-gradient(120deg, transparent, #9AAF8F);
@@ -49,6 +74,7 @@ const Image = styled.img`
 
 const InfoContainer = styled.div`
     text-align: center;
+    z-index: 3;
     padding: 0 1rem;
     align-self: center;
     flex: 1;
@@ -60,11 +86,12 @@ const Title = styled.h1`
     font-size: 3.5rem;
     font-weight: 700;
     letter-spacing: 1px;
-    color: #fff;
+    color: rgba(255, 255, 255, 0.8);
+    color: #acbfa3;
     text-transform: uppercase;
     line-height: 1.2;
 
-    ${tabPort({fontSize: "6rem", color: "#4b5354"})}
+    ${tabPort({fontSize: "6rem"})}
     ${medPhone({fontSize: "4rem"})}
 `;
 
@@ -72,19 +99,27 @@ const Desc = styled.p`
     margin: 5rem 0;
     font-size: 2.5rem;
     font-weight: 500;
+    color: #fff;
 `;
 
 const Button = styled.button`
     background-color: transparent;
-    border: 2px solid #b8a398;
+    border: 2px solid #acbfa3;
     text-transform: uppercase;
     color: #fff;
     font-weight: 700;
     cursor: pointer;
     transition: all .3s ease-in;
+
+    &:hover{
+        background-color: #acbfa3;
+    }
 `;
 
 const Slider = () => {
+    const [slides, setSlides] = useState([]);
+    const [loading, setLoading] = useState(true);
+
     const settings = {
         dots: true,
         fade: true,
@@ -92,31 +127,53 @@ const Slider = () => {
         autoplay: true,
         autoplaySpeed: 5000,
         slidesToShow: 1,
-        slidesToScroll: 2
+        slidesToScroll: 1
     };
+
+    useEffect(() => {
+        const getSlides = async () => {
+            try{
+                const res = await publicRequest.get("/slides/");
+                setSlides(res.data);
+                setLoading(false);
+            }catch(error){
+                console.log(error.message);
+            }
+        };
+
+        getSlides();
+    }, []);
 
     return (
         <Container>
-            <SlickSlider {...settings}>
-                {sliderItems.map(sliderItem => (
-                    <Slide key={sliderItem.id} background={sliderItem.img}>
-                        <InfoWrapper>
-                            <ImageContainer>
-                                <Image src={sliderItem.img}/>
-                            </ImageContainer>
-                            <InfoContainer>
-                                <Title>
-                                    {sliderItem.title}
-                                </Title>
-                                <Desc>
-                                    {sliderItem.desc}
-                                </Desc>
-                                <Button><Link to="/shop" className="majorLink-btn"> Shop Now </Link></Button>
-                            </InfoContainer>
-                        </InfoWrapper>
-                    </Slide>
-                ))}
-            </SlickSlider>
+            {
+                (loading)? 
+                <LoadingContainer>
+                    <CircularProgress size="8rem"/>
+                </LoadingContainer>
+                : 
+                <SlickSlider {...settings}>
+                    {slides.map(slide => (
+                        <Slide key={slide._id} background={slide.slideImg}>
+                            <InfoWrapper>
+                                <SlideOverlay></SlideOverlay>
+                                <ImageContainer>
+                                    <Image src={slide.slideImg}/>
+                                </ImageContainer>
+                                <InfoContainer>
+                                    <Title>
+                                        {slide.title}
+                                    </Title>
+                                    <Desc>
+                                        {slide.desc}
+                                    </Desc>
+                                    <Button><Link to="/shop" className="majorLink-btn"> Shop Now </Link></Button>
+                                </InfoContainer>
+                            </InfoWrapper>
+                        </Slide>
+                    ))}
+                </SlickSlider>
+            }
         </Container>
     );
 };

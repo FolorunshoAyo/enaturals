@@ -259,11 +259,10 @@ const ProductTab = ({size, productDetails}) => {
         }
     };
 
-    const productID = (size === "")? "": retrieveProductID(size, productDetails);
+    const productID = retrieveProductID(size, productDetails);
 
     useEffect(() => {
-        if(productID){
-
+        if(productID !== "Select size to view Product ID"){
             const getProductReviews = async () => {
                 try{
                     setLoading(true);
@@ -402,7 +401,7 @@ const ProductTab = ({size, productDetails}) => {
                     </AdditionalInformation>
                 </AdditionalInformationContent>
                 <ReviewsContent active={tabNo === 3? true : false} >
-                    { (!productID) ? 
+                    { (productID === "Select size to view Product ID") ? 
                         "Select size to review product"
                         :
                         <>

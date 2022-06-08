@@ -2,7 +2,6 @@ import React, {useState, useCallback, useEffect} from 'react';
 import logo from './logo.jpg';
 import strippedLogo from './stripped-logo.png';
 import styled from 'styled-components';
-import Badge from '@mui/material/Badge';
 import PhoneIcon from '@mui/icons-material/Phone';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
@@ -24,7 +23,7 @@ import LoginForm from '../LoginForm/LoginForm';
 import { useSelector } from "react-redux";
 import { HowToRegOutlined, Logout, Person } from '@mui/icons-material';
 // import { display } from '@mui/system';
-import { Button, Menu, MenuItem } from '@mui/material';
+import { Badge, Button, Menu, MenuItem } from '@mui/material';
 
 const ModalBackdrop = styled.div`
     display: ${props => props.openModal? "block" : "none"};
@@ -116,14 +115,14 @@ const RegisterBodyContainer = styled.div`
 `;
 
 const Wrapper = styled.div`
-    position: sticky;
+    position: fixed;
     width: 100%;
     top: 30px;
     left: 0px;
-    z-index: 100;
+    z-index: 300;
     transition: all .8s ease-out;
 
-    transform: ${props => props.hide? "translateY(-300%)" : "translateY(0%)"};
+    transform: ${props => props.minimize? "translateY(-300%)" : "translateY(0px)"};
 `;
 
 const RowContainer = styled.div`
@@ -431,7 +430,7 @@ const CartItemsDropDown = styled.div`
     display: ${props => props.status? "block" : "none"};
     transition: all .5s ease-in;
 
-    ${res480({width: "250px", left: "-150px"})}
+    ${res480({width: "250px", top: "48px", left: "-190px"})}
 `;
 
 const DropDownClose = styled.div`
@@ -498,7 +497,7 @@ const Navbar = () =>{
           if(window.scrollY > 150){
             if (y > window.scrollY) {
                 //upscroll code
-              setMinimizeHeader(false);
+                setMinimizeHeader(false);
             } else if (y < window.scrollY) {
                 setMinimizeHeader(true);
             }
@@ -519,7 +518,7 @@ const Navbar = () =>{
         <>
             <MobileMenuOverlay status={menuState}>
                 <MobileMenuWrapper>
-                    <MobileMenuCloseContainer>
+                    <MobileMenuCloseContainer onClick={() => toggleMobileMenu("closed")}>
                         <MobileMenuClose>
                             <CloseIcon style={{fontSize: 20}} />
                         </MobileMenuClose>
@@ -530,7 +529,7 @@ const Navbar = () =>{
                     <MobileMenuNav>
                         <MobileMenuLinks>
                             <MobileMenuItem>
-                                <MobileMenuLink>
+                                <MobileMenuLink onClick={() => toggleMobileMenu("closed")}>
                                     <NavLink 
                                     to="/"
                                     className="navbar-item"
@@ -540,7 +539,7 @@ const Navbar = () =>{
                                 </MobileMenuLink>
                             </MobileMenuItem>
                             <MobileMenuItem>
-                                <MobileMenuLink>
+                                <MobileMenuLink onClick={() => toggleMobileMenu("closed")}>
                                     <NavLink
                                     to="/aboutus"
                                     className="navbar-item"
@@ -550,7 +549,7 @@ const Navbar = () =>{
                                 </MobileMenuLink>
                             </MobileMenuItem>
                             <MobileMenuItem>
-                                <MobileMenuLink>
+                                <MobileMenuLink onClick={() => toggleMobileMenu("closed")}>
                                     <NavLink
                                     to="/shop"
                                     className="navbar-item"
@@ -560,7 +559,7 @@ const Navbar = () =>{
                                 </MobileMenuLink>
                             </MobileMenuItem>
                             <MobileMenuItem>
-                                <MobileMenuLink>
+                                <MobileMenuLink onClick={() => toggleMobileMenu("closed")}>
                                     <NavLink
                                     to="/blog"
                                     className="navbar-item"
@@ -570,7 +569,7 @@ const Navbar = () =>{
                                 </MobileMenuLink>
                             </MobileMenuItem>
                             <MobileMenuItem>
-                                <MobileMenuLink>
+                                <MobileMenuLink onClick={() => toggleMobileMenu("closed")}>
                                     <NavLink
                                     to="/gallery"
                                     className="navbar-item"
@@ -580,7 +579,7 @@ const Navbar = () =>{
                                 </MobileMenuLink>
                             </MobileMenuItem>
                             <MobileMenuItem>
-                            <MobileMenuLink>
+                            <MobileMenuLink onClick={() => toggleMobileMenu("closed")}>
                                     <NavLink
                                     to="/reviews"
                                     className="navbar-item"
@@ -645,7 +644,7 @@ const Navbar = () =>{
                     </ModalBody>
                 </ModalContainer>
             </Modal>
-            <Wrapper hide={minimizeHeader}>
+            <Wrapper minimize={minimizeHeader}>
                 <RowContainer>
                     <Row>
                         <ContactContainer>
