@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { splitLink, splitAndSpace  } from "../../usefulFunc";
 
 const Wrapper = styled.div`
+  margin-top: 190px;
   height: 350px;
   position: relative;
 `;

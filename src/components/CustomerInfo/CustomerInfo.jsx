@@ -171,178 +171,158 @@ const CustomerInfo = ({pathname, params}) => {
     // }
 
     const getActiveLink = (pathname, params="") => {
+        let path = "";
         switch(pathname){
             case "/customer/account":
-                return "my-account";
+                path = "my-account";
             break; 
             case "/customer/order":
-                return "my-orders";
+                path = "my-orders";
             break;
             case "/customer/account/edit":
-                return "details";
+                path = "details";
             break;
             case "/customer/address":
-                return "address-book";
+                path = "address-book";
             break;
             case "/customer/account/changepass":
-                return "change-password";
+                path = "change-password";
             break;
             case `/customer/address/edit/${params}`:
-                return "address-book";
+                path = "address-book";
             break;
             case `/customer/address/create`:
-                return "address-book";
+                path =  "address-book";
             break;
             default:
                 console.log("all possible conditions have not been met");
         }
+        return path;
     }
 
     const getAccountHeaders = (pathname) => {
+        let rendered = "";
         switch(pathname){
             case "/customer/account":
-                return (
-                    <>
-                        <AccountOverviewHeader>
-                            Account Overview
-                        </AccountOverviewHeader>
-                    </>
-                );
+                rendered =  <>
+                                <AccountOverviewHeader>
+                                    Account Overview
+                                </AccountOverviewHeader>
+                            </>
             break; 
             case "/customer/order":
-                return (
-                    <>
-                        <AccountOverviewHeader>
-                           Orders
-                        </AccountOverviewHeader>
-                    </>
-                );
+                rendered =  <>
+                                <AccountOverviewHeader>
+                                    Orders
+                                </AccountOverviewHeader>
+                            </>
             break;
             case "/customer/account/edit":
-                return (
-                    <>
-                        <AccountOverviewHeader>
-                           Details
-                        </AccountOverviewHeader>
-                    </>
-                );
+                rendered =  <>
+                                <AccountOverviewHeader>
+                                    Details
+                                </AccountOverviewHeader>
+                            </>
             break;
             case "/customer/address":
-                return (
-                    <>
-                        <AddressContainer>
-                            <Address>Address (2)</Address>
-                            <AddNewAddressBtnContainer>
-                                <Link to="/customer/address/create" style={{color: "initial", display: "block"}}>
-                                    <AddNewAddressBtn>
-                                            Add New Address
-                                    </AddNewAddressBtn>
-                                </Link>
-                            </AddNewAddressBtnContainer>
-                        </AddressContainer>
-                    </>
-                );;
+                rendered =  <>
+                                <AddressContainer>
+                                    <Address>Address (2)</Address>
+                                    <AddNewAddressBtnContainer>
+                                        <Link to="/customer/address/create" style={{color: "initial", display: "block"}}>
+                                            <AddNewAddressBtn>
+                                                Add New Address
+                                            </AddNewAddressBtn>
+                                        </Link>
+                                    </AddNewAddressBtnContainer>
+                                </AddressContainer>
+                            </>
             break;
             case "/customer/account/changepass":
-                return (
-                    <>
-                        <AccountOverviewHeader>
-                            Change Password
-                        </AccountOverviewHeader>
-                    </>
-                );
+                rendered =  <>
+                                <AccountOverviewHeader>
+                                    Change Password
+                                </AccountOverviewHeader>
+                            </>
             break;
             case `/customer/address/edit/${params}`:
-                return (
-                    <>
-                        <EditAddressContainer>
-                            <BackArrowContainer>
-                                <Link to="/customer/address" style={{color: "initial"}}>
-                                    <ArrowBackIcon style={{fontSize: "2.5rem"}}/>
-                                </Link>
-                            </BackArrowContainer>
-                            <EditAddresstitle>
-                                Edit Address
-                            </EditAddresstitle>
-                        </EditAddressContainer>
-                    </>
-                );
+                rendered = <>
+                                <EditAddressContainer>
+                                    <BackArrowContainer>
+                                        <Link to="/customer/address" style={{color: "initial"}}>
+                                            <ArrowBackIcon style={{fontSize: "2.5rem"}}/>
+                                        </Link>
+                                    </BackArrowContainer>
+                                    <EditAddresstitle>
+                                        Edit Address
+                                    </EditAddresstitle>
+                                </EditAddressContainer>
+                            </>
             break;
             case `/customer/address/create`:
-                return (
-                    <>
-                        <EditAddressContainer>
-                            <BackArrowContainer>
-                                <Link to="/customer/address" style={{color: "initial"}}>
-                                    <ArrowBackIcon style={{fontSize: "2.5rem"}}/>
-                                </Link>
-                            </BackArrowContainer>
-                            <EditAddresstitle>
-                               Add a New Address
-                            </EditAddresstitle>
-                        </EditAddressContainer>
-                    </>
-                );
+                rendered = <>
+                                <EditAddressContainer>
+                                    <BackArrowContainer>
+                                        <Link to="/customer/address" style={{color: "initial"}}>
+                                            <ArrowBackIcon style={{fontSize: "2.5rem"}}/>
+                                        </Link>
+                                    </BackArrowContainer>
+                                    <EditAddresstitle>
+                                        Add a New Address
+                                    </EditAddresstitle>
+                                </EditAddressContainer>
+                            </>
             break;
             default:
                 console.log("all possible conditions have not been met");
         }
+
+        return rendered;
     } 
 
     const generateActiveComponent = pathname => {
+        let rendered = "";
         switch(pathname){
             case "/customer/account":
-                return (
-                    <>
-                        <AccountOverview />
-                    </>
-                );
+                rendered =  <>
+                                <AccountOverview />
+                            </>
             break; 
             case "/customer/order":
-                return (
-                    <>
-                        <CustomerOrders />
-                    </>
-                );
+                rendered =  <>
+                                <CustomerOrders />
+                            </>
             break;
             case "/customer/account/edit":
-                return (
-                    <>
-                        <CustomerDetailsEdit />
-                    </>
-                );
+                rendered =  <>
+                                <CustomerDetailsEdit />
+                            </>
             break;
             case "/customer/address":
-                return (
-                    <>
-                        <AddressBook />
-                    </>
-                );;
+                rendered =  <>
+                                <AddressBook />
+                            </>
             break;
             case `/customer/address/edit/${params}`:
-                return (
-                    <>
-                        <CustomerAddressEdit />
-                    </>
-                );
+                rendered =  <>
+                                <CustomerAddressEdit />
+                            </>
             break;
             case `/customer/address/create`:
-                return (
-                    <>
-                        <CustomerAddressEdit createNew/>
-                    </>
-                );
+                rendered =  <>
+                                <CustomerAddressEdit createNew />
+                            </>
             break;
             case "/customer/account/changepass":
-                return (
-                    <>
-                        <ChangePassword />
-                    </>
-                );
+                rendered =  <>
+                                <ChangePassword />
+                            </>
             break;
             default:
                 console.log("all possible conditions have not been met");
         }
+
+        return rendered;
     };
 
     const currActiveLink = getActiveLink(pathname, params);

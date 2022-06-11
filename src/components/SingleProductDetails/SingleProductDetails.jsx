@@ -299,30 +299,29 @@ const SingleProductDetails = ({productName,productDetails, errorMsg}) => {
     };
 
     const setSelectOptions = noOfProducts => {
+        let rendered = "";
         switch (noOfProducts){
             case 2:
-                return(
-                <>
-                    <PackingOption value="">choose an option</PackingOption>
-                    <PackingOption value={productDetails[0].size}>{capitalizeFirstLetterOfWord(productDetails[0].size)}</PackingOption>
-                    <PackingOption value={productDetails[1].size}>{capitalizeFirstLetterOfWord(productDetails[1].size)}</PackingOption>
-                </>
-                );
+                rendered =  <>
+                                <PackingOption value="">choose an option</PackingOption>
+                                <PackingOption value={productDetails[0].size}>{capitalizeFirstLetterOfWord(productDetails[0].size)}</PackingOption>
+                                <PackingOption value={productDetails[1].size}>{capitalizeFirstLetterOfWord(productDetails[1].size)}</PackingOption>
+                            </>;
             break;
             case 3:
-                return (
-                <>
-                    <PackingOption value="">choose an option</PackingOption>
-                    <PackingOption value={productDetails[0].size}>{capitalizeFirstLetterOfWord(productDetails[0].size)}</PackingOption>
-                    <PackingOption value={productDetails[1].size}>{capitalizeFirstLetterOfWord(productDetails[1].size)}</PackingOption>
-                    <PackingOption value={productDetails[2].size}>{capitalizeFirstLetterOfWord(productDetails[2].size)}</PackingOption>
-                </>
-                );
+                 rendered = <>
+                                <PackingOption value="">choose an option</PackingOption>
+                                <PackingOption value={productDetails[0].size}>{capitalizeFirstLetterOfWord(productDetails[0].size)}</PackingOption>
+                                <PackingOption value={productDetails[1].size}>{capitalizeFirstLetterOfWord(productDetails[1].size)}</PackingOption>
+                                <PackingOption value={productDetails[2].size}>{capitalizeFirstLetterOfWord(productDetails[2].size)}</PackingOption>
+                            </>;
             break;
             default:
                 console.log("No other sizes.");
 
         }
+
+        return rendered;
     };
 
     const setShortDescription = size => {

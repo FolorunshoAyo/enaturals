@@ -224,20 +224,23 @@ const ProductList = ({productTag}) => {
 
     // HANDLE ENDPOINTS FOR SORTING
     const endPointGen = sortType => {
+        let path = "";
         switch (sortType){
             case "newest":
-                return `/products/`
+                path = `/products/`
             break;
             case "asc":
-                return `/products/?sortby=asc`;
+                path = `/products/?sortby=asc`;
             break;
             case "desc":
-                return `/products/?sortby=desc`;
+                path = `/products/?sortby=desc`;
             break;
             default:
                 console.log("No other sort type.");
 
         }
+
+        return path;
     };
 
    // FETCH ALL PRODUCTS BASED ON FILTER SELECT
