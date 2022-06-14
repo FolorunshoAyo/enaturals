@@ -10,7 +10,7 @@ import { publicRequest } from "../../requestMethod";
 import { CircularProgress } from '@mui/material';
 
 const Container = styled.div`
-    margin-top: 190px;
+    margin-top: 170px;
     height: 100vh;
     background-color: #516348;
 
