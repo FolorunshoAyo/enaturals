@@ -1,5 +1,9 @@
 import React from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { tokenInvalidLogout } from '../../redux/apiCalls';
+import { userRequest } from '../../requestMethod';
 
 const Container = styled.div`
     position: fixed;
@@ -18,9 +22,26 @@ const Container = styled.div`
     z-index: 100;
 `;
 const Announcement = () => {
+    const user = useSelector(state => state.user.currentUser);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const testAuthorization = async () => {
+            try{
+                await userRequest.get("/auth/");
+            }catch(error){
+                tokenInvalidLogout(dispatch);
+            }
+        }
+
+        if(user !== null){
+            testAuthorization();
+        }
+    }, [dispatch]);
+
     return(
         <Container>
-            Super deal! Free shipping on orders over 2000 naira.
+            <b>e-naturals</b> &nbsp; is pleased to announce the grand opening of her first official website!!
         </Container>
 
     );  

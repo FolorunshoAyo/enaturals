@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { login } from "../../redux/apiCalls";
-
+import { useForm } from "react-hook-form";
 
 const LoginFormContainer = styled.form`
 `;
@@ -39,37 +39,38 @@ const Input = styled.input`
 `;
 
 const Error = styled.p`
-    padding: 0 2rem;
+    padding: 0 1.5rem;
     margin-bottom: 1rem;
     font-family: Lato, sans-serif;
     font-size: 1.5rem;
     color: red;
 `;
-const ForgotContainer = styled.div`
-    padding-left: 2rem;
-    margin: 1.5rem 0;
-    font-size: 1.5rem;
-    font-weight: 400;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-`;
 
-const ForgotPassword = styled.a`
-    display: block;
-    cursor: pointer
-    align-items: center;
-    color: black;
-    text-decoration: none;
-`;
+// const ForgotContainer = styled.div`
+//     padding-left: 2rem;
+//     margin: 1.5rem 0;
+//     font-size: 1.5rem;
+//     font-weight: 400;
+//     letter-spacing: 1px;
+//     text-transform: uppercase;
+// `;
 
-const CreateNewAccount = styled.a`
-    display: block;
-    cursor: pointer
-    align-items: center;
-    color: black;
-    margin-top: 10px;
-    text-decoration: none;
-`;
+// const ForgotPassword = styled.a`
+//     display: block;
+//     cursor: pointer
+//     align-items: center;
+//     color: black;
+//     text-decoration: none;
+// `;
+
+// const CreateNewAccount = styled.a`
+//     display: block;
+//     cursor: pointer
+//     align-items: center;
+//     color: black;
+//     margin-top: 10px;
+//     text-decoration: none;
+// `;
 
 const SubmitButton = styled.button`
     padding: 1.5rem 2.5rem;
@@ -93,34 +94,33 @@ const SubmitButton = styled.button`
 `;
 
 const LoginForm = () => {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const {isFetching, error} = useSelector(state => state.user);
+    const { isFetching } = useSelector(state => state.user);
     const dispatch = useDispatch();
+    const {register, handleSubmit, formState: { errors }} = useForm();
 
-    const handleLogin = (e) => {
-        e.preventDefault();
-
-        login(dispatch, { username, password });
+    const onSubmit = (data) => {
+        login(dispatch, data);
     };
 
+
     return (
-        <LoginFormContainer>
+        <LoginFormContainer onSubmit={handleSubmit(onSubmit)}>
             <LoginFormGroup>
                 <Label htmlFor="loginUsername">Username <Required>*</Required></Label>
-                <Input type="text" placeholder="Userame" id="loginUsername" onChange={e => setUsername(e.target.value)}/>
+                <Input {...register("username", {required: "Please provide a username"})} type="text" placeholder="Userame" id="loginUsername" />
+                {errors.username && <Error>{errors.username.message}</Error>}
             </LoginFormGroup>
             <LoginFormGroup>
                 <Label htmlFor="loginpwd">Password <Required>*</Required></Label>
-                <Input type="password" placeholder="Password" id="loginpwd" onChange={e => setPassword(e.target.value)}/>
+                <Input {...register("password", {required: "Please input your password"})} type="password" placeholder="Password" id="loginpwd" />
+                {errors.password && <Error>{errors.password.message}</Error>}
             </LoginFormGroup>
-            {error && <Error>{error}</Error>}
-            <ForgotContainer>
-                <ForgotPassword href="#">Forgot Password?</ForgotPassword>
+            {/* <ForgotContainer>
+                <ForgotPassword href="#">Forgot Password</ForgotPassword>
                 <CreateNewAccount href="#">Create A New Account</CreateNewAccount>
-            </ForgotContainer>
+            </ForgotContainer> */}
             <LoginFormGroup>
-                <SubmitButton scope="login" onClick={handleLogin} disabled={isFetching}>
+                <SubmitButton type="submit" disabled={isFetching}>
                     Login
                 </SubmitButton>
             </LoginFormGroup>

@@ -45,7 +45,7 @@ const CardHeaderTop = (props) => {
                 </CardHeader>
                 <EditIconContainer>
                     <Link to={props.to} className="editLink">
-                        <EditOutlinedIcon className="editIcon" style={{fontSize: "2.5rem", color: "#ACBFA3"}}/> 
+                        <EditOutlinedIcon className="editIcon" style={{fontSize: "2rem", color: "#ACBFA3"}}/> 
                     </Link>               
                 </EditIconContainer>
             </CardHeaderContainer>

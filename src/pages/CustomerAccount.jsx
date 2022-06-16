@@ -6,10 +6,9 @@ import Announcement from '../components/Announcement/Announcement';
 import CustomerInfo from '../components/CustomerInfo/CustomerInfo';
 import { useLocation } from 'react-router-dom';
 
-
 const CustomerAccount = () => {
-    const {pathname} = useLocation();
-    
+    const { pathname } = useLocation();
+
     const extractAddressPath = (pathname) => {
         return (pathname.slice(0, 23));
     }

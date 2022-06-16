@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import DatePicker from "react-datepicker";
+import PhoneInputWithCountrySelect from 'react-phone-number-input';
 import "react-datepicker/dist/react-datepicker.css";
 import "./CustomerDetailsEdit.css";
 import { res480 } from "../../responsive";
+import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import { updateUser } from "../../redux/apiCalls";
+import { useNavigate } from "react-router-dom";
 
 const CustomerDetailsEditContainer = styled.div``;
 
@@ -47,6 +52,12 @@ const Input = styled.input`
     }
 `;
 
+const UserInputError = styled.div`
+    font-family: Lato, sans-serif;
+    font-size: 1.2rem;
+    color: red;
+`;
+
 const Email = styled.p`
     color: #232323;
     font-family: Lato, sans-serif;
@@ -61,34 +72,6 @@ const EmailAndPhoneInputs = styled(FullNameInputs)``;
 
 const PhoneNoContainer = styled.div`
     width: 100%;
-    display: flex;
-`;
-
-const PrefixContainer = styled.div`
-    flex: 0 0 15%;
-    margin-right: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-`;
-
-const PrefixLabel = styled.span`
-    color: #75757A;
-    font-size: 1.5rem;
-    font-family: Lato, sans-serif;
-    margin-bottom: 5px;
-`;
-
-const Prefix = styled.div`
-    color: #282828;
-    font-family: Lato, sans-serif;
-    font-size: 1.5rem;
-`;
-
-const PhoneNo = styled.div`
-    flex: 1;
-    display: flex;
-    flex-direction: column;
 `;
 
 const GenderAndBirthdayInputs = styled(FullNameInputs)``; 
@@ -130,69 +113,100 @@ const SaveButton = styled.button`
         background-color: #b8a398;
     }
 
+    &:disabled{
+        cursor: not-allowed;
+    }
+
     ${res480({padding: "1.5rem 0", })}
 `;
 
 const CustomerDetailsEdit = () => {
-    const [startDate, setStartDate] = useState(new Date());
+    const {currentUser, isFetching} = useSelector(state => state.user);
+    const [dateOfBirth, setDateOfBirth] = useState(new Date(currentUser.dob === ""? "" : currentUser.dob));
+    const [phoneNo, setPhoneNo] = useState(currentUser.phoneno);
+    const [phoneErr, setPhoneErr] = useState("");
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const {register, handleSubmit, formState: { errors }} = useForm({
+        defaultValues: {
+            firstname: currentUser.firstname,
+            lastname: currentUser.lastname,
+            gender: currentUser.gender,
+        }
+    });
+
+    const onSubmit = (data) => {
+        if(phoneNo === ""){
+            setPhoneErr("Please input a phone number");
+            return;
+        }else{
+            setPhoneErr("");
+            
+            updateUser(currentUser._id, {...data, phoneno: phoneNo, dob: dateOfBirth.toISOString().substring(0, 10)}, dispatch);
+            setTimeout(() => {
+                navigate("/customer/account");
+            }, 3000);
+        }
+    }; 
 
     return (
         <CustomerDetailsEditContainer>
-            <CustomerDetailsEditForm>
+            <CustomerDetailsEditForm onSubmit={handleSubmit(onSubmit)}>
                 <FullNameInputs>
                     <CustomerDetailsFormGroup>
-                        <Label for="fname">First Name</Label>
-                        <Input type="text" value="Folorunsho" id="fname"/>
+                        <Label htmlFor="fname">First Name</Label>
+                        <Input {...register("firstname", {required: "Please provide a firstname"})} type="text" id="fname"/>
+                        {errors.firstname && <UserInputError>{errors.firstname.message}</UserInputError>}
                     </CustomerDetailsFormGroup>
                     <CustomerDetailsFormGroup>
-                        <Label for="lname">Last Name</Label>
-                        <Input type="text" value="Shodiya" id="lname"/>
+                        <Label htmlFor="lname">Last Name</Label>
+                        <Input  {...register("lastname", {required: "Please provide a lastname"})} type="text" id="lname"/>
+                        {errors.lastname && <UserInputError>{errors.lastname.message}</UserInputError>}
                     </CustomerDetailsFormGroup>
                 </FullNameInputs>
                 <EmailAndPhoneInputs>
                     <CustomerDetailsFormGroup>
                         <Label>E-mail</Label>
-                        <Email>folushoayomide11@gmail.com</Email>
+                        <Email>{currentUser.email}</Email>
                     </CustomerDetailsFormGroup>
                     <CustomerDetailsFormGroup>
                         <Label> Username </Label>
-                        <Username>folumania</Username>
+                        <Username>{currentUser.username}</Username>
                     </CustomerDetailsFormGroup>
                 </EmailAndPhoneInputs>
                 <GenderAndBirthdayInputs>
                     <CustomerDetailsFormGroup>
-                        <Label>Gender</Label>
-                        <GenderSelect>
-                            <GenderOption>Male</GenderOption>
-                            <GenderOption>Female</GenderOption>
-                            <GenderOption>Other</GenderOption>
+                        <Label htmlFor="gender">Gender</Label>
+                        <GenderSelect  {...register("gender", {required: "Please provide a firstname"})} id="gender">
+                            <GenderOption value="">Select Option</GenderOption>
+                            <GenderOption value="male">Male</GenderOption>
+                            <GenderOption value="female">Female</GenderOption>
+                            <GenderOption value="other">Other</GenderOption>
                         </GenderSelect>
+                        {errors.gender && <UserInputError>{errors.gender.message}</UserInputError>}
                     </CustomerDetailsFormGroup>
                     <CustomerDetailsFormGroup>
                         <PhoneNoContainer>
-                            <PrefixContainer>
-                                <PrefixLabel>
-                                    Prefix
-                                </PrefixLabel>
-                                <Prefix>+234</Prefix>
-                            </PrefixContainer>
-                            <PhoneNo>
-                                <Label>
-                                    Phone Number 
-                                </Label>
-                                <Input type="text" value="7087857141" />
-                            </PhoneNo>
+                           <Label>Phone Number</Label>
+                            <PhoneInputWithCountrySelect 
+                                placeholder="Enter phone number" 
+                                value={phoneNo}
+                                onChange={setPhoneNo}
+                                className="customerAddressEditPhone"
+                            />
+                            {phoneErr && <UserInputError>{phoneErr}</UserInputError>}
                         </PhoneNoContainer>
                     </CustomerDetailsFormGroup>
                 </GenderAndBirthdayInputs>
                 <DateOfBirthContainer>
                     <CustomerDetailsFormGroup>
                         <Label>Date of Birth</Label>
-                        <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} className="customerEditDate"/>
+                        <DatePicker selected={dateOfBirth} onChange={(date) => setDateOfBirth(date)} className="customerEditDate"/>
                     </CustomerDetailsFormGroup>
                 </DateOfBirthContainer>
                 <SaveButtonContainer>
-                    <SaveButton>
+                    <SaveButton type="submit" disabled={isFetching? "disabled" : false}>
                         Save
                     </SaveButton>
                 </SaveButtonContainer>

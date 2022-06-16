@@ -20,10 +20,11 @@ import 'react-phone-number-input/style.css';
 import './Navbar.css';
 import RegisterationForm from '../RegisterationForm/RegisterationForm';
 import LoginForm from '../LoginForm/LoginForm';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { HowToRegOutlined, Logout, Person } from '@mui/icons-material';
 // import { display } from '@mui/system';
 import { Badge, Button, Menu, MenuItem } from '@mui/material';
+import { logout } from '../../redux/apiCalls';
 
 const ModalBackdrop = styled.div`
     display: ${props => props.openModal? "block" : "none"};
@@ -166,6 +167,13 @@ const Wrap = styled.div`
     &:hover{
         color: #9AAF8F;
     }
+`;
+
+const MenuItemContainer = styled.div`
+    display: flex;
+    align-items: center;
+    font-family: Lato, sans-serif;
+    font-size: 1.5rem;    
 `;
 
 const VerifiedPersonContainer= styled.div`
@@ -456,8 +464,12 @@ const Navbar = () =>{
     const quantity = useSelector(state => state.cart.quantity);
     const user = useSelector(state => state.user.currentUser);
     const [anchorEl, setAnchorEl] = useState(null);
+    const dispatch = useDispatch();
   
-    const handleClose = () => {
+    const handleClose = (action) => {
+        if(action === "logout"){
+            logout(dispatch)
+        }
         setAnchorEl(null);
     };
     
@@ -696,13 +708,17 @@ const Navbar = () =>{
                                         onClose={handleClose}
                                         open={Boolean(anchorEl)}
                                     >
-                                        <MenuItem onClick={handleClose}>
-                                            <Person style={{marginRight: "10px"}}/>
-                                            My Account
+                                        <MenuItem onClick={() => handleClose("")}>
+                                            <Link to="/customer/account" className="menuLink">
+                                                <Person style={{marginRight: "10px"}}/>
+                                                My Account
+                                            </Link>
                                         </MenuItem>
-                                        <MenuItem onClick={handleClose}>
-                                            <Logout style={{marginRight: "10px"}}/>
-                                            Logout
+                                        <MenuItem onClick={() => handleClose("logout")}>
+                                            <MenuItemContainer>
+                                                <Logout style={{marginRight: "10px"}}/>
+                                                Logout
+                                            </MenuItemContainer>
                                         </MenuItem>
                                     </Menu>
                                 </VerifiedPersonContainer>

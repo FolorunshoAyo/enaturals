@@ -11,6 +11,7 @@ import AddressBook from "../AddressBook/AddressBook";
 import ChangePassword from "../ChangePassword/ChangePassword";
 import { bigDesktop, medPhone, res860 } from "../../responsive";
 import CustomerAddressEdit from "../CustomerAddressEdit/CustomerAddressEdit";
+import { useSelector } from "react-redux";
 
 const CustomerContainer = styled.section`
     padding: 4rem 4rem;
@@ -165,7 +166,7 @@ const AddNewAddressBtn = styled.button`
 `;
 
 const CustomerInfo = ({pathname, params}) => {
-
+    const addressLength = useSelector(state => state.addresses.addresses.length);
     // if(params === ""){
     //     // Redirect back to home page showing a worning.
     // }
@@ -227,7 +228,7 @@ const CustomerInfo = ({pathname, params}) => {
             case "/customer/address":
                 rendered =  <>
                                 <AddressContainer>
-                                    <Address>Address (2)</Address>
+                                    <Address>Address ({addressLength})</Address>
                                     <AddNewAddressBtnContainer>
                                         <Link to="/customer/address/create" style={{color: "initial", display: "block"}}>
                                             <AddNewAddressBtn>
@@ -326,7 +327,7 @@ const CustomerInfo = ({pathname, params}) => {
     };
 
     const currActiveLink = getActiveLink(pathname, params);
-
+    
     return (
         <CustomerContainer>
             <CustomerInfoContainer>

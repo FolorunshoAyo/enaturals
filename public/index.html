@@ -44,6 +44,37 @@
         --color-black: #000;
       }
 
+      .confirm-box__content{
+        width: 80% !important;
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%);
+      }
+
+      .confirm-box__content span{
+        display: block;
+        margin-bottom: 20px;
+        font-family: Lato, sans-serif;
+        font-size: 1.5rem;
+      }
+
+      .confirm-box__actions button{
+        padding: 1rem 2rem;
+        color: #fff;
+        border-radius: 5px;
+        background-color: #acbfa3;
+        border: none;
+        transition: all .3s;
+        cursor: pointer;
+        font-family: Lato, sans-serif;
+        font-size: 1.5rem;
+      }
+
+      .confirm-box__actions button:hover{
+        background-color: #b8a398;
+      }
+
       select{
         background-color: transparent;
       }
@@ -75,6 +106,21 @@
       .paginationLink:after{
         content: "|";
         margin: 0 13px;
+      }
+
+      .menuLink{
+        display: flex;
+        align-items: center;
+        color: #000;
+        font-family: Lato, sans-serif;
+        font-size: 1.5rem;
+      }
+
+      .changePasswordLink{
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #acbfa3;
+        text-decoration: none;
       }
 
       .productLink{
@@ -172,6 +218,18 @@
 
       .productTagLink:hover{
         color: #80d572;
+      }
+
+      .customerAddressEditPhone input{
+        border-bottom: 1px solid rgb(199,199,205);
+      }
+
+      .customerAddressEditPhone input:focus{
+        border-bottom: 1px solid #ACBFA3;
+      }
+
+      .customerAccountLoader{
+        color: #fff;
       }
 
       @media only screen and (max-width: 75em) {

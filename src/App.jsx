@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Navigate, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Shop from './pages/Shop';
 import Cart from './pages/Cart';
@@ -16,34 +16,47 @@ import Reviews from './pages/Reviews';
 import './App.css';
 import NetworkDetector from './Hoc/NetworkDetector';
 import CustomerAccount from './pages/CustomerAccount';
-// import { useSelector } from 'react-redux';
+import { Toaster } from "react-hot-toast"; 
+import { useSelector } from 'react-redux';
 
 const App = () => {
-  // const user = useSelector(state => state.user.currentuser);
-  
+  const user = useSelector(state => state.user.currentUser);
+
   return (
-    <CustomSwitch>
-      <Route exact path="/" element={<Home />} />
-      <Route exact path="/shop" element={<Shop />} />
-      <Route exact path="/cart" element={<Cart />} />
-      <Route exact path="/customer/account" element={<CustomerAccount />} />
-      <Route exact path="/customer/order" element={<CustomerAccount />} />
-      <Route exact path="/customer/account/edit" element={<CustomerAccount />} />
-      <Route exact path="/customer/address" element={<CustomerAccount />} />
-      <Route exact path="/customer/account/changepass" element={<CustomerAccount />} />
-      <Route exact path="/customer/address/edit/:addressNo" element={<CustomerAccount />} />
-      <Route exact path="/customer/address/create" element={<CustomerAccount />} />
-      <Route exact path="/product/:productName" element={<Product />} />
-      <Route exact path="/product-category/:productTag" element={<Shop />} />
-      <Route exact path="/blog" element={<Blog />} />
-      <Route exact path="/blog/:blogTitle" element={<SingleBlogPost />} />
-      <Route exact path="/gallery" element={<Gallery />} />
-      <Route exact path="/reviews" element={<Reviews />} />
-      <Route exact path="/aboutus" element={<AboutUs />} />
-      <Route exact path="/aboutus/:memberName" element={<SingleTeam />} />
-      <Route exact path="/checkout" element={<Checkout />} />
-      <Route path="*" element={<PageNotFound />} />
-    </CustomSwitch>
+    <>
+      <Toaster 
+      toastOptions={{
+        duration: 3000,
+        style: {
+          width: "40%",
+          fontSize: "15px",
+          fontFamily: "Lato, sans-serif"
+        }
+      }}
+      />
+      <CustomSwitch>
+        <Route exact path="/" element={<Home />} />
+        <Route exact path="/shop" element={<Shop />} />
+        <Route exact path="/cart" element={<Cart />} />
+        <Route exact path="/customer/account" element={ user? <CustomerAccount /> : <Navigate to="/"/>} />
+        <Route exact path="/customer/order" element={user? <CustomerAccount /> : <Navigate to="/"/>} />
+        <Route exact path="/customer/account/edit" element={user? <CustomerAccount /> : <Navigate to="/"/>} />
+        <Route exact path="/customer/address" element={user? <CustomerAccount /> : <Navigate to="/"/>} />
+        <Route exact path="/customer/account/changepass" element={user? <CustomerAccount /> : <Navigate to="/"/>} />
+        <Route exact path="/customer/address/edit/:addressNo" element={user? <CustomerAccount /> : <Navigate to="/"/>} />
+        <Route exact path="/customer/address/create" element={user? <CustomerAccount /> : <Navigate to="/"/>} />
+        <Route exact path="/product/:productName" element={<Product />} />
+        <Route exact path="/product-category/:productTag" element={<Shop />} />
+        <Route exact path="/blog" element={<Blog />} />
+        <Route exact path="/blog/:blogTitle" element={<SingleBlogPost />} />
+        <Route exact path="/gallery" element={<Gallery />} />
+        <Route exact path="/reviews" element={<Reviews />} />
+        <Route exact path="/aboutus" element={<AboutUs />} />
+        <Route exact path="/aboutus/:memberName" element={<SingleTeam />} />
+        <Route exact path="/checkout" element={<Checkout />} />
+        <Route path="*" element={<PageNotFound />} />
+      </CustomSwitch>
+    </>
   );
 };
 
