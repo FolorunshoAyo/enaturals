@@ -12,7 +12,8 @@ import { convertToDefaultProductTag, mergeSimilarProductAccToName } from '../../
 import "./ProductList.css";
 import { Link } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';
-import { publicRequest } from '../../requestMethod';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllProducts, getProductsByRange } from '../../redux/apiCalls';
 
 
 const Container = styled.section`
@@ -216,11 +217,13 @@ const PaginationContainer= styled.div`
 `;
 
 const ProductList = ({productTag}) => {
-    const [products, setProducts] = useState([]);
+    // const [products, setProducts] = useState([]);
+    const { products, isFetching } = useSelector(state => state.products);
     const [currView, setView] = useState("list");
     const [sliderValue, setSliderValue] = useState([0, 50]);
-    const [isLoading, setLoading] = useState(true);
+    // const [isLoading, setLoading] = useState(true);
     const [sort, setSort] = useState("newest");
+    const dispatch = useDispatch();
 
     // HANDLE ENDPOINTS FOR SORTING
     const endPointGen = sortType => {
@@ -245,39 +248,14 @@ const ProductList = ({productTag}) => {
 
    // FETCH ALL PRODUCTS BASED ON FILTER SELECT
     useEffect(() => {
-        const getProducts = async () => {
-            try{
-                setLoading(true);
-
-                const result = await publicRequest.get(endPointGen(sort), {timeout: 10000});
-                
-                setProducts(result.data);
-                setLoading(false);
-            }catch(err){
-                setLoading(false);
-            }
-        };
-
-        getProducts();
+        if(products.length === 0){
+            getAllProducts(endPointGen(sort), dispatch);
+        }
     }, [sort, productTag]);
 
     // FETCH ALL PRODUCTS BASED ON RANGED PRICING
     const handleFilteredProductGeneration = () => {
-
-        const getProductsByRange = async () => {
-            try{
-                setLoading(true);
-
-                const result = await publicRequest.get(`/products/?max=${(sliderValue[0] * 1000)/2}&min=${(sliderValue[1] * 1000)/2}`, {timeout: 10000});
-
-                setProducts(result.data);
-                setLoading(false);
-            }catch(err){
-                setLoading(false);
-            }
-        };
-
-        getProductsByRange();
+        getProductsByRange((sliderValue[0] * 1000)/2, (sliderValue[1] * 1000)/2, dispatch);
     };
 
     // FOR SLIDER
@@ -288,39 +266,44 @@ const ProductList = ({productTag}) => {
     // FOR FILTER SELECT 
     const handleChange = (e) => {
         setSort(e.target.value);
+        getAllProducts(endPointGen(e.target.value), dispatch);
     }
 
-    //MERGE SIMILAR PRODUCTS 
-    const reArrangedProducts = mergeSimilarProductAccToName(products);
+    const mergeAndFilterProducts = (products) => {
+        //MERGE SIMILAR PRODUCTS 
+        const reArrangedProducts = mergeSimilarProductAccToName(products);
 
-    // FILTER PRODUCTS BY TAG
-    const filteredProductsByProductTag = [];
+        // FILTER PRODUCTS BY TAG
+        const filteredProductsByProductTag = [];
 
-    if(productTag && products){
-        const modProductTag = convertToDefaultProductTag(productTag);
+        if(productTag && products){
+            const modProductTag = convertToDefaultProductTag(productTag);
 
-        reArrangedProducts.forEach((reArrangedProduct) => {
-            const noOfSimilarProduct = reArrangedProduct.length;
+            reArrangedProducts.forEach((reArrangedProduct) => {
+                const noOfSimilarProduct = reArrangedProduct.length;
 
-            if(noOfSimilarProduct === 4){
-                if(reArrangedProduct[0].categories.includes(modProductTag) || reArrangedProduct[1].categories.includes(modProductTag) || reArrangedProduct[2].categories.includes(modProductTag) || reArrangedProduct[3].categories.includes(modProductTag)){
-                    filteredProductsByProductTag.push(reArrangedProduct);
-                } 
-            }else if(noOfSimilarProduct === 3){
-                if(reArrangedProduct[0].categories.includes(modProductTag) || reArrangedProduct[1].categories.includes(modProductTag) || reArrangedProduct[2].categories.includes(modProductTag)){
-                    filteredProductsByProductTag.push(reArrangedProduct);
-                } 
-            }else if(noOfSimilarProduct === 2){
-                if(reArrangedProduct[0].categories.includes(modProductTag) || reArrangedProduct[1].categories.includes(modProductTag)){
-                    filteredProductsByProductTag.push(reArrangedProduct);
+                if(noOfSimilarProduct === 4){
+                    if(reArrangedProduct[0].categories.includes(modProductTag) || reArrangedProduct[1].categories.includes(modProductTag) || reArrangedProduct[2].categories.includes(modProductTag) || reArrangedProduct[3].categories.includes(modProductTag)){
+                        filteredProductsByProductTag.push(reArrangedProduct);
+                    } 
+                }else if(noOfSimilarProduct === 3){
+                    if(reArrangedProduct[0].categories.includes(modProductTag) || reArrangedProduct[1].categories.includes(modProductTag) || reArrangedProduct[2].categories.includes(modProductTag)){
+                        filteredProductsByProductTag.push(reArrangedProduct);
+                    } 
+                }else if(noOfSimilarProduct === 2){
+                    if(reArrangedProduct[0].categories.includes(modProductTag) || reArrangedProduct[1].categories.includes(modProductTag)){
+                        filteredProductsByProductTag.push(reArrangedProduct);
+                    }
+                }else if (noOfSimilarProduct === 1){
+                    if(reArrangedProduct[0].categories.includes(modProductTag)){
+                        filteredProductsByProductTag.push(reArrangedProduct);
+                    }
                 }
-            }else if (noOfSimilarProduct === 1){
-                if(reArrangedProduct[0].categories.includes(modProductTag)){
-                    filteredProductsByProductTag.push(reArrangedProduct);
-                }
-            }
-        });
-    }
+            });
+        }
+
+        return [reArrangedProducts, filteredProductsByProductTag];
+    };
 
 
     const changeToGrid = () => {
@@ -442,13 +425,13 @@ const ProductList = ({productTag}) => {
                             </FilterContainer>                     
                         </FilterProductsContainer>
                         <Products>
-                            <PaginationContainer loader={isLoading}>
+                            <PaginationContainer loader={isFetching}>
                                 {
-                                    isLoading ?
+                                    isFetching ?
                                     (<CircularProgress size="8rem" />)
                                     :
                                     (<Pagination 
-                                        data={productTag? filteredProductsByProductTag : reArrangedProducts}
+                                        data={productTag? mergeAndFilterProducts(products)[1] : mergeAndFilterProducts(products)[0]}
                                         pageType={productTag? "productTagPage" : "productsPage"}
                                         RenderComponent={Product}
                                         pageLimit={3}

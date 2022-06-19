@@ -9,7 +9,8 @@ import {
   logoutSuccess,
   updateUserStart,
   updateUserSuccess,
-  updateUserFailure
+  updateUserFailure,
+  updateUserFinished
 } from "./userRedux";
 
 import {
@@ -30,6 +31,43 @@ import {
     addAddressFailure,
 } from "./addressRedux";
 
+import { closeModal } from "./login-register-modalRedux";
+
+import {
+  getProductStart,
+  getProductSuccess,
+  getProductFailure
+} from "./productRedux";
+
+import {
+  getSlideStart,
+  getSlideSuccess,
+  getSlideFailure
+} from "./slideRedux";
+
+import {
+  getPictureStart,
+  getPictureSuccess,
+  getPictureFailure
+} from "./picturesRedux";
+
+import {
+  getVideoStart,
+  getVideoSuccess,
+  getVideoFailure
+} from "./videoRedux";
+
+// import {
+//   getReviewStart,
+//   getReviewSuccess,
+//   getReviewFailure
+// } from "./reviewRedux";
+
+import {
+  getBlogStart,
+  getBlogSuccess,
+  getBlogFailure
+} from "./blogRedux";
 
 export const login = async (dispatch, user) => {
     dispatch(loginStart());
@@ -38,8 +76,9 @@ export const login = async (dispatch, user) => {
         const res = await publicRequest.post("/auth/login", user);
         dispatch(loginSuccess(res.data));
         toast.success("Logged in successfully");
+        dispatch(closeModal());
     }catch(error){
-      toast.error("Invalid Email or Password");
+      toast.error("Invalid Username or Password");
       dispatch(loginFailure({error: error.response.data}))
     }
 }
@@ -54,12 +93,26 @@ export const tokenInvalidLogout = (dispatch) => {
   toast.error("session has timed out");
 };
 
+export const registerUser = async (user, dispatch) => {
+  dispatch(updateUserStart());
+
+  try{
+    await userRequest.post(`/auth/register`, user);
+    toast.success("Registered successfully");
+    dispatch(updateUserFinished());
+  }catch (error){
+    toast.error("Unable to update user (501)");
+    dispatch(updateUserFailure({error: error.response.data}))
+  }
+}
+
 export const updateUser = async (id, user, dispatch) => {
   dispatch(updateUserStart());
 
   try{
     const res = await userRequest.put(`/users/${id}`, user);
     dispatch(updateUserSuccess(res.data));
+    toast.success("Update user details successfully");
   }catch (error){
     toast.error("Unable to update user (501)");
     dispatch(updateUserFailure({error: error.response.data}))
@@ -130,3 +183,94 @@ export const getAddress = async (userID, dispatch) => {
       dispatch(changeDefaultAddressFailure({ error: error.response.data }));
     }
   }
+
+
+  export const getAllProducts = async (endpoint, dispatch) => {
+    dispatch(getProductStart());
+
+    try{
+      const res = await publicRequest.get(endpoint);
+      dispatch(getProductSuccess(res.data));
+    }catch(error){
+      toast.error("Unable to get products (501)");
+      dispatch(getProductFailure({error: error.response.data}));
+    }
+  }
+
+
+  export const getProductsByRange = async (max, min, dispatch) => {
+    dispatch(getProductStart());
+
+    try{
+      const res = await publicRequest.get(`/products/?max=${max}&min=${min}`);
+      dispatch(getProductSuccess(res.data));
+    }catch(error){
+      toast.error("Unable to get ranged products (501)");
+      dispatch(getProductFailure({error: error.response.data}));
+    }
+  }
+
+  export const getSlides = async (dispatch) => {
+    dispatch(getSlideStart());
+
+    try{
+      const res = await publicRequest.get(`/slides/`);
+      dispatch(getSlideSuccess(res.data));
+    }catch(error){
+      toast.error("Unable to get slides (501)");
+      dispatch(getSlideFailure({error: error.response.data}));
+    }
+  };
+
+  export const getPictures = async (dispatch) => {
+    dispatch(getPictureStart());
+
+    try{
+      const res = await publicRequest.get(`/pictures/`);
+      dispatch(getPictureSuccess(res.data));
+    }catch(error){
+      toast.error("Unable to get pictures (501)");
+      dispatch(getPictureFailure({error: error.response.data}));
+    }
+  };
+
+  export const getVideos = async (dispatch) => {
+    dispatch(getVideoStart());
+
+    try{
+      const res = await publicRequest.get(`/videos/`);
+      dispatch(getVideoSuccess(res.data));
+    }catch(error){
+      toast.error("Unable to get ranged videos (501)");
+      dispatch(getVideoFailure({error: error.response.data}));
+    }
+  };
+
+  export const getBlogs = async (dispatch) => {
+    dispatch(getBlogStart());
+
+    try{
+      const res = await publicRequest.get(`/blogs/`);
+      dispatch(getBlogSuccess(res.data));
+    }catch(error){
+      toast.error("Unable to get blogs (501)");
+      dispatch(getBlogFailure({error: error.response.data}));
+    }
+  };
+
+  // export const getReviews = async (dispatch) => {
+  //   dispatch(getReviewStart());
+
+  //   try{
+  //     FETCHING GOOGLE REVIEWS
+  //     const res = await publicRequest.get(`/googleReviews/`);
+  //     dispatch(getReviewSuccess(res.data));
+  //   }catch(error){
+  //     toast.error("Unable to get google Reviews (501)");
+  //     dispatch(getReviewFailure({error: error.response.data}));
+  //   }
+  // }
+
+
+  
+

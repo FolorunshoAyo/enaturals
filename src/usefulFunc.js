@@ -63,6 +63,7 @@ export const findMin = (numbers) => {
 };
 
 export const generateTagLinks = (productTags) => {
+    productTags = [...productTags];
     const sortedProductTags = productTags.sort();
     const sortedProductTagsLength = sortedProductTags.length;
     
@@ -163,6 +164,18 @@ export const convertToDefaultProductName = (productName) => {
     return capitalizedWords.join(' ');
 };
 
+export const convertToDefaultBlogTitle = (blogTitle) => {
+    let lowercaseBlogTitle = blogTitle.replace(/-/g, " ");
+
+    return lowercaseBlogTitle;
+};
+
+export const convertToDefaultCategory = (category) => {
+    let lowercaseCategory= category.replace(/-/g, " ");
+
+    return lowercaseCategory;
+};
+
 export const mergeSimilarProductAccToName = (productList) => {
     const productNames = [];
     const reArrangedProducts = [];
@@ -242,3 +255,8 @@ export const numberWithCommas = number => {
 export const capitalizeFirstLetterOfWord = (word) => {
     return word[0].toUpperCase() + word.substr(1);
 };
+
+export const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "long", day: "numeric" }
+    return new Date(dateString).toLocaleDateString(undefined, options)
+}

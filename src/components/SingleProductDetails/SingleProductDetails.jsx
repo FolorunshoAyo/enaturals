@@ -48,6 +48,21 @@ const ViewIcon = styled.div`
     cursor: pointer;
 `;
 
+const OutOfStockIndicator = styled.div`
+    display: ${props => props.inStock? "flex" : "none"};
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    top: -20px;
+    left: -30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #acbfa3;
+    transition: all .3s;
+    color: #fff;
+`;
+
 const ProductDescContainer = styled.div`
     flex: 1;
     margin-left: 3rem;
@@ -255,7 +270,7 @@ const CloseIconContainer = styled.div`
 `;
 
 
-const SingleProductDetails = ({productName,productDetails, errorMsg}) => {
+const SingleProductDetails = ({productName, productDetails, errorMsg}) => {
 
     // 0- SMALL 1- MEDIUM 2- LARGE (SIZE INDEXES);
 
@@ -264,7 +279,6 @@ const SingleProductDetails = ({productName,productDetails, errorMsg}) => {
     const [quantity, setQuantity] = useState(1);
     // const [isDisabled, setIsDisabled] = useState(true);
     const dispatch = useDispatch();
-    
 
     const toggleView = () => {
         setShowProduct(!showProduct);
@@ -295,6 +309,16 @@ const SingleProductDetails = ({productName,productDetails, errorMsg}) => {
             }else{
                 return `₦${productInfo.price}`;
             }
+        }
+    };
+
+    const setInStock = size => {
+        const productInfo = productDetails.find(product => product.size === size);
+
+        if(productDetails.length === 1){
+            return productDetails[0].inStock;
+        }else{
+            return productInfo.inStock;
         }
     };
 
@@ -483,6 +507,9 @@ const SingleProductDetails = ({productName,productDetails, errorMsg}) => {
                         <ViewIcon onClick={toggleView}>
                             <SearchIcon style={{fontSize: 30}}/>
                         </ViewIcon>
+                        <OutOfStockIndicator inStock={size === ""? false : setInStock(size)? false : true}>
+                            Out of stock
+                        </OutOfStockIndicator>
                     </ImageContainer>
                     <ProductDescContainer>
                         <ProductDesc>

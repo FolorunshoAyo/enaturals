@@ -21,10 +21,10 @@ const BlogPosts = ({ posts }) => {
     <BlogContainer>
       {posts.map(post => (
         <BlogPost
-          key={post.id}
+          key={post._id}
           photo={post.photo}
           title={post.title}
-          dateOfCreation={post.createTime}
+          dateOfCreation={post.createdAt}
           content={post.content}
         />
       ))}

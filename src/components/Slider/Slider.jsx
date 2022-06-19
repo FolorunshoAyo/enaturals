@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import SlickSlider from 'react-slick';
 import "slick-carousel/slick/slick.css";
@@ -6,8 +6,10 @@ import "slick-carousel/slick/slick-theme.css";
 import { Link } from 'react-router-dom';
 // import { sliderItems } from "../../data";
 import {medPhone, tabPort} from '../../responsive';
-import { publicRequest } from "../../requestMethod";
 import { CircularProgress } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { getSlides } from '../../redux/apiCalls';
+import { useSelector } from 'react-redux';
 
 const Container = styled.div`
     margin-top: 170px;
@@ -117,8 +119,8 @@ const Button = styled.button`
 `;
 
 const Slider = () => {
-    const [slides, setSlides] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const {slides, isFetching} = useSelector(state => state.slides);
+    const dispatch = useDispatch();
 
     const settings = {
         dots: true,
@@ -131,23 +133,15 @@ const Slider = () => {
     };
 
     useEffect(() => {
-        const getSlides = async () => {
-            try{
-                const res = await publicRequest.get("/slides/");
-                setSlides(res.data);
-                setLoading(false);
-            }catch(error){
-                console.log(error.message);
-            }
-        };
-
-        getSlides();
-    }, []);
+        if(slides.lenght === 0){
+            getSlides(dispatch);
+        }
+    }, [dispatch]);
 
     return (
         <Container>
             {
-                (loading)? 
+                (isFetching)? 
                 <LoadingContainer>
                     <CircularProgress size="8rem"/>
                 </LoadingContainer>

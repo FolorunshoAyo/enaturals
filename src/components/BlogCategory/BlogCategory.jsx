@@ -1,18 +1,13 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
-import {res750 ,res1023, bigDesktop} from "../../responsive";
+import {res750} from "../../responsive";
 import { findAndReplace, formatDate } from '../../usefulFunc';
 import { Link } from 'react-router-dom';
 
 const BlogPostItem = styled.div`
-    flex: 0 0 32%;
     margin-bottom: 20px;
     height: 500px;
-
-    ${res1023({height: "550px"})}
-    ${res750({flex: "0 0 500px", height: "0"})}
-    ${bigDesktop({flex: "0 0 32%", height: "700px"})}
 `;
 
 
@@ -34,7 +29,7 @@ const HoverDots = styled.div`
 
 const BlogImgContainer = styled.div`
     position: relative;
-    height: 40%;
+    height: 60%;
     cursor: pointer;
 
     &:hover ${HoverDots}{
@@ -73,7 +68,7 @@ const BlogBodySnippet = styled.p`
     font-size: 1.4rem;
 `;
 
-const BlogPost = ({photo, title, dateOfCreation, content}) => {
+const BlogCategory = ({photo, title, dateOfCreation, content}) => {
     const modBlogTitle = findAndReplace(title);
     return (
         <BlogPostItem>
@@ -99,6 +94,4 @@ const BlogPost = ({photo, title, dateOfCreation, content}) => {
 };
 
 
-
-
-export default BlogPost;
+export default BlogCategory;

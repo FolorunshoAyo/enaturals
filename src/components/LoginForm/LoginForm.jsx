@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { login } from "../../redux/apiCalls";
 import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 
 const LoginFormContainer = styled.form`
 `;
@@ -95,14 +96,20 @@ const SubmitButton = styled.button`
 
 const LoginForm = () => {
     const { isFetching } = useSelector(state => state.user);
+    const { active } = useSelector(state => state.loginRegisterModal);
     const dispatch = useDispatch();
-    const {register, handleSubmit, formState: { errors }} = useForm();
+    const {register, handleSubmit, reset, formState: { errors }} = useForm();
+
+    useEffect(() => {
+        if(active === false){
+            reset();
+        }
+    }, [active]);
 
     const onSubmit = (data) => {
         login(dispatch, data);
     };
-
-
+    
     return (
         <LoginFormContainer onSubmit={handleSubmit(onSubmit)}>
             <LoginFormGroup>

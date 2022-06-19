@@ -18,13 +18,14 @@ import {NavLink, Link, useLocation} from 'react-router-dom';
 import "react-datepicker/dist/react-datepicker.css";
 import 'react-phone-number-input/style.css';
 import './Navbar.css';
-import RegisterationForm from '../RegisterationForm/RegisterationForm';
+import RegistrationForm from '../RegistrationForm/RegistrationForm';
 import LoginForm from '../LoginForm/LoginForm';
 import { useDispatch, useSelector } from "react-redux";
 import { HowToRegOutlined, Logout, Person } from '@mui/icons-material';
 // import { display } from '@mui/system';
 import { Badge, Button, Menu, MenuItem } from '@mui/material';
 import { logout } from '../../redux/apiCalls';
+import { closeModal, switchTab, toggleModal } from "../../redux/login-register-modalRedux";
 
 const ModalBackdrop = styled.div`
     display: ${props => props.openModal? "block" : "none"};
@@ -455,8 +456,7 @@ const DropDownClose = styled.div`
 
 const Navbar = () =>{
     const { pathname } = useLocation();
-    const [tabNo, setTabNo] = useState(1);
-    const [modal, setModal] = useState(false);
+    const { active, tabNo } = useSelector(state => state.loginRegisterModal);
     const [menuState, setMenuState] = useState("closed");
     const [dropDownState, setDropDown] = useState(false);
     const [y, setY] = useState(document.scrollingElement.scrollHeight);
@@ -465,7 +465,7 @@ const Navbar = () =>{
     const user = useSelector(state => state.user.currentUser);
     const [anchorEl, setAnchorEl] = useState(null);
     const dispatch = useDispatch();
-  
+
     const handleClose = (action) => {
         if(action === "logout"){
             logout(dispatch)
@@ -484,16 +484,16 @@ const Navbar = () =>{
 
     useEffect(() => {
         if(user !== null){
-            setModal(false);
+            dispatch(closeModal());
         }
     },[user]);
 
     const changeTab = (selectedTabNo) =>{
-        setTabNo(selectedTabNo);
+        dispatch(switchTab({tabNo: selectedTabNo}));
     };
 
     const switchModal = () => {
-        setModal(!modal);
+        dispatch(toggleModal({active: !active}));
     };
 
     const toggleMobileMenu = (currState) => {
@@ -628,8 +628,8 @@ const Navbar = () =>{
                     </MobileMenuSocials>
                 </MobileMenuWrapper>
             </MobileMenuOverlay>
-            <ModalBackdrop openModal={modal} onClick={switchModal}></ModalBackdrop>
-            <Modal openModal={modal}>
+            <ModalBackdrop openModal={active} onClick={switchModal}></ModalBackdrop>
+            <Modal openModal={active}>
                 <ModalContainer>
                     <ModalTabs>
                         <AuthTab onClick={() => changeTab(1)} selected={tabNo === 1? true : false}>
@@ -650,7 +650,7 @@ const Navbar = () =>{
                         </LoginBody>
                         <RegisterBody active={tabNo === 2? true : false}>
                             <RegisterBodyContainer>
-                                <RegisterationForm />
+                                <RegistrationForm />
                             </RegisterBodyContainer>
                         </RegisterBody>
                     </ModalBody>

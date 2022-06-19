@@ -150,7 +150,6 @@ const PageTitle = ({ title, pageLocation, params}) => {
             ); 
         break;
         case `/blog/${params}`:
-          console.log("ran");
           const title = splitAndSpace(links[3], "-");
 
           result = (
@@ -170,8 +169,24 @@ const PageTitle = ({ title, pageLocation, params}) => {
             </>
         ); 
         break;
+        case `/blog/category/${params}`:
+          const category = splitAndSpace(links[2], "-");
+
+          result = (
+            <>
+              <Link to="/" className="paginationLink">
+                {links[0]}
+              </Link>
+              <Link to="/blog" className="paginationLink">
+                {links[1]}
+              </Link>
+              <PaginationItem>
+                {category}
+              </PaginationItem>
+            </>
+        );
+        break;
         case `/aboutus/${params}`:
-          console.log("ran");
           const name = splitAndSpace(links[2], "-");
           result = (
             <>
