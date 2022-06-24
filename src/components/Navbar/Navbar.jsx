@@ -362,67 +362,69 @@ const MobileMenuLink = styled.span`
 
 `;
 
-const SearchInputContainer = styled.div`
-    display: flex;
-    justify-content: center;
-`; 
+// const SearchInputContainer = styled.div`
+//     display: flex;
+//     justify-content: center;
+// `; 
 
-const SearchButton = styled.button`
-    flex: 1;
-    background: transparent;
-    display: flex;
-    border: none;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-`;
+// const SearchButton = styled.button`
+//     flex: 1;
+//     background: transparent;
+//     display: flex;
+//     border: none;
+//     justify-content: center;
+//     align-items: center;
+//     color: #fff;
+// `;
 
-const SearchInputWrapper = styled.div`
-    flex: 0 0 40%;
-    display: flex;
-    border-bottom: 3px solid #fff;
-    margin-top: 3rem;
+// const SearchInputWrapper = styled.div`
+//     flex: 0 0 40%;
+//     display: flex;
+//     border-bottom: 3px solid #fff;
+//     margin-top: 3rem;
 
-    ${smallPhone({flex: "0 0 60%"})}
-`;
+//     ${smallPhone({flex: "0 0 60%"})}
+// `;
 
-const Search = styled.input`
-    flex: 0 0 85%;
-    font: inherit;
-    font-size: 2rem;
-    background: transparent;
-    padding: 2rem 0;
-    border: none;
-    color: #ACBFA3;
+// const Search = styled.input`
+//     flex: 0 0 85%;
+//     font: inherit;
+//     font-size: 2rem;
+//     background: transparent;
+//     padding: 2rem 0;
+//     border: none;
+//     color: #ACBFA3;
 
-    &:focus{
-        outline: none;
-    }
+//     &:focus{
+//         outline: none;
+//     }
 
-    &:focus ${SearchInputWrapper}{
-        border-color: #acbfa3;
-    }
+//     &:focus ${SearchInputWrapper}{
+//         border-color: #acbfa3;
+//     }
 
-    &:focus ${SearchButton}{
-        color: #acbfa3;
-    }
-`;
+//     &:focus ${SearchButton}{
+//         color: #acbfa3;
+//     }
+// `;
 
 
-const SearchInputForm = styled.form`
-    flex: 1;
-    display: flex;
-`;
+// const SearchInputForm = styled.form`
+//     flex: 1;
+//     display: flex;
+// `;
 
 
 const MobileMenuSocials = styled.div`
+    width: 200px;
+    padding-top: 2rem;
     text-align: center;
-    margin: 3rem 0 1rem;
+    margin: 6rem auto 1rem;
+    border-top: 3px solid #fff;
 `;
 
 const MobileMenuSocialContainer = styled.div`
     display: inline-block;
-    width: 20px;
     cursor: pointer;
     
     &:not(:last-child){
@@ -455,7 +457,7 @@ const DropDownClose = styled.div`
 `;
 
 const Navbar = () =>{
-    const { pathname } = useLocation();
+    const { pathname, key } = useLocation();
     const { active, tabNo } = useSelector(state => state.loginRegisterModal);
     const [menuState, setMenuState] = useState("closed");
     const [dropDownState, setDropDown] = useState(false);
@@ -480,7 +482,7 @@ const Navbar = () =>{
 
     useEffect(() => {
         setMinimizeHeader(false);
-    }, [pathname]);
+    }, [pathname, key]);
 
     useEffect(() => {
         if(user !== null){
@@ -602,7 +604,7 @@ const Navbar = () =>{
                             </MobileMenuItem>
                         </MobileMenuLinks>
                     </MobileMenuNav>
-                    <SearchInputContainer>
+                    {/* <SearchInputContainer>
                         <SearchInputWrapper>
                             <SearchInputForm>
                                 <Search placeholder="SEARCH"/>
@@ -611,19 +613,19 @@ const Navbar = () =>{
                                 </SearchButton>
                             </SearchInputForm>
                         </SearchInputWrapper>
-                    </SearchInputContainer>
+                    </SearchInputContainer> */}
                     <MobileMenuSocials>
                         <MobileMenuSocialContainer>
-                            <FacebookIcon style={{fontSize: 20}}/>
+                            <FacebookIcon style={{fontSize: 30}}/>
                         </MobileMenuSocialContainer>
                         <MobileMenuSocialContainer>
-                            <TwitterIcon style={{fontSize: 20}}/>
+                            <TwitterIcon style={{fontSize: 30}}/>
                         </MobileMenuSocialContainer>
                         <MobileMenuSocialContainer>
-                            <WhatsAppIcon style={{fontSize: 20}}/>
+                            <WhatsAppIcon style={{fontSize: 30}}/>
                         </MobileMenuSocialContainer>
                         <MobileMenuSocialContainer>
-                            <InstagramIcon style={{fontSize: 20}}/>
+                            <InstagramIcon style={{fontSize: 30}}/>
                         </MobileMenuSocialContainer>
                     </MobileMenuSocials>
                 </MobileMenuWrapper>

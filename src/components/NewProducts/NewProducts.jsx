@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import NewProduct from './NewProduct';
-import { newProducts } from '../../data';
+// import { newProducts } from '../../data';
 import {smallPhone, medPhone, res700, res1023, tabLand, medDesktop, bigDesktop} from '../../responsive';
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
+import { publicRequest } from '../../requestMethod';
+import { CircularProgress } from '@mui/material';
 
 const Container = styled.section`
     padding: 4rem 3rem 0;
@@ -17,6 +21,23 @@ const Header = styled.div`
 
     ${medPhone({fontSize: "2.5rem"})}
 `;
+
+const ProgressWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+`;
+
+const NoNewProductErr = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Lato, sans-serif;
+    font-size: 2.5rem;
+    height: 300px;
+`;
+
 
 const ProductsContainer = styled.div`
     display: flex;
@@ -34,22 +55,57 @@ const ProductsContainer = styled.div`
 `;
 
 const NewProducts = () => {
+    const [newProducts, setNewProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const getNewProducts = async () => {
+            try{
+                setLoading(true);
+                const res = await publicRequest.get("/products/?new=true");
+                setNewProducts(res.data);
+                setLoading(false);            
+            }catch(error){
+                toast.error("Unable to get new products (501)");
+            }
+        };
+
+        getNewProducts();
+    }, []);
+
     return (
         <Container>
             <Header>New Products</Header>
-            <ProductsContainer>
-                {
-                    newProducts.map(popularProduct => ( 
-                    <NewProduct 
-                        key={popularProduct.id} 
-                        productImg={popularProduct.img}
-                        productName={popularProduct.productName}
-                        price={popularProduct.price}
-                        productTag={popularProduct.categories}
-                    />
-                    ))
-                }
-            </ProductsContainer>
+            {
+                loading?
+                <ProgressWrapper>
+                    <CircularProgress size="8rem"/>
+                </ProgressWrapper>
+                :
+                (newProducts.length === 0)?
+                <NoNewProductErr>
+                    No new products to display
+                </NoNewProductErr>
+                :
+                <ProductsContainer>
+                    {
+                        newProducts.map(newProduct => ( 
+                        <NewProduct 
+                            key={newProduct._id}
+                            productInfo={newProduct}
+                            productID={newProduct._id}
+                            productImage={newProduct.img}
+                            price={`₦${newProduct.price}`}
+                            description={newProduct.desc}
+                            productName={newProduct.productName}
+                            size={newProduct.size}
+                            inStock={newProduct.inStock}
+                            productTags={newProduct.categories}
+                        />
+                        ))
+                    }
+                </ProductsContainer>
+            }
         </Container>
     );
 };

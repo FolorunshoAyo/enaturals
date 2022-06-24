@@ -1,6 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import {res700} from '../../responsive';
+import { findAndReplace, formatDate } from '../../usefulFunc';
 
 const BlogCard = styled.div`
     flex: 0 0 30%;
@@ -39,19 +41,26 @@ const DateAndComments = styled.div`
 `;
 
 const Date = styled.span``;
-const Comment = styled.span``;
 
 
-const NewBlogPost = ({ blogImg, title, date}) => {
+const NewBlogPost = ({ photo, title, createdAt}) => {
+    const blogLink = findAndReplace(title);
+
     return (
         <BlogCard>
             <BlogImg>
-                <Image src={blogImg}/>
+                <Image src={photo}/>
             </BlogImg>
             <BlogDesc>
-                <Title>{title}</Title>
+                <Title>
+                    <Link to={`/blog/${blogLink}`} className="blogLink">
+                       {title}
+                    </Link>
+                </Title>
                 <DateAndComments>
-                    <Date>{date}</Date> | <Comment>1 Comment</Comment>
+                    <Date>
+                        {formatDate(createdAt)}
+                    </Date>
                 </DateAndComments>
             </BlogDesc>    
         </BlogCard>

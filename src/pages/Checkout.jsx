@@ -1,9 +1,9 @@
 import React from 'react';
 import Navbar from '../components/Navbar/Navbar';
 import PageTitle from '../components/PageTitle/PageTitle';
-import PaymentForm from '../components/PaymentForm/PaymentForm';
 import Footer from '../components/Footer/Footer';
 import Announcement from '../components/Announcement/Announcement';
+import CheckoutDetails from '../components/CheckoutDetails/CheckoutDetails';
 
 
 const Checkout = () => {
@@ -12,7 +12,7 @@ const Checkout = () => {
             <Announcement />
             <Navbar />
             <PageTitle title="Checkout" pageLocation="Home | Shop | Checkout"/>
-            <PaymentForm />
+            <CheckoutDetails />
             <Footer borderTop={false}/>
         </>
     );

@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { mergeSimilarProductAccToID, numberWithCommas } from "../../usefulFunc";
 import CartItem from "../CartItem/CartItem";
 import { smallPhone } from '../../responsive';
+import { Link, useNavigate } from "react-router-dom";
+import { notLoggedIn } from "../../redux/login-register-modalRedux";
 
 const CartContainer = styled.div`
     max-height: 300px;
@@ -50,45 +52,40 @@ const OrderButtonContainer = styled.div`
 
 const CheckoutButton = styled.button`
     text-transform: uppercase;
-    color: #ACBFA3;
     width: 35%;
     margin-right: 20px;
     border: none;
     cursor: pointer;
     background: transparent;
     letter-spacing: 1px;
+    color: #ACBFA3;
+    transition: all .3s ease-in;
 
     &:hover{
-        color: #B8A398;m
+        color: #B8a398;
     }
-
+    
     ${smallPhone({fontSize: "1.2rem"})}
 `;
 
 const ViewCartButton = styled.button`
     text-transform: uppercase;
-    color: #B8A398;
     width: 40%;
-    padding: 1rem 1.5rem;
     letter-spacing: 1px;
     background-color: transparent;
     border: 2px solid #B8A398;
     font-weight: 700;
     cursor: pointer;
-    transition: all .3s ease-in;
     font-size: 1rem;
-
-   &:hover{
-       background-color: #B8A398;
-       color: #fff;
-    }
 
     ${smallPhone({width: "50%", fontSize: "1.2rem"})}
 `;
 
 const CartItems = ({isNav}) => {
+    const user = useSelector(state => state.user.currentUser);
     const cart = useSelector(state => state.cart);
-
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const reArrangedCart = mergeSimilarProductAccToID(cart.products);
 
     // logging an array of similar product subtotals 
@@ -101,7 +98,17 @@ const CartItems = ({isNav}) => {
         return returns;
     }, 0);
 
+    // console.log(reArrangedCart[0]);
+    
     const convertedSubTotal = numberWithCommas(subtotal);
+
+    const handleCheckout = () => {
+        if(user === null){
+            dispatch(notLoggedIn());
+        }else{
+            navigate("/checkout")
+        }
+    };
 
     return (
         <>
@@ -133,11 +140,13 @@ const CartItems = ({isNav}) => {
                         <SubTotalTitle>Subtotal:</SubTotalTitle> ₦{convertedSubTotal}
                     </SubTotal>
                     <OrderButtonContainer>
-                        <CheckoutButton>
+                        <CheckoutButton onClick={handleCheckout}>
                             Checkout
                         </CheckoutButton>
                         <ViewCartButton>
-                            View Cart
+                            <Link to="/cart" className="viewCartLink">
+                                View Cart
+                            </Link>
                         </ViewCartButton>
                     </OrderButtonContainer>
                 </BillingContainer>

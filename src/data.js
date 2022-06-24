@@ -1034,3 +1034,147 @@ export const allReplies = [
         reply: "😘🥰"
     }
 ];
+
+
+export const googleSampleReviews = [
+    {
+        id: 1,
+        image: "../../enaturals/enaturals13.jpg",
+        authorName: "Animashaun Morenikeji",
+        testimonial: "Best plug ever Your products are good and effective I’m loving my skin🥰Y’all patronize her trial will convince you E-naturals skincare or nobody 🥰🥰🥰",
+        rating: 5 
+    },
+    {
+        id: 2,
+        image: "../../enaturals/enaturals13.jpg",
+        authorName: "Ruth Ayodele",
+        testimonial: "Was having a terrible pimple and blackspots on my face , cos of it I hardly go out cos I don’t really like wearing makeup thanks to e-naturals skincare, my spots and pimples have faded away and I’m also glowing 💃💃💃💃💃💃💃🥰🥰🥰",
+        rating: 5 
+    },
+    {
+        id: 3,
+        image: "../../enaturals/enaturals13.jpg",
+        authorName: "Abdulojeed rukayat",
+        testimonial: "Best plug ever Your products are good and effective I’m loving my skin🥰Y’all patronize her trial will convince you E-naturals skincare or nobody 🥰🥰🥰",
+        rating: 5 
+    },
+    {
+        id: 4,
+        image: "../../enaturals/enaturals13.jpg",
+        authorName: "Salami Deborah",
+        testimonial: "Your products works so well...I got the acne kit like 2 week ago and I can already see changes, even my black spots are gone❤️.",
+        rating: 5 
+    },
+    {
+        id: 5,
+        image: "../../enaturals/enaturals13.jpg",
+        authorName: "Salami Deborah",
+        testimonial: "The product are working fast,m always ashame of going out before with my tough face but now m free to go anywhere,my pimples has reduce nd my face is smooth 🤲thanks to E-naturals skincare",
+        rating: 5 
+    },
+    {
+        id: 6,
+        image: "../../enaturals/enaturals13.jpg",
+        authorName: "Odus Opeyemi",
+        testimonial: "I love ur product, just the malato soap and my skin is on fleak, e-naturals all the way. Bimbo u are a gem 😍",
+        rating: 5 
+    },
+    {
+        id: 7,
+        image: "../../enaturals/enaturals13.jpg",
+        authorName: "Imoleayo Bello",
+        testimonial: "I really love the product they are really nice and the outcome is superb y’all should try it out",
+        rating: 5 
+    },
+    {
+        id: 8,
+        image: "../../enaturals/enaturals13.jpg",
+        authorName: "Ohano Chisom",
+        testimonial: "Service is topnotch. Product will blow your mind and its affordable. E-naturals helps in taking good care of your skin(whatever kind) without you breaking the bank. I know because I have tested and its works excellently.",
+        rating: 5 
+    },
+    {
+        id: 9,
+        image: "../../enaturals/enaturals13.jpg",
+        authorName: "Mavin Oleghe",
+        testimonial: "E naturals is the most authentic skin product you can ever find. I got rid of my pimples in less than a month! And it didn’t bleach or affect my dark skin. I absolutely love it and will recommend to anyone.",
+        rating: 5 
+    },
+    {
+        id: 10,
+        image: "../../enaturals/enaturals13.jpg",
+        authorName: "Babatunde Emmanuel",
+        testimonial: "It's actually rare to be a skincare specialist who will go extra mile for any customers. Everyone wants a perfect skin so they always have their plates full. But e-naturals is always willing to go the extra mile. Your products are 101% good. Thanks for your the good work",
+        rating: 5 
+    },
+    {
+        id: 11,
+        image: "../../enaturals/enaturals13.jpg",
+        authorName: "Iwobi Emerald",
+        testimonial: "No, y'all deserve full 5 stars, I have used almost everything known to help my face but nothing worked until ur products... Now all my friends are planning on trying ur products. Please keep up ur good work",
+        rating: 5 
+    },
+    {
+        id: 12,
+        image: "../../enaturals/enaturals13.jpg",
+        authorName: "Price Reax",
+        testimonial: "E naturals is basically the best natural skincare company I've ever seen. Prices are perfect, customer service is the best and every complaint is heard. The best. Keep pushing",
+        rating: 5 
+    },
+    {
+        id: 13,
+        image: "../../enaturals/enaturals13.jpg",
+        authorName: "Nom Nom",
+        testimonial: "Great customer service and feedback, deliveries arrive on time, when there's a delay, you're notified. Products are very good, they do exactly what is stated.  5/5 stars easy",
+        rating: 5 
+    },
+    {
+        id: 14,
+        image: "../../enaturals/enaturals13.jpg",
+        authorName: "Awokara Queen",
+        testimonial: "E_naturals skincare is the best plug I know. Her products are really nice and effective.. I have the best skin plug E_naturals.. Love you b",
+        rating: 5 
+    },
+    {
+        id: 15,
+        image: "../../enaturals/enaturals13.jpg",
+        authorName: "David Marayesa",
+        testimonial: "i love her products...they work really fast without any side effects and I'd really recommend this place to my guys",
+        rating: 5 
+    },
+    {
+        id: 16,
+        image: "../../enaturals/enaturals13.jpg",
+        authorName: "Adeniran Adedayo",
+        testimonial: "Your product has been a very good one and am so glad to share in the experience. thanks to e_naturals",
+        rating: 5 
+    },
+    {
+        id: 17,
+        image: "../../enaturals/enaturals13.jpg",
+        authorName: "Banjo Adesanya",
+        testimonial: "E natural is the best body lotion 😍",
+        rating: 5 
+    },
+    {
+        id: 18,
+        image: "../../enaturals/enaturals13.jpg",
+        authorName: "Ezenwa Oleka",
+        testimonial: "At first I was really scared and paranoid that I had spent a whole lot but then I realized you never really notice you’re changing through your on eyes and then a lot of people started telling me how much change I’ve had and then the products are so delicate on the skin no reactions no burns Just e naturals taking its place 💫",
+        rating: 5 
+    },
+    {
+        id: 19,
+        image: "../../enaturals/enaturals13.jpg",
+        authorName: "Zainab Ayomikun",
+        testimonial: "E natural is the best... no bad effect at all...omo💃💃... I really do not regret buying it😅😅",
+        rating: 5 
+    },
+    {
+        id: 20,
+        image: "../../enaturals/enaturals13.jpg",
+        authorName: "Kennedy Ifeloluwa",
+        testimonial: "E naturals has the right product for any kind of skin, Whatever skin care you need, They've got the perfect one for you 🔥🔥",
+        rating: 5 
+    }
+];

@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import {smallPhone, res480} from "../../responsive";
+import { formatDate } from "../../usefulFunc";
+import { Comment } from "@mui/icons-material";
 
 const Replies = styled.div` 
     display: ${props => props.status !== "published"? "none" : "block"};
@@ -78,14 +80,14 @@ const BlogReply = ({name, reply, status, createdAt}) => {
         <Replies status={status}>
             <CommentContainer>
                 <ReplierImgContainer>
-                    <ReplyImg src="../enaturals/enaturals5.jpg" />
+                    <ReplyImg src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" />
                 </ReplierImgContainer>
                 <ReplyDetails>
                     <ReplyInformation>
                         <ReplyAuthor>{name}</ReplyAuthor>
                         <ReplyDate> 
                         <Comment style={{verticalAlign: "middle", fontSize: 15, marginRight: "5px", color: "#b8a398"}} />
-                            July 31st, 2017
+                           {formatDate(createdAt)}
                         </ReplyDate>
                     </ReplyInformation>
                     <UserComment>

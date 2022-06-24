@@ -1,8 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import styled from "styled-components";
 import { publicRequest } from "../../requestMethod";
+import BlogReplies from "../BlogReplies/BlogReplies";
 import BlogComment from "./BlogComment";
+
+const Wrapper = styled.div`
+    &:not(:last-child){
+        margin-bottom: 20px;
+    }
+`;
 
 const Comments = styled.div`
     font-family: Lato, sans-serif;
@@ -12,13 +19,14 @@ const Comments = styled.div`
 `;
 
 const BlogComments = ({postID}) => {
-    const [comments, setComments] = useState([]);
+    const [blogComments, setBlogComments] = useState([]);
 
     useEffect(() => {
         const getComments = async () => {
             try{
                 const res = await publicRequest.get(`/comment/${postID}`);
-                setComments(res.data);
+                const filteredComments = res.data.filter(comment => comment.status !== "pending");
+                setBlogComments(filteredComments);
             }catch(error){
                 toast.error("Unable to get comments (501)");
             }
@@ -28,20 +36,24 @@ const BlogComments = ({postID}) => {
     }, [postID]);
 
     return (
-        <Comments empty={comments.length === 0? true : false}>
+        <Comments empty={blogComments.length === 0? true : false}>
             {
-                (comments.length === 0)?
+                (blogComments.length === 0)?
                 "No comments yet"
                 :
-                comments.map(comment => (
-                    <BlogComment 
-                    key={comment._id}
-                    commentID={comment.id}
-                    name={comment.name}
-                    comment={comment.comment}
-                    status={comment.status}
-                    createdAt={comment.createdAt}
-                    />
+                blogComments.map(comment => (
+                    <Wrapper key={comment._id}>
+                        <BlogComment
+                            commentID={comment._id}
+                            name={comment.name}
+                            comment={comment.comment}
+                            status={comment.status}
+                            createdAt={comment.createdAt}
+                        />
+                        <BlogReplies 
+                        commentID={comment._id}
+                        />
+                    </Wrapper>
                 ))
             }
         </Comments>

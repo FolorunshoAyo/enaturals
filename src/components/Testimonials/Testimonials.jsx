@@ -8,6 +8,7 @@ import FormatQuoteOutlinedIcon from '@mui/icons-material/FormatQuoteOutlined';
 import {smallPhone, medPhone, res700, res1023} from '../../responsive';
 import { publicRequest } from '../../requestMethod';
 import { Skeleton } from '@mui/material';
+import toast from 'react-hot-toast';
 
 const Container = styled.div`
     padding: 3rem 4rem;
@@ -102,7 +103,7 @@ const Testimonials = () => {
                 setTestimonials(res.data);
                 setLoading(false);
             }catch(err){
-                console.log(err);
+                toast.error("Unable to fetch testimonials (501)")
             }
         };
 
@@ -133,7 +134,7 @@ const Testimonials = () => {
                                         </QuoteContainer>
                                         <Testifier>
                                             <Image src={testimonial.testifierImg} />
-                                            <Name>{testimonial.testifier}</Name>
+                                            <Name>{testimonial.testifierName}</Name>
                                         </Testifier>
                                     </Testimonial>
                                 );

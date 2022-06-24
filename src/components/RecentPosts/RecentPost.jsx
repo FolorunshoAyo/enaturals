@@ -1,6 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { formatDate } from "../../usefulFunc";
+import { findAndReplace, formatDate } from "../../usefulFunc";
 
 const PostItemContainer = styled.article`
   width: 80%;
@@ -53,12 +54,17 @@ const PostInfoPostedBy = styled.span`
 `;
 
 const RecentPost = ({title, photo, author, createdAt}) => {
+  const modBlogTitle = findAndReplace(title);
     return (
         <PostItemContainer>
             <PostItem>
                 <PostDesc>
                     <PostDescImg src={photo} alt="Recent post's attachment"/>
-                    <PostDescTitle>{title}</PostDescTitle>
+                    <PostDescTitle>
+                      <Link to={`/blog/${modBlogTitle}`} className="blogCategoryLink">
+                        {title}
+                      </Link>
+                    </PostDescTitle>
                 </PostDesc>
                 <PostInfo>
                     <PostInfoDate>{formatDate(createdAt)}</PostInfoDate> By <PostInfoPostedBy>{author}</PostInfoPostedBy>

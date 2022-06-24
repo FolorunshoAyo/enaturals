@@ -8,12 +8,17 @@ import { WhatsappOutlined, Instagram } from "@mui/icons-material";
 import {res480, medPhone, res700,tabPort, res1023, bigDesktop, smallPhone} from '../../responsive';
 // import { posts, allComments, allReplies } from "../../data";
 import toast from "react-hot-toast";
-import { publicRequest } from "../../requestMethod";
+import { publicRequest, userRequest } from "../../requestMethod";
 import { CircularProgress } from "@mui/material";
 import BlogSidebar from "../BlogSidebar/BlogSidebar";
 import BlogComments from "../BlogComments/BlogComments";
 import RelatedBlogPosts from "../RelatedBlogPosts/RelatedBlogPosts";
 import { convertToDefaultBlogTitle, formatDate } from "../../usefulFunc";
+import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as Yup from 'yup';
+import { notLoggedIn } from "../../redux/login-register-modalRedux";
 
 const BlogContentWrapper = styled.section`
   padding: 5rem 0;
@@ -34,10 +39,16 @@ const BlogContentContainer = styled.div`
 const BlogPostContent = styled.article`
   flex: 2;
   margin-right: 40px;
-  display: ${props => props.loading === "active"? "flex" : "block"};
   justify-content: center;
 
   ${res1023({flex: "initial", marginRight: "0px", marginBottom: "50px"})}
+`;
+
+const ProgressWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
 `;
 
 // Height of BlogPost should be 1030px
@@ -59,7 +70,7 @@ const BlogPostImg = styled.img`
 `;
 
 const PostMeta = styled.div`
-  margin: 3.5rem 0 2rem;
+  margin: 4rem 0;
   color: #ABB0B2;
   font-size: 13px;
   font-weight: 300;
@@ -103,7 +114,9 @@ const BlogBody = styled.div`
   font-family: Lato, sans-serif;
 `;
 
-const Content = styled.div``;
+const Content = styled.div`
+  margin-bottom: 2rem;
+`;
 
 // const Paragraph = styled.p`
 //   margin-bottom: 3.5rem;
@@ -187,7 +200,17 @@ const CommentFields = styled.div`
 `;
 
 const CommentField = styled.div`
+  display: flex;
+  flex-direction: column;
   margin-bottom: 2.5rem;
+`;
+
+const Error = styled.p`
+    padding: 0 1.5rem;
+    margin-bottom: 1rem;
+    font-family: Lato, sans-serif;
+    font-size: 1.5rem;
+    color: red;
 `;
 
 const Input = styled.input`
@@ -223,7 +246,9 @@ const CommentTextArea = styled.textarea`
   }
 `;
 
-const CommentFormCheckBox = styled.p`
+const CommentFormCheckBox = styled.div`
+  display: flex;
+  flex-direction: column;
   padding: 1rem 0;
 `;
 
@@ -285,15 +310,44 @@ const CommentsContainer = styled.div`
   padding: 10px 0;
 `;
 
+const NoBlogPostError = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Lato, sans-serif;
+    font-size: 2.5rem;
+    height: 300px;
+`;
 
 
 const BlogContent = ({ blogTitle }) => {
+  const user = useSelector(state => state.user.currentUser);
   const [blogPost, setBlogPost] = useState([]);
   const [commentNo, setCommentNo] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [postCommentLoading, setPostCommentLoading] = useState(false);
+  const dispatch = useDispatch();
   // The line of code helps to convert hyphenated text to a spaced out text for database reading.
   const convertedBlogTitle = convertToDefaultBlogTitle(blogTitle);
+  const formSchema = Yup.object().shape({
+    name: Yup.string()
+    .required("The name can't be empty"),
+    email: Yup.string()
+    .required("Empty email address")
+    .matches(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+$/, "E-mail address is invalid"),
+    comment: Yup.string()
+    .required("The message text can't be empty"),
+    approve: Yup.bool().oneOf([true], "Aggree with the terms above")
+  });
 
+  const formOptions = {
+     defaultValues: {
+      name: (user === null)? "" : `${user.lastname} ${user.firstname}`,
+      email:  (user === null)? "" : user.email
+    }, 
+    resolver: yupResolver(formSchema) 
+  };
+  const {register, handleSubmit, reset, formState: { errors }} = useForm(formOptions);
 
   useEffect(() => {
     const getBlogPost = async () => {
@@ -314,7 +368,8 @@ const BlogContent = ({ blogTitle }) => {
     const getCommentsNo = async () => {
       try{
         const res = await publicRequest.get(`/comment/${blogPost[0]._id}`);
-        setCommentNo(res.data.length);
+        const publishedCommentNo = res.data.filter(comment => comment.status !== "pending");
+        setCommentNo(publishedCommentNo.length);
       }catch(error){
         toast.error("Unable to get comments no");
       }
@@ -331,13 +386,41 @@ const BlogContent = ({ blogTitle }) => {
     return result; 
   }
 
+  const onSubmit = (data) => {
+    if(user === null){
+      dispatch(notLoggedIn());
+      return;
+    }else{
+      const postComments = async () => {
+        try{
+          setPostCommentLoading(true);
+          await userRequest.post(`/comment/${blogPost[0]._id}`, {...data, postTitle: blogTitle});
+          toast.success("Thanks for your comment!! Awaiting approval.");
+          setPostCommentLoading(false);
+          reset();
+        }catch(error){
+          toast.error("Unable to post comments (501)");
+        }
+      };
+
+      postComments();
+    }
+  };
+
   return (
     <BlogContentWrapper>
         <BlogContentContainer>
-          <BlogPostContent loading={loading? "active" : "not-active"}>
+          <BlogPostContent>
             {
               loading?
-              <CircularProgress size="8rem"/>
+              <ProgressWrapper>
+                <CircularProgress size="8rem" />
+              </ProgressWrapper>
+              :
+              (blogPost.length === 0)?
+              <NoBlogPostError>
+                Unable to fetch blog post
+              </NoBlogPostError>
               :
               <>
                 <BlogPost>
@@ -394,26 +477,30 @@ const BlogContent = ({ blogTitle }) => {
                 </CommentSection>
                 <CommentsFormWrap>
                     <CommentFormTitle>Leave a comment</CommentFormTitle>
-                    <CommentForm>
+                    <CommentForm onSubmit={handleSubmit(onSubmit)}>
                         <CommentFields>
                             <CommentField>
-                              <Input type="text" placeholder="Your Name *"/>
+                              <Input {...register("name")} type="text" placeholder="Your Name *"/>
+                              {errors.name && <Error>{errors.name.message}</Error>}
                             </CommentField>
                             <CommentField>
-                              <Input type="email" placeholder="Your E-mail *"/>
+                              <Input {...register("email")} type="email" placeholder="Your E-mail *"/>
+                              {errors.email && <Error>{errors.email.message}</Error>}
                             </CommentField>
                             <CommentField>
-                              <CommentTextArea placeholder="Your comment *"/>
+                              <CommentTextArea {...register("comment")} placeholder="Your comment *"/>
+                              {errors.comment && <Error>{errors.comment.message}</Error>}
                             </CommentField>
                         </CommentFields>
                         <CommentFormCheckBox>
                           <CheckBoxLabel htmlFor="comment-form-checkbox">
-                            <CheckBox type="checkbox" id="coment-form-checkbox"/>
+                            <CheckBox {...register("approve")} type="checkbox" id="coment-form-checkbox"/>
                             By using this form you agree with the storage and handling of your data by this website.
                           </CheckBoxLabel>
+                          {errors.approve && <Error>{errors.approve.message}</Error>}
                         </CommentFormCheckBox>
                         <CommentBtnContainer>
-                          <CommentBtn type="submit">Leave a comment</CommentBtn>
+                          <CommentBtn type="submit" disabled={postCommentLoading}>Leave a comment</CommentBtn>
                         </CommentBtnContainer>
                     </CommentForm>
                 </CommentsFormWrap>
@@ -421,7 +508,7 @@ const BlogContent = ({ blogTitle }) => {
             }
           </BlogPostContent>
           {/* SIDEBAR COMPONENT HERE*/}
-          <BlogSidebar blogID={blogPost._id}/>
+          <BlogSidebar />
       </BlogContentContainer>
     </BlogContentWrapper>
   );

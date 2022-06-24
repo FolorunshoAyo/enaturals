@@ -11,7 +11,8 @@ import AddressBook from "../AddressBook/AddressBook";
 import ChangePassword from "../ChangePassword/ChangePassword";
 import { bigDesktop, medPhone, res860 } from "../../responsive";
 import CustomerAddressEdit from "../CustomerAddressEdit/CustomerAddressEdit";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../redux/apiCalls";
 
 const CustomerContainer = styled.section`
     padding: 4rem 4rem;
@@ -87,6 +88,13 @@ const LogoutContainer = styled.div`
     font-size: 1.5rem;
     font-family: Lato, sans-serif;
     padding: 2rem 0;
+    transition: all .3s ease-in;
+    cursor: pointer;
+
+    &:hover{
+        color: #fff;
+        background-color: #acbfa3;
+    }
 `;
 
 
@@ -167,9 +175,7 @@ const AddNewAddressBtn = styled.button`
 
 const CustomerInfo = ({pathname, params}) => {
     const addressLength = useSelector(state => state.addresses.addresses.length);
-    // if(params === ""){
-    //     // Redirect back to home page showing a worning.
-    // }
+    const dispatch = useDispatch();
 
     const getActiveLink = (pathname, params="") => {
         let path = "";
@@ -326,6 +332,10 @@ const CustomerInfo = ({pathname, params}) => {
         return rendered;
     };
 
+    const logUserOut = () => {
+        logout(dispatch);
+    };
+
     const currActiveLink = getActiveLink(pathname, params);
     
     return (
@@ -373,7 +383,7 @@ const CustomerInfo = ({pathname, params}) => {
                             </Link>
                         </DetailsMenuList>
                     </DetailsContainer>
-                    <LogoutContainer>
+                    <LogoutContainer onClick={logUserOut}>
                         Logout
                     </LogoutContainer>
                 </AccountMenuContainer>

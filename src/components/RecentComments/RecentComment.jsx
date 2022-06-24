@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { ChatBubbleOutline } from "@mui/icons-material";
+import { Link } from "react-router-dom";
+import { findAndReplace } from '../../usefulFunc';
 
 const CommentItem = styled.li`
   display: flex;
@@ -25,15 +27,17 @@ const CommentedIn = styled.span`
 `;
 
 
-const RecentComment = ({commentID, name, title}) => {
-    console.log(commentID);
+const RecentComment = ({ name, postTitle }) => {
+    const modBlogTitle = findAndReplace(postTitle);
     return (
         <CommentItem>
             <ChatBubbleOutline style={{fontSize: 25, color: "#b8a398", marginRight: "10px", alignSelf: "flex-start"}}/>
             <CommentInfo>
-                <Commenter>{name}</Commenter> on
-                <CommentedIn>
-                    {title}
+                <Commenter>{name} &nbsp; on</Commenter> 
+                <CommentedIn> 
+                  <Link to={`/blog/${modBlogTitle}`} className="categoryLink">
+                    {postTitle}
+                  </Link> 
                 </CommentedIn>
             </CommentInfo>
         </CommentItem>

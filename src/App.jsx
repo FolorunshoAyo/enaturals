@@ -19,6 +19,7 @@ import CustomerAccount from './pages/CustomerAccount';
 import { Toaster } from "react-hot-toast"; 
 import { useSelector } from 'react-redux';
 import BlogCategories from './pages/BlogCategories';
+import BlogSearch from './pages/BlogSearch';
 
 const App = () => {
   const user = useSelector(state => state.user.currentUser);
@@ -51,6 +52,7 @@ const App = () => {
         <Route exact path="/blog" element={<Blog />} />
         <Route exact path="/blog/:blogTitle" element={<SingleBlogPost />} />
         <Route exact path="/blog/category/:category" element={<BlogCategories/>} />
+        <Route exact path="/blog/search" element={<BlogSearch />} />
         <Route exact path="/gallery" element={<Gallery />} />
         <Route exact path="/reviews" element={<Reviews />} />
         <Route exact path="/aboutus" element={<AboutUs />} />

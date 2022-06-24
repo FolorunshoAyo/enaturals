@@ -26,8 +26,9 @@ const RecentComments = () => {
     useEffect(() => {
         const getRecentComments = async () => {
             try{
-                const res = await publicRequest.get("/comment/newComments");
-                setRecentComments(res.data);
+                const res = await publicRequest.get("/comment/new/comments");
+                const filteredRecentComments = res.data.filter(recentComment => recentComment.status !== "pending");
+                setRecentComments(filteredRecentComments);
             }catch(error){
                 toast.error("Unable to get recent comments");
             }
@@ -51,7 +52,7 @@ const RecentComments = () => {
                         key={recentComment._id}
                         commentID={recentComment._id}
                         name={recentComment.name}
-                        title={recentComment.title}
+                        postTitle={recentComment.postTitle}
                         />
                     ))
                 }

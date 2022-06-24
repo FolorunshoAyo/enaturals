@@ -16,6 +16,23 @@ const Container = styled.div`
     ${res860({padding: "5rem 2rem"})}
 `;
 
+const ProgressWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+`;
+
+const NoProductError = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Lato, sans-serif;
+    font-size: 2.5rem;
+    height: 300px;
+`;
+
+
 const SingleProduct = ({ productName }) => {
     const [product, setProduct]= useState([]);
     const [loading, setLoading] = useState(true);
@@ -48,7 +65,14 @@ const SingleProduct = ({ productName }) => {
         <Container loading={loading? "isLoading" : "isNotLoading"}>
             {
                 loading ? 
-                <CircularProgress size="8rem"/>
+                <ProgressWrapper>
+                    <CircularProgress size="8rem"/>
+                </ProgressWrapper>
+                :
+                (product.length === 0)?
+                <NoProductError>
+                    No product to display
+                </NoProductError>
                 :
                 <SingleProductDetails productName={convertedProductName} productDetails={reOrderedProduct} />
             }

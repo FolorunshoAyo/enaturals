@@ -1,16 +1,27 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import {galleryImages, galleryVideos} from '../../data';
+// import {galleryImages, galleryVideos} from '../../data';
 import ReactPlayer from "react-player";
 import {SRLWrapper} from 'simple-react-lightbox';
 import {smallPhone, medPhone, res700, medDesktop, bigDesktop, res480} from '../../responsive';
 import "./Video.css";
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getPictures, getVideos } from '../../redux/apiCalls';
+import { CircularProgress } from '@mui/material';
 
 const Container = styled.div`
     padding: 5rem 2rem;
 
     ${bigDesktop({width: "1400px", margin: " 0 auto"})}
     ${medDesktop({width: "100%", margin: "0 auto"})}
+`;
+
+const ProgressWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
 `;
 
 const GalleryWrapper = styled.div`
@@ -72,6 +83,17 @@ const VideosGrid = styled.div`
     ${smallPhone({padding: "2rem 0"})}
 `;
 
+const NoImageError = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Lato, sans-serif;
+    font-size: 2.5rem;
+    height: 300px;
+`;
+
+const NoVideoError = styled(NoImageError)``;
+
 const ImageContainer = styled.div`
     flex: 0 0 31%;
     background-image: url(${props => props.image});
@@ -120,12 +142,26 @@ const options = {
 
 
 const GridGallery = () => {
-    const [images, setImages] = useState(galleryImages);
+    const { isFetching, pictures } = useSelector(state => state.pictures); 
+    const [images, setImages] = useState(pictures);
+    const videos = useSelector(state => state.videos.videos);
     const [activeTag, setActiveTag] = useState('all');
+    const dispatch = useDispatch();
+
+    // GET ALL PICTURES 
+    useEffect(() => {
+        getPictures(dispatch);
+    }, [dispatch]);
+
+    // GET ALL VIDEOS
+    useEffect(() => {
+        getVideos(dispatch);
+    }, [dispatch])
+
 
     const filterItem = (category) => {
         if(category !== "videos"){
-            const updatedItems = galleryImages.filter(image => category === 'all'? true : image.category === category);
+            const updatedItems = pictures.filter(picture => category === 'all'? true : picture.tag === category);
             setImages(updatedItems);
             setActiveTag(category);
         }else{
@@ -135,40 +171,57 @@ const GridGallery = () => {
 
     return (
         <Container>
-            <GalleryWrapper>
-                <FilterButtons>
-                    <FilterButton active={activeTag === 'all'? true : false} onClick={() => filterItem("all")}>Filter - All</FilterButton>
-                    <FilterButton active={activeTag === 'skin care'? true : false} onClick={() => filterItem("skin care")}>Skin Care</FilterButton>
-                    <FilterButton active={activeTag === 'natural soap'? true : false} onClick={() => filterItem("results")}>Results</FilterButton>
-                    <FilterButton active={activeTag === 'videos'? true : false} onClick={() => filterItem("videos")}>Videos</FilterButton>
-                </FilterButtons>
-                {
-                    activeTag === "videos"? 
-                    <VideosGrid>
-                        {
-                            galleryVideos.map(video => (
-                                <VideoContainer>
-                                    <ReactPlayer url={video.vid} light={video.previewImg} width="100%" controls/>
-                                </VideoContainer>
-                            ))
-                        }
-                    </VideosGrid>
-                    :
-                    <SRLWrapper options={options}>
-                    <ImagesGrid>    
+            {
+                isFetching?
+                <ProgressWrapper>
+                    <CircularProgress size="8rem" />
+                </ProgressWrapper>
+                :
+                <GalleryWrapper>
+                    <FilterButtons>
+                        <FilterButton active={activeTag === 'all'? true : false} onClick={() => filterItem("all")}>Filter - All</FilterButton>
+                        <FilterButton active={activeTag === 'skin care'? true : false} onClick={() => filterItem("skin care")}>Skin Care</FilterButton>
+                        <FilterButton active={activeTag === 'natural soap'? true : false} onClick={() => filterItem("results")}>Results</FilterButton>
+                        <FilterButton active={activeTag === 'videos'? true : false} onClick={() => filterItem("videos")}>Videos</FilterButton>
+                    </FilterButtons>
+                    {
+                        activeTag === "videos"? 
+                        <VideosGrid>
                             {
-                                images.map(image => (
-                                    <ImageContainer key={image.id} image={image.img}>
-                                        <a href={image.img} style={{width: '100%', display: 'block', height: '100%'}}>
-                                            <Image src={image.img} alt={image.caption} />
-                                        </a>
-                                    </ImageContainer>
+                                (videos.length === 0)?
+                                <NoVideoError>
+                                    No videos to display
+                                </NoVideoError>
+                                : 
+                                videos.map(video => (
+                                    <VideoContainer key={video._id}>
+                                        <ReactPlayer url={video.video} light="../enaturals/enaturals13.jpg" width="100%" controls/>
+                                    </VideoContainer>
                                 ))
                             }
-                    </ImagesGrid>
-                </SRLWrapper>
-                }
-            </GalleryWrapper>
+                        </VideosGrid>
+                        :
+                        <SRLWrapper options={options}>
+                        <ImagesGrid>    
+                                {
+                                    (images.length === 0)?
+                                    <NoImageError>
+                                        No image under this category
+                                    </NoImageError>
+                                    : 
+                                    images.map(image => (
+                                        <ImageContainer key={image._id} image={image.picture}>
+                                            <a href={image.picture} style={{width: '100%', display: 'block', height: '100%'}}>
+                                                <Image src={image.picture} alt={image.caption} />
+                                            </a>
+                                        </ImageContainer>
+                                    ))
+                                }
+                        </ImagesGrid>
+                    </SRLWrapper>
+                    }
+                </GalleryWrapper>
+            }
         </Container>
     );
 };

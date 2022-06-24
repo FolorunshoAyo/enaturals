@@ -133,7 +133,7 @@ const Slider = () => {
     };
 
     useEffect(() => {
-        if(slides.lenght === 0){
+        if(slides.length === 0){
             getSlides(dispatch);
         }
     }, [dispatch]);

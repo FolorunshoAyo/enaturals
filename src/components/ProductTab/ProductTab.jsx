@@ -4,8 +4,15 @@ import StarRating from '../StarRating/StartRating';
 import AllReviews from '../AllReviews/AllReviews';
 import {smallPhone, medPhone, res480, res700, res1023} from '../../responsive';
 import { filterReviewsForStatusPublished } from '../../usefulFunc';
-import { publicRequest } from '../../requestMethod';
+import { publicRequest, userRequest } from '../../requestMethod';
 import { CircularProgress } from '@mui/material';
+import toast from "react-hot-toast";
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as Yup from 'yup';
+import { notLoggedIn } from "../../redux/login-register-modalRedux";
+import { useDispatch, useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
+
 
 const ProductTabContainer = styled.div`
     margin-top: 10rem;
@@ -120,11 +127,13 @@ const ReviewsContent = styled.div`
 
 const Reviews = styled.div`
     flex: 0 0 48%;
+
+    ${res700({minHeight: "300px", overflowY: "auto"})}
 `;
 
 const ReviewsBody = styled.div`
-    display: ${props => props.loading? "flex" : "block"};
-    justify-content: ${props => props.loading? "center" : "flex-start"};
+    display: ${props => props.loading === "loading"? "flex" : "block"};
+    justify-content: ${props => props.loading === "loading"? "center" : "flex-start"};
     font-family: Lato, sans-serif;
     font-size: 1.5rem;
     height: 100%;
@@ -149,6 +158,8 @@ const Instructions = styled.p`
 `;
 
 const ReviewFormGroup = styled.div`
+    display: flex;
+    flex-direction: column;
     padding: 1rem 0;
 `;
 
@@ -173,6 +184,14 @@ const RatingLabel = styled.p`
     font-weight: 600;
     letter-spacing: 1px;
     text-transform: uppercase;
+`;
+
+const Error = styled.p`
+  padding: 0 1.5rem;
+  margin-bottom: 1rem;
+  font-family: Lato, sans-serif;
+  font-size: 1.5rem;
+  color: red;
 `;
 
 const TextInput = styled.textarea`
@@ -231,6 +250,10 @@ const Button = styled.button`
         color: #fff;
     }
 
+    &:disabled{
+        cursor: not-allowed;
+    }
+
     ${smallPhone({width: "60%"})}
 `;
 
@@ -239,11 +262,39 @@ const ErrMessage = styled.p`
 
 const ProductTab = ({size, productDetails}) => {
     // PRODUCT DETAILS CONTAINS AN ARRAY OF SORTED PRODUCTS ACCORDING TO PRICE i.e FROM SMALL TO LARGE SIZES
-
+    const user = useSelector(state => state.user.currentUser);
     const [loading, setLoading] = useState(false);
     const [tabNo, toggleTab] = useState(1);
     const [publishedReviews, setPublishedReviews] = useState([]);
+    const [reviewLoading, setReviewLoading] = useState(false);
     const [error, setError] = useState(false);
+
+    const dispatch = useDispatch();
+
+    const formSchema = Yup.object().shape({
+      fullname: Yup.string()
+      .required("The name can't be empty"),
+      email: Yup.string()
+      .required("Empty email address")
+      .matches(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+$/, "E-mail address is invalid"),
+      rating: Yup.string()
+      .required("Please rate this product")
+      .nullable(),
+      review: Yup.string()
+      .required("The message text can't be empty"),
+      approve: Yup.bool().oneOf([true], "Aggree with the terms above")
+    });
+  
+    const formOptions = {
+       defaultValues: {
+        fullname: (user === null)? "" : `${user.lastname} ${user.firstname}`,
+        email:  (user === null)? "" : user.email,
+
+      }, 
+      resolver: yupResolver(formSchema) 
+    };
+
+    const {register, handleSubmit, reset, formState: { errors }} = useForm(formOptions);
 
     const retrieveProductID = (size, productDetails) => {
         const productInfo = productDetails.find(product => product.size === size);
@@ -360,6 +411,31 @@ const ProductTab = ({size, productDetails}) => {
             }
         }
     };
+
+    const onSubmit = (data) => {
+        const productInfo = productDetails.find(product => product.size === size);
+
+        if(user === null){
+          dispatch(notLoggedIn());
+          return;
+        }else{
+          const postData = {...data, firstname: user.firstname, lastname: user.lastname, productImg: productInfo.img };
+          const postReview = async () => {
+            try{
+              setReviewLoading(true);
+              await userRequest.post(`/productReview/${productInfo._id}`, postData);
+              toast.success("Thanks for your review!! Awaiting approval.");
+              setReviewLoading(false);
+              reset();
+            }catch(error){
+              toast.error("Unable to post review (501)");
+            }
+          };
+    
+          postReview();
+        }
+    };
+
     return (
         <ProductTabContainer>
             <ProductTabs>
@@ -370,7 +446,7 @@ const ProductTab = ({size, productDetails}) => {
                     Additional information
                 </Tab>
                 <Tab onClick={() => switchTab(3)} active={tabNo === 3? true : false}>
-                    Review{"(0)"}
+                    Review {`(${publishedReviews.length})`}
                 </Tab>
             </ProductTabs>
             <ProductTabBody>
@@ -407,38 +483,43 @@ const ProductTab = ({size, productDetails}) => {
                         <>
                             <Reviews>
                                 <Title>Reviews</Title>
-                                <ReviewsBody loading={loading}>
+                                <ReviewsBody loading={loading? "loading" : "not-loading"}>
                                    { loading? <CircularProgress size="6rem"/> : displayReviews(publishedReviews, error)}
                                 </ReviewsBody>
                             </Reviews>
                             <ReviewFormContainer>
-                                <ReviewForm>
+                                <ReviewForm onSubmit={handleSubmit(onSubmit)}>
                                     <Title>{setReviewFormTitle(publishedReviews)}</Title>
                                     <Instructions>Your email address will not be published. Required fields are marked *</Instructions>
                                     <ReviewFormGroup>
-                                        <Input type="text" placeholder="Name *"/>
+                                        <Input {...register("fullname")} type="text" placeholder="Name *"/>
+                                        {errors.fullname && <Error>{errors.fullname.message}</Error>}
                                     </ReviewFormGroup>
                                     <ReviewFormGroup>
-                                        <Input type="text" placeholder="Email *"/>
+                                        <Input {...register("email")} type="text" placeholder="Email *"/>
+                                        {errors.email && <Error>{errors.email.message}</Error>}
                                     </ReviewFormGroup>
                                     <ReviewFormGroup>
                                         <RatingLabel>Your Rating *</RatingLabel>
-                                        <StarRating />
+                                        <StarRating register={register}/>
+                                        {errors.rating && <Error>{errors.rating.message}</Error>}
                                     </ReviewFormGroup>
                                     <ReviewFormGroup>
-                                        <TextInput placeholder="Your Review *">
+                                        <TextInput {...register("review")} placeholder="Your Review *">
 
                                         </TextInput>
+                                        {errors.review && <Error>{errors.review.message}</Error>}
                                     </ReviewFormGroup>
                                     <ValidationContainer>
                                         <ValidationInfo>
-                                            <Checkbox type="checkbox"/>
+                                            <Checkbox {...register("approve")} type="checkbox"/>
                                             <ValidationText>
                                                 By using this form you agree with the storage and handling of your data by this website. *
                                             </ValidationText>
                                         </ValidationInfo>
+                                        {errors.approve && <Error>{errors.approve.message}</Error>}
                                         <ButtonContainer>
-                                            <Button> Submit </Button>
+                                            <Button type="submit" disabled={reviewLoading}> Submit </Button>
                                         </ButtonContainer>
                                     </ValidationContainer>
                                 </ReviewForm>

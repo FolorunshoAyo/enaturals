@@ -20,10 +20,10 @@ const Star = styled.div`
     cursor: pointer;
 `;
 
-const StarRating = () => {
+const StarRating = ({register}) => {
     const [rating, setRating] = useState(null);
     const [hover, setHover] = useState(null);
-
+    
     return ( 
         <Container>
             {[...Array(5)].map((star, i) => {
@@ -32,17 +32,17 @@ const StarRating = () => {
                 return (
                     <Label key={i}>
                         <Input 
-                        type="radio" 
-                        name="rating" 
-                        value={ratingValue} 
-                        onClick={() => setRating(ratingValue)}
+                            type="radio" 
+                            {...register("rating")}
+                            value={ratingValue} 
+                            onClick={() => setRating(ratingValue)}
                         /> 
                         <Star 
                         color={ratingValue <= (hover || rating) ? '#B8A398' : ''}
                         onMouseEnter={() => setHover(ratingValue)}
                         onMouseLeave={() => setHover(null)}
                         >
-                        <StarBorderIcon style={{fontSize: 30}} />
+                            <StarBorderIcon style={{fontSize: 30}} />
                         </Star>
                     </Label>
                 );

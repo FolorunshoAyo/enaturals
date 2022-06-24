@@ -46,7 +46,7 @@ const Review = ({fullname, rating, review}) => {
                 </ReviewerImgContainer>
                 <CommentText>
                     <Name>{fullname}</Name>
-                    <Rating rating={rating}/>
+                    <Rating rating={rating} starSize={20}/>
                     <ReviewContent>
                         {review}
                     </ReviewContent>

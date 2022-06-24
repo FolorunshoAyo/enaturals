@@ -23,7 +23,7 @@ const Target = styled.img`
     opacity: ${props => props.opacity};
 `;
 
-const ProductImage = ({selectedProduct, source}) => {
+const ProductImage = ({ source }) => {
     const sourceRef = useRef(null);
     const targetRef = useRef(null);
     const containerRef = useRef(null);

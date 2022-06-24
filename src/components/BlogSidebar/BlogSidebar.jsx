@@ -7,6 +7,7 @@ import { res700, res1023 } from "../../responsive";
 import { useEffect } from "react";
 import { publicRequest } from "../../requestMethod";
 import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
 
 const Sidebar = styled.div`
   flex: 1;
@@ -62,6 +63,7 @@ const SearchInput = styled.input`
   padding: 8px 10px 10px 2px;
   border: none;
   background-color: transparent;
+  color: #fff;
 
   &:focus{
     outline: none;
@@ -95,7 +97,6 @@ const Categories = styled.ul`
 `;
 
 const CategoryItem = styled.li`
-  color: #4b5354;
   font-size: 13px;
   text-transform: uppercase;
   font-weight: 400;
@@ -114,6 +115,8 @@ const CategoryItem = styled.li`
 
 const BlogSidebar = () => {
   const [categoryNumbers, setCategoryNumbers] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getCategoryNumbers = async () => {
@@ -128,14 +131,24 @@ const BlogSidebar = () => {
     getCategoryNumbers();
   }, []);
 
+  const handleSearchInput = (event) => {
+    console.log(event.target.value);
+    setSearchQuery(event.target.value);
+  };
+
+  const searchBlogs = (event) => {
+    event.preventDefault();
+    navigate(`/blog/search?q=${searchQuery}`);
+  };
+
   return (
         <Sidebar>
           {/* Search Widget */}
           <SearchWidget>
             <SearchWidgetTitle>Search</SearchWidgetTitle>
             <SearchInputForm>
-              <SearchInput type="text" placeholder="Search ..."/>
-              <SearchBtn>
+              <SearchInput type="text" value={searchQuery} placeholder="Search ..." onChange={handleSearchInput}/>
+              <SearchBtn onClick={searchBlogs}>
                 <Search style={{fontSize: 20}}/>
               </SearchBtn>
             </SearchInputForm>
@@ -145,12 +158,55 @@ const BlogSidebar = () => {
               {/* Category Widget */}
             <WidgetTitle>Categories</WidgetTitle>
             <Categories>
-              <CategoryItem>Natural Soap ({categoryNumbers["natural soap"] === undefined? 0 : categoryNumbers["natural soap"]})</CategoryItem>
-              <CategoryItem>Oils ({categoryNumbers["oils"] === undefined? 0 : categoryNumbers["oils"]})</CategoryItem>
-              <CategoryItem>Research ({categoryNumbers["research"] === undefined? 0 : categoryNumbers["research"]})</CategoryItem>
-              <CategoryItem>Skin Care ({categoryNumbers["skin care"] === undefined? 0 : categoryNumbers["skin care"]})</CategoryItem>
-              <CategoryItem>Soap Making ({categoryNumbers["soap making"] === undefined? 0 : categoryNumbers["soap making"]})</CategoryItem>
-              <CategoryItem>Spa Procedures ({categoryNumbers["spa procedures"] === undefined? 0 : categoryNumbers["spa procedures"]})</CategoryItem>
+              {
+               categoryNumbers["natural soap"] !== undefined &&
+                (<CategoryItem>
+                    <Link to="/blog/category/natural-soap" className="blogCategoryLink">
+                      Natural Soap ({categoryNumbers["natural soap"] === undefined? 0 : categoryNumbers["natural soap"]})
+                    </Link>
+                  </CategoryItem>
+                )
+              }
+              {
+                categoryNumbers["oils"] !== undefined &&
+              (<CategoryItem>
+                <Link to="/blog/category/oils" className="blogCategoryLink">
+                  Oils ({categoryNumbers["oils"] === undefined? 0 : categoryNumbers["oils"]})
+                </Link>
+              </CategoryItem>)
+              }
+              {
+                categoryNumbers["research"] !== undefined && 
+              (<CategoryItem>
+                <Link to="/blog/category/research" className="blogCategoryLink">
+                  Research ({categoryNumbers["research"] === undefined? 0 : categoryNumbers["research"]})
+                </Link>
+              </CategoryItem>)
+              }
+              {
+                categoryNumbers["skin care"] !== undefined &&
+              (<CategoryItem>
+                <Link to="/blog/category/skin-care" className="blogCategoryLink">
+                  Skin Care ({categoryNumbers["skin care"] === undefined? 0 : categoryNumbers["skin care"]})
+                </Link>
+              </CategoryItem>)
+              }
+              {
+                categoryNumbers["soap making"] !== undefined &&
+              (<CategoryItem>
+                <Link to="/blog/category/soap-making" className="blogCategoryLink">
+                  Soap Making ({categoryNumbers["soap making"] === undefined? 0 : categoryNumbers["soap making"]})
+                </Link>
+              </CategoryItem>)
+              }
+              {
+                categoryNumbers["spa procedures"] !== undefined &&
+              (<CategoryItem>
+                <Link to="/blog/category/spa-procedures" className="blogCategoryLink">
+                  Spa Procedures ({categoryNumbers["spa procedures"] === undefined? 0 : categoryNumbers["spa procedures"]})
+                </Link>
+              </CategoryItem>)
+              }
             </Categories>
           </Widget>
 

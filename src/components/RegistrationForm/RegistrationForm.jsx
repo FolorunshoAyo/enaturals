@@ -132,7 +132,7 @@ const RegisterationForm = () => {
           .oneOf([Yup.ref('password')], 'Passwords does not match'),
     });
 
-    const formOptions = { resolver: yupResolver(formSchema) }
+    const formOptions = { resolver: yupResolver(formSchema) };
     const {register, handleSubmit, reset, formState: { errors }} = useForm(formOptions);
 
     const handleDialCodeUpdate = (dialCode) => {

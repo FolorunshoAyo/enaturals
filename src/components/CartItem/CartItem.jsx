@@ -5,6 +5,7 @@ import { findAndReplace } from "../../usefulFunc";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { removeProduct } from '../../redux/cartRedux';
+import toast from "react-hot-toast";
 
 const SingleItem = styled.div`
     display: flex;
@@ -75,10 +76,11 @@ const CartItem = ({ productID, productImage, productName, size, price, quantity}
 
     const modProductName = findAndReplace(productName);
 
-    console.log({ productID, quantity, price});
+    // console.log({ productID, quantity, price});
     
     const handleCartRemoval = () => {
         dispatch(removeProduct({ productID, quantity, price}));
+        toast.success("Cart item removed");
     };
 
     return(

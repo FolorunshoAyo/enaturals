@@ -5,6 +5,7 @@ import { addProduct } from '../../redux/cartRedux';
 import { useDispatch } from "react-redux";
 import {smallPhone, medPhone, bigDesktop} from '../../responsive';
 import { generateTagLinks, findAndReplace } from '../../usefulFunc';
+import toast from 'react-hot-toast';
 
 const ProductCard = styled.div`
     flex: ${props => props.view === "list"? "none" : "0 0 50%" };
@@ -123,6 +124,7 @@ const Product = ({productInfo, productImage, price, description, productName, vi
             alert("Item is currently out of stock, please check back later or shop more products.")
         }else{
             dispatch(addProduct({ ...productInfo, quantity }));
+            toast.success("Product added to cart");
         }
     };
 

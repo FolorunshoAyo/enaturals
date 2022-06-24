@@ -2,7 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import {res700, res1023, tabLand, medDesktop, bigDesktop} from '../../responsive';
-import { findAndReplace } from '../../usefulFunc';
+import { findAndReplace, generateTagLinks } from '../../usefulFunc';
+import { useDispatch } from 'react-redux';
+import { addProduct } from '../../redux/cartRedux';
+import toast from 'react-hot-toast';
 
 const Image = styled.img`
     width: 100%;
@@ -30,12 +33,30 @@ const ProductName = styled.div`
 const ProductCard = styled.div`
     flex: 0 0 22%;
     height: auto;
+    position: relative;
 
     &:hover ${Image}{
         border-radius: 100px;
     }
 
     ${res700({flex: "0 0 48%", paddingBottom: "3rem"})}    
+`;
+
+const OutOfStockText = styled.div`
+    display: ${(props) => props.inStock === "in-stock"? "none": "flex"};
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    width: 50px;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 0.7rem;
+    font-family: Lato, sans-serif;
+    background-color: #acbfa3;
+    border-radius: 50%;
 `;
 
 const ProductImage = styled.div`
@@ -97,14 +118,28 @@ const ProductActionButton = styled.button`
     ${res1023({padding: "14px 18px"})}
 `;
 
-const MajorProduct = ({productImg, productName, priceRange, productTag}) => {
-
+const MajorProduct = ({productInfo, productImage, price, productName, size, inStock, productTags}) => {
     const productLink = findAndReplace(productName);
+
+    const quantity = 1;
+    const dispatch = useDispatch();
+
+    const handleCartAddition = () => {
+        if(!inStock){
+            alert("Item is currently out of stock, please check back later or shop more products.")
+        }else{
+            dispatch(addProduct({ ...productInfo, quantity }));
+            toast.success("Product added to cart successfully");
+        }
+    };
 
     return (
         <ProductCard>
+            <OutOfStockText inStock={inStock? "in-stock" : "not-in-stock"}>
+                Out of stock
+            </OutOfStockText>
             <ProductImage>
-                <Image src={productImg}/>
+                <Image src={productImage}/>
             </ProductImage>
             <ProductDescription>
                 <ProductName>
@@ -113,14 +148,13 @@ const MajorProduct = ({productImg, productName, priceRange, productTag}) => {
                     </Link>
                 </ProductName>
                 <ProductTag>
-                    {productTag}
+                    {generateTagLinks(productTags)}
                 </ProductTag>
                 <ProductPrice>
-                    {priceRange}
+                    {price}
                 </ProductPrice>
                 <ButtonsContainer>
-                    <ProductActionButton>Add To Cart</ProductActionButton>
-                    {/* <FavoriteBorderIcon style={{color: 'red', fontSize: 20}}/> */}
+                    {size === "No Size"? <ProductActionButton onClick={handleCartAddition}>Add To Cart</ProductActionButton> : <Link to={`/product/${productLink}`} className="addToCartLink"> Add To Cart </Link>}
                 </ButtonsContainer>
             </ProductDescription>
         </ProductCard>

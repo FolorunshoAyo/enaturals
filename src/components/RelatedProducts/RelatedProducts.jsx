@@ -76,36 +76,35 @@ const RelatedProducts = ({productName, categories}) => {
         <Container>
             <Title>Related Products</Title>
             <RelatedProductsContainer centerContent={reOrderedRelatedProducts.length === 0 || reOrderedRelatedProducts.length === 1}>
-                { (loading)?
-                <>
-                    <Skeleton variant="rectangular" animation="wave" width="33.33%"/>
-                    <Skeleton variant="rectangular" animation="wave" width="33.33%"/>
-                    <Skeleton variant="rectangular" animation="wave" width="33.33%"/>
-                </>
-                :
-                (reOrderedRelatedProducts.length === 0)?
-                <NoRelatedProductMessage> No related products to display</NoRelatedProductMessage>
-                :
-                reOrderedRelatedProducts.map(product => (
-                    (product.length === 1)?
-                    <RelatedProduct 
-                        key={product[0]._id}
-                        name={product[0].productName}
-                        productImg={product[0].img}
-                        price={`₦${product[0].price}`}
-                        categories={product[0].categories}
-                        size={product[0].size}
-                    />
+                { 
+                    (loading)?
+                    <>
+                        <Skeleton variant="rectangular" animation="wave" width="100%"/>
+                    </>
                     :
-                    <RelatedProduct 
-                        key={product[0]._id}
-                        name={product[0].productName}
-                        productImg={product[0].img}
-                        price={`₦${product[0].price} - ₦${product[product.length - 1].price}`}
-                        categories={product[0].categories}
-                        size={product[0].size}
-                    />
-                ))
+                    (reOrderedRelatedProducts.length === 0)?
+                    <NoRelatedProductMessage> No related products to display</NoRelatedProductMessage>
+                    :
+                    reOrderedRelatedProducts.map(product => (
+                        (product.length === 1)?
+                        <RelatedProduct 
+                            key={product[0]._id}
+                            name={product[0].productName}
+                            productImg={product[0].img}
+                            price={`₦${product[0].price}`}
+                            categories={product[0].categories}
+                            size={product[0].size}
+                        />
+                        :
+                        <RelatedProduct 
+                            key={product[0]._id}
+                            name={product[0].productName}
+                            productImg={product[0].img}
+                            price={`₦${product[0].price} - ₦${product[product.length - 1].price}`}
+                            categories={product[0].categories}
+                            size={product[0].size}
+                        />
+                    ))
                 }
             </RelatedProductsContainer>
         </Container>

@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import MajorProduct from './MajorProduct';
-import { popularProducts } from '../../data';
+// import { popularProducts } from '../../data';
 import {smallPhone, medPhone, res700, res1023, tabLand, medDesktop, bigDesktop} from '../../responsive';
+import { useEffect } from 'react';
+import { publicRequest } from '../../requestMethod';
+import { CircularProgress } from '@mui/material';
+import RearrangeMajorProducts from './RearrangeMajorProducts';
+import { mergeSimilarProductAccToName } from '../../usefulFunc';
+import toast from 'react-hot-toast';
 
 const Container = styled.div`
     padding: 2rem 3rem 0;
@@ -16,6 +21,23 @@ const Header = styled.h2`
     color: #7e8485; 
 
     ${medPhone({fontSize: "2.5rem"})}
+`;
+
+const ProgressWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+`;
+
+
+const NoMajorProductErr = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Lato, sans-serif;
+    font-size: 2.5rem;
+    height: 300px;
 `;
 
 const ProductsContainer = styled.div`
@@ -34,22 +56,46 @@ const ProductsContainer = styled.div`
 `;
 
 const MajorProducts = () => {
+    const [majorProducts, setMajorProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const getMajorProducts = async () => {
+            try{
+                setLoading(true);
+                const res = await publicRequest.get("/products/majorProducts");
+                setMajorProducts((res.data.length !== 0)? mergeSimilarProductAccToName(res.data) : []);
+                setLoading(false);
+            }catch(error){
+                toast.error("Unable to fetch major products (501)");
+            }
+        };
+
+        getMajorProducts();
+    }, []);
+
     return (
         <Container>
             <Header>Lets's get one thing clear - your skin</Header>
-            <ProductsContainer>
-                {
-                    popularProducts.map(popularProduct => ( 
-                    <MajorProduct 
-                        key={popularProduct.id} 
-                        productImg={popularProduct.img}
-                        productName={popularProduct.productName}
-                        priceRange={popularProduct.priceRange}
-                        productTag={popularProduct.categories}
-                    />
-                    ))
-                }
-            </ProductsContainer>
+            {
+                loading?
+                <ProgressWrapper>
+                    <CircularProgress size="8rem" />
+                </ProgressWrapper>
+                :
+                (majorProducts.length === 0)?
+                <NoMajorProductErr>
+                    No major products to display
+                </NoMajorProductErr>
+                :
+                <ProductsContainer>
+                    {
+                        <RearrangeMajorProducts 
+                            rearrangedProducts={majorProducts}
+                        />
+                    }
+                </ProductsContainer>
+            }
         </Container>
     );
 };

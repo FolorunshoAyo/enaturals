@@ -216,6 +216,15 @@ const PaginationContainer= styled.div`
     align-items: center;
 `;
 
+const NoProductsError = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Lato, sans-serif;
+    font-size: 2.5rem;
+    height: 300px;
+`;
+
 const ProductList = ({productTag}) => {
     // const [products, setProducts] = useState([]);
     const { products, isFetching } = useSelector(state => state.products);
@@ -248,9 +257,7 @@ const ProductList = ({productTag}) => {
 
    // FETCH ALL PRODUCTS BASED ON FILTER SELECT
     useEffect(() => {
-        if(products.length === 0){
-            getAllProducts(endPointGen(sort), dispatch);
-        }
+        getAllProducts(endPointGen(sort), dispatch);
     }, [sort, productTag]);
 
     // FETCH ALL PRODUCTS BASED ON RANGED PRICING
@@ -429,6 +436,11 @@ const ProductList = ({productTag}) => {
                                 {
                                     isFetching ?
                                     (<CircularProgress size="8rem" />)
+                                    :
+                                    (products.length === 0)?
+                                    <NoProductsError>
+                                        Unable to fetch products
+                                    </NoProductsError>
                                     :
                                     (<Pagination 
                                         data={productTag? mergeAndFilterProducts(products)[1] : mergeAndFilterProducts(products)[0]}

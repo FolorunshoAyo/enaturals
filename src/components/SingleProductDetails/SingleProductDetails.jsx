@@ -11,6 +11,7 @@ import {smallPhone, res480, res700, res860, res1023} from '../../responsive';
 import { commaListed, capitalizeFirstLetterOfWord } from "../../usefulFunc";
 import { addProduct } from '../../redux/cartRedux';
 import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
 
 const ProductWrapper = styled.div`
     padding-bottom: 5rem;
@@ -270,7 +271,7 @@ const CloseIconContainer = styled.div`
 `;
 
 
-const SingleProductDetails = ({productName, productDetails, errorMsg}) => {
+const SingleProductDetails = ({ productName, productDetails }) => {
 
     // 0- SMALL 1- MEDIUM 2- LARGE (SIZE INDEXES);
 
@@ -488,18 +489,13 @@ const SingleProductDetails = ({productName, productDetails, errorMsg}) => {
                     return;
                 }
                 dispatch(addProduct({ ...productInfo, quantity}));
+                toast.success("Product added to cart");
             }
         }
     };
 
     return (
         <>
-        {
-            errorMsg? 
-            <errMsg>Unable to fetch product, please <span className="pageRefresh" onClick={() => { window.location.reload() } }> reload </span> page or check your internet connection and try again.</errMsg>
-            :
-            (
-            <>
             <ProductWrapper>
                 <Product>
                     <ImageContainer>
@@ -581,9 +577,6 @@ const SingleProductDetails = ({productName, productDetails, errorMsg}) => {
                     <CloseIcon style={{fontSize: 20, color: '#fff'}}/>
                 </CloseIconContainer>
             </ModalContainer>
-            </>
-            )
-        }
         </>
     );
 };

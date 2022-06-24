@@ -3,6 +3,11 @@ import styled from "styled-components";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { smallPhone } from "../../responsive";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
+import { changePass } from "../../redux/apiCalls";
+import { useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
 
 const ChangePassContainer = styled.div`
 `;
@@ -10,8 +15,8 @@ const ChangePassContainer = styled.div`
 const ChangePassForm = styled.form``;
 
 const ChangePassFormGroup = styled.div`
-    word-wrap: nowrap;
-    position: relative;
+    display: flex;
+    flex-direction: column;
 
     &:not(:last-child){
         margin-bottom: 2.5rem;
@@ -59,6 +64,14 @@ const VisibilityButton = styled.button`
     ${smallPhone({flex: "0 0 7%"})}
 `;
 
+const Error = styled.p`
+    padding: 0 1.5rem;
+    margin-bottom: 1rem;
+    font-family: Lato, sans-serif;
+    font-size: 1.5rem;
+    color: red;
+`;
+
 const SubmitButton = styled.button`
     display: block;
     background-color: #ACBFA3;
@@ -81,7 +94,23 @@ const SubmitButton = styled.button`
 `;
 
 const ChangePassword = () => {
+    const user = useSelector(state => state.user.currentUser);
     const [passwordVisibility, setPasswordVisibility] = useState({"currpass": false, "newpass": false, "repass": false});
+
+    const formSchema = Yup.object().shape({
+        formerPassword: Yup.string()
+        .required("Provide your former password"),
+        password: Yup.string()
+          .required('Password is mandatory')
+          .min(6, 'Password must be at least 6 char long'),
+        newPassword: Yup.string()
+          .required('Password is mandatory')
+          .oneOf([Yup.ref('password')], 'Passwords does not match'),
+    });
+
+    const formOptions = { resolver: yupResolver(formSchema) };
+    const {register, handleSubmit, reset, formState: { errors }} = useForm(formOptions);
+
 
     const handlePasswordVisibility = (inputName) => {
         
@@ -91,38 +120,49 @@ const ChangePassword = () => {
         });
     };
 
+    const onSubmit = (data) => {
+        const {formerPassword, newPassword} = data;
+
+        changePass({ username: user.username, formerPassword, newPassword });
+
+        reset();
+    }
+
     return (
         <ChangePassContainer>
-            <ChangePassForm>
+            <ChangePassForm onSubmit={handleSubmit(onSubmit)}>
                 <ChangePassFormGroup>
-                    <Label for="currpass">Current Password</Label>
+                    <Label htmlFor="currpass">Current Password</Label>
                     <InputContainer>
-                        <Input type={passwordVisibility.currpass? "text" : "password"} id="currpass"/>
+                        <Input {...register("formerPassword")} type={passwordVisibility.currpass? "text" : "password"} id="currpass"/>
                         <VisibilityButton type="button" onClick={() => handlePasswordVisibility("currpass")}>
                             {passwordVisibility.currpass?  <VisibilityOffIcon style={{fontSize: "2.5rem", color: "#ACBFA3"}}/> : <VisibilityIcon style={{fontSize: "2.5rem", color: "#ACBFA3"}}/>}
                         </VisibilityButton>
                     </InputContainer>
+                    {errors.formerPassword && <Error>{errors.formerPassword.message}</Error>}
                 </ChangePassFormGroup>
                 <ChangePassFormGroup>
-                    <Label for="newpass">New Password</Label>
+                    <Label htmlFor="newpass">New Password</Label>
                     <InputContainer>
-                        <Input type={passwordVisibility.newpass? "text" : "password"} id="newpass"/>
+                        <Input  {...register("password")} type={passwordVisibility.newpass? "text" : "password"} id="newpass"/>
                         <VisibilityButton type="button" onClick={() => handlePasswordVisibility("newpass")}>
                         {passwordVisibility.newpass?  <VisibilityOffIcon style={{fontSize: "2.5rem", color: "#ACBFA3"}}/> : <VisibilityIcon style={{fontSize: "2.5rem", color: "#ACBFA3"}}/>}
                         </VisibilityButton>
                     </InputContainer>
+                    {errors.password && <Error>{errors.password.message}</Error>}
                 </ChangePassFormGroup>
                 <ChangePassFormGroup>
-                    <Label for="repass">Retype New Password</Label>
+                    <Label htmlFor="repass">Retype New Password</Label>
                     <InputContainer>
-                        <Input type={passwordVisibility.repass? "text" : "password"} id="repass"/>
+                        <Input  {...register("newPassword")} type={passwordVisibility.repass? "text" : "password"} id="repass"/>
                         <VisibilityButton type="button" onClick={() => handlePasswordVisibility("repass")}>
-                        {passwordVisibility.newpass?  <VisibilityOffIcon style={{fontSize: "2.5rem", color: "#ACBFA3"}}/> : <VisibilityIcon style={{fontSize: "2.5rem", color: "#ACBFA3"}}/>}
+                        {passwordVisibility.repass?  <VisibilityOffIcon style={{fontSize: "2.5rem", color: "#ACBFA3"}}/> : <VisibilityIcon style={{fontSize: "2.5rem", color: "#ACBFA3"}}/>}
                         </VisibilityButton>
                     </InputContainer>
+                    {errors.newPassword && <Error>{errors.newPassword.message}</Error>}
                 </ChangePassFormGroup>
                 <ChangePassFormGroup>
-                    <SubmitButton>
+                    <SubmitButton type="submit">
                         Submit
                     </SubmitButton>
                 </ChangePassFormGroup>

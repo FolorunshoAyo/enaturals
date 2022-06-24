@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 // import { states } from '../../data';
 import './datalist.css';
-import ReactHtmlDatalist from 'react-html-datalist';
-import { res750, res860, smallPhone } from "../../responsive";
+// import ReactHtmlDatalist from 'react-html-datalist';
+import { res860, smallPhone } from "../../responsive";
+import CheckoutCartItems from '../CheckoutCartItems/CheckoutCartItems';
+import toast from 'react-hot-toast';
+import { publicRequest } from "../../requestMethod";
+import { CircularProgress } from '@material-ui/core';
+import { useSelector } from 'react-redux';
+import { mergeSimilarProductAccToID, numberWithCommas } from '../../usefulFunc';
+import { Link } from 'react-router-dom';
+import { medPhone } from '../../responsive';
 
 const PaymentContainer = styled.section`
     padding: 5rem 10rem;
@@ -14,121 +22,210 @@ const PaymentContainer = styled.section`
 
 const PaymentWrapper = styled.div``;
 
-const PaymentMainForm = styled.form`
+const DefaultAddressContainer = styled.div`
+    border-radius: 10px;
+    overflw: hidden;
+    border: 1px solid rgb(237, 237, 237);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px; 
+`;
+
+const ProgressWrapper = styled.div`
+    height: 200px;
     display: flex;
-    justify-content: space-between;
-
-    ${res750({flexDirection: "column", justifyContent: "flex-start"})}
-`; 
-
-const BillingDetailsContainer = styled.div`
-    flex: 0 0 48%;
-
-    ${res750({flex: "initial", marginBottom: "20px"})}
+    align-items: center;
+    justify-content: center;
 `;
 
-const BillingDetails = styled.div`
-    padding: 1rem 0;
+const DefaultAddressTitle = styled.div`
+    padding: 1rem 2rem;
+    border-bottom: 2px solid rgb(237, 237, 237);
+    font-size: 2rem;
+    text-transform: capitalize;
+    color: #000;
+    font-family: Lato, sans-serif;
+    margin-bottom: 1rem;
 `;
 
-const AdditionalInformationContainer = styled.div`
-    flex: 0 0 48%;
-
-    ${res750({flex: "initial"})}
+const NoDefaultAddressError = styled.div`
+    text-align: center;
+    font-size: 2rem;
+    font-family: Lato, sans-serif;
 `;
 
-const AdditionalInformation = styled.div`
-    padding: 1rem 0;
+const AddAddressContainer = styled.div`
+    margin-top: 1rem;
 `;
 
-const Title = styled.h3`
-    margin-bottom: 1.5rem;
-    color: #4B5354;
-    font-size: 3rem;
-    font-weight: 300;
-    text-transform: uppercase;
+const DefaultAddressContent= styled.div`
+    display: flex;
+    padding: 1rem 2rem;
+    justify-content: center;
+
+    ${medPhone({display: "block"})}
 `;
 
-const NameContainer = styled.div`
-    display: flex;  
-    justify-content: space-between;
-    margin-bottom: 30px;
+const RecipientDetails = styled.div`
+    flex: 0 0 60%;
+
+    ${medPhone({marginBottom: "25px"})}
 `;
 
-const Firstname = styled.div`
-    flex: 0 0 45%;
+const ChangeDefaultAddressContainer = styled.div`
+    flex: 0 0 35%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    ${medPhone({height: "40px"})}
 `;
 
-const Lastname = styled.div`
-    flex: 0 0 45%;
+const RecipientName = styled.p`
+    color: #282828;
+    font-size: 1.5rem;
+    padding-bottom: 1rem;
+    font-family: Lato, sans-serif;
 `;
 
-const Label = styled.label`
-    display: block;
+const Address = styled.p`
+    color: #75757A;
     font-size: 1.5rem;
     font-family: Lato, sans-serif;
 `;
 
-const Required = styled.span`
-    color: #A00;
-    font-size: 2rem;
-`;
+const AdditionalInfo = styled(Address)``;
 
-const Input = styled.input`
-    width: 100%;
-    padding: 1.5rem 0.6rem;
+const AddressNumber = styled(Address)``;
+
+const AddressLocation = styled.p`
+    color: #75757A;
+    font-size: 1.5rem;
     font-family: Lato, sans-serif;
-    border: none;
-    border-bottom: 2px solid #bdc0c0;
-    transition: all .2s ease-in;
-
-    &:focus{
-        outline: none;
-        border-bottom: 2px solid #4B5354;
-    }
 `;
 
-const StreetAddress = styled.div`
-    margin-bottom: 30px;
+const City = styled.span`
+    font-family: inherit;
 `;
 
-const TownOrCity = styled.div`
-    margin-bottom: 30px;
+const State = styled.span`
+    font-family: inherit;
 `;
 
-const State = styled.div`
-    margin-bottom: 30px;
+
+// const PaymentMainForm = styled.form`
+//     display: flex;
+//     justify-content: space-between;
+
+//     ${res750({flexDirection: "column", justifyContent: "flex-start"})}
+// `; 
+
+// const BillingDetailsContainer = styled.div`
+//     flex: 0 0 48%;
+
+//     ${res750({flex: "initial", marginBottom: "20px"})}
+// `;
+
+// const BillingDetails = styled.div`
+//     padding: 1rem 0;
+// `;
+
+// const AdditionalInformationContainer = styled.div`
+//     flex: 0 0 48%;
+
+//     ${res750({flex: "initial"})}
+// `;
+
+// const AdditionalInformation = styled.div`
+//     padding: 1rem 0;
+// `;
+
+const Title = styled.h3`
+    margin-bottom: 1.5rem;
+    color: #4B5354;
+    font-size: 2.5rem;
+    font-weight: 300;
+    text-transform: uppercase;
 `;
 
-const Phone = styled.div`
-    margin-bottom: 30px;
-`;
+// const NameContainer = styled.div`
+//     display: flex;  
+//     justify-content: space-between;
+//     margin-bottom: 30px;
+// `;
 
-const EmailAddress = styled.div`
-    margin-bottom: 30px;
-`;
+// const Firstname = styled.div`
+//     flex: 0 0 45%;
+// `;
 
-const NoteContainer = styled.div`
-    margin-bottom: 30px;
+// const Lastname = styled.div`
+//     flex: 0 0 45%;
+// `;
 
-`;
+// const Label = styled.label`
+//     display: block;
+//     font-size: 1.5rem;
+//     font-family: Lato, sans-serif;
+// `;
 
-const Note = styled.textarea`
-    height: 56px;
-    overflow-y: auto;
-    font-family: Lato, sans-serif;
-    border: none;
-    padding: 1.5rem 0.6rem;
-    border-bottom: 2px solid #bdc0c0;
-    resize: none;
-    width: 100%;
-    transition: all .2s ease-in;
+// const Required = styled.span`
+//     color: #A00;
+//     font-size: 2rem;
+// `;
 
-    &:focus{
-        outline: none;
-        border-bottom: 2px solid #4B5354;
-    }
-`;
+// const Input = styled.input`
+//     width: 100%;
+//     padding: 1.5rem 0.6rem;
+//     font-family: Lato, sans-serif;
+//     border: none;
+//     border-bottom: 2px solid #bdc0c0;
+//     transition: all .2s ease-in;
+
+//     &:focus{
+//         outline: none;
+//         border-bottom: 2px solid #4B5354;
+//     }
+// `;
+
+// const StreetAddress = styled.div`
+//     margin-bottom: 30px;
+// `;
+
+// const TownOrCity = styled.div`
+//     margin-bottom: 30px;
+// `;
+
+// const State = styled.div`
+//     margin-bottom: 30px;
+// `;
+
+// const Phone = styled.div`
+//     margin-bottom: 30px;
+// `;
+
+// const EmailAddress = styled.div`
+//     margin-bottom: 30px;
+// `;
+
+// const NoteContainer = styled.div`
+//     margin-bottom: 30px;
+
+// `;
+
+// const Note = styled.textarea`
+//     height: 56px;
+//     overflow-y: auto;
+//     font-family: Lato, sans-serif;
+//     border: none;
+//     padding: 1.5rem 0.6rem;
+//     border-bottom: 2px solid #bdc0c0;
+//     resize: none;
+//     width: 100%;
+//     transition: all .2s ease-in;
+
+//     &:focus{
+//         outline: none;
+//         border-bottom: 2px solid #4B5354;
+//     }
+// `;
 
 
 const YourOrderContainer = styled.section`
@@ -160,19 +257,6 @@ const TableHead = styled.th`
 `;
 
 const TableBody = styled.tbody`
-`;
-
-const CartItem = styled.tr`
-`;
-
-const ProductName = styled.td`
-    padding: 9px 12px;
-    border-bottom: 1px solid #cabbb2;
-`;
-
-const ProductPrice = styled.td`
-    padding: 9px 12px; 
-    border-bottom: 1px solid #cabbb2;
 `;
 
 const Subtotal = styled.td`
@@ -280,17 +364,50 @@ const SubmitButton = styled.input`
 `;
 
 
-const PaymentForm = () => {
-    const [detail, setDetail] = useState({state: ""});
+const CheckoutDetails = () => {
+    const user = useSelector(state => state.user.currentUser);
+    const cart = useSelector(state => state.cart);
+    const [defaultAddress, setDefaultAddress] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const reArrangedCart = mergeSimilarProductAccToID(cart.products);
 
-    const handleChange = e => {
-        setDetail({...detail, [e.target.name]: e.target.value})
-    }
+    const subtotal = reArrangedCart[1].reduce((prev, current) => {
+        const returns = prev + current;
+
+        return returns;
+    }, 0);
+
+    const convertedSubTotal = numberWithCommas(subtotal);
+    // const [detail, setDetail] = useState({state: ""});
+
+    // const handleChange = e => {
+    //     setDetail({...detail, [e.target.name]: e.target.value})
+    // }
+
+    useEffect(() => {
+        const getDefaultAddress = async () => {
+            try{
+                setLoading(true);
+                const res = await publicRequest.get(`/address/default/${user._id}`);
+                console.log(res.data);
+                setDefaultAddress(res.data);
+                setLoading(false);
+            }catch(error){
+                toast.error("Unable to get default address");
+            }
+        };
+
+        getDefaultAddress();
+    }, []);
+
+    const defaultAddressDetails = defaultAddress[0];
+
+    console.log()
 
     return(
         <PaymentContainer>
             <PaymentWrapper>
-                <PaymentMainForm>
+                {/* <PaymentMainForm>
                     <BillingDetailsContainer>
                         <BillingDetails>
                             <Title>
@@ -366,7 +483,45 @@ const PaymentForm = () => {
                             </NoteContainer>
                         </AdditionalInformation>
                     </AdditionalInformationContainer>
-                </PaymentMainForm>
+                </PaymentMainForm> */}
+                <DefaultAddressContainer>
+                    <DefaultAddressTitle>
+                        default address
+                    </DefaultAddressTitle>
+                    {
+                        (loading)?
+                        <ProgressWrapper>
+                            <CircularProgress size="8rem" />
+                        </ProgressWrapper>
+                        :
+                        (defaultAddress.length === 0)?
+                        <NoDefaultAddressError>
+                            No default address yet
+                            <AddAddressContainer>
+                                <Link to="/customer/address/create" className="addAddressLink">
+                                    Add Address
+                                </Link>
+                            </AddAddressContainer>
+                        </NoDefaultAddressError>
+                        :
+                        <DefaultAddressContent>
+                            <RecipientDetails>
+                                <RecipientName>{`${defaultAddressDetails.lastName} ${defaultAddressDetails.firstName}`}</RecipientName>
+                                <Address>{defaultAddressDetails.address}</Address>
+                                {(defaultAddressDetails.additionalInfo !== "") && <AdditionalInfo>{defaultAddressDetails.additionalInfo}</AdditionalInfo>}
+                                <AddressLocation>
+                                    <City>{defaultAddressDetails.city}</City>, <State>{defaultAddressDetails.region}</State>
+                                </AddressLocation>
+                                <AddressNumber>{`${defaultAddressDetails.phoneNo} / ${(defaultAddressDetails.addPhoneNo === "")? "" : defaultAddressDetails.addPhoneNo}`}</AddressNumber>
+                            </RecipientDetails>
+                            <ChangeDefaultAddressContainer>
+                                <Link to="/customer/address" className="checkoutDetailsLink">
+                                    change default address
+                                </Link>
+                            </ChangeDefaultAddressContainer>
+                        </DefaultAddressContent>
+                    }
+                </DefaultAddressContainer>
                 <YourOrderContainer>
                     <Title>Your Order</Title>
                     <TableContainer>
@@ -382,20 +537,23 @@ const PaymentForm = () => {
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                <CartItem>
-                                    <ProductName>
-                                        Hand care set with vitamin B x 1
-                                    </ProductName>
-                                    <ProductPrice>
-                                        47.00
-                                    </ProductPrice>
-                                </CartItem>
+                                {/* CHECKOUT CART ITEMS COMPONENT HERE */}
+                                {
+                                    reArrangedCart[0].map(reArrangedCartItem => (
+                                        <CheckoutCartItems
+                                            key={reArrangedCartItem[0]._id}
+                                            productName={reArrangedCartItem[0].productName}
+                                            quantity={reArrangedCartItem.length}
+                                            productPrice={reArrangedCartItem[0].price}
+                                        />
+                                    ))
+                                }
                                 <TableRow>
                                     <Subtotal>
                                         Subtotal
                                     </Subtotal>
                                     <SubtotalPrice>
-                                        47.00
+                                        ₦{convertedSubTotal}
                                     </SubtotalPrice>
                                 </TableRow>
                                 <TableRow>
@@ -403,7 +561,7 @@ const PaymentForm = () => {
                                         Total
                                     </Total>
                                     <TotalPrice>
-                                        47.00
+                                        ₦{convertedSubTotal}
                                     </TotalPrice>
                                 </TableRow>
                             </TableBody>
@@ -440,4 +598,4 @@ const PaymentForm = () => {
 };
 
 
-export default PaymentForm;
+export default CheckoutDetails;

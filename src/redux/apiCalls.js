@@ -76,6 +76,10 @@ export const login = async (dispatch, user) => {
         const res = await publicRequest.post("/auth/login", user);
         dispatch(loginSuccess(res.data));
         toast.success("Logged in successfully");
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+
         dispatch(closeModal());
     }catch(error){
       toast.error("Invalid Username or Password");
@@ -87,6 +91,15 @@ export const logout = async (dispatch) => {
     dispatch(logoutSuccess());
     toast.success("Logged out successfully");
 }
+
+export const changePass = async (chnagePassDetails) => {
+  try{
+    await publicRequest.post("/auth/changepass", chnagePassDetails);
+    toast.success("Password changed successfully");
+  }catch(error){
+    toast.error(error.response.data === "Incorrect password"? error.response.data : "Unable to change password (501)");
+  }
+};
 
 export const tokenInvalidLogout = (dispatch) => {
   dispatch(logoutSuccess());

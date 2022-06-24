@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import toast from "react-hot-toast";
-import styled from "styled-components";
 import { publicRequest } from "../../requestMethod";
 import BlogReply from "./BlogReply";
 
@@ -10,8 +9,9 @@ const BlogReplies = ({commentID}) => {
     useEffect(() => {
         const getReplies = async () => {
             try{
-                const res = publicRequest.get(`/reply/${commentID}`);
-                setReplies(res.data);   
+                const res = await publicRequest.get(`/reply/${commentID}`);
+                const filteredReplies = res.data.filter(reply => reply.status !== "pending");
+                setReplies(filteredReplies);   
             }catch(error){
                 toast.error("Unable to get replies");
             }
@@ -22,7 +22,7 @@ const BlogReplies = ({commentID}) => {
     return (
         <>
         {
-            replies.map(reply => {
+            replies.map(reply => (
                 <BlogReply 
                 key={reply._id}
                 name={reply.name}
@@ -30,7 +30,7 @@ const BlogReplies = ({commentID}) => {
                 status={reply.status}
                 createdAt={reply.createdAt}
                 />
-            })
+            ))
         }
         </>
     );

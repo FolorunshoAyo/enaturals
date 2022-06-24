@@ -5,7 +5,7 @@ import {res750} from "../../responsive";
 import { findAndReplace, formatDate } from '../../usefulFunc';
 import { Link } from 'react-router-dom';
 
-const BlogPostItem = styled.div`
+const SearchBlogPostItem = styled.div`
     margin-bottom: 20px;
     height: 600px;
 `;
@@ -27,7 +27,7 @@ const HoverDots = styled.div`
     transition: all .3s ease-in;
 `;
 
-const BlogImgContainer = styled.div`
+const SearchBlogImgContainer = styled.div`
     position: relative;
     height: 60%;
     cursor: pointer;
@@ -39,12 +39,12 @@ const BlogImgContainer = styled.div`
     ${res750({height: "60%"})}
 `;
 
-const BlogImg = styled.img`
+const SearchBlogImg = styled.img`
     width: 100%;
     height: 100%;
 `;
 
-const BlogTitle = styled.h2`
+const SearchBlogTitle = styled.h2`
     font-weight: 300;
     font-size: 2rem;
     text-transform: uppercase;
@@ -52,7 +52,7 @@ const BlogTitle = styled.h2`
     color: #4b5354;
 `;
 
-const BlogPostDate = styled.div`
+const SearchBlogPostDate = styled.div`
     margin-top: 1rem;
     display: flex;
     align-items: center;
@@ -62,38 +62,38 @@ const BlogPostDate = styled.div`
     font-size: 1.5rem;
 `;
 
-const BlogBodySnippet = styled.p`
+const SearchBlogBodySnippet = styled.p`
     padding-top: 1.5rem;
     font-family: Lato, sans-serif;
     font-size: 1.4rem;
 `;
 
-const BlogCategory = ({photo, title, dateOfCreation, content}) => {
+const SearchBlogResult = ({photo, title, dateOfCreation, content}) => {
     const modBlogTitle = findAndReplace(title);
     return (
-        <BlogPostItem>
-            <BlogImgContainer>
+        <SearchBlogPostItem>
+            <SearchBlogImgContainer>
                 <Link to={`/blog/${modBlogTitle}`}>
-                    <BlogImg src={photo} alt="Blog"/>
+                    <SearchBlogImg src={photo} alt="Blog"/>
                     <HoverDots>
                         ...
                     </HoverDots>
                 </Link>
-            </BlogImgContainer>
-            <BlogTitle>
+            </SearchBlogImgContainer>
+            <SearchBlogTitle>
                 <Link to={`/blog/${modBlogTitle}`} className="blogLink">
                     {title}
                 </Link>
-            </BlogTitle>
-            <BlogPostDate>
+            </SearchBlogTitle>
+            <SearchBlogPostDate>
                 <AccessAlarmIcon style={{fontSize: 15, color: "#b8a398", marginRight: "10px"}}/> 
                 {formatDate(dateOfCreation)}
-            </BlogPostDate>
-            <BlogBodySnippet dangerouslySetInnerHTML={{__html: content.slice(0, 100) + "..."}}>
-            </BlogBodySnippet>
-        </BlogPostItem>
+            </SearchBlogPostDate>
+            <SearchBlogBodySnippet dangerouslySetInnerHTML={{__html: content.slice(0, 100) + "..."}}>
+            </SearchBlogBodySnippet>
+        </SearchBlogPostItem>
     );
 };
 
 
-export default BlogCategory;
+export default SearchBlogResult;

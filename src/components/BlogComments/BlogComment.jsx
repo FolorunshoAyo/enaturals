@@ -2,12 +2,20 @@ import React, {useState} from "react";
 import styled from "styled-components";
 import { Comment, Close } from "@mui/icons-material";
 import { smallPhone, res480 } from "../../responsive";
+import { formatDate } from "../../usefulFunc";
+import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as Yup from 'yup';
+import { notLoggedIn } from "../../redux/login-register-modalRedux";
+import { userRequest } from "../../requestMethod";
+import toast from "react-hot-toast";
 
 const CommentContainer = styled.div`
   display: ${props => props.status !== "published"? "none" : "flex"};
 
   &:not(:last-child){
-    margin-bottom: 40px
+    margin-bottom: 20px
   }
 `;
 
@@ -71,7 +79,7 @@ const CommentDate = styled.div`
 `;
 
 const ReplyFormWrap = styled.div`
-  display: ${props => props.display? "block" : "none"};
+  display: ${props => props.display === "active"? "block" : "none"};
   margin: 3rem 0;
 `;
 
@@ -113,8 +121,13 @@ const ReplyInputGroup = styled.div`
   ${smallPhone({flexDirection: "column"})}
 `;
 
+const ReplyInputContainer = styled.div`
+  flex: 0 0 45%;
+  display: flex;
+  flex-direction: column;
+`;
+
 const ReplyInput = styled.input`
-  flex: 0 0 45%; 
   padding: 2rem 2.6rem;
   font-family: Lato, sans-serif;
   color: #4b5354;
@@ -130,6 +143,11 @@ const ReplyInput = styled.input`
   &:not(:last-child){
     ${smallPhone({marginBottom: "15px"})}
   }
+`;
+
+const ReplyTextAreaContainer = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const ReplyTextArea = styled.textarea`
@@ -161,6 +179,14 @@ const CheckBoxLabel = styled.label`
 
 const CheckBox = styled.input`
   margin-right: 10px;
+`;
+
+const Error = styled.p`
+  padding: 0 1.5rem;
+  margin-bottom: 1rem;
+  font-family: Lato, sans-serif;
+  font-size: 1.5rem;
+  color: red;
 `;
 
 const CommentBtnContainer = styled.div`
@@ -204,7 +230,31 @@ const ReplyButton = styled.button`
 `;
 
 const BlogComment = ({name, commentID, comment, status, createdAt}) => {
+    const user = useSelector(state => state.user.currentUser);
+    const [loading, setLoading] = useState(false);
     const [showReplyForm, setShowReplyForm] = useState(false);
+    const dispatch = useDispatch();
+
+    const formSchema = Yup.object().shape({
+      name: Yup.string()
+      .required("The name can't be empty"),
+      email: Yup.string()
+      .required("Empty email address")
+      .matches(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+$/, "E-mail address is invalid"),
+      reply: Yup.string()
+      .required("The message text can't be empty"),
+      approve: Yup.bool().oneOf([true], "Aggree with the terms above")
+    });
+  
+    const formOptions = {
+       defaultValues: {
+        name: (user === null)? "" : `${user.lastname} ${user.firstname}`,
+        email:  (user === null)? "" : user.email
+      }, 
+      resolver: yupResolver(formSchema) 
+    };
+
+    const {register, handleSubmit, reset, formState: { errors }} = useForm(formOptions);
 
     const handleReplyClick = (e) => {
         if(e.target.innerHTML === "Reply"){
@@ -214,18 +264,39 @@ const BlogComment = ({name, commentID, comment, status, createdAt}) => {
         }
     };
 
+    const onSubmit = (data) => {
+      if(user === null){
+        dispatch(notLoggedIn());
+        return;
+      }else{
+        const postReply = async () => {
+          try{
+            setLoading(true);
+            await userRequest.post(`/reply/${commentID}`, data);
+            toast.success("Thanks for your reply!! Awaiting approval.");
+            setLoading(false);
+            reset();
+          }catch(error){
+            toast.error("Unable to post reply (501)");
+          }
+        };
+  
+        postReply();
+      }
+    };
+    
     return (
         <>
-            <CommentContainer id={commentID} status={status}>
+            <CommentContainer status={status}>
                 <CommenterImgContainer>
-                    <CommenterImg src="../enaturals/enaturals5.jpg" />
+                    <CommenterImg src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" />
                 </CommenterImgContainer>
                 <CommentDetails>
                     <CommentInformation>
                     <CommentAuthor>{name}</CommentAuthor>
                         <CommentDate> 
                         <Comment style={{verticalAlign: "middle", fontSize: 15, marginRight: "5px", color: "#b8a398"}} />
-                            {new Date(createdAt)}
+                            {formatDate(createdAt)}
                         </CommentDate>
                     </CommentInformation>
                     <UserComment>
@@ -234,8 +305,8 @@ const BlogComment = ({name, commentID, comment, status, createdAt}) => {
                     <ReplyButton onClick={handleReplyClick}>Reply</ReplyButton>
                 </CommentDetails>
             </CommentContainer>
-            <ReplyFormWrap display={showReplyForm}>
-                <ReplyForm>
+            <ReplyFormWrap display={(showReplyForm === true)? "active": "non-active"}>
+                <ReplyForm onSubmit={handleSubmit(onSubmit)}>
                     <ReplyTitle>
                         Reply to {name}
                         <CloseIconContainer onClick={handleReplyClick}>
@@ -244,16 +315,26 @@ const BlogComment = ({name, commentID, comment, status, createdAt}) => {
                     </ReplyTitle>
                     <ReplyContainer>
                         <ReplyInputGroup>
-                            <ReplyInput type="text" placeholder="Your Name *"/>
-                            <ReplyInput type="email" placeholder="Your Email *" />
+                            <ReplyInputContainer>
+                              <ReplyInput {...register("name")} type="text" placeholder="Your Name *"/>
+                              {errors.name && <Error>{errors.name.message}</Error>}
+                            </ReplyInputContainer>
+                            <ReplyInputContainer>
+                              <ReplyInput {...register("email")} type="email" placeholder="Your Email *" />
+                              {errors.email && <Error>{errors.email.message}</Error>}
+                            </ReplyInputContainer>
                         </ReplyInputGroup>
-                        <ReplyTextArea placeholder="Your comment *"></ReplyTextArea>
-                        <CheckBoxLabel for="comment-form-checkbox">
-                            <CheckBox type="checkbox" id="coment-form-checkbox"/>
+                        <ReplyTextAreaContainer>
+                          <ReplyTextArea {...register("reply")} placeholder="Your comment *"></ReplyTextArea>
+                          {errors.reply && <Error>{errors.reply.message}</Error>}
+                        </ReplyTextAreaContainer>
+                        <CheckBoxLabel htmlFor="comment-form-checkbox">
+                            <CheckBox {...register("approve")} type="checkbox" id="coment-form-checkbox"/>
                             By using this form you agree with the storage and handling of your data by this website.
                         </CheckBoxLabel>
+                        {errors.approve && <Error>{errors.approve.message}</Error>}
                         <CommentBtnContainer>
-                            <CommentBtn type="submit">Leave a comment</CommentBtn>
+                            <CommentBtn type="submit" disabled={loading}>Leave a reply</CommentBtn>
                         </CommentBtnContainer>
                     </ReplyContainer>
                 </ReplyForm>

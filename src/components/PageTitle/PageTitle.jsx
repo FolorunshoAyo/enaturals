@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
 import { splitLink, splitAndSpace  } from "../../usefulFunc";
+import BackgroundLogo from "./background-image.jpg";
 
 const Wrapper = styled.div`
   margin-top: 170px;
@@ -64,7 +65,7 @@ const PaginationItem = styled.span`
 
 const PageTitle = ({ title, pageLocation, params}) => {
   const { pathname } = useLocation();
-
+  
   const separateIndividualLinks = (pageLocation, pagePath) => {
     let result;
     let links = splitLink(pageLocation, " | ");
@@ -106,7 +107,17 @@ const PageTitle = ({ title, pageLocation, params}) => {
             {links[1]}
           </>
         );
-        break;
+      break;
+      case `/blog/search`:
+        result = (
+          <>
+            <Link to="/" className="paginationLink">
+              {links[0]}
+            </Link>
+            {links[1]}
+          </>
+        );
+      break;
       case "/gallery":
         result = (
           <>
@@ -116,7 +127,17 @@ const PageTitle = ({ title, pageLocation, params}) => {
             {links[1]}
           </>
         );
-        break;
+      break;
+      case "/reviews":
+        result = (
+          <>
+            <Link to="/" className="paginationLink">
+              {links[0]}
+            </Link>
+            {links[1]}
+          </>
+        );
+      break;
       case "/cart":
         result = (
           <>
@@ -242,7 +263,7 @@ const PageTitle = ({ title, pageLocation, params}) => {
   return (
     <Wrapper>
       <ImageOverlayContainer>
-          <ImageOverlay src="../enaturals/background-image.jpg" alt="page title cover"/>
+          <ImageOverlay src={BackgroundLogo} alt="page title cover"/>
         </ImageOverlayContainer>
       <TitleContainer>
         <Title>{title}</Title>

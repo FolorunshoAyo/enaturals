@@ -78,10 +78,12 @@ const BlogPost = ({photo, title, dateOfCreation, content}) => {
     return (
         <BlogPostItem>
             <BlogImgContainer>
-                <BlogImg src={photo} alt="Blog"/>
-                <HoverDots>
-                    ...
-                </HoverDots>
+                <Link to={`/blog/${modBlogTitle}`}>
+                    <BlogImg src={photo} alt="Blog"/>
+                    <HoverDots>
+                        ...
+                    </HoverDots>
+                </Link>
             </BlogImgContainer>
             <BlogTitle>
                 <Link to={`/blog/${modBlogTitle}`} className="blogLink">
