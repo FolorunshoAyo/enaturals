@@ -260,3 +260,17 @@ export const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" }
     return new Date(dateString).toLocaleDateString(undefined, options)
 }
+
+export const matchProductsToSchema = (cartDetails) => {
+    return cartDetails.map(similarProductArray => (
+        {
+            product: {
+                productName: similarProductArray[0].productName,
+                productImg: similarProductArray[0].img,
+                productSize: similarProductArray[0].size
+            },
+            quantity: similarProductArray.length,
+            price: similarProductArray[0].price
+        }
+    ));
+};

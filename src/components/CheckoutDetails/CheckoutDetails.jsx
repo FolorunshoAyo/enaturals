@@ -9,9 +9,11 @@ import toast from 'react-hot-toast';
 import { publicRequest } from "../../requestMethod";
 import { CircularProgress } from '@material-ui/core';
 import { useSelector } from 'react-redux';
-import { mergeSimilarProductAccToID, numberWithCommas } from '../../usefulFunc';
-import { Link } from 'react-router-dom';
+import { matchProductsToSchema, mergeSimilarProductAccToID, numberWithCommas } from '../../usefulFunc';
+import { Link, useNavigate } from 'react-router-dom';
 import { medPhone } from '../../responsive';
+import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
+import { addOrder } from '../../redux/apiCalls';
 
 const PaymentContainer = styled.section`
     padding: 5rem 10rem;
@@ -50,6 +52,7 @@ const NoDefaultAddressError = styled.div`
     text-align: center;
     font-size: 2rem;
     font-family: Lato, sans-serif;
+    padding: 4rem 0;
 `;
 
 const AddAddressContainer = styled.div`
@@ -323,6 +326,11 @@ const PlaceOrderBox = styled.div`
     margin: 1.5rem 0;
 `;
 
+const AgreementCheckboxContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
 const Agreement = styled.label`
     font-family: Lato, sans-serif;
     font-size: 1.5rem;
@@ -331,6 +339,14 @@ const Agreement = styled.label`
 const AgreementCaption = styled.span`
     padding-left: 1.5rem;
     font-family: Lato, sans-serif;
+`;
+
+const AgreementError = styled.p`
+    padding: 0 1.5rem;
+    margin-bottom: 1rem;
+    font-family: Lato, sans-serif;
+    font-size: 1.5rem;
+    color: red;
 `;
 
 const Checkbox = styled.input`
@@ -342,7 +358,7 @@ const SubmitButtonContainer = styled.div`
     text-align: end;
 `;
 
-const SubmitButton = styled.input`
+const SubmitButton = styled.button`
     padding: 16px 35px;
     border: 3px solid #B8A398;
     font-family: Lato, sans-serif;
@@ -367,7 +383,10 @@ const SubmitButton = styled.input`
 const CheckoutDetails = () => {
     const user = useSelector(state => state.user.currentUser);
     const cart = useSelector(state => state.cart);
+    const navigate = useNavigate();
     const [defaultAddress, setDefaultAddress] = useState([]);
+    const [agreement, setAgreement] = useState(false); 
+    const [agreementError, setAgreementError] = useState(false); 
     const [loading, setLoading] = useState(true);
     const reArrangedCart = mergeSimilarProductAccToID(cart.products);
 
@@ -385,11 +404,16 @@ const CheckoutDetails = () => {
     // }
 
     useEffect(() => {
+        if(cart.products.length === 0){
+            navigate("/shop");
+        }
+    }, [cart]);
+
+    useEffect(() => {
         const getDefaultAddress = async () => {
             try{
                 setLoading(true);
                 const res = await publicRequest.get(`/address/default/${user._id}`);
-                console.log(res.data);
                 setDefaultAddress(res.data);
                 setLoading(false);
             }catch(error){
@@ -402,7 +426,59 @@ const CheckoutDetails = () => {
 
     const defaultAddressDetails = defaultAddress[0];
 
-    console.log()
+    const config = {
+        public_key: 'FLWPUBK_TEST-962d9f9f8166b1bcb65f44b9651877fb-X',
+        tx_ref: Date.now(),
+        amount: subtotal,
+        currency: 'NGN',
+        payment_options: 'card,mobilemoney,ussd',
+        customer: {
+          email: user.email,
+          phonenumber: user.phoneno,
+          name: `${user.firstname} ${user.lastname}`,
+        },
+        customizations: {
+          title: 'E-NATURALS',
+          description: 'Payment for items in cart',
+          logo: 'https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg',
+        },
+    };
+
+    const handleFlutterPayment = useFlutterwave(config);
+
+    const handlePayment = () => {
+        if(agreement === false){
+            setAgreementError(true);
+            return;
+        }else if(defaultAddress.length === 0){
+            toast.error("No default address detected. Please create an address.");
+        }else{
+            setAgreementError(false);
+            const orderList = matchProductsToSchema(reArrangedCart[0]);
+
+            handleFlutterPayment({
+                callback: (response) => {
+                    console.log(response);
+                    if(response.status === "successful"){
+                        closePaymentModal() // CLOSE MODAL PROGRAMATICALLY
+                        addOrder({userID: user._id, username: user.username, products: orderList, amount: subtotal});
+                        navigate("/success");
+                    }else{
+                        closePaymentModal() // CLOSE MODAL PROGRAMATICALLY
+                        navigate("/failure");
+                    }
+                },
+                onClose: () => {
+                    
+                }
+            });
+        }
+    };
+
+    const handleCheckbox = (e) => {
+        setAgreement(e.target.checked);
+        setAgreementError(!e.target.checked);
+    }
 
     return(
         <PaymentContainer>
@@ -498,7 +574,7 @@ const CheckoutDetails = () => {
                         <NoDefaultAddressError>
                             No default address yet
                             <AddAddressContainer>
-                                <Link to="/customer/address/create" className="addAddressLink">
+                                <Link to="/customer/address/create" className="checkoutDetailsLink">
                                     Add Address
                                 </Link>
                             </AddAddressContainer>
@@ -570,7 +646,7 @@ const CheckoutDetails = () => {
                 </YourOrderContainer>
                 <PaymentOptionContainer>
                     <PaymentOption>
-                        <RadioInput type="radio" disabled checked/> 
+                        <RadioInput type="radio" disabled checked /> 
                         <FlutterCaption> 
                             Flutterwave Payment <FlutterImage src="../enaturals/flutterwave-logo.jpeg" alt="flutterwave image"/> 
                         </FlutterCaption>
@@ -582,14 +658,19 @@ const CheckoutDetails = () => {
                     </PaymentBox>
                 </PaymentOptionContainer>
                 <PlaceOrderBox>
-                    <Agreement for="agreement">
-                        <Checkbox type="checkbox" name="agreement" id="agreement"/>
-                        <AgreementCaption>
-                        By using this form, you agree with the storage and usage of data by this website.
-                        </AgreementCaption>
-                    </Agreement>
+                    <AgreementCheckboxContainer>
+                        <Agreement htmlFor="agreement">
+                            <Checkbox type="checkbox" id="agreement" checked={agreement} onChange={handleCheckbox} />
+                            <AgreementCaption>
+                                By using this form, you agree with the storage and usage of data by this website.
+                            </AgreementCaption>
+                        </Agreement>
+                        {agreementError && <AgreementError>Agree with the terms above</AgreementError>}
+                    </AgreementCheckboxContainer>
                     <SubmitButtonContainer>
-                        <SubmitButton type="submit" value="Place Order"/>
+                        <SubmitButton onClick={handlePayment}>
+                            Place Order
+                        </SubmitButton>
                     </SubmitButtonContainer>
                 </PlaceOrderBox>
             </PaymentWrapper>

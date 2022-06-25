@@ -92,9 +92,9 @@ export const logout = async (dispatch) => {
     toast.success("Logged out successfully");
 }
 
-export const changePass = async (chnagePassDetails) => {
+export const changePass = async (changePassDetails) => {
   try{
-    await publicRequest.post("/auth/changepass", chnagePassDetails);
+    await publicRequest.post("/auth/changepass", changePassDetails);
     toast.success("Password changed successfully");
   }catch(error){
     toast.error(error.response.data === "Incorrect password"? error.response.data : "Unable to change password (501)");
@@ -108,9 +108,8 @@ export const tokenInvalidLogout = (dispatch) => {
 
 export const registerUser = async (user, dispatch) => {
   dispatch(updateUserStart());
-
   try{
-    await userRequest.post(`/auth/register`, user);
+    await publicRequest.post(`/auth/register`, user);
     toast.success("Registered successfully");
     dispatch(updateUserFinished());
   }catch (error){
@@ -285,5 +284,12 @@ export const getAddress = async (userID, dispatch) => {
   // }
 
 
-  
+  export const addOrder = async (orderDetails) => {
+    try{
+      await userRequest.post("/orders/", orderDetails);
+      toast.success("Order created");
+    } catch(error){
+      toast.error("Unable to create order (501)")
+    } 
+  }; 
 

@@ -14,12 +14,14 @@ import PageNotFound from './pages/PageNotFound';
 import SingleBlogPost from './pages/SingleBlogPost';
 import Reviews from './pages/Reviews';
 import './App.css';
-import NetworkDetector from './Hoc/NetworkDetector';
+// import NetworkDetector from './Hoc/NetworkDetector';
 import CustomerAccount from './pages/CustomerAccount';
 import { Toaster } from "react-hot-toast"; 
 import { useSelector } from 'react-redux';
 import BlogCategories from './pages/BlogCategories';
 import BlogSearch from './pages/BlogSearch';
+import PaymentSuccess from './pages/PaymentSuccess/PaymentSucessful';
+import PaymentFailure from './pages/PaymentFailure/PaymentFailure';
 
 const App = () => {
   const user = useSelector(state => state.user.currentUser);
@@ -58,10 +60,12 @@ const App = () => {
         <Route exact path="/aboutus" element={<AboutUs />} />
         <Route exact path="/aboutus/:memberName" element={<SingleTeam />} />
         <Route exact path="/checkout" element={<Checkout />} />
+        <Route exact path="/success" element={<PaymentSuccess />} />
+        <Route exact path="/failure" element={<PaymentFailure />} />
         <Route path="*" element={<PageNotFound />} />
       </CustomSwitch>
     </>
   );
 };
 
-export default NetworkDetector(App);
+export default App;
