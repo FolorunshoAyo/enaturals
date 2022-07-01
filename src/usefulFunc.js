@@ -91,10 +91,10 @@ export const generateTagLinks = (productTags) => {
             <>
                 <Link to={`/product-category/${findAndReplace(sortedProductTags[0])}`} className="productTagLink">
                     {sortedProductTags[0]}
-                </Link>,
+                </Link>,{" "}
                 <Link to={`/product-category/${findAndReplace(sortedProductTags[1])}`} className="productTagLink">
                 {sortedProductTags[1]}
-                </Link>,
+                </Link>,{" "}
                 <Link to={`/product-category/${findAndReplace(sortedProductTags[2])}`} className="productTagLink">
                 {sortedProductTags[2]}
                 </Link>
@@ -226,7 +226,7 @@ export const mergeSimilarProductAccToID = (productList) => {
             totalQuantity += product.quantity;
         });
         
-        const totalPriceOfSimilarProducts = similarProducts[0].price * totalQuantity;
+        const totalPriceOfSimilarProducts = (similarProducts[0].discount)? similarProducts[0].discountPrice * totalQuantity : similarProducts[0].price * totalQuantity;
 
 
         totalQuantityOfEachProduct.push(totalQuantity);

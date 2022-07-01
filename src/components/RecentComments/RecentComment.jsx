@@ -29,6 +29,9 @@ const CommentedIn = styled.span`
 
 const RecentComment = ({ name, postTitle }) => {
     const modBlogTitle = findAndReplace(postTitle);
+
+    console.log(postTitle);
+
     return (
         <CommentItem>
             <ChatBubbleOutline style={{fontSize: 25, color: "#b8a398", marginRight: "10px", alignSelf: "flex-start"}}/>

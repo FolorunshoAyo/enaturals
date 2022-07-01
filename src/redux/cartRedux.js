@@ -15,6 +15,11 @@ const cartSlice = createSlice({
             state.products.push(action.payload);
             state.total += action.payload.price * action.payload.quantity;
         },
+        addDiscountedProduct: (state, action) => {
+            state.quantity += 1;
+            state.products.push(action.payload);
+            state.total += action.payload.discountPrice * action.payload.quantity;
+        },
         removeProduct: (state, action) => {
             return {
                 products: state.products.filter(product => product._id !== action.payload.productID),
@@ -27,5 +32,5 @@ const cartSlice = createSlice({
 
 
 
-export const { addProduct, removeProduct } = cartSlice.actions;
+export const { addProduct, addDiscountedProduct, removeProduct } = cartSlice.actions;
 export default cartSlice.reducer;

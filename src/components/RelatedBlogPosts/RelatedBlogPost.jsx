@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { formatDate } from "../../usefulFunc";
+import { findAndReplace, formatDate } from "../../usefulFunc";
 import { res700, res1023 } from "../../responsive";
+import { Link } from "react-router-dom";
 
 const RelatedBlog = styled.div`
 flex: 0 0 48%;
@@ -41,12 +42,18 @@ font-weight: 300;
 
 
 const RelatedBlogPost = ({photo, title, createdAt}) => {
+    const modBlogTitle = findAndReplace(title);
+
     return (
         <RelatedBlog>
             <RelatedBlogImg src={photo} alt="Related media attachment"/>
             <RelatedPostHeader>
                 <RelatedPostDate>{formatDate(createdAt)}</RelatedPostDate>
-                <RelatedPostTitle>{title}</RelatedPostTitle>
+                <RelatedPostTitle>
+                    <Link to={`/blog/${modBlogTitle}`} className="blogLink">
+                        {title}
+                    </Link>
+                </RelatedPostTitle>
             </RelatedPostHeader>
         </RelatedBlog>
     );

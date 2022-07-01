@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { addProduct } from '../../redux/cartRedux';
+import { addDiscountedProduct, addProduct } from '../../redux/cartRedux';
 import { useDispatch } from "react-redux";
 import {smallPhone, medPhone, bigDesktop} from '../../responsive';
 import { generateTagLinks, findAndReplace } from '../../usefulFunc';
@@ -41,6 +41,22 @@ const OutOfStockText = styled.div`
     border-radius: 50%;
 `;
 
+const DiscountBadge = styled.div`
+    display: ${(props) => props.discounted === "yes"? "flex": "none"};
+    position: absolute;
+    top: 15px;
+    right: 0px;
+    width: 30px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    color: #acbfa3;
+    font-size: 10px;
+    font-family: Lato, sans-serif;
+    background-color: #effce8;
+    border-radius: 10px;
+`;
+
 const ProductImageContainer = styled.div`
     flex: ${props => props.view === "list"? "0 0 35%": "none"};
     height: ${props => props.view === "list"? "auto": "300px"};
@@ -75,7 +91,7 @@ const ProductName = styled.h2`
 
 const Description = styled.p`
     display: ${props => props.display === "none"? "none" : "block"};
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     font-family: Lato, sans-serif;
     line-height: 1.7;
     color: #7e8485;
@@ -89,11 +105,28 @@ const ProductTag = styled.div`
 
 const Price = styled.div`
     font-size: 1.5rem;
+    display: ${props => props.single === "yes"? "block" : "inline-block"};
     margin: ${props => props.view === "list"? "1rem 0" : "2.5rem 0"};
     color: #4B5354;
     font-weight: 700;
 
     ${bigDesktop({margin: "1rem 0", fontSize: "1rem"})}
+`;
+
+const PreviousPrice = styled.div`
+    font-size: 1.5rem;
+    margin: ${props => props.view === "list"? "1rem 0" : "1.5rem 0"};
+    color: gray;
+    display: inline-block;
+    text-decoration: line-through;
+    margin-right: 10px;
+    font-weight: 700;
+
+    ${bigDesktop({margin: "1rem 0", fontSize: "1rem"})}
+`;
+
+const DiscountContainer = styled.div`
+    margin: 1rem 0;
 `;
 
 const Button = styled.button`
@@ -114,25 +147,38 @@ const Button = styled.button`
     ${smallPhone({padding: "10px 20px"})}
 `;
 
-const Product = ({productInfo, productImage, price, description, productName, view, size, inStock, productTags}) => {
+const Product = ({productInfo, productImage, price, description, productName, view, size, inStock, productTags, discounted, discountPrice}) => {
     const modProductName = findAndReplace(productName);
     const quantity = 1;
     const dispatch = useDispatch();
+    let arrangedPrices = [];
 
     const handleCartAddition = () => {
         if(!inStock){
             alert("Item is currently out of stock, please check back later or shop more products.")
         }else{
-            dispatch(addProduct({ ...productInfo, quantity }));
-            toast.success("Product added to cart");
+            if(discounted === true){
+                dispatch(addDiscountedProduct({ ...productInfo, quantity }));   
+                toast.success("Product added to cart"); 
+            }else{
+                dispatch(addProduct({ ...productInfo, quantity }));
+                toast.success("Product added to cart");
+            }
         }
     };
+
+    if(Array.isArray(price)){
+        arrangedPrices = price.map(price => price.discount? price.discountPrice : price.price);
+    }
 
     return (
         <ProductCard view={view}>
             <OutOfStockText inStock={inStock? "in-stock" : "not-in-stock"}>
                 Out of stock
             </OutOfStockText>
+            <DiscountBadge discounted={Array.isArray(discounted)? (discounted.includes(true))? "yes" : "no" : discounted? "yes" : "no"}>
+                {Array.isArray(discounted)? (discounted.includes(true))? "sale!" :  "" : `-${Math.round((price-discountPrice)/price * 100)}%`}
+            </DiscountBadge>
             <ProductImageContainer view={view}>
                 <ProductImage src={productImage}/>
             </ProductImageContainer>
@@ -144,7 +190,7 @@ const Product = ({productInfo, productImage, price, description, productName, vi
                 </ProductName>
                 <Description display={view === "grid"? "none" : "block"}>{description}</Description>
                 <ProductTag>{generateTagLinks(productTags)}</ProductTag>
-                <Price view={view}>{price}</Price>
+                {Array.isArray(price)? <Price single={"yes"} view={view}>{`₦${arrangedPrices[0]} - ₦${arrangedPrices[arrangedPrices.length - 1]}`}</Price> : discounted? <DiscountContainer><PreviousPrice view={view}>{`₦${price}`}</PreviousPrice> <Price view={view}>{`₦${discountPrice}`}</Price></DiscountContainer> :  <Price single={"yes"} view={view}>{`₦${price}`}</Price>}
                 {size === "No Size"? <Button onClick={handleCartAddition}>Add To Cart</Button> : <Link to={`/product/${modProductName}`} className="addToCartLink"> Add To Cart </Link>}
             </ProductDescription>
         </ProductCard>

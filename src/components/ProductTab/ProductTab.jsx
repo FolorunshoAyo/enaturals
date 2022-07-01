@@ -62,7 +62,7 @@ const DescriptionContent = styled.div`
     padding: 2rem 3rem;
 `;
 
-const Description = styled.p`
+const Description = styled.pre`
     font-size: 1.7rem;
     color: #4B5354;
     font-family: Lato, sans-serif;
@@ -325,7 +325,7 @@ const ProductTab = ({size, productDetails}) => {
                 }catch(err){
                     setLoading(false);
                     setError(true);
-                    console.log(err);
+                    toast.error("Unable to get product reviews (501)")
                 }
             };
 
@@ -397,23 +397,26 @@ const ProductTab = ({size, productDetails}) => {
     }
 
     const setReviewFormTitle = (reviews) => {
+        const productInfo = productDetails.find(product => product.size === size);
+        const productSize = productDetails[0].size === "No Size"? "" : (size === "")? `(${productDetails[0].size[0].toUpperCase()})` : `(${productInfo.size[0].toUpperCase()})`;
+
         if(productDetails[0].size === "No Size"){
             if (reviews.length !== 0){
-                return `Review ${productDetails[0].productName}`;
+                return `Review ${productDetails[0].productName} ${productSize}`;
             } else{
-                return `Be the first to review ${productDetails[0].productName}`;
+                return `Be the first to review ${productDetails[0].productName} ${productSize}`;
             }
         }else{
             if (reviews.length !== 0){
-                return `Review ${productDetails[0].productName} (${(size === "No Size")? "" : size})`
+                return `Review ${productDetails[0].productName} ${productSize}`
             } else{
-                 return `Be the first to review ${productDetails[0].productName} (${(size === "No Size")? "" : size})`
+                return `Be the first to review ${productDetails[0].productName} ${productSize}`;
             }
         }
     };
 
     const onSubmit = (data) => {
-        const productInfo = productDetails.find(product => product.size === size);
+        const productInfo = (productDetails.length === 1)? productDetails[0] : productDetails.find(product => product.size === size);
 
         if(user === null){
           dispatch(notLoggedIn());

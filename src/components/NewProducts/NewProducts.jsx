@@ -95,11 +95,13 @@ const NewProducts = () => {
                             productInfo={newProduct}
                             productID={newProduct._id}
                             productImage={newProduct.img}
-                            price={`₦${newProduct.price}`}
+                            price={newProduct.price}
                             description={newProduct.desc}
                             productName={newProduct.productName}
                             size={newProduct.size}
                             inStock={newProduct.inStock}
+                            discounted={newProduct.discount}
+                            discountPrice={newProduct.discountPrice}
                             productTags={newProduct.categories}
                         />
                         ))

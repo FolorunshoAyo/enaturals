@@ -139,12 +139,14 @@ const Pagination = ({ data, RenderComponent, pageLimit, dataLimit, view, pageTyp
                   productInfo={product}
                   productID={product._id}
                   productImage={product.img}
-                  price={`₦${product.price}`}
-                  description={product.desc}
+                  price={product.price}
+                  description={product.shortDesc}
                   productName={product.productName}
                   size={product.size}
                   inStock={product.inStock}
                   productTags={product.categories}
+                  discounted={product.discount}
+                  discountPrice={product.discountPrice}
                   view={view}
                 />
               );
@@ -152,27 +154,31 @@ const Pagination = ({ data, RenderComponent, pageLimit, dataLimit, view, pageTyp
               const productSizes = groupOfSimilarProducts.map(
                 (product) => product.size
               );
-              const productPrices = groupOfSimilarProducts.map(
-                (product) => product.price
-              );
+
+              // const productPrices = groupOfSimilarProducts.map(
+              //   (product) => product.discount? product.discountPrice : product.price
+              // );
+
               const similarProducts = groupOfSimilarProducts;
               const isAllSimilarProductsOutOfStock = !similarProducts.every(similarProduct => similarProduct.inStock === false);
 
-              const maxAndMinPrice = [
-                findMin(productPrices),
-                findMax(productPrices),
-              ];
+              // const maxAndMinPrice = [
+              //   findMin(productPrices),
+              //   findMax(productPrices),
+              // ];
 
               return (
                 <RenderComponent
                   key={similarProducts[0]._id}
                   productImage={similarProducts[0].img}
-                  price={`₦${maxAndMinPrice[0]} - ₦${maxAndMinPrice[1]}`}
-                  description={similarProducts[0].desc}
+                  price={similarProducts}
+                  description={similarProducts[0].shortDesc}
                   productName={similarProducts[0].productName}
                   size={productSizes}
                   productTags={similarProducts[0].categories}
                   inStock={isAllSimilarProductsOutOfStock}
+                  discounted={similarProducts.map(product => product.discount)}
+                  discountedPrice={""}
                   view={view}
                 />
               );

@@ -136,6 +136,10 @@ const SaveButton = styled.button`
         background-color: #b8a398;
     }
 
+    &:disabled{
+        cursor: not-allowed;
+    }
+
     ${res480({padding: "1.5rem 0", })}
 `;
 
@@ -145,7 +149,7 @@ const CustomerAddressEdit = ({ createNew }) => {
     const user = useSelector(state => state.user.currentUser);
     const addressID = useLocation().pathname.split("/")[4];
     const selectedAddress = useSelector(state => state.addresses.addresses.find(address => address._id === addressID));
-    const { isFetching } = useSelector(state => state.addresses.isFetching);
+    const { isFetching } = useSelector(state => state.addresses);
     const [selectedLocation, setSelectedLocation] = useState({region: createNew? "" : selectedAddress.region, city: createNew? "" : selectedAddress.city});
     const [phoneNo, setPhoneNo] = useState(createNew? user.phoneno : selectedAddress.phoneNo);
     const [phoneErr, setPhoneErr] = useState("");
@@ -296,8 +300,8 @@ const CustomerAddressEdit = ({ createNew }) => {
                     ""
                 } */}
                 <SaveButtonContainer>
-                    <SaveButton type="submit">
-                        {isFetching? <CircularProgress size="2.5rem" className="customerAccountLoader"/> : "Save"}
+                    <SaveButton type="submit" disabled={isFetching}>
+                        {isFetching? <CircularProgress size="2.5rem" className="accountLoader" /> : "Save"}
                     </SaveButton>
                 </SaveButtonContainer>
             </CustomerAddressEditForm>

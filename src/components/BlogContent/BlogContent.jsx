@@ -114,10 +114,6 @@ const BlogBody = styled.div`
   font-family: Lato, sans-serif;
 `;
 
-const Content = styled.div`
-  margin-bottom: 2rem;
-`;
-
 // const Paragraph = styled.p`
 //   margin-bottom: 3.5rem;
 //   font-family: Lato,sans-serif;
@@ -394,7 +390,7 @@ const BlogContent = ({ blogTitle }) => {
       const postComments = async () => {
         try{
           setPostCommentLoading(true);
-          await userRequest.post(`/comment/${blogPost[0]._id}`, {...data, postTitle: blogTitle});
+          await userRequest.post(`/comment/${blogPost[0]._id}`, {...data, postTitle: convertedBlogTitle});
           toast.success("Thanks for your comment!! Awaiting approval.");
           setPostCommentLoading(false);
           reset();
@@ -441,8 +437,8 @@ const BlogContent = ({ blogTitle }) => {
                       </PostCommentsCount>
                     </PostMeta>
                     <BlogBody>
-                      <Content dangerouslySetInnerHTML={{__html: blogPost[0].content}}>
-                      </Content>
+                      <div className="blogContent" dangerouslySetInnerHTML={{__html: blogPost[0].content}}>
+                      </div>
 
                       <ShareContainer>
                         <Icons>

@@ -53,6 +53,7 @@ const ToolsSection = styled.div`
 
 const CartPreview = styled.div`
     background-color: #f2eeec;
+    margin-top: 3.5rem;
 
     ${res1023({flex: "0 0 48%"})}
     ${res700({marginBottom: "3rem"})}
@@ -85,7 +86,6 @@ const RangeContainer = styled.div`
 
 const CategoriesContainer = styled.div`
     background-color: #f2eeec;
-    margin-top: 3.5rem;
 
     ${res1023({flex: "0 0 48%"})}
 `;
@@ -326,6 +326,103 @@ const ProductList = ({productTag}) => {
             <ProductOuterWrapper>
                 <ProductWrapper>
                     <ToolsSection>
+                        <CategoriesContainer>
+                            <Title>
+                                Categories
+                            </Title>
+                            <Categories>
+                                <CategoryItem>
+                                    <Link to="/product-category/kit" className="categoryLink">
+                                       Kit
+                                    </Link>
+                                </CategoryItem>
+                                <CategoryItem>
+                                    <Link to="/product-category/moisturising" className="categoryLink">
+                                        Moisturising
+                                    </Link>
+                                </CategoryItem>
+                                <CategoryItem>
+                                    <Link to="/product-category/rejuvenating" className="categoryLink">
+                                        Rejuvenating
+                                    </Link>
+                                </CategoryItem>
+                                <CategoryItem>
+                                    <Link to="/product-category/glowing" className="categoryLink">
+                                        Glowing
+                                    </Link>
+                                </CategoryItem>
+                                <CategoryItem>
+                                    <Link to="/product-category/lightening" className="categoryLink">
+                                        Lightening
+                                    </Link>
+                                </CategoryItem>
+                                <CategoryItem>
+                                    <Link to="/product-category/body-exfoliant" className="categoryLink">
+                                        Body Exfoliant
+                                    </Link>
+                                </CategoryItem>
+                                <CategoryItem>
+                                    <Link to="/product-category/softening" className="categoryLink">
+                                        Softening
+                                    </Link>
+                                </CategoryItem>
+                                <CategoryItem>
+                                    <Link to="/product-category/brightening" className="categoryLink">
+                                        Brightening
+                                    </Link>
+                                </CategoryItem>
+                                <CategoryItem>
+                                    <Link to="/product-category/repairing" className="categoryLink">
+                                        Repairing
+                                    </Link>
+                                </CategoryItem>
+                                <CategoryItem>
+                                    <Link to="/product-category/hydrating" className="categoryLink">
+                                        Hydrating
+                                    </Link>
+                                </CategoryItem>
+                                <CategoryItem>
+                                    <Link to="/product-category/strenghtening" className="categoryLink">
+                                        Strengthening
+                                    </Link>
+                                </CategoryItem>
+                                <CategoryItem>
+                                    <Link to="/product-category/soothing" className="categoryLink">
+                                        Soothing
+                                    </Link>
+                                </CategoryItem>
+                                <CategoryItem>
+                                    <Link to="/product-category/nourishing" className="categoryLink">
+                                        Nourishing
+                                    </Link>
+                                </CategoryItem>
+                                <CategoryItem>
+                                    <Link to="/product-category/toning" className="categoryLink">
+                                        Toning
+                                    </Link>
+                                </CategoryItem>
+                                <CategoryItem>
+                                    <Link to="/product-category/purifying" className="categoryLink">
+                                        Purifying
+                                    </Link>
+                                </CategoryItem>
+                                <CategoryItem>
+                                    <Link to="/product-category/detoxifying" className="categoryLink">
+                                        Detoxifying
+                                    </Link>
+                                </CategoryItem>
+                                <CategoryItem>
+                                    <Link to="/product-category/pimples-treatment" className="categoryLink">
+                                        Pimples Treatment
+                                    </Link>
+                                </CategoryItem>
+                                <CategoryItem>
+                                    <Link to="/product-category/uncategorized" className="categoryLink">
+                                        Uncategorized
+                                    </Link>
+                                </CategoryItem>
+                            </Categories>
+                        </CategoriesContainer>
                         <CartPreview>
                             <Title>
                                 My Cart
@@ -350,68 +447,6 @@ const ProductList = ({productTag}) => {
                                 </FilterPriceContainer>
                             </RangeContainer>
                         </PriceRangeContainer>
-                        <CategoriesContainer>
-                            <Title>
-                                Categories
-                            </Title>
-                            <Categories>
-                                <CategoryItem>
-                                    <Link to="/product-category/kit" className="categoryLink">
-                                       Kit
-                                    </Link>
-                                </CategoryItem>
-                                <CategoryItem>
-                                    <Link to="/product-category/body-exfoliant" className="categoryLink">
-                                        Body Exfoliant
-                                    </Link>
-                                </CategoryItem>
-                                <CategoryItem>
-                                    <Link to="/product-category/brightening" className="categoryLink">
-                                        Brightening
-                                    </Link>
-                                </CategoryItem>
-                                <CategoryItem>
-                                    <Link to="/product-category/handmade-soap" className="categoryLink">
-                                        Handmade Soap
-                                    </Link>
-                                </CategoryItem>
-                                <CategoryItem>
-                                    <Link to="/product-category/refreshing" className="categoryLink">
-                                        Refreshing
-                                    </Link>
-                                </CategoryItem>
-                                <CategoryItem>
-                                    <Link to="/product-category/rejuvenating" className="categoryLink">
-                                        Rejuvenating
-                                    </Link>
-                                </CategoryItem>
-                                <CategoryItem>
-                                    <Link to="/product-category/repairing" className="categoryLink">
-                                        Repairing
-                                    </Link>
-                                </CategoryItem>
-                                <CategoryItem>
-                                    <Link to="/product-category/restoring" className="categoryLink">
-                                        Restoring
-                                    </Link>
-                                </CategoryItem>
-                                <CategoryItem>
-                                    <Link to="/product-category/scrubbing" className="categoryLink">
-                                        Scrubbing
-                                    </Link>
-                                </CategoryItem>
-                                <CategoryItem>
-                                    <Link to="/product-category/refreshing" className="categoryLink">
-                                        Refreshing
-                                    </Link>
-                                </CategoryItem>
-                                <CategoryItem>
-                                    <Link to="/product-category/uncategorized" className="categoryLink">
-                                        Uncategorized
-                                    </Link>
-                                </CategoryItem>
-                            </Categories>
-                        </CategoriesContainer>
                     </ToolsSection>
                     <ProductsContainer>
                         <FilterProductsContainer>
@@ -439,7 +474,7 @@ const ProductList = ({productTag}) => {
                                     :
                                     (products.length === 0)?
                                     <NoProductsError>
-                                        Unable to fetch products
+                                        No products to display
                                     </NoProductsError>
                                     :
                                     (<Pagination 

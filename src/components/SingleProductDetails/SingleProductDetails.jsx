@@ -64,6 +64,22 @@ const OutOfStockIndicator = styled.div`
     color: #fff;
 `;
 
+const DiscountIndicator = styled.div`
+    display: ${(props) => props.discounted? "flex": "none"};
+    position: absolute;
+    top: 50px;
+    left: -20px;
+    width: 50px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    color: #acbfa3;
+    font-size: 10px;
+    font-family: Lato, sans-serif;
+    background-color: #effce8;
+    border-radius: 10px;
+`;
+
 const ProductDescContainer = styled.div`
     flex: 1;
     margin-left: 3rem;
@@ -84,6 +100,16 @@ const ProductPrice = styled.div`
     font-weight: 700;
     font-size: 2rem;
     margin: 1rem 0;
+`;
+
+const DiscountPrice = styled.span`
+`;
+
+const PreviousPrice = styled.span`
+    color: gray;
+    display: inline-block;
+    text-decoration: line-through;
+    margin-right: 10px;
 `;
 
 const ProductOptionsContainer = styled.div`
@@ -243,7 +269,7 @@ const ModalContainer = styled.div`
     opacity: ${props => props.show? '1' : '0'};
     transform: ${props => props.show? 'scale(1)' : 'scale(0)'};;
     overflow: hidden;
-    z-index: 200; 
+    z-index: 400; 
 `;
 
 const ModalImage = styled.img`
@@ -286,6 +312,10 @@ const SingleProductDetails = ({ productName, productDetails }) => {
     };
 
     const updateProductQuantity = e  => {
+        // let letterNumber = /^[0-9a-zA-Z]+$/;
+
+        if (/\D/.test(e.target.value)) return;
+
         const inputedValue = Number(e.target.value);
 
         setQuantity(inputedValue);
@@ -301,14 +331,16 @@ const SingleProductDetails = ({ productName, productDetails }) => {
     
     const setProductPrice = size => {
         const productInfo = productDetails.find(product => product.size === size);
+        const hasDiscount = productDetails.some(product => product.discount);
 
         if(productDetails.length === 1){
-            return `₦${productDetails[0].price}`
+            return productDetails[0].discount? <><PreviousPrice>{`₦${productDetails[0].price}`}</PreviousPrice><DiscountPrice>{`₦${productDetails[0].discountPrice}`}</DiscountPrice></> : `₦${productDetails[0].price}`;
         }else{
             if(size === ""){
-                return `₦${productDetails[0].price}-₦${productDetails[productDetails.length - 1].price}`
+                const productPricesWithDiscount = productDetails.map(product => product.discount? product.discountPrice : product.price);
+                return hasDiscount? `₦${productPricesWithDiscount[0]}-₦${productPricesWithDiscount[productPricesWithDiscount.length - 1]}` : `₦${productDetails[0].price}-₦${productDetails[productDetails.length - 1].price}`
             }else{
-                return `₦${productInfo.price}`;
+                return productInfo.discount? <><PreviousPrice>{`₦${productInfo.price}`}</PreviousPrice><DiscountPrice>{`₦${productInfo.discountPrice}`}</DiscountPrice></> : `₦${productInfo.price}`;
             }
         }
     };
@@ -320,6 +352,36 @@ const SingleProductDetails = ({ productName, productDetails }) => {
             return productDetails[0].inStock;
         }else{
             return productInfo.inStock;
+        }
+    };
+
+    const setDiscount = size => {
+        const productInfo = productDetails.find(product => product.size === size);
+
+        if(productDetails.length === 1){
+            return productDetails[0].discount;
+        }else{
+            return productInfo.discount;
+        }
+    };
+
+    const getProductPrice = size => {
+        const productInfo = productDetails.find(product => product.size === size);
+
+        if(productDetails.length === 1){
+            return productDetails[0].price;
+        }else{
+            return productInfo.price;
+        }
+    };
+
+    const getDiscountPrice = size => {
+        const productInfo = productDetails.find(product => product.size === size);
+
+        if(productDetails.length === 1){
+            return productDetails[0].discountPrice;
+        }else{
+            return productInfo.discountPrice;
         }
     };
 
@@ -466,6 +528,15 @@ const SingleProductDetails = ({ productName, productDetails }) => {
         setSize(e.target.value);
     }
 
+    const checkSale = () => {
+        if(productDetails.length > 1){
+            return productDetails.some(product => product.discount === true);
+        }else{
+            return false;
+        }
+    };
+
+
     const handleCartAddition = size => {
         const productInfo = productDetails.find(product => product.size === size);
 
@@ -473,6 +544,9 @@ const SingleProductDetails = ({ productName, productDetails }) => {
             const product = productDetails[0];
             if(!product.inStock){
                 alert("Item is currently out of stock, please check back later or shop more products.");
+                return;
+            }else if(quantity === 0){
+                alert("Please select a valid amount before adding this product to your cart.");
                 return;
             }
             dispatch(addProduct({ ...product, quantity}));
@@ -503,9 +577,12 @@ const SingleProductDetails = ({ productName, productDetails }) => {
                         <ViewIcon onClick={toggleView}>
                             <SearchIcon style={{fontSize: 30}}/>
                         </ViewIcon>
-                        <OutOfStockIndicator inStock={size === ""? false : setInStock(size)? false : true}>
+                        <OutOfStockIndicator inStock={productDetails.length === 1? !productDetails[0].inStock :size === ""? false : setInStock(size)? false : true}>
                             Out of stock
                         </OutOfStockIndicator>
+                        <DiscountIndicator discounted={checkSale()? true: productDetails.length === 1? productDetails[0].discount : size === ""? false : setDiscount(size)? true : false}>
+                            {(size !== "")? "-" + Math.round((getProductPrice(size)-getDiscountPrice(size))/getProductPrice(size) * 100) + "%" : productDetails.length === 1? "-" + Math.round((getProductPrice(size)-getDiscountPrice(size))/getProductPrice(size) * 100) + "%" : "Sale!"}
+                        </DiscountIndicator>
                     </ImageContainer>
                     <ProductDescContainer>
                         <ProductDesc>

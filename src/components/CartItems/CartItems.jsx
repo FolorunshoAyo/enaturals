@@ -131,6 +131,8 @@ const CartItems = ({isNav}) => {
                                 //total={reArrangedCart[1][i]} In case of total for each product added to cart
                                 price={similarProducts[0].price}
                                 quantity={reArrangedCart[2][i]}
+                                discount={similarProducts[0].discount}
+                                discountPrice={similarProducts[0].discountPrice}
                             />
                         ))
                     }

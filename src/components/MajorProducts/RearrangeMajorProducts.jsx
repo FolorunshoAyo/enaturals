@@ -1,6 +1,6 @@
 import React from "react";
 import MajorProduct from "./MajorProduct";
-import { findMax, findMin } from "../../usefulFunc";
+// import { findMax, findMin } from "../../usefulFunc";
 
 
 const RearrangeMajorProducts = ({rearrangedProducts}) => {
@@ -19,11 +19,13 @@ const RearrangeMajorProducts = ({rearrangedProducts}) => {
                             productInfo={product}
                             productID={product._id}
                             productImage={product.img}
-                            price={`₦${product.price}`}
+                            price={product.price}
                             description={product.desc}
                             productName={product.productName}
                             size={product.size}
                             inStock={product.inStock}
+                            discounted={product.discount}
+                            discountPrice={product.discountPrice}
                             productTags={product.categories}
                         />
                     );
@@ -32,26 +34,29 @@ const RearrangeMajorProducts = ({rearrangedProducts}) => {
                     const productSizes = eachSimilarProducts.map(
                         (product) => product.size
                     );
-                    const productPrices = eachSimilarProducts.map(
-                        (product) => product.price
-                    );
+
+                    // const productPrices = eachSimilarProducts.map(
+                    //     (product) => product.discount? product.discountPrice : product.price
+                    // );
 
                     const isAllSimilarProductsOutOfStock = !eachSimilarProducts.every(similarProduct => similarProduct.inStock === false);
         
-                    const maxAndMinPrice = [
-                        findMin(productPrices),
-                        findMax(productPrices),
-                    ];
+                    // const maxAndMinPrice = [
+                    //     findMin(productPrices),
+                    //     findMax(productPrices),
+                    // ];
 
                     return (
                         <MajorProduct 
                             key={similarProducts[0]._id}
                             productImage={similarProducts[0].img}
-                            price={`₦${maxAndMinPrice[0]} - ₦${maxAndMinPrice[1]}`}
+                            price={similarProducts}
                             description={similarProducts[0].desc}
                             productName={similarProducts[0].productName}
                             size={productSizes}
                             productTags={similarProducts[0].categories}
+                            discounted={similarProducts.map(product => product.discount)}
+                            discountedPrice={""}
                             inStock={isAllSimilarProductsOutOfStock}
                         />
                     );

@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { updateUser } from "../../redux/apiCalls";
 import { useNavigate } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
 
 const CustomerDetailsEditContainer = styled.div``;
 
@@ -206,8 +207,8 @@ const CustomerDetailsEdit = () => {
                     </CustomerDetailsFormGroup>
                 </DateOfBirthContainer>
                 <SaveButtonContainer>
-                    <SaveButton type="submit" disabled={isFetching? "disabled" : false}>
-                        Save
+                    <SaveButton type="submit" disabled={isFetching}>
+                        {isFetching? <CircularProgress size="2.5rem" className="accountLoader" /> : "Save"}
                     </SaveButton>
                 </SaveButtonContainer>
             </CustomerDetailsEditForm>

@@ -64,7 +64,7 @@ const Close = styled.div`
     }
 `;
 
-const CartItem = ({ productID, productImage, productName, size, price, quantity}) => {
+const CartItem = ({ productID, productImage, productName, size, price, quantity, discount, discountPrice}) => {
     const dispatch = useDispatch();
     // console.log(productImage, productName, size, quantity);
 
@@ -79,8 +79,13 @@ const CartItem = ({ productID, productImage, productName, size, price, quantity}
     // console.log({ productID, quantity, price});
     
     const handleCartRemoval = () => {
-        dispatch(removeProduct({ productID, quantity, price}));
-        toast.success("Cart item removed");
+        if(discount){
+            dispatch(removeProduct({ productID, quantity, price: discountPrice}));
+            toast.success("Cart item removed");
+        }else{
+            dispatch(removeProduct({ productID, quantity, price}));
+            toast.success("Cart item removed");
+        }
     };
 
     return(
@@ -95,7 +100,7 @@ const CartItem = ({ productID, productImage, productName, size, price, quantity}
                             {productName} {size === "No Size"? "" : `(${initialOfSize(size)})`}
                         </Link>
                     </ItemName>
-                    <ItemPrice> {quantity} x ₦{price}</ItemPrice>
+                    <ItemPrice> {quantity} x ₦{discount? discountPrice : price}</ItemPrice>
                 </ItemDescription>
                 <Close onClick={handleCartRemoval}>
                     <CloseIcon style={{backgroundColor: "#fff", fontSize: 15}}/>

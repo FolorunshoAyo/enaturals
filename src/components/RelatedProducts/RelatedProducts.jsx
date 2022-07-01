@@ -6,6 +6,7 @@ import {res700} from '../../responsive';
 import { Skeleton } from '@mui/material';
 import { mergeSimilarProductAccToName } from '../../usefulFunc';
 import { publicRequest } from '../../requestMethod';
+import toast from 'react-hot-toast';
 
 const Container = styled.div`
     margin-top: 5rem;
@@ -58,12 +59,15 @@ const RelatedProducts = ({productName, categories}) => {
     useEffect(() => {
 
         const getRelatedProduct = async () => {
-            setLoading(true);
-
-            const result = await publicRequest.get(`/products/category/${productName}?${formCategoryTags(categories)}`);
-
-            setRelatedProducts(result.data);
-            setLoading(false);
+            try{
+                setLoading(true);
+                const result = await publicRequest.get(`/products/category/${productName}?${formCategoryTags(categories)}`);
+                setRelatedProducts(result.data);
+                setLoading(false);
+            }catch(error){
+                setLoading(false);
+                toast.error("Unable to get related products (501)");
+            }
         };
 
         getRelatedProduct();
@@ -79,7 +83,7 @@ const RelatedProducts = ({productName, categories}) => {
                 { 
                     (loading)?
                     <>
-                        <Skeleton variant="rectangular" animation="wave" width="100%"/>
+                        <Skeleton variant="rectangular" animation="wave" width="100%" height="200px"/>
                     </>
                     :
                     (reOrderedRelatedProducts.length === 0)?
@@ -89,20 +93,27 @@ const RelatedProducts = ({productName, categories}) => {
                         (product.length === 1)?
                         <RelatedProduct 
                             key={product[0]._id}
+                            productInfo={product[0]}
                             name={product[0].productName}
                             productImg={product[0].img}
-                            price={`₦${product[0].price}`}
+                            price={product[0].price}
                             categories={product[0].categories}
                             size={product[0].size}
+                            discounted={product[0].discount}
+                            discountPrice={product[0].discountPrice}
+                            inStock={product[0].inStock}
                         />
                         :
                         <RelatedProduct 
                             key={product[0]._id}
                             name={product[0].productName}
                             productImg={product[0].img}
-                            price={`₦${product[0].price} - ₦${product[product.length - 1].price}`}
+                            price={product}
                             categories={product[0].categories}
                             size={product[0].size}
+                            discounted={product.map(product => product.discount)}
+                            discountPrice={""}
+                            inStock={!product.every(similarProduct => similarProduct.inStock === false)}
                         />
                     ))
                 }

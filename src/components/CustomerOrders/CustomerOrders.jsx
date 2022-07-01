@@ -1,101 +1,73 @@
-import React from "react";
+import { CircularProgress } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { userRequest } from "../../requestMethod";
+import CustomerOrder from "./CustomerOrder";
 
 const CustomerOrdersContainer = styled.div`
 
 `;
 
-const CustomerOrder = styled.div`
-    border: 1px solid rgb(237, 237, 237);
-    border-radius: 1px;
-    padding: 2rem;
+const ProgressWrapper = styled.div`
+    height: 200px;
     display: flex;
-    height: 140px;
+    align-items: center;
+    justify-content: center;
 `;
 
-const ProductImgContainer = styled.div`
-    flex: 0 0 20%;
-    margin-right: 20px;
-`;
-
-const ProductImg = styled.img`
-    width: 100%;
-    height: 100%;
-`;
-
-const OrderDetails = styled.div`
-    flex: 1;
-`;
-
-const ProductName = styled.h2`
-    color: #282828;
-    font-size: 1.5rem;
+const NoCustomerOrderError = styled.div`
+    text-align: center;
+    font-size: 2rem;
     font-family: Lato, sans-serif;
-    margin-bottom: 2px;
+    padding: 4rem 0;
 `;
-
-const OrderID = styled.p`
-    color: #75757A;
-    font-family: Lato, sans-serif;
-    margin-bottom: 2px;
-`;
-
-const ProductSize = styled.p`
-    margin-bottom: 2px;
-    font-family: Lato, sans-serif;
-`;
-
-const SizeLabel = styled.span`
-    color: #75757A;
-    font-family: Lato, sans-serif;
-`;
-
-const Size = styled.span`
-    color: #282828;
-`;
-
-const StatusContainer = styled.p`
-    margin-bottom: 2px;
-`;
-
-const Status = styled.span`
-    text-transform: uppercase;
-    background-color: #6dbd28;
-    color: #fff;
-    border-radius: 5px;
-    font-family: Lato, sans-serif;
-    padding: 4px;
-`;
-
-const DeliveryDate = styled.p`
-    color: #282828;
-    font-family: Lato, sans-serif;
-    font-weight: 700;
-`;
-
-
-
 
 const CustomerOrders = () => {
+    const user = useSelector(state => state.user.currentUser);
+    const [customerOrders, setCustomerOrders] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const getCustomerOrders = async () => {
+            try{
+                setLoading(true);
+                const res = await userRequest.get(`/orders/find/${user._id}`);
+                setCustomerOrders(res.data);
+                setLoading(false);
+            }catch(error){
+                toast.error("Unable to get customer orders (501)");
+            }
+        };
+
+        getCustomerOrders();
+    }, []);
+
     return (
         <CustomerOrdersContainer>
-            <CustomerOrder>
-                <ProductImgContainer>
-                    <ProductImg src="../enaturals/enaturals6.jpg"/> 
-                </ProductImgContainer>
-                <OrderDetails>
-                    <ProductName>Hot Choco Lotion (S)</ProductName>
-                    <OrderID>Order 65d123456779</OrderID>
-                    <ProductSize>
-                        <SizeLabel>Size:</SizeLabel> 
-                        <Size>M</Size>
-                    </ProductSize>
-                    <StatusContainer>
-                        <Status>Delivered</Status>
-                    </StatusContainer>
-                    <DeliveryDate>On 15 - 12</DeliveryDate>
-                </OrderDetails>
-            </CustomerOrder>
+            {
+                (loading)?
+                <ProgressWrapper>
+                    <CircularProgress size="8rem" />
+                </ProgressWrapper>
+                :
+                (customerOrders.length === 0)?
+                <NoCustomerOrderError>
+                    No orders yet
+                </NoCustomerOrderError>
+                :
+                customerOrders.map(customerOrder => (
+                    <CustomerOrder 
+                        key={customerOrder._id}
+                        orderID={customerOrder._id}
+                        products={customerOrder.products}
+                        status={customerOrder.status}
+                        createdAt={customerOrder.createdAt}
+                        total={customerOrder.amount}
+                    />
+                ))
+            }
         </CustomerOrdersContainer>
     );
 };

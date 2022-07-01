@@ -164,6 +164,7 @@ export const getAddress = async (userID, dispatch) => {
         dispatch(updateAddressSuccess({id, address: res.data}));
         toast.success("The address was updated successfully.");
       } catch (error) {
+        console.log(error.response);
         toast.error("Unable to update address (501)");
         dispatch(updateAddressFailure({ error: error.response.data }));
       }
