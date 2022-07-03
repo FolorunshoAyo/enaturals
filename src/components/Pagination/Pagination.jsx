@@ -3,7 +3,7 @@ import styled from "styled-components";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import { smallPhone, medPhone, res860 } from "../../responsive";
-import { findMax, findMin } from "../../usefulFunc";
+// import { findMax, findMin } from "../../usefulFunc";
 
 const Container = styled.div``;
 

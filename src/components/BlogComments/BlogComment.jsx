@@ -229,7 +229,7 @@ const ReplyButton = styled.button`
   }
 `;
 
-const BlogComment = ({name, commentID, comment, status, createdAt}) => {
+const BlogComment = ({name, postID, commentID, comment, status, createdAt}) => {
     const user = useSelector(state => state.user.currentUser);
     const [loading, setLoading] = useState(false);
     const [showReplyForm, setShowReplyForm] = useState(false);
@@ -272,7 +272,7 @@ const BlogComment = ({name, commentID, comment, status, createdAt}) => {
         const postReply = async () => {
           try{
             setLoading(true);
-            await userRequest.post(`/reply/${commentID}`, data);
+            await userRequest.post(`/reply/${commentID}?postID=${postID}`, data);
             toast.success("Thanks for your reply!! Awaiting approval.");
             setLoading(false);
             reset();

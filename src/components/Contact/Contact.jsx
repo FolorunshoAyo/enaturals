@@ -62,6 +62,7 @@ const Input = styled.input`
     background-color: transparent;
     padding: 0.5rem 1rem;
     flex: 0 0 70%;
+    caret-color: #fff;
 
     &:focus{
         outline: none;
@@ -120,8 +121,8 @@ const Contact = () => {
                     <Newsletter>
                         <Title>Stay tuned for updates</Title>
                         <InputContainer>
-                            <Input placeholder="Your email" type="email"/>
-                            <Button>submit</Button>
+                            <Input placeholder="Your email" type="email" disabled/>
+                            <Button disabled>submit</Button>
                         </InputContainer>
                     </Newsletter>
                 </NewsletterContainer>

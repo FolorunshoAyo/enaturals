@@ -46,6 +46,7 @@ const BlogComments = ({postID}) => {
                         <BlogComment
                             commentID={comment._id}
                             name={comment.name}
+                            postID={postID}
                             comment={comment.comment}
                             status={comment.status}
                             createdAt={comment.createdAt}
