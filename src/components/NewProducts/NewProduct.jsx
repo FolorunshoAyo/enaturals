@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {res700 ,res1023, tabLand, medDesktop, bigDesktop} from '../../responsive';
+import {res700 ,res1023, tabLand, medDesktop, bigDesktop, medPhone} from '../../responsive';
 import { Link } from 'react-router-dom';
 import { findAndReplace, generateTagLinks } from '../../usefulFunc';
 import { useDispatch } from 'react-redux';
@@ -24,6 +24,7 @@ const ProductCard = styled.div`
     }
 
     ${res700({flex: "0 0 48%", paddingBottom: "3rem"})}    
+    ${medPhone({marginBottom: "5rem"})}
 `;
 
 const OutOfStockText = styled.div`
@@ -106,7 +107,7 @@ const PreviousPrice = styled.span`
 `;
 
 const Price = styled.span`
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: 700;
 `;
 

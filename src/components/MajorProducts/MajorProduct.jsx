@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import {res700, res1023, tabLand, medDesktop, bigDesktop} from '../../responsive';
+import {res700, res1023, tabLand, medDesktop, bigDesktop, medPhone} from '../../responsive';
 import { findAndReplace, generateTagLinks } from '../../usefulFunc';
 import { useDispatch } from 'react-redux';
 import { addDiscountedProduct, addProduct } from '../../redux/cartRedux';
@@ -39,7 +39,8 @@ const ProductCard = styled.div`
         border-radius: 100px;
     }
 
-    ${res700({flex: "0 0 48%", paddingBottom: "3rem"})}    
+    ${res700({flex: "0 0 48%", paddingBottom: "3rem"})}
+    ${medPhone({marginBottom: "5rem"})}    
 `;
 
 const OutOfStockText = styled.div`

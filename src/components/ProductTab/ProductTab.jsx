@@ -63,6 +63,12 @@ const DescriptionContent = styled.div`
 `;
 
 const Description = styled.pre`
+    overflow-x: auto;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
     font-size: 1.7rem;
     color: #4B5354;
     font-family: Lato, sans-serif;

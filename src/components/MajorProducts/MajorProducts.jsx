@@ -44,11 +44,10 @@ const ProductsContainer = styled.div`
     display: flex;
     justify-content: space-between;
     padding: 5rem 8rem 2rem;
-    height: 550px;
 
     ${bigDesktop({height: "600px", width: "1200px", padding: "5rem 0rem", margin: "0 auto 8rem"})}
     ${medDesktop({width: "1200px", padding: "5rem 5rem", margin: "0 auto 8rem"})}
-    ${tabLand({width: "85%", margin: "0 auto", padding: "4rem 0 0"})}
+    ${tabLand({height: "auto", width: "85%", margin: "0 auto", padding: "4rem 0 0"})}
     ${res1023({width: "85%", margin: "0 auto", padding: "4rem 0 0"})}
     ${res700({width: "75%", flexWrap: "wrap", height: "auto"})}
     ${medPhone({width: "90%"})}

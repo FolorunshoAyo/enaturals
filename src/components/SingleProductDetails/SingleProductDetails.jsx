@@ -580,7 +580,7 @@ const SingleProductDetails = ({ productName, productDetails }) => {
                         <OutOfStockIndicator inStock={productDetails.length === 1? !productDetails[0].inStock :size === ""? false : setInStock(size)? false : true}>
                             Out of stock
                         </OutOfStockIndicator>
-                        <DiscountIndicator discounted={checkSale()? true: productDetails.length === 1? productDetails[0].discount : size === ""? false : setDiscount(size)? true : false}>
+                        <DiscountIndicator discounted={size === ""? checkSale()? true : productDetails[0].discount : setDiscount(size)? true : false}>
                             {(size !== "")? "-" + Math.round((getProductPrice(size)-getDiscountPrice(size))/getProductPrice(size) * 100) + "%" : productDetails.length === 1? "-" + Math.round((getProductPrice(size)-getDiscountPrice(size))/getProductPrice(size) * 100) + "%" : "Sale!"}
                         </DiscountIndicator>
                     </ImageContainer>
